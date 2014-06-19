@@ -13,6 +13,6 @@ exports.filter = function(field, operator, value) {
     return exports;
 };
 
-exports.toArray = function() {
-    return exports._collection;
+exports.then = function(callback) {
+    callback(exports._collection);
 };

@@ -4,11 +4,13 @@ var filters = require('./filters');
 
 var search = function(options) {
     var deferred = q.defer();
-    deferred.resolve(docsets
+    docsets
+        .filter('docset', filters.operators.IN, options.docsets)
         .filter('reference', filters.operators.EQUALS, options.reference)
         .filter('type', filters.operators.IN, options.types)
-        .toArray()
-    );
+        .then(function(references) {
+            deferred.resolve(references);
+        });
     return deferred.promise;
 };
 

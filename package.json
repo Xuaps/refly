@@ -8,6 +8,8 @@
   "dependencies": {
     "express": "~3.3.4",
     "jade": "~0.34.0",
+    "knex": "^0.6.16",
+    "pg": "^3.3.0",
     "q": "^1.0.1"
   },
   "devDependencies": {
@@ -18,6 +20,7 @@
     "proxyquire": "^1.0.1",
     "request": "~2.27.0",
     "sinon": "^1.10.2",
+    "supertest": "^0.13.0",
     "time-grunt": "~0.1.1"
   }
 }

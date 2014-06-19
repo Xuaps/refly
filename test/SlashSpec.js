@@ -8,7 +8,7 @@ describe('Slash', function() {
     
     describe('Search', function(){
     
-        it('should return a ', function() {
+        it('should return the docsets collection filtered', function() {
             var results = null;
 
             waitsFor(function() {
@@ -29,7 +29,7 @@ describe('Slash', function() {
                     uri: 'slash://slash.search'
                 },
                 {
-                    reference: 'println',
+                    reference: 'search',
                     type: 'function',
                     docset: 'java',
                     uri: 'slash://java.println'
@@ -39,7 +39,7 @@ describe('Slash', function() {
             slash.search({
                 reference: 'search',
                 types: [ 'function' ],
-                docsets: [ 'Slash' ]
+                docsets: [ 'slash' ]
             }).then(function(response) {
                 results = response;
             });
