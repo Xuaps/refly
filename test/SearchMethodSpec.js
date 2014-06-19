@@ -6,25 +6,36 @@ describe('Slash', function() {
     
     describe('Search', function(){
     
-        it('', function() {
+        it('should return a ', function() {
             var results = null;
 
             waitsFor(function() {
                 return results != null;
             });
 
-            var expectedItem = {
-                name: 'search',
-                type: 'function',
-                docset: 'slash',
-                uri: 'slash://slash.search'
-            };
+            docsets._collection = [
+                {
+                    reference: 'search',
+                    type: 'function',
+                    docset: 'slash',
+                    uri: 'slash://slash.search'
+                },
+                {
+                    reference: 'search',
+                    type: 'constant',
+                    docset: 'slash',
+                    uri: 'slash://slash.search'
+                },
+                {
+                    reference: 'println',
+                    type: 'function',
+                    docset: 'java',
+                    uri: 'slash://java.println'
+                }
+            ];
 
-            sinon.stub(docsets, 'toArray', function() {
-                return [ expectedItem ];
-            });
-
-            slash.search({ reference: 'search',
+            slash.search({
+                reference: 'search',
                 types: [ 'function' ],
                 docsets: [ 'Slash' ]
             }).then(function(response) {
@@ -32,7 +43,12 @@ describe('Slash', function() {
             });
 
             runs(function() {
-                expect(results).toEqual([expectedItem]);
+                expect(results).toEqual([{
+                    reference: 'search',
+                    type: 'function',
+                    docset: 'slash',
+                    uri: 'slash://slash.search'
+                }]);
             });
 
         });

@@ -3,12 +3,10 @@ var docsets = require('./docsets');
 
 var search = function(options) {
     var deferred = q.defer();
-    var results = docsets.filter(options.docsets).map(function(docset) {
-        return docset.getReferences().filter(options.types);
-    }).map(function(references) {
-        return references.filter(options.reference);
-    });
-    deferred.resolve(results.toArray());
+    deferred.resolve(docsets.filter(function(reference) {
+        return reference.reference == options.reference
+            && options.types.indexOf(reference.type) != -1;
+    }));
     return deferred.promise;
 };
 

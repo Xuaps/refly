@@ -1,10 +1,5 @@
-exports.map = function() {
-    return exports;
-};
+exports._collection = [];
 
-exports.filter = function() {
-    return exports;
-};
-
-exports.toArray = function() {
-};
+exports.filter = function(filterFunc) {
+    return exports._collection.filter(filterFunc);
+}
