@@ -1,6 +1,8 @@
-var slash = require('../app/slash');   
+var proxyquire = require('proxyquire');
 var sinon = require('sinon');
-var docsets = require('../app/docsets');
+var docsets = require('./stubs/docsets');
+
+var slash = proxyquire('../app/slash', { './docsets' : docsets });
 
 describe('Slash', function() {
     

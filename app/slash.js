@@ -1,12 +1,14 @@
 var q = require('q'); 
 var docsets = require('./docsets');
+var filters = require('./filters');
 
 var search = function(options) {
     var deferred = q.defer();
-    deferred.resolve(docsets.filter(function(reference) {
-        return reference.reference == options.reference
-            && options.types.indexOf(reference.type) != -1;
-    }));
+    deferred.resolve(docsets
+        .filter('reference', filters.operators.EQUALS, options.reference)
+        .filter('type', filters.operators.IN, options.types)
+        .toArray()
+    );
     return deferred.promise;
 };
 
