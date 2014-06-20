@@ -4,8 +4,7 @@ var knex = require('knex')({
     client: 'postgres',
     connection: {
         host     : '127.0.0.1',
-        user     : 'slash',
-        password : 'slash1234',
+        user     : 'postgres',
         database : 'slashdb'
     }
 });
