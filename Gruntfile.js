@@ -8,7 +8,7 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
 
-  var reloadPort = 35729, files;
+  var reloadPort = 35728, files;
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -47,6 +47,22 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       }
+    },
+    jasmine_node: {
+      options: {
+        forceExit: true,
+        match: '.',
+        matchall: false,
+        extensions: 'js',
+        specNameMatcher: 'spec',
+        jUnit: {
+          report: true,
+          savePath : "./build/reports/jasmine/",
+          useDotNotation: true,
+          consolidate: true
+        }
+      },
+      all: ['test/']
     }
   });
 
@@ -70,4 +86,5 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', ['develop', 'watch']);
+  grunt.registerTask('test', ['develop', 'jasmine_node']);
 };

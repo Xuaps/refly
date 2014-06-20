@@ -21,6 +21,7 @@
     "request": "~2.27.0",
     "sinon": "^1.10.2",
     "supertest": "^0.13.0",
-    "time-grunt": "~0.1.1"
+    "time-grunt": "~0.1.1",
+    "grunt-jasmine-node": "~0.2.1"
   }
 }
