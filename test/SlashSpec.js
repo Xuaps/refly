@@ -20,19 +20,19 @@ describe('Slash', function() {
                     reference: 'search',
                     type: 'function',
                     docset: 'slash',
-                    uri: 'slash://slash.search'
+                    content: 'blablabla'
                 },
                 {
                     reference: 'search',
                     type: 'constant',
                     docset: 'slash',
-                    uri: 'slash://slash.search'
+                    content: 'blablabla'
                 },
                 {
                     reference: 'search',
                     type: 'function',
                     docset: 'java',
-                    uri: 'slash://java.println'
+                    content: 'blablabla'
                 }
             ];
 
@@ -48,8 +48,7 @@ describe('Slash', function() {
                 expect(results).toEqual([{
                     reference: 'search',
                     type: 'function',
-                    docset: 'slash',
-                    uri: 'slash://slash.search'
+                    docset: 'slash'
                 }]);
             });
 

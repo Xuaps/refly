@@ -13,6 +13,17 @@ exports.filter = function(field, operator, value) {
     return exports;
 };
 
+exports.select = function(columns){
+	exports._collection = exports._collection.map(function(reference){
+		var projection={};
+		columns.map(function(column){
+			projection[column]=reference[column];
+		});
+		return projection;
+	});
+	return exports;
+};
+
 exports.then = function(callback) {
     callback(exports._collection);
 };

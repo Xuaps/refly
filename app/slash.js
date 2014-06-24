@@ -8,6 +8,7 @@ var search = function(options) {
         .filter('docset', filters.operators.IN, options.docsets)
         .filter('reference', filters.operators.EQUALS, options.reference)
         .filter('type', filters.operators.IN, options.types)
+        .select(['docset', 'reference', 'type'])
         .then(function(references) {
             deferred.resolve(references);
         });
