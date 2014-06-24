@@ -9,15 +9,8 @@ describe('/search', function() {
             return result != null;
         });
 
-        var options = {
-            reference: 'search',
-            types: ['function'],
-            docsets: ['slash']
-        };
-
         request('http://localhost:3000')
-            .get('/search')
-            .send(options)
+            .get('/search?reference=search&types=function&types=class&docsets=slash')
             .end(function(err, res) {
                 if (err) {
                     throw err;
