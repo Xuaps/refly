@@ -22,6 +22,11 @@ exports.filter = function(field, operator, value) {
     return exports;
 };
 
+exports.select = function(columns){
+    _query = _query.select(columns);
+    return exports;
+}
+
 exports.then = function(callback) {
     return _query.then(callback);
 };

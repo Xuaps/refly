@@ -32,6 +32,8 @@ describe('/search', function() {
                 expect(reference.reference).toEqual('search');
                 expect(reference.docset).toEqual('slash');
                 expect(reference.type).toEqual('function');
+                expect(reference.content).toBeUndefined();
+                expect(reference.id).toBeUndefined();
             });
         });
     });
