@@ -1,9 +1,10 @@
 var q = require('q'); 
-var docsets = require('./docsets');
+var Docsets = require('./docsets');
 var filters = require('./filters');
 
 exports.search = function(options) {
     var deferred = q.defer();
+    docsets = new Docsets();
     docsets
         .filter('docset', filters.operators.IN, options.docsets)
         .filter('reference', filters.operators.EQUALS, options.reference)
@@ -17,6 +18,7 @@ exports.search = function(options) {
 
 exports.get = function(identity){
 	var deferred = q.defer();
+	docsets = new Docsets();
 	docsets
         .filter('docset', filters.operators.EQUALS, identity.docset)
         .filter('reference', filters.operators.EQUALS, identity.reference)

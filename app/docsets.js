@@ -9,24 +9,27 @@ var knex = require('knex')({
     }
 });
 
-var _query = null;
+function Docsets(){
+    this._query = knex.select().table('refs');
+} 
 
-exports.filter = function(field, operator, value) {
-    _query = _query || knex.select().table('refs');
+Docsets.prototype.filter = function(field, operator, value) {
     if (operator == filters.operators.EQUALS) {
-        _query = _query.where(field, value);
+        this._query = this._query.where(field, value);
     }
     if (operator == filters.operators.IN) {
-        _query = _query.whereIn(field, value);
+        this._query = this._query.whereIn(field, value);
     }
-    return exports;
+    return this;
 };
 
-exports.select = function(columns){
-    _query = _query.select(columns);
-    return exports;
+Docsets.prototype.select = function(columns){
+    this._query = this._query.select(columns);
+    return this;
 }
 
-exports.then = function(callback) {
-    return _query.then(callback);
+Docsets.prototype.then = function(callback) {
+    return this._query.then(callback);
 };
+
+module.exports = Docsets; 

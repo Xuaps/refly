@@ -1,13 +1,13 @@
 var proxyquire = require('proxyquire');
 var sinon = require('sinon');
-var docsets = require('./stubs/docsets');
+var Docsets = require('./stubs/docsets');
 
-var slash = proxyquire('../app/slash', { './docsets' : docsets });
+var slash = proxyquire('../app/slash', { './docsets' : Docsets });
 
 describe('Slash', function() {
     
     beforeEach(function() {
-      docsets._collection = [
+      Docsets.prototype._collection = [
                 {
                     reference: 'search',
                     type: 'function',

@@ -1,13 +1,21 @@
 var sinon = require('sinon');
-
-var docsets = require('../app/docsets');
-
+var Docsets = require('../app/docsets');
 var filters = require('../app/filters');
 
 describe('Docset', function() {
+    var docsets;
+
+    beforeEach(function(){
+        docsets=new Docsets();
+    });
+
+    it('should be a different instance of docset', function(){
+        var docsets2=new Docsets();
+        expect(docsets).not.toEqual(docsets2);
+    })
     
     describe('filter', function() {
-
+        
         it('should filter with op EQUALS', function() {
             var aReference = 'search';
             var results = null;
@@ -69,5 +77,10 @@ describe('Docset', function() {
         });
     
     });
+    
+    describe('then', function(){
+        xit('should execute the select and clean the query', function(){
 
-});
+        });
+    });
+}); 
