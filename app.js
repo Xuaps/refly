@@ -4,7 +4,7 @@
  */
 
 var express = require('express')
-  , search = require('./routes/search')
+  , docsets = require('./routes/docsets')
   , http = require('http')
   , path = require('path');
 
@@ -24,7 +24,8 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/search', search.search);
+app.get('/search', docsets.search);
+app.get('/get/:docset/:type/:reference', docsets.get);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
