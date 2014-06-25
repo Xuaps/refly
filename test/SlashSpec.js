@@ -6,16 +6,8 @@ var slash = proxyquire('../app/slash', { './docsets' : docsets });
 
 describe('Slash', function() {
     
-    describe('Search', function(){
-    
-        it('should return the docsets collection filtered', function() {
-            var results = null;
-
-            waitsFor(function() {
-                return results != null;
-            });
-
-            docsets._collection = [
+    beforeEach(function() {
+      docsets._collection = [
                 {
                     reference: 'search',
                     type: 'function',
@@ -35,6 +27,16 @@ describe('Slash', function() {
                     content: 'blablabla'
                 }
             ];
+    });
+
+    describe('Search', function(){
+    
+        it('should return the docsets collection filtered', function() {
+            var results = null;
+
+            waitsFor(function() {
+                return results != null;
+            });
 
             slash.search({
                 reference: 'search',
@@ -54,6 +56,34 @@ describe('Slash', function() {
 
         });
     
+    });
+
+    describe('Get', function(){
+
+        it('should return the reference content', function(){
+            var reference = null;
+
+            waitsFor(function() {
+                return reference != null;
+            });
+
+            slash.get({
+                reference: 'search',
+                type: 'function',
+                docset: 'slash'
+            }).then(function(result){
+                reference=result;
+            });
+
+            runs(function() {
+                expect(reference).toEqual({
+                    reference: 'search',
+                    type: 'function',
+                    docset: 'slash',
+                    content: 'blablabla'
+                });
+            });
+        });
     });
 
 });
