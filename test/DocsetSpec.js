@@ -9,9 +9,9 @@ describe('Docset', function() {
         docsets=new Docsets();
     });
 
-    it('should be a different instance of docset', function(){
+    it('should be a different instance of docsets', function(){
         var docsets2=new Docsets();
-        expect(docsets).not.toEqual(docsets2);
+        expect(docsets).not.toBe(docsets2);
     })
     
     describe('filter', function() {
