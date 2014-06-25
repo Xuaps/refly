@@ -1,6 +1,6 @@
 #!/bin/bash
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-slash=$scriptDir/../slash.bash
+slash=$scriptDir/../slash
 
 function test_no_args {
 	assertMatches "usage:" "$($slash)"
