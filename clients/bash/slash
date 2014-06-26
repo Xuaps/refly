@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 configFile=$scriptDir/slash.conf
@@ -6,7 +7,7 @@ verbose=false
 
 function usage() {
 cat << EOF
-    usage: $0 [-h] [-v] [-f configFile] reference[:type][:docset]
+    usage: $0 [-h] [-v] [-f configFile] reference[:type[,type]...][:docset[,docset]...]
 EOF
 }
 
@@ -48,23 +49,52 @@ function process_args() {
     fi
 }
 
-function read_reference() {
-    reference=$1
-
-    parts=$(echo $reference | tr ":" " ")
-    num_parts=$(echo $parts | wc -w)
-
-    if [ $num_parts -lt 1 ]
-    then
-        bad_syntax
-        exit 1
-    fi
-    if [ $num_parts -gt 3 ]
-    then
-        bad_syntax
-        exit 1
-    fi
+get() {
+    grep "$1" "$configFile" | awk '{ print $2 }'
 }
 
-process_args $@
-read_reference $1
+split() {
+    parts=($(echo "$1" | tr "$2" " "))
+}
+
+function get_query() {
+    split $1 ":"
+
+    num_parts=${#parts[@]}
+    if [ $num_parts -lt 1 ] || [ $num_parts -gt 3 ]
+    then
+        bad_syntax
+        exit 1
+    fi
+
+    reference=${parts[0]}
+    types=${parts[1]}
+    docsets=${parts[2]}
+
+    local server=$(get server)
+    local port=$(get port)
+
+    local url="http://${server}:${port}/search?reference=${reference}"
+
+    split $types ","
+    for type in ${parts[@]}
+    do
+        if [[ $type != "," ]]
+        then
+            url="${url}&types=${type}"
+        fi
+    done
+
+    split $docsets ","
+    for docset in ${parts[@]}
+    do
+        if [[ $docset != "," ]]
+        then
+            url="${url}&docsets=${docset}"
+        fi
+    done
+
+    query_url=$url
+}
+
+process_args $@ && get_query $1 && wget $query_url

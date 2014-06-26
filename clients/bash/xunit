@@ -9,6 +9,7 @@ scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $scriptDir/xunit.d/test-file.sh
 . $scriptDir/xunit.d/test-dir.sh
 . $scriptDir/xunit.d/utils.sh
+. $scriptDir/xunit.d/mocking.sh
 
 if [[ $# = "1" ]]
 then
@@ -27,3 +28,5 @@ then
 		fi
 	fi
 fi
+
+clear_mocks

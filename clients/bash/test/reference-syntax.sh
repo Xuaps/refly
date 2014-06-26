@@ -5,3 +5,7 @@ slash=$scriptDir/../slash
 function test_bad_reference {
 	assertMatches "syntax" "$($slash search:function:slash:too_many_colons)"
 }
+
+function test_no_reference {
+	assertMatches "syntax" "$($slash :)"
+}
