@@ -101,14 +101,17 @@ function get_query() {
 }
 
 function show_results() {
-    numResults=$(echo $1 | $json_parser '. | length')
+    results=$1
+    numResults=$(echo $results | $json_parser '. | length')
     if [[ "$numResults" == "1" ]]
     then
         server=$(get server)
         port=$(get port)
-        url=$(echo $1 | $json_parser '@uri "http://'${server}':'${port}'/get/\(.[0].docset)/\(.[0].type)/\(.[0].reference)"' | cut -d "\"" -f 2)
+        url=$(echo $results | $json_parser '@uri "http://'${server}':'${port}'/get/\(.[0].docset)/\(.[0].type)/\(.[0].reference)"' | cut -d "\"" -f 2)
         content=$(curl -s ${url} | $json_parser '.content' | cut -d "\"" -f 2)
         echo -e $content | $man_viewer -
+    else
+        echo $results | $json_parser '.[] | "\(.reference):\(.type):\(.docset)"'
     fi
 }
 
