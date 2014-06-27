@@ -5,6 +5,9 @@ scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 configFile=$scriptDir/slash.conf
 verbose=false
 
+json_parser=$scriptDir/vendor/jq
+man_viewer=$scriptDir/vendor/mad
+
 function usage() {
 cat << EOF
     usage: $0 [-h] [-v] [-f configFile] reference[:type[,type]...][:docset[,docset]...]
@@ -97,4 +100,19 @@ function get_query() {
     query_url=$url
 }
 
-process_args $@ && get_query $1 && curl $query_url
+function show_results() {
+    numResults=$(echo $1 | $json_parser '. | length')
+    if [[ "$numResults" == "1" ]]
+    then
+        server=$(get server)
+        port=$(get port)
+        url=$(echo $1 | $json_parser '@uri "http://'${server}':'${port}'/get/\(.[0].docset)/\(.[0].type)/\(.[0].reference)"' | cut -d "\"" -f 2)
+        content=$(curl -s ${url} | $json_parser '.content' | cut -d "\"" -f 2)
+        echo -e $content | $man_viewer -
+    fi
+}
+
+process_args $@ && get_query $1 && {
+    results=$(curl -s $query_url)
+    show_results "$results"
+}
