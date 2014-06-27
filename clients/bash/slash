@@ -97,4 +97,4 @@ function get_query() {
     query_url=$url
 }
 
-process_args $@ && get_query $1 && wget $query_url
+process_args $@ && get_query $1 && curl $query_url
