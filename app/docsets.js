@@ -17,7 +17,7 @@ Docsets.prototype.filter = function(field, operator, value) {
     if (operator == filters.operators.EQUALS) {
         this._query = this._query.where(field, value);
     }
-    if (operator == filters.operators.IN) {
+    if (operator == filters.operators.IN && value) {
         this._query = this._query.whereIn(field, value);
     }
     return this;
