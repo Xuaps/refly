@@ -1,9 +1,9 @@
 #!/bin/bash
 
-rm -rf .mocks
+rm -f .mocks
 
 function clear_mocks {
-    while read mock
+    [ -e .mocks ] && while read mock
     do
         local parts=($mock)
         local script=${parts[0]}
@@ -11,17 +11,26 @@ function clear_mocks {
         rm -f $script.mocked
         rm -f $script.mocked.$func.calls
     done < .mocks
-    rm -rf .mocks
+    rm -f .mocks
 }
 
 function mock {
     script=$1
-    functionToMock=$2
 
     head -n 1 $script > $script.mocked
-    echo "${functionToMock}() {" >> $script.mocked
-    echo '    echo $@ '">> $script.mocked.$functionToMock.calls" >> $script.mocked
-    echo "}" >> $script.mocked
+
+    num=1
+    for functionToMock  
+    do
+        if [ $num -ne 1 ]
+        then
+            echo "${functionToMock}() {" >> $script.mocked
+            echo '    echo $@ '">> $script.mocked.$functionToMock.calls" >> $script.mocked
+            echo "}" >> $script.mocked
+        fi
+        num=$(expr $num + 1)
+    done
+
     tail -n +2 $script >> $script.mocked
     chmod +x $script.mocked
 
