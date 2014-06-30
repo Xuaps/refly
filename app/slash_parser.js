@@ -12,8 +12,8 @@ function process(html){
 			var ref={reference:data.text(), type: 'class'};
 
 			ref.content=$.html($(data.attr('href'))
-				.parents('h1')
-				.siblings());
+				.parents(':header')
+				.nextUntil(':header'));
 			
 			references.push(ref);	
 		});

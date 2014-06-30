@@ -30,6 +30,26 @@ decipher, sign and verify methods.\n\
 \n\
 \n\
 </p>'
+            	},
+            	{
+            		reference: 'crypto.getCiphers()',
+            		type: 'class',
+            		content: '<p>Returns an array with the names of the supported ciphers.\n\
+\n\
+</p><p>Example:\n\
+\n\
+</p><pre><code>var ciphers = crypto.getCiphers();\n\
+console.log(ciphers); // [&apos;AES-128-CBC&apos;, &apos;AES-128-CBC-HMAC-SHA1&apos;, ...]</code></pre>'
+            	},
+            	{
+            		reference: 'crypto.getHashes()',
+            		type: 'class',
+            		content: '<p>Returns an array with the names of the supported hash algorithms.\n\
+\n\
+</p><p>Example:\n\
+\n\
+</p><pre><code>var hashes = crypto.getHashes();\n\
+console.log(hashes); // [&apos;sha&apos;, &apos;sha1&apos;, &apos;sha1WithRSAEncryption&apos;, ...]</code></pre>'
             	}
             ]);
         });
