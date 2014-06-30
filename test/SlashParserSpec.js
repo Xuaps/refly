@@ -2,7 +2,7 @@ var fs = require('fs');
 var slash_parser = require('../app/slash_parser');
 
 describe('slash_parser',function(){
-	it('should get a reference from html', function(){
+	it('should get a references collection from html', function(){
 		var references = null;
 		var html = fs.readFileSync(__dirname+'/html/crypto_node.html', 'utf-8');
 
@@ -10,7 +10,7 @@ describe('slash_parser',function(){
             return references != null;
         });
 
-        slash_parser(html).then(function(result) {
+        slash_parser.processReference(html).then(function(result) {
             references = result;
         });
 
@@ -18,7 +18,7 @@ describe('slash_parser',function(){
             expect(references).toEqual([
             	{
             		reference: 'Crypto',
-            		type: 'class',
+            		type: 'module',
             		content: '<pre class="api_stability_2">Stability: 2 - Unstable; API changes are being discussed for\n\
 future versions.  Breaking changes will be minimized.  See below.</pre><p>Use <code>require(&apos;crypto&apos;)</code> to access this module.\n\
 \n\
@@ -33,7 +33,7 @@ decipher, sign and verify methods.\n\
             	},
             	{
             		reference: 'crypto.getCiphers()',
-            		type: 'class',
+            		type: 'function',
             		content: '<p>Returns an array with the names of the supported ciphers.\n\
 \n\
 </p><p>Example:\n\
@@ -43,7 +43,7 @@ console.log(ciphers); // [&apos;AES-128-CBC&apos;, &apos;AES-128-CBC-HMAC-SHA1&a
             	},
             	{
             		reference: 'crypto.getHashes()',
-            		type: 'class',
+            		type: 'function',
             		content: '<p>Returns an array with the names of the supported hash algorithms.\n\
 \n\
 </p><p>Example:\n\
@@ -55,7 +55,7 @@ console.log(hashes); // [&apos;sha&apos;, &apos;sha1&apos;, &apos;sha1WithRSAEnc
         });
 	})
 
-	xit('should get a references collection from html', function(){
+	xit('', function(){
 		var references = null;
 		var html = fs.readFile(__dirname+'html/index_node.html', function(error){});
 
