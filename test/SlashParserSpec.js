@@ -10,13 +10,14 @@ describe('slash_parser',function(){
             return references != null;
         });
 
-        slash_parser.processReference(html).then(function(result) {
+        slash_parser.processReference('Node.js v0.10.29', html).then(function(result) {
             references = result;
         });
 
         runs(function() {
             expect(references).toEqual([
             	{
+            		docset: "Node.js v0.10.29",
             		reference: 'Crypto',
             		type: 'module',
             		content: '<pre class="api_stability_2">Stability: 2 - Unstable; API changes are being discussed for\n\
@@ -29,9 +30,11 @@ used as part of a secure HTTPS net or http connection.\n\
 decipher, sign and verify methods.\n\
 \n\
 \n\
-</p>'
+</p>',
+					parent: null
             	},
             	{
+            		docset: "Node.js v0.10.29",
             		reference: 'Cipher',
             		type: 'class',
             		content: '<p>Class for encrypting data.\n\
@@ -43,9 +46,11 @@ writable.  The written plain text data is used to produce the\n\
 encrypted data on the readable side.  The legacy <code>update</code> and <code>final</code>\n\
 methods are also supported.\n\
 \n\
-</p>'
+</p>',
+					parent: {docset: "Node.js v0.10.29", reference: "Crypto", type: "module"}
             	},
             	{
+            		docset: "Node.js v0.10.29",
             		reference: 'cipher.update',
             		type: 'function',
             		content: '<p>Updates the cipher with <code>data</code>, the encoding of which is given in\n\
@@ -60,7 +65,8 @@ provided, then a buffer is returned.\n\
 </p><p>Returns the enciphered contents, and can be called many times with new\n\
 data as it is streamed.\n\
 \n\
-</p>'
+</p>',
+					parent: {docset: "Node.js v0.10.29", reference: "Cipher", type: "class"}
             	}
             ]);
         });

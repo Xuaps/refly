@@ -1,8 +1,8 @@
 var cheerio = require('cheerio');
 var q = require('Q');
 
-function createRef(name, content){
-	var ref = {};
+function createRef(docset,name, content, parent){
+	var ref = {'docset': docset};
 
 	if(/Class: /.test(name)){
 		ref.reference = name.match(/Class: (\w*)/)[1];
@@ -13,35 +13,48 @@ function createRef(name, content){
 	}else if(/[\w.]*\([ \w.,\[\]]*\)/.test(name)){
 		ref.reference = name.match(/([\w.]*)\([ \w.,\[\]]*\)/)[1];
 		ref.type = "function";
-	}else if(/require\([\w;&]*\)/.test(content)){
-		ref.reference = name;
+	}else{ 
 		ref.type = "module";
-	}else{
-		ref.reference = name;
-		ref.type = "documentation";
+		ref.reference = name.match(/(\w*)/)[1];
 	}
+
 	ref.content = content;
+	ref.parent = parent;
+
 	return ref;
 }
 
-function process(html){
+function getParent(docset,data){
+	var tag = data['0'].name;
+	var tag_parent = 'h'+(tag[1]-1);
+	var prev = data.prev();
+
+	while(prev.length>0){
+		if(prev.first()['0'].name===tag_parent)
+			return createRef(docset,prev.text());
+		prev = prev.prev();
+	}
+	return null;
+}
+
+function process(html, docset){
 	var $ = cheerio.load(html);
 	var references = [];
+	var parent = null;
 	
-	$('#toc')
-		.find('a')
+	$('#apicontent')
+		.find(':header')
 		.each(function(index, element){
 			var data = $(element);
-			var content = $(data.attr('href'))
-								.parents(':header')
-								.nextUntil(':header');
-			var ref=createRef(data.text(), $.html(content));
+			var content = data.nextUntil(':header');
+			var ref=createRef(docset,data.text(), $.html(content), getParent(docset,data));
 			references.push(ref);	
 		});
 
 	return references;
 };
 
-exports.processReference = function(html){
-	return q.fcall(process, html);
+exports.processReference = function(docset, html){
+
+	return q.fcall(process, html, docset);
 }
