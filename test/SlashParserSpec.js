@@ -2,6 +2,7 @@ var fs = require('fs');
 var slash_parser = require('../app/slash_parser');
 
 describe('slash_parser',function(){
+    
 	it('should get a references collection from html', function(){
 		var references = null;
 		var html = fs.readFileSync(__dirname+'/html/crypto_node.html', 'utf-8');

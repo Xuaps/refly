@@ -27,13 +27,11 @@ function createRef(docset,name, content, parent){
 function getParent(docset,data){
 	var tag = data['0'].name;
 	var tag_parent = 'h'+(tag[1]-1);
-	var prev = data.prev();
+	var prev = data.prevAll().filter(tag_parent);
 
-	while(prev.length>0){
-		if(prev.first()['0'].name===tag_parent)
-			return createRef(docset,prev.text());
-		prev = prev.prev();
-	}
+	if(prev.length===1)
+		return createRef(docset,prev.text());
+
 	return null;
 }
 
