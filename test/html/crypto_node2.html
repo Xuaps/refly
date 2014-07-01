@@ -47,6 +47,8 @@
             <h2>Table of Contents</h2>
             <ul>
 <li><a href="#crypto_crypto">Crypto</a><ul>
+<li><a href="#crypto_crypto_getciphers">crypto.getCiphers()</a></li>
+<li><a href="#crypto_crypto_gethashes">crypto.getHashes()</a></li>
 <li><a href="#crypto_class_cipher">Class: Cipher</a><ul>
 <li><a href="#crypto_cipher_update_data_input_encoding_output_encoding">cipher.update(data, [input_encoding], [output_encoding])</a></li>
 </ul>
@@ -68,6 +70,24 @@ decipher, sign and verify methods.
 
 
 </p>
+<h2>crypto.getCiphers()<span><a class="mark" href="#crypto_crypto_getciphers" id="crypto_crypto_getciphers">#</a></span></h2>
+<p>Returns an array with the names of the supported ciphers.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>var ciphers = crypto.getCiphers();
+console.log(ciphers); // [&#39;AES-128-CBC&#39;, &#39;AES-128-CBC-HMAC-SHA1&#39;, ...]</code></pre>
+<h2>crypto.getHashes()<span><a class="mark" href="#crypto_crypto_gethashes" id="crypto_crypto_gethashes">#</a></span></h2>
+<p>Returns an array with the names of the supported hash algorithms.
+
+</p>
+<p>Example:
+
+</p>
+<pre><code>var hashes = crypto.getHashes();
+console.log(hashes); // [&#39;sha&#39;, &#39;sha1&#39;, &#39;sha1WithRSAEncryption&#39;, ...]</code></pre>
 <h2>Class: Cipher<span><a class="mark" href="#crypto_class_cipher" id="crypto_class_cipher">#</a></span></h2>
 <p>Class for encrypting data.
 
