@@ -30,4 +30,8 @@ Docsets.prototype.then = function(callback) {
     callback(this._collection);
 };
 
+Docsets.prototype.add = function(docset){
+    this._collection.push(docset);
+}
+
 module.exports=Docsets;
