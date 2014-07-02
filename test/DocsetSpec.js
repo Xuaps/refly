@@ -83,4 +83,41 @@ describe('Docset', function() {
 
         });
     });
+
+    describe('addRefsRange', function(){
+        xit('should add a bunch of objects if they arent presnts in the collections', function(){
+             var ended = false;
+
+            waitsFor(function() {
+                return ended;
+            });
+
+            docsets.addRefsRange(
+                [
+                    {reference: 'a',
+                    type: 'class',
+                    docset: 'test'
+                    },
+                    {reference: 'a',
+                    type: 'function',
+                    docset: 'test'
+                    }
+                ]   
+                ).then(function(){
+                    ended=true;
+                });
+
+            runs(function() {
+                var docs = new Docsets();
+                docs.filter('reference', filters.operator.EQUALS, 'a').then(function(result){
+                    expect(result.length).toEqual(2);
+                })
+            }); 
+        });
+
+        xit('should update a bunch of objects if they are presents in the collections', function(){
+
+        });
+    })
 }); 
+
