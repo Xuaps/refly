@@ -5,10 +5,10 @@ function createRef(docset,name, content, parent){
 	var ref = {'docset': docset};
 
 	if(/Class: /.test(name)){
-		ref.reference = name.match(/Class: (\w*)/)[1];
+		ref.reference = name.match(/Class: '{0,1}(\w*)'{0,1}/)[1];
 		ref.type = "class";
 	}else if(/Event: /.test(name)){
-		ref.reference = name.match(/Event: (\w*)/)[1];
+		ref.reference = name.match(/Event: '{0,1}(\w*)'{0,1}/)[1];
 		ref.type = "event";
 	}else if(/[\w.]*\([ \w.,\[\]]*\)/.test(name)){
 		ref.reference = name.match(/([\w.]*)\([ \w.,\[\]]*\)/)[1];
@@ -29,8 +29,9 @@ function getParent(docset,data){
 	var tag_parent = 'h'+(tag[1]-1);
 	var prev = data.prevAll().filter(tag_parent);
 
-	if(prev.length===1)
-		return createRef(docset,prev.text());
+	if(prev.length>0){
+		return createRef(docset,prev.first().text());
+	}
 
 	return null;
 }
