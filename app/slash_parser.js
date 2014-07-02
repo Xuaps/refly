@@ -1,6 +1,45 @@
 var cheerio = require('cheerio');
 var q = require('Q');
 
+exports.processReferences = function(docset, html){
+	return q.fcall(processReferences, html, docset);
+}
+
+exports.processToc = function(html){
+	return q.fcall(processToc, html);
+};
+
+function processToc(html){
+	var $ = cheerio.load(html);
+	var urls = [];
+	
+	$('#apicontent')
+		.find('a')
+		.each(function(index, element){
+			var data = $(element);
+			urls.push(data.attr('href'));	
+		});
+
+	return urls;
+};
+
+function processReferences(html, docset){
+	var $ = cheerio.load(html);
+	var references = [];
+	var parent = null;
+	
+	$('#apicontent')
+		.find(':header')
+		.each(function(index, element){
+			var data = $(element);
+			var content = data.nextUntil(':header');
+			var ref=createRef(docset,data.text(), $.html(content), getParent(docset,data));
+			references.push(ref);	
+		});
+
+	return references;
+};
+
 function createRef(docset,name, content, parent){
 	var ref = {'docset': docset};
 
@@ -22,7 +61,7 @@ function createRef(docset,name, content, parent){
 	ref.parent = parent;
 
 	return ref;
-}
+};
 
 function getParent(docset,data){
 	var tag = data['0'].name;
@@ -34,26 +73,4 @@ function getParent(docset,data){
 	}
 
 	return null;
-}
-
-function process(html, docset){
-	var $ = cheerio.load(html);
-	var references = [];
-	var parent = null;
-	
-	$('#apicontent')
-		.find(':header')
-		.each(function(index, element){
-			var data = $(element);
-			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(content), getParent(docset,data));
-			references.push(ref);	
-		});
-
-	return references;
 };
-
-exports.processReference = function(docset, html){
-
-	return q.fcall(process, html, docset);
-}
