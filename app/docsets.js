@@ -32,4 +32,9 @@ Docsets.prototype.then = function(callback) {
     return this._query.then(callback);
 };
 
+Docsets.prototype.addRefsRange = function(refs) {
+
+    return knex('refs').insert(refs);
+};
+
 module.exports = Docsets; 
