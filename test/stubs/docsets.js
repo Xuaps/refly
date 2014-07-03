@@ -32,6 +32,7 @@ Docsets.prototype.then = function(callback) {
 
 Docsets.prototype.addRefsRange = function(refs){
     Docsets.prototype._collection=Docsets.prototype._collection.concat(refs);
+    return this;
 }
 
 module.exports=Docsets;
