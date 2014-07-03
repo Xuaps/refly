@@ -23,6 +23,7 @@
     "load-grunt-tasks": "~0.2.0",
     "nock": "^0.39.0",
     "proxyquire": "^1.0.1",
+    "randomstring": "^1.0.3",
     "request": "~2.27.0",
     "sinon": "^1.10.2",
     "supertest": "^0.13.0",

@@ -1,6 +1,7 @@
 var sinon = require('sinon');
 var Docsets = require('../app/docsets');
 var filters = require('../app/filters');
+var randomstring = require('randomstring');
 
 describe('Docset', function() {
     var docsets;
@@ -86,21 +87,29 @@ describe('Docset', function() {
 
     describe('addRefsRange', function(){
         it('should add a bunch of objects if they arent presnts in the collections', function(){
-             var ended = false;
-
+            var ended = false;
+            var name = randomstring.generate(7);
             waitsFor(function() {
                 return ended;
             });
 
             docsets.addRefsRange(
                 [
-                    {reference: 'a',
+                    {reference: name,
                     type: 'class',
-                    docset: 'test'
+                    docset: 'test',
+                    content: 'tachan'
                     },
-                    {reference: 'a',
+                    {reference: name,
                     type: 'function',
-                    docset: 'test'
+                    docset: 'test',
+                    content: 'juas',
+                    parent:{reference:name, docset:'test', type:'class'}
+                    },
+                    {reference: 'search',
+                    type: 'function',
+                    docset: 'slash',
+                    content: 'This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}'
                     }
                 ]   
                 ).then(function(res){
@@ -109,7 +118,7 @@ describe('Docset', function() {
 
             runs(function() {
                 var docs = new Docsets();
-                docs.filter('reference', filters.operators.EQUALS, 'a').then(function(result){
+                docs.filter('reference', filters.operators.EQUALS, name).then(function(result){
                     expect(result.length).toEqual(2);
                 })
             }); 
