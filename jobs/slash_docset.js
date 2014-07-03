@@ -13,10 +13,14 @@ module.exports=function(docset, base_url, toc_url, callback){
 				 	.then(function(html){
 				 		return slash_parser.processReferences(docset,html);
 				 	})
-				 	.then(docsets.addRefsRange)
-				 	.then(callback);
+				 	.then(
+				 		function(refs){
+				 			docsets.addRefsRange(refs).then(function(){})
+				 		});
+				 	
 			});
 		})
+		.then(callback)
 		.fail(function(error){
 			throw new Error(error);
 		});
