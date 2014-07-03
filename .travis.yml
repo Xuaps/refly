@@ -4,6 +4,7 @@ node_js:
 before_install: 
   - npm install -g grunt-cli 
   - npm install -g jasmine-node
+  - npm update
 before_script:
   - psql -c 'create database slashdb;' -U postgres
   - psql -d slashdb -a -f db/init.4.sql -U postgres
