@@ -1,4 +1,4 @@
-INSERT INTO refs VALUES (1,'slash','search', 'function', 'This is an example
+INSERT INTO refs VALUES ('slash','search', 'function', 'This is an example
 -----
 
 example.foo(bar)
@@ -8,7 +8,7 @@ example.foo(bar)
 				function example.foo(bar){
 					return bar;
 				}');
-INSERT INTO refs VALUES (2,'slash','search', 'constant', 'This is an example
+INSERT INTO refs VALUES ('slash','search', 'constant', 'This is an example
 -----
 
 example.foo(bar)
@@ -18,7 +18,7 @@ example.foo(bar)
 				function example.foo(bar){
 					return bar;
 				}');
-INSERT INTO refs VALUES (3,'java','search', 'function', 'This is an example
+INSERT INTO refs VALUES ('java','search', 'function', 'This is an example
 -----
 
 example.foo(bar)
