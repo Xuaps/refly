@@ -55,12 +55,12 @@ module.exports = function (grunt) {
         matchall: false,
         extensions: 'js',
         specNameMatcher: 'spec',
-        jUnit: {
-          report: true,
-          savePath : "./build/reports/jasmine/",
-          useDotNotation: true,
-          consolidate: true
-        }
+        // jUnit: {
+        //   report: true,
+        //   savePath : "./build/reports/jasmine/",
+        //   useDotNotation: true,
+        //   consolidate: true
+        // }
       },
       all: ['test/']
     }
