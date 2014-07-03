@@ -1,5 +1,5 @@
 var cheerio = require('cheerio');
-var q = require('Q');
+var q = require('q');
 
 exports.processReferences = function(docset, html){
 	return q.fcall(processReferences, html, docset);
