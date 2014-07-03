@@ -37,10 +37,10 @@ Docsets.prototype.addRefsRange = function(refs) {
     var query='';
     refs.forEach(function(ref){
         query+=util.format("\n\
-UPDATE refs SET content='%s' WHERE reference='%s' and type='%s' and docset='%s';\
+UPDATE refs SET content=$$%s$$ WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$;\
 INSERT INTO refs ( reference, type, docset, content, parent_id)\
-SELECT '%s', '%s', '%s', '%s', (SELECT id FROM refs WHERE reference='%s' and type='%s' and docset='%s')\
-WHERE NOT EXISTS (SELECT 1 FROM refs WHERE reference='%s' and type='%s' and docset='%s');\
+SELECT $$%s$$, $$%s$$, $$%s$$, $$%s$$, (SELECT id FROM refs WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$)\
+WHERE NOT EXISTS (SELECT 1 FROM refs WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$);\
         ", ref.content, ref.reference, ref.type, ref.docset, 
         ref.reference, ref.type,ref.docset,ref.content, 
         !ref.parent || ref.parent.reference, !ref.parent || ref.parent.type, !ref.parent || ref.parent.docset,
