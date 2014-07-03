@@ -1,5 +1,6 @@
 var cheerio = require('cheerio');
 var q = require('q');
+var md = require('html-md');
 
 exports.processReferences = function(docset, html){
 	return q.fcall(processReferences, html, docset);
@@ -57,7 +58,7 @@ function createRef(docset,name, content, parent){
 		ref.reference = name.match(/(\w*)/)[1];
 	}
 
-	ref.content = content;
+	ref.content = content===undefined?undefined:md(content);
 	ref.parent = parent;
 
 	return ref;

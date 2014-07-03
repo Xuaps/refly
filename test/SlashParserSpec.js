@@ -22,52 +22,50 @@ describe('slash_parser',function(){
                         docset: "Node.js v0.10.29",
                         reference: 'Crypto',
                         type: 'module',
-                        content: '<pre class="api_stability_2">Stability: 2 - Unstable; API changes are being discussed for\n\
-future versions.  Breaking changes will be minimized.  See below.</pre><p>Use <code>require(&apos;crypto&apos;)</code> to access this module.\n\
+                        content: "Stability: 2 - Unstable; API changes are being discussed for\n\
+    future versions.  Breaking changes will be minimized.  See below.\n\
 \n\
-</p><p>The crypto module offers a way of encapsulating secure credentials to be\n\
+Use `require('crypto')` to access this module.\n\
+\n\
+The crypto module offers a way of encapsulating secure credentials to be\n\
 used as part of a secure HTTPS net or http connection.\n\
 \n\
-</p><p>It also offers a set of wrappers for OpenSSL&apos;s hash, hmac, cipher,\n\
-decipher, sign and verify methods.\n\
-\n\
-\n\
-</p>',
+It also offers a set of wrappers for OpenSSL's hash, hmac, cipher,\n\
+decipher, sign and verify methods.",
                         parent: null
                     },
                     {
                         docset: "Node.js v0.10.29",
                         reference: 'Cipher',
                         type: 'class',
-                        content: '<p>Class for encrypting data.\n\
+                        content: "Class for encrypting data.\n\
 \n\
-</p><p>Returned by <code>crypto.createCipher</code> and <code>crypto.createCipheriv</code>.\n\
+Returned by `crypto.createCipher` and `crypto.createCipheriv`.\n\
 \n\
-</p><p>Cipher objects are <a href="stream.html">streams</a> that are both readable and\n\
-writable.  The written plain text data is used to produce the\n\
-encrypted data on the readable side.  The legacy <code>update</code> and <code>final</code>\n\
+Cipher objects are [streams][0] that are both readable and\n\
+writable. The written plain text data is used to produce the\n\
+encrypted data on the readable side. The legacy `update` and `final`\n\
 methods are also supported.\n\
 \n\
-</p>',
+\n\
+[0]: stream.html",
                         parent: {docset: "Node.js v0.10.29", reference: "Crypto", type: "module"}
                     },
                     {
                         docset: "Node.js v0.10.29",
                         reference: 'cipher.update',
                         type: 'function',
-                        content: '<p>Updates the cipher with <code>data</code>, the encoding of which is given in\n\
-<code>input_encoding</code> and can be <code>&apos;utf8&apos;</code>, <code>&apos;ascii&apos;</code> or <code>&apos;binary&apos;</code>.  If no\n\
+                        content: "Updates the cipher with `data`, the encoding of which is given in\n\
+`input_encoding` and can be `'utf8'`, `'ascii'` or `'binary'`. If no\n\
 encoding is provided, then a buffer is expected.\n\
-If <code>data</code> is a <code>Buffer</code> then <code>input_encoding</code> is ignored.\n\
+If `data` is a `Buffer` then `input_encoding` is ignored.\n\
 \n\
-</p><p>The <code>output_encoding</code> specifies the output format of the enciphered\n\
-data, and can be <code>&apos;binary&apos;</code>, <code>&apos;base64&apos;</code> or <code>&apos;hex&apos;</code>.  If no encoding is\n\
+The `output_encoding` specifies the output format of the enciphered\n\
+data, and can be `'binary'`, `'base64'` or `'hex'`. If no encoding is\n\
 provided, then a buffer is returned.\n\
 \n\
-</p><p>Returns the enciphered contents, and can be called many times with new\n\
-data as it is streamed.\n\
-\n\
-</p>',
+Returns the enciphered contents, and can be called many times with new\n\
+data as it is streamed.",
                         parent: {docset: "Node.js v0.10.29", reference: "Cipher", type: "class"}
                     }
                 ]);
