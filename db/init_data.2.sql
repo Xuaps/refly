@@ -1,5 +1,5 @@
 INSERT INTO refs(
-            docset, reference, type, content VALUES ('slash','search', 'function', 'This is an example
+            docset, reference, type, content) VALUES ('slash','search', 'function', 'This is an example
 -----
 
 example.foo(bar)
