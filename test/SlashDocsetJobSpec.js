@@ -1,7 +1,7 @@
 var proxyquire = require('proxyquire');
 var Docsets = require('./stubs/docsets');
 var nock = require('nock');
-var slash_docset = proxyquire('../jobs/slash_docset.js', { '../../app/docsets.js' : Docsets });
+var slash_docset = proxyquire('../jobs/slash_docset.js', { '../app/docsets.js' : Docsets });
 
 describe('Slash a docset', function(){
 	var base_url = 'http://nodejs.org/docs/latest/api';
