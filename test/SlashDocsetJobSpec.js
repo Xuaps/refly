@@ -1,7 +1,7 @@
 var proxyquire = require('proxyquire');
 var Docsets = require('./stubs/docsets');
 var nock = require('nock');
-var slash_docset = proxyquire('../bots/jobs/slash_docset.js', { '../../app/docsets.js' : Docsets });
+var slash_docset = proxyquire('../jobs/slash_docset.js', { '../../app/docsets.js' : Docsets });
 
 describe('Slash a docset', function(){
 	var base_url = 'http://nodejs.org/docs/latest/api';
@@ -27,11 +27,15 @@ describe('Slash a docset', function(){
     });
 
 	it('should process a whole docset and add it to docsets collection', function(){
+		var results = null;
+
 		waitsFor(function(){
-			return Docsets.prototype._collection.length===9;
+			return results!=null;
 		});
 
-		slash_docset('Node.js v0.10.29', base_url, toc_url);
+		slash_docset('Node.js v0.10.29', base_url, toc_url, function(res){
+			results = res;
+		});
 
 		runs(function(){
 			expect(Docsets.prototype._collection.length).toEqual(9);

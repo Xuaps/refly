@@ -2,7 +2,7 @@ var Docsets = require('../../app/docsets.js');
 var request = require('../../app/slash_request.js');
 var slash_parser = require('../../app/slash_parser.js');
 
-module.exports=function(docset, base_url, toc_url){
+module.exports=function(docset, base_url, toc_url, callback){
 	var docsets = new Docsets();
 
 	request(base_url+toc_url)
@@ -14,7 +14,7 @@ module.exports=function(docset, base_url, toc_url){
 				 		return slash_parser.processReferences(docset,html);
 				 	})
 				 	.then(docsets.addRefsRange)
-				 	.done();
+				 	.then(callback);
 			});
 		})
 		.fail(function(error){
