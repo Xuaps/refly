@@ -1,4 +1,5 @@
 var filters = require('../../app/filters');
+var q = require('q');
 
 function Docsets(){
 
@@ -26,13 +27,13 @@ Docsets.prototype.select = function(columns){
 	return this;
 };
 
-Docsets.prototype.then = function(callback) {
-    callback(Docsets.prototype._collection);
+Docsets.prototype.execute = function() {
+    return q.fcall(function(){return Docsets.prototype._collection;});
 };
 
 Docsets.prototype.addRefsRange = function(refs){
     Docsets.prototype._collection=Docsets.prototype._collection.concat(refs);
     return this;
-}
+};
 
 module.exports=Docsets;

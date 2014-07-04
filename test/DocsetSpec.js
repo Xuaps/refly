@@ -25,7 +25,7 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets.filter('reference', filters.operators.EQUALS, aReference).then(function(rows) {
+            docsets.filter('reference', filters.operators.EQUALS, aReference).execute().then(function(rows) {
                 results = rows;
             });
 
@@ -45,7 +45,7 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets.filter('type', filters.operators.IN, [ aType ]).then(function(rows) {
+            docsets.filter('type', filters.operators.IN, [ aType ]).execute().then(function(rows) {
                 results = rows;
             });
 
@@ -64,7 +64,7 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets.filter('reference', filters.operators.EQUALS, 'search').filter('type', filters.operators.IN, [ 'function' ]).then(function(rows) {
+            docsets.filter('reference', filters.operators.EQUALS, 'search').filter('type', filters.operators.IN, [ 'function' ]).execute().then(function(rows) {
                 results = rows;
             });
 
@@ -79,7 +79,7 @@ describe('Docset', function() {
     
     });
     
-    describe('then', function(){
+    describe('execute', function(){
         xit('should execute the select and clean the query', function(){
 
         });
@@ -112,13 +112,13 @@ describe('Docset', function() {
                     content: 'This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}'
                     }
                 ]   
-                ).then(function(res){
+                ).execute().then(function(res){
                     ended=true;
                 });
 
             runs(function() {
                 var docs = new Docsets();
-                docs.filter('reference', filters.operators.EQUALS, name).then(function(result){
+                docs.filter('reference', filters.operators.EQUALS, name).execute().then(function(result){
                     expect(result.length).toEqual(2);
                 })
             }); 

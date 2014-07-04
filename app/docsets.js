@@ -29,8 +29,14 @@ Docsets.prototype.select = function(columns){
     return this;
 }
 
-Docsets.prototype.then = function(callback) {
-    return this._query.then(callback);
+Docsets.prototype.execute = function() {
+    return this._query.then(
+        function(rows){
+            return rows;
+        }, 
+        function(err){
+            return err;
+        });
 };
 
 Docsets.prototype.addRefsRange = function(refs) {

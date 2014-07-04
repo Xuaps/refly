@@ -37,7 +37,7 @@ describe('Slash', function() {
             waitsFor(function() {
                 return results != null;
             });
-
+            
             slash.search({
                 reference: 'search',
                 types: [ 'function' ],
