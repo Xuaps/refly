@@ -32,8 +32,9 @@ Docsets.prototype.select = function(columns){
 Docsets.prototype.execute = function() {
     return this._query.then(
         function(rows){
+            this._query = knex('refs');
             return rows;
-        }, 
+        }.bind(this), 
         function(err){
             return err;
         });
