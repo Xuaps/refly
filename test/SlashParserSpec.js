@@ -12,7 +12,7 @@ describe('slash_parser',function(){
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29', 'crypto.html', html).then(function(result) {
                 references = result;
             });
 
@@ -32,6 +32,7 @@ used as part of a secure HTTPS net or http connection.\n\
 \n\
 It also offers a set of wrappers for OpenSSL's hash, hmac, cipher,\n\
 decipher, sign and verify methods.",
+                        uri: 'crypto.html#crypto_crypto',
                         parent: null
                     },
                     {
@@ -49,6 +50,7 @@ methods are also supported.\n\
 \n\
 \n\
 [0]: stream.html",
+                        uri: 'crypto.html#crypto_class_cipher',
                         parent: {docset: "Node.js v0.10.29", reference: "Crypto", type: "module"}
                     },
                     {
@@ -66,6 +68,7 @@ provided, then a buffer is returned.\n\
 \n\
 Returns the enciphered contents, and can be called many times with new\n\
 data as it is streamed.",
+                        uri: 'crypto.html#crypto_cipher_update_data_input_encoding_output_encoding',
                         parent: {docset: "Node.js v0.10.29", reference: "Cipher", type: "class"}
                     }
                 ]);
@@ -80,7 +83,7 @@ data as it is streamed.",
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29', 'crypto.html', html).then(function(result) {
                 references = result;
             });
 
@@ -101,7 +104,7 @@ data as it is streamed.",
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29', 'crypto.html', html).then(function(result) {
                 references = result;
             });
 
@@ -121,7 +124,7 @@ data as it is streamed.",
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29','crypto.html', html).then(function(result) {
                 references = result;
             });
 

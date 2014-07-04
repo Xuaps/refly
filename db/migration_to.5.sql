@@ -1,0 +1,8 @@
+ALTER TABLE refs ADD COLUMN uri TEXT;
+update refs set uri=id;
+ALTER TABLE refs ALTER COLUMN uri SET NOT NULL;
+ALTER TABLE refs ADD CONSTRAINT unique_docset_uri UNIQUE (docset, uri);
+
+ALTER TABLE refs ALTER COLUMN type SET NOT NULL;
+ALTER TABLE refs ALTER COLUMN reference SET NOT NULL;
+ALTER TABLE refs ALTER COLUMN docset SET NOT NULL;

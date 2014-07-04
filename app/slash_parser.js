@@ -2,8 +2,8 @@ var cheerio = require('cheerio');
 var q = require('q');
 var md = require('html-md');
 
-exports.processReferences = function(docset, html){
-	return q.fcall(processReferences, html, docset);
+exports.processReferences = function(docset, url, html){
+	return q.fcall(processReferences, docset, url, html);
 }
 
 exports.processToc = function(html){
@@ -24,7 +24,7 @@ function processToc(html){
 	return urls;
 };
 
-function processReferences(html, docset){
+function processReferences(docset,url,html){
 	var $ = cheerio.load(html);
 	var references = [];
 	var parent = null;
@@ -33,15 +33,16 @@ function processReferences(html, docset){
 		.find(':header')
 		.each(function(index, element){
 			var data = $(element);
+			var uri = url+data.find('a').first().attr('href');
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(content), getParent(docset,data));
+			var ref=createRef(docset,data.text(), $.html(content), uri, getParent(docset,data));
 			references.push(ref);	
 		});
 
 	return references;
 };
 
-function createRef(docset,name, content, parent){
+function createRef(docset,name, content, uri, parent){
 	var ref = {'docset': docset};
 
 	if(/Class: /.test(name)){
@@ -58,6 +59,7 @@ function createRef(docset,name, content, parent){
 		ref.reference = name.match(/(\w*)/)[1];
 	}
 
+	ref.uri = uri;
 	ref.content = content===undefined?undefined:md(content);
 	ref.parent = parent;
 

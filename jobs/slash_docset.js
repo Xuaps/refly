@@ -13,7 +13,7 @@ module.exports=function(docset, base_url, toc_url, callback){
 			urls.forEach(function(url){
 				 request(base_url+'/'+url)
 				 	.then(function(html){
-				 		return slash_parser.processReferences(docset,html);
+				 		return slash_parser.processReferences(docset,url,html);
 				 	})
 				 	.then(function(refs){
 			 			promises.push(docsets.addRefsRange(refs).execute());

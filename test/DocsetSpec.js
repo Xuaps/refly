@@ -124,18 +124,21 @@ describe('Docset', function() {
                     {reference: name,
                     type: 'class',
                     docset: 'test',
-                    content: 'tachan'
+                    content: 'tachan',
+                    uri: 'test.html#test_' + name
                     },
                     {reference: name,
                     type: 'function',
                     docset: 'test',
                     content: 'juas',
-                    parent:{reference:name, docset:'test', type:'class'}
+                    parent:{reference:name, docset:'test', type:'class'},
+                    uri: 'test.html#test_2' + name
                     },
                     {reference: 'search',
                     type: 'function',
                     docset: 'slash',
-                    content: 'This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}'
+                    content: 'This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}',
+                    uri: 'test.html#test_22'
                     }
                 ]   
                 ).execute().then(function(res){
@@ -166,7 +169,8 @@ describe('Docset', function() {
                     {reference: 'update',
                     type: 'function',
                     docset: 'test',
-                    content: content
+                    content: content,
+                    uri: 'test.html#test_23'
                     }
                 ]   
                 ).execute().then(function(res){
