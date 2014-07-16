@@ -1,0 +1,23 @@
+body, fieldset {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+fieldset {
+    width: 100%;
+    background-color: #ced;
+    line-height: 50px;
+    height: 50px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+#results {
+    width: 25%;
+    float: left;
+    border: 1px dashed gray;
+}
+#result {
+    width: 75%;
+    background-color: gray;
+    float: left;
+}
