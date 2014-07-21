@@ -11,13 +11,14 @@ module.exports=function(docset, base_url, toc_url, callback){
 		.then(function(urls){
 			var promises = [];
 			urls.forEach(function(url){
+				promises.push(
 				 request(base_url+'/'+url)
 				 	.then(function(html){
 				 		return slash_parser.processReferences(docset,url,html);
 				 	})
 				 	.then(function(refs){
-			 			promises.push(docsets.addRefsRange(refs).execute());
-			 		});
+			 			docsets.addRefsRange(refs).execute();
+			 		}));
 			});
 			return q.all(promises);
 		})
