@@ -1,17 +1,10 @@
 var filters = require('../app/filters');
 var util = require('util');
+var db = require('./db');
 
-var knex = require('knex')({
-    client: 'postgres',
-    connection: {
-        host     : '127.0.0.1',
-        user     : 'postgres',
-        database : 'slashdb'
-    }
-});
 
 function Docsets(){
-    this._query = knex('refs');
+    this._query = db('refs');
 } 
 
 Docsets.prototype.filter = function(field, operator, value) {
@@ -32,7 +25,7 @@ Docsets.prototype.select = function(columns){
 Docsets.prototype.execute = function() {
     return this._query.then(
         function(rows){
-            this._query = knex('refs');
+            this._query = db('refs');
             return rows;
         }.bind(this), 
         function(err){
@@ -53,7 +46,7 @@ WHERE NOT EXISTS (SELECT 1 FROM refs WHERE reference=$$%s$$ and type=$$%s$$ and 
         !ref.parent || ref.parent.reference, !ref.parent || ref.parent.type, !ref.parent || ref.parent.docset,
         ref.reference, ref.type, ref.docset);
     });
-    this._query = knex.raw(query);
+    this._query = db.raw(query);
     return this;
 };
 
