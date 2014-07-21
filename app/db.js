@@ -1,14 +1,9 @@
+var config = require('config');
 var knex = require('knex');
 
 if(!global.db){
-	global.db = knex({
-	    client: 'postgres',
-	    connection: {
-	        host     : '127.0.0.1',
-	        user     : 'postgres',
-	        database : 'slashdb'
-	    }
-	});
+	global.db = knex(config.dbConfig);
 }
 
 module.exports = global.db;
+		

@@ -1,9 +1,7 @@
 var jobs=require('../');
+var config = require('config');
 // setup a worker
-var worker = require('coffee-resque').connect({
-  host: '127.0.0.1',
-  port: '6379'
-}).worker('*', jobs)
+var worker = require('coffee-resque').connect(config.redisConfig).worker('*', jobs)
 
 // some global event listeners
 //
