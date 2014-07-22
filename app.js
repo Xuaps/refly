@@ -28,6 +28,13 @@ app.configure('development', function(){
 app.get('/', function(req, res) {
   res.render('index', {});
 });
+app.get('/show/:docset/:type/:reference', function(req, res) {
+  res.render('index', {
+    docset: req.params.docset,
+    type: req.params.type,
+    reference: req.params.reference
+  });
+});
 app.get('/search', docsets.search);
 app.get('/get/:docset/:type/:reference', docsets.get);
 

@@ -9,7 +9,8 @@ var ResultList = {
             '<tr><td>' + result.docset +
             '</td><td>' + result.reference +
             '</td><td>' + result.type +
-            '</td><td><a href="">Show</a></td></tr>'
+            '</td><td><a href="/show/' + result.docset + '/' + result.type + '/'
+                + result.reference + '">Show</a></td></tr>'
         );
         return $('#results tr:last-child');
     }
@@ -29,7 +30,6 @@ var Result = {
 };
 
 $(function() {
-    var BASE_URL = '';
     var SUBMIT = 'input[type="submit"]';
     var REFERENCE = 'input[name="reference"]';
 
@@ -39,23 +39,26 @@ $(function() {
     $(SUBMIT).click(function() {
         var reference = $(REFERENCE).val();
         $.ajax({
-            url: BASE_URL + '/search?reference=' + reference,
+            url: '/search?reference=' + reference,
             method: 'get'
         }).done(function(results) {
             ResultList.reset();
             results.forEach(function(result) {
-                var newRow = ResultList.add(result);
-                newRow.find('a').click(function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: BASE_URL + '/get/' + result.docset + '/' + result.type + '/' + result.reference,
-                        method: 'get'
-                    }).done(function(result) {
-                        Result.show(result);
-                    });
-                });
+                ResultList.add(result);
             });
         });
     });
+
+    var docset = $('input[name="docset"]').val();
+    var type = $('input[name="type"]').val();
+    var reference = $('input[name="ref"]').val();
+    if (docset != 'undefined') {
+        $.ajax({
+            url: '/get/' + docset + '/' + type + '/' + reference,
+            method: 'get'
+        }).done(function(result) {
+            Result.show(result);
+        });
+    }
 });
 
