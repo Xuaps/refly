@@ -56,6 +56,15 @@ describe('Docset', function() {
                 });
             });
         });
+
+        it('should filter with op CONTAINS', function(done){
+            docsets.filter('reference', filters.operators.CONTAINS, 'EaRc')
+                .execute()
+                .then(function(rows){
+                    expect(rows.length).toEqual(3);
+                    done();
+                });
+        });
     
         it('should combine filters', function() {
             var results = null;

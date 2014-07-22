@@ -2,6 +2,8 @@ exports.operators = {
 
     EQUALS: 'EQ',
 
-    IN: 'IN'
+    IN: 'IN',
+
+    CONTAINS: 'CONTAINS'
 
 };
