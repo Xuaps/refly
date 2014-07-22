@@ -17,7 +17,7 @@ module.exports=function(docset, base_url, toc_url, callback){
 				 		return slash_parser.processReferences(docset,url,html);
 				 	})
 				 	.then(function(refs){
-			 			docsets.addRefsRange(refs).execute();
+			 			return docsets.addRefsRange(refs).execute();
 			 		}));
 			});
 			return q.all(promises);

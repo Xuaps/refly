@@ -9,6 +9,7 @@
   "dependencies": {
     "cheerio": "^0.17.0",
     "coffee-resque": "^0.1.11",
+    "config": "^0.4.36",
     "express": "~3.3.4",
     "html-md": "^3.0.2",
     "jade": "~0.34.0",
