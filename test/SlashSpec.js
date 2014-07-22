@@ -55,12 +55,20 @@ describe('Slash', function() {
             });
 
         });
+
+        it('should return the docsets collection filtered with all references that contains the pattern searched', function(done) {
+            slash.search({
+                reference: 'aRc'
+            }).then(function(response) {
+                expect(response.length).toEqual(3);
+            }).fin(done);
+        });
     
     });
 
     describe('Get', function(){
 
-        it('should return the reference content', function(){
+        xit('should return the reference content', function(){
             var reference = null;
 
             waitsFor(function() {

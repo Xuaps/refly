@@ -14,6 +14,9 @@ Docsets.prototype.filter = function(field, operator, value) {
     if (operator == filters.operators.IN && value) {
         this._query = this._query.whereIn(field, value);
     }
+    if (operator == filters.operators.CONTAINS && value){
+        this._query = this._query.where(field, 'ilike', '%'+value+'%');
+    }
     return this;
 };
 
