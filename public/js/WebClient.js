@@ -29,7 +29,7 @@ var Result = {
 };
 
 $(function() {
-    var BASE_URL = 'http://endymion.cloudapp.net:3000';
+    var BASE_URL = '';
     var SUBMIT = 'input[type="submit"]';
     var REFERENCE = 'input[name="reference"]';
 
