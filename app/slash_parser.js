@@ -52,7 +52,7 @@ function createRef(docset,name, content, uri, parent){
 		ref.reference = name.match(/Event: '{0,1}(\w*)'{0,1}/)[1];
 		ref.type = "event";
 	}else if(/[\w.]*\([ \w.,\[\]]*\)/.test(name)){
-		ref.reference = name.match(/([\w.]*)\([ \w.,\[\]]*\)/)[1];
+		ref.reference = name.match(/([\w.]*\([ \w.,\[\]]*\))/)[1];
 		ref.type = "function";
 	}else{ 
 		ref.type = "module";

@@ -55,7 +55,7 @@ methods are also supported.\n\
                     },
                     {
                         docset: "Node.js v0.10.29",
-                        reference: 'cipher.update',
+                        reference: 'cipher.update(data, [input_encoding], [output_encoding])',
                         type: 'function',
                         content: "Updates the cipher with `data`, the encoding of which is given in\n\
 `input_encoding` and can be `'utf8'`, `'ascii'` or `'binary'`. If no\n\
