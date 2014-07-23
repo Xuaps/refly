@@ -4,6 +4,57 @@ var slash_parser = require('../app/slash_parser');
 
 describe('slash_parser',function(){
     describe('processReference', function(){
+        describe('generate reference name', function(){
+            it('should get a complete name for modules', function(done){
+
+                slash_parser.processReferences('juas', 'juas.html', 
+                    '<div id="apicontent">\
+                        <h1>File Modules<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
+                        <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
+                    </div>').then(function(refs){
+                        expect(refs[0].reference).toEqual('File Modules');
+                        done();
+                    });
+            });
+
+            it('should get a complete name for class with dots', function(done){
+
+                slash_parser.processReferences('juas', 'juas.html', 
+                    '<div id="apicontent">\
+                        <h1>Class: fs.WriteStream<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
+                        <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
+                    </div>').then(function(refs){
+                        expect(refs[0].reference).toEqual('fs.WriteStream');
+                        done();
+                    });
+            });
+
+            it('should get a complete name for functions', function(done){
+
+                slash_parser.processReferences('juas', 'juas.html', 
+                    '<div id="apicontent">\
+                        <h1>new Buffer(array)<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
+                        <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
+                    </div>').then(function(refs){
+                        expect(refs[0].reference).toEqual('new Buffer(array)');
+                        done();
+                    });
+            });
+
+            it('should get a complete name for a property', function(done){
+
+                slash_parser.processReferences('juas', 'juas.html', 
+                    '<div id="apicontent">\
+                        <h1>buffer.INSPECT_MAX_BYTES<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
+                        <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
+                    </div>').then(function(refs){
+                        expect(refs[0].reference).toEqual('buffer.INSPECT_MAX_BYTES');
+                        expect(refs[0].type).toEqual('property');
+                        done();
+                    });
+            });
+        });
+
         it('should get a references collection from html', function(){
             var references = null;
             var html = fs.readFileSync(__dirname+'/html/crypto_node.html', 'utf-8');

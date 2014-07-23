@@ -46,17 +46,20 @@ function createRef(docset,name, content, uri, parent){
 	var ref = {'docset': docset};
 
 	if(/Class: /.test(name)){
-		ref.reference = name.match(/Class: '{0,1}(\w*)'{0,1}/)[1];
+		ref.reference = name.match(/Class: '{0,1}([\w\.]*)'{0,1}/)[1];
 		ref.type = "class";
 	}else if(/Event: /.test(name)){
-		ref.reference = name.match(/Event: '{0,1}(\w*)'{0,1}/)[1];
+		ref.reference = name.match(/Event: '{0,1}([\w\.]*)'{0,1}/)[1];
 		ref.type = "event";
-	}else if(/[\w.]*\([ \w.,\[\]]*\)/.test(name)){
-		ref.reference = name.match(/([\w.]*\([ \w.,\[\]]*\))/)[1];
+	}else if(/[\w.|(new )]*\([ \w.,\[\]]*\)/.test(name)){
+		ref.reference = name.match(/([\w.|(new )]*\([ \w.,\[\]]*\))/)[1];
 		ref.type = "function";
+	}else if(/([\w]+\.[A-Z_]+)/.test(name)){
+		ref.reference = name.match(/([\w]+\.[A-Z_]+)/)[1];
+		ref.type = "property";
 	}else{ 
 		ref.type = "module";
-		ref.reference = name.match(/(\w*)/)[1];
+		ref.reference = name.match(/([\w ]*)/)[1];
 	}
 
 	ref.uri = uri;
