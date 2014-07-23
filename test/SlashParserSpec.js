@@ -22,7 +22,7 @@ describe('slash_parser',function(){
                         docset: "Node.js v0.10.29",
                         reference: 'Crypto',
                         type: 'module',
-                        content: "Stability: 2 - Unstable; API changes are being discussed for\n\
+                        content: "# Crypto[\\#][0]\n    \n    Stability: 2 - Unstable; API changes are being discussed for\n\
     future versions.  Breaking changes will be minimized.  See below.\n\
 \n\
 Use `require('crypto')` to access this module.\n\
@@ -31,33 +31,34 @@ The crypto module offers a way of encapsulating secure credentials to be\n\
 used as part of a secure HTTPS net or http connection.\n\
 \n\
 It also offers a set of wrappers for OpenSSL's hash, hmac, cipher,\n\
-decipher, sign and verify methods.",
+decipher, sign and verify methods.\n\n\n[0]: #crypto_crypto",
                         uri: 'crypto.html#crypto_crypto',
                         parent: null
                     },
-                    {
-                        docset: "Node.js v0.10.29",
-                        reference: 'Cipher',
-                        type: 'class',
-                        content: "Class for encrypting data.\n\
+                        {
+                            docset: "Node.js v0.10.29",
+                            reference: 'Cipher',
+                            type: 'class',
+                            content: "## Class: Cipher[\\#][0]\n\nClass for encrypting data.\n\
 \n\
 Returned by `crypto.createCipher` and `crypto.createCipheriv`.\n\
 \n\
-Cipher objects are [streams][0] that are both readable and\n\
+Cipher objects are [streams][1] that are both readable and\n\
 writable. The written plain text data is used to produce the\n\
 encrypted data on the readable side. The legacy `update` and `final`\n\
 methods are also supported.\n\
 \n\
 \n\
-[0]: stream.html",
-                        uri: 'crypto.html#crypto_class_cipher',
-                        parent: {docset: "Node.js v0.10.29", reference: "Crypto", type: "module"}
-                    },
+[0]: #crypto_class_cipher\n\
+[1]: stream.html",
+                            uri: 'crypto.html#crypto_class_cipher',
+                            parent: {docset: "Node.js v0.10.29", reference: "Crypto", type: "module"}
+                        },
                     {
                         docset: "Node.js v0.10.29",
                         reference: 'cipher.update(data, [input_encoding], [output_encoding])',
                         type: 'function',
-                        content: "Updates the cipher with `data`, the encoding of which is given in\n\
+                        content: "### cipher.update(data, \\[input\\_encoding\\], \\[output\\_encoding\\])[\\#][0]\n\nUpdates the cipher with `data`, the encoding of which is given in\n\
 `input_encoding` and can be `'utf8'`, `'ascii'` or `'binary'`. If no\n\
 encoding is provided, then a buffer is expected.\n\
 If `data` is a `Buffer` then `input_encoding` is ignored.\n\
@@ -67,7 +68,7 @@ data, and can be `'binary'`, `'base64'` or `'hex'`. If no encoding is\n\
 provided, then a buffer is returned.\n\
 \n\
 Returns the enciphered contents, and can be called many times with new\n\
-data as it is streamed.",
+data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_output_encoding",
                         uri: 'crypto.html#crypto_cipher_update_data_input_encoding_output_encoding',
                         parent: {docset: "Node.js v0.10.29", reference: "Cipher", type: "class"}
                     }

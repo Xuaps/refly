@@ -35,7 +35,7 @@ function processReferences(docset,url,html){
 			var data = $(element);
 			var uri = url+data.find('a').first().attr('href');
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(content), uri, getParent(docset,data));
+			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), uri, getParent(docset,data));
 			references.push(ref);	
 		});
 
