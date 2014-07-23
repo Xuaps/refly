@@ -24,7 +24,7 @@ var Result = {
     },
 
     show: function(result) {
-        $('#result').html(result.content);
+        $('#result').html(markdown.toHTML(result.content));
     }
 
 };
