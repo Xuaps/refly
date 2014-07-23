@@ -1,10 +1,13 @@
 var ResultList = {
 
     reset: function() {
-        $('#results').html('<tr><th>Docset</th><th>Reference</th><th>Type</th></tr>');
+        $('#results').html('');
     },
 
     add: function(result) {
+        if ($('#results').html() == '') {
+            $('#results').html('<tr><th>Docset</th><th>Reference</th><th>Type</th></tr>');
+        }
         $('#results').append(
             '<tr><td>' + result.docset +
             '</td><td>' + result.reference +
