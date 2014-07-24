@@ -103,7 +103,7 @@ methods are also supported.\n\
 [0]: #crypto_class_cipher\n\
 [1]: stream.html",
                             uri: 'crypto.html#crypto_class_cipher',
-                            parent: {docset: "Node.js v0.10.29", reference: "Crypto", type: "module"}
+                            parent: 'crypto.html#crypto_crypto'
                         },
                     {
                         docset: "Node.js v0.10.29",
@@ -121,7 +121,7 @@ provided, then a buffer is returned.\n\
 Returns the enciphered contents, and can be called many times with new\n\
 data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_output_encoding",
                         uri: 'crypto.html#crypto_cipher_update_data_input_encoding_output_encoding',
-                        parent: {docset: "Node.js v0.10.29", reference: "Cipher", type: "class"}
+                        parent: 'crypto.html#crypto_class_cipher'
                     }
                 ]);
             });
@@ -183,10 +183,10 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
             runs(function() {
                 expect(references.length).toEqual(10);
                 expect(references[0].parent).toBeNull();
-                expect(references[2].parent).toEqual({docset:'Node.js v0.10.29', reference:'TTY', type:'module'});
-                expect(references[5].parent).toEqual({docset:'Node.js v0.10.29', reference:'ReadStream', type:'class'});
-                expect(references[6].parent).toEqual({docset:'Node.js v0.10.29', reference:'TTY', type:'module'});
-                expect(references[8].parent).toEqual({docset:'Node.js v0.10.29', reference:'WriteStream', type:'class'});
+                expect(references[2].parent).toEqual('crypto.html#tty_tty');
+                expect(references[5].parent).toEqual('crypto.html#tty_class_readstream');
+                expect(references[6].parent).toEqual('crypto.html#tty_tty');
+                expect(references[8].parent).toEqual('crypto.html#tty_class_writestream');
             });
         });
     });

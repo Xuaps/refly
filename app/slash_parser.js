@@ -35,7 +35,7 @@ function processReferences(docset,url,html){
 			var data = $(element);
 			var uri = url+data.find('a').first().attr('href');
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), uri, getParent(docset,data));
+			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), uri, getParent(data, url));
 			references.push(ref);	
 		});
 
@@ -69,13 +69,13 @@ function createRef(docset,name, content, uri, parent){
 	return ref;
 };
 
-function getParent(docset,data){
+function getParent(data, url){
 	var tag = data['0'].name;
 	var tag_parent = 'h'+(tag[1]-1);
 	var prev = data.prevAll().filter(tag_parent);
 
 	if(prev.length>0){
-		return createRef(docset,prev.first().text());
+		return url+prev.find('a').first().attr('href');
 	}
 
 	return null;
