@@ -10,7 +10,7 @@ describe('/api/get', function() {
         });
 
         request('http://localhost:3000')
-            .get('/api/get/slash/function/search')
+            .get('/api/get/java/function/search')
             .end(function(err, res) {
                 if (err) {
                     throw err;
@@ -21,9 +21,10 @@ describe('/api/get', function() {
         runs(function() {
             expect(result.status).toEqual(200);
             expect(result.body.reference).toEqual('search');
-            expect(result.body.docset).toEqual('slash');
+            expect(result.body.docset).toEqual('java');
             expect(result.body.type).toEqual('function');
             expect(result.body.content).toEqual('This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}');
+            expect(result.body.uri).toEqual('test.html#test_3');
             expect(result.body.id).toBeUndefined();
         });
     });
