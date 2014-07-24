@@ -39,16 +39,18 @@ Docsets.prototype.execute = function() {
 Docsets.prototype.addRefsRange = function(refs) {
     var query='';
     refs.forEach(function(ref){
-        query+=util.format("\n\
-UPDATE refs SET content=$$%s$$, uri=$$%s$$ WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$;\
-INSERT INTO refs ( reference, type, docset, content, uri, parent_id)\
-SELECT $$%s$$, $$%s$$, $$%s$$, $$%s$$, $$%s$$,(SELECT id FROM refs WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$)\
-WHERE NOT EXISTS (SELECT 1 FROM refs WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$);\
-        ", ref.content, ref.uri, ref.reference, ref.type, ref.docset, 
-        ref.reference, ref.type,ref.docset,ref.content, ref.uri,
-        !ref.parent || ref.parent.reference, !ref.parent || ref.parent.type, !ref.parent || ref.parent.docset,
-        ref.reference, ref.type, ref.docset);
-    });
+            var where=ref.parent?
+                util.format("WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$ and parent_id=(SELECT id FROM refs where uri=$$%s$$)",
+                     ref.reference, ref.type,ref.docset,ref.parent)
+                : util.format("WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$ and parent_id is null",
+                     ref.reference, ref.type,ref.docset)
+            query+=util.format("\n\
+                    UPDATE refs SET content=$$%s$$, uri=$$%s$$ "+where+";\
+                    INSERT INTO refs ( reference, type, docset, content, uri, parent_id)\
+                    SELECT $$%s$$, $$%s$$, $$%s$$, $$%s$$, $$%s$$,(SELECT id FROM refs WHERE uri=$$%s$$)\
+                    WHERE NOT EXISTS (SELECT 1 FROM refs "+where+");"
+                    ,ref.content, ref.uri,ref.reference, ref.type,ref.docset,ref.content, ref.uri, ref.parent);
+        });
     this._query = db.raw(query);
     return this;
 };

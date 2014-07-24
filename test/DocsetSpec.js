@@ -140,7 +140,7 @@ describe('Docset', function() {
                     type: 'function',
                     docset: 'test',
                     content: 'juas',
-                    parent:{reference:name, docset:'test', type:'class'},
+                    parent:'test.html#test_' + name,
                     uri: 'test.html#test_2' + name
                     },
                     {reference: 'search',
@@ -199,6 +199,44 @@ describe('Docset', function() {
                 expect(rows[0].content).toEqual(content);
             }); 
         });
-    })
+
+        it('is overriding references with same type, name, and docset but different parent', function(done){
+            var ended = false;
+            var docs = new Docsets();
+            var name = randomstring.generate(7);
+            var count_after_add = 0;
+            var rows;
+
+            docsets.addRefsRange(
+            [
+                {reference: 'overriding'+name,
+                type: 'function',
+                docset: 'test',
+                content: '',
+                parent:'test.html#test_2',
+                uri: 'test.html#test2_' + randomstring.generate(20)
+                },
+                {reference: 'overriding'+name,
+                type: 'function',
+                docset: 'test',
+                content: '',
+                parent:'test.html#test_22',
+                uri: 'test.html#test2_' + randomstring.generate(20)
+                },
+            ]   
+            ).execute().then(function(res){
+                docs
+                    .filter('reference', filters.operators.EQUALS, 'overriding'+name)
+                    .filter('type', filters.operators.EQUALS, 'function')
+                    .filter('docset', filters.operators.EQUALS, 'test')
+                    .execute().then(
+                        function(result){
+                            expect(result.length).toEqual(2);
+                            done();                        
+                    });
+            });
+    
+        });
+    });
 }); 
 

@@ -35,7 +35,7 @@ function processReferences(docset,url,html){
 			var data = $(element);
 			var uri = url+data.find('a').first().attr('href');
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(content), uri, getParent(docset,data));
+			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), uri, getParent(data, url));
 			references.push(ref);	
 		});
 
@@ -46,17 +46,20 @@ function createRef(docset,name, content, uri, parent){
 	var ref = {'docset': docset};
 
 	if(/Class: /.test(name)){
-		ref.reference = name.match(/Class: '{0,1}(\w*)'{0,1}/)[1];
+		ref.reference = name.match(/Class: '{0,1}([\w\.]*)'{0,1}/)[1];
 		ref.type = "class";
 	}else if(/Event: /.test(name)){
-		ref.reference = name.match(/Event: '{0,1}(\w*)'{0,1}/)[1];
+		ref.reference = name.match(/Event: '{0,1}([\w\.]*)'{0,1}/)[1];
 		ref.type = "event";
-	}else if(/[\w.]*\([ \w.,\[\]]*\)/.test(name)){
-		ref.reference = name.match(/([\w.]*)\([ \w.,\[\]]*\)/)[1];
+	}else if(/[\w.|(new )]*\([ \w.,\[\]]*\)/.test(name)){
+		ref.reference = name.match(/([\w.|(new )]*\([ \w.,\[\]]*\))/)[1];
 		ref.type = "function";
+	}else if(/([\w]+\.[A-Z_]+)/.test(name)){
+		ref.reference = name.match(/([\w]+\.[A-Z_]+)/)[1];
+		ref.type = "property";
 	}else{ 
 		ref.type = "module";
-		ref.reference = name.match(/(\w*)/)[1];
+		ref.reference = name.match(/([\w ]*)/)[1];
 	}
 
 	ref.uri = uri;
@@ -66,13 +69,13 @@ function createRef(docset,name, content, uri, parent){
 	return ref;
 };
 
-function getParent(docset,data){
+function getParent(data, url){
 	var tag = data['0'].name;
 	var tag_parent = 'h'+(tag[1]-1);
 	var prev = data.prevAll().filter(tag_parent);
 
 	if(prev.length>0){
-		return createRef(docset,prev.first().text());
+		return url+prev.find('a').first().attr('href');
 	}
 
 	return null;
