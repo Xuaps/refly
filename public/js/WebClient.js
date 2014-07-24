@@ -47,7 +47,7 @@ $(function() {
     $(SUBMIT).click(function() {
         var reference = $(REFERENCE).val();
         $.ajax({
-            url: '/search?reference=' + reference,
+            url: '/api/search?reference=' + reference,
             method: 'get'
         }).done(function(results) {
             ResultList.reset();
@@ -62,7 +62,7 @@ $(function() {
     var reference = $('input[name="ref"]').val();
     if (docset != 'undefined') {
         $.ajax({
-            url: '/get/' + docset + '/' + type + '/' + reference,
+            url: '/api/get/' + docset + '/' + type + '/' + reference,
             method: 'get'
         }).done(function(result) {
             Result.show(result);

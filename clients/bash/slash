@@ -77,7 +77,7 @@ function get_query() {
     local server=$(get server)
     local port=$(get port)
 
-    local url="http://${server}:${port}/search?reference=${reference}"
+    local url="http://${server}:${port}/api/search?reference=${reference}"
 
     split $types ","
     for type in ${parts[@]}
@@ -107,7 +107,7 @@ function show_results() {
     then
         server=$(get server)
         port=$(get port)
-        url=$(echo $results | $json_parser '@uri "http://'${server}':'${port}'/get/\(.[0].docset)/\(.[0].type)/\(.[0].reference)"' | cut -d "\"" -f 2)
+        url=$(echo $results | $json_parser '@uri "http://'${server}':'${port}'/api/get/\(.[0].docset)/\(.[0].type)/\(.[0].reference)"' | cut -d "\"" -f 2)
         content=$(curl -s ${url} | $json_parser '.content' | cut -d "\"" -f 2)
         echo -e $content | $man_viewer -
     else

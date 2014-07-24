@@ -1,6 +1,6 @@
 var request = require('supertest');
 
-describe('/search', function() {
+describe('/api/search', function() {
 
     it('should return OK and the list of results for a succeeding query', function() {
         var result = null;
@@ -10,7 +10,7 @@ describe('/search', function() {
         });
 
         request('http://localhost:3000')
-            .get('/search?reference=search&types=function&types=class&docsets=slash')
+            .get('/api/search?reference=search&types=function&types=class&docsets=slash')
             .end(function(err, res) {
                 if (err) {
                     throw err;
@@ -41,7 +41,7 @@ describe('/search', function() {
             });
 
             request('http://localhost:3000')
-                .get('/search?reference=search&types=function&types=class')
+                .get('/api/search?reference=search&types=function&types=class')
                 .end(function(err, res) {
                     if (err) {
                         throw err;
@@ -69,7 +69,7 @@ describe('/search', function() {
             });
 
             request('http://localhost:3000')
-                .get('/search?reference=search&docsets=slash')
+                .get('/api/search?reference=search&docsets=slash')
                 .end(function(err, res) {
                     if (err) {
                         throw err;

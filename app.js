@@ -35,8 +35,8 @@ app.get('/show/:docset/:type/:reference', function(req, res) {
     reference: req.params.reference
   });
 });
-app.get('/search', docsets.search);
-app.get('/get/:docset/:type/:reference', docsets.get);
+app.get('/api/search', docsets.search);
+app.get('/api/get/:docset/:type/:reference', docsets.get);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

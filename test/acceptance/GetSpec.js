@@ -1,6 +1,6 @@
 var request = require('supertest');
 
-describe('/get', function() {
+describe('/api/get', function() {
 
     it('should return a reference with its content', function() {
         var result = null;
@@ -10,7 +10,7 @@ describe('/get', function() {
         });
 
         request('http://localhost:3000')
-            .get('/get/slash/function/search')
+            .get('/api/get/slash/function/search')
             .end(function(err, res) {
                 if (err) {
                     throw err;
