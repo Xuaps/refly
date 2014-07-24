@@ -27,10 +27,14 @@ var Result = {
     },
 
     show: function(result) {
+        var parts = [];
+        var url = '';
+        result.uri.split('/').forEach(function(part) {
+            url += '/' + part;
+            parts.push('<a href="' + url + '">' + part + '</a>');
+        });
         $('#breadcrumb').html(
-            '<a href="">' + result.docset + '</a> &gt; '
-            + '<a href="">' + result.type + '</a> &gt; '
-            + '<a href="">' + result.reference + '</a>'
+            parts.join(' &gt; ')
         );
         $('#result').html(markdown.toHTML(result.content));
     }
