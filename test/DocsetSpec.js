@@ -134,20 +134,20 @@ describe('Docset', function() {
                     type: 'class',
                     docset: 'test',
                     content: 'tachan',
-                    uri: 'test.html#test_' + name
+                    uri: 'test_' + name + '.html'
                     },
                     {reference: name,
                     type: 'function',
                     docset: 'test',
                     content: 'juas',
-                    parent:'test.html#test_' + name,
-                    uri: 'test.html#test_2' + name
+                    parent:'test_' + name + '.html',
+                    uri: 'test_2' + name + '.html'
                     },
                     {reference: 'search',
                     type: 'function',
                     docset: 'slash',
                     content: 'This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}',
-                    uri: 'test.html#test_22'
+                    uri: 'test_22.html'
                     }
                 ]   
                 ).execute().then(function(res){
@@ -179,7 +179,7 @@ describe('Docset', function() {
                     type: 'function',
                     docset: 'test',
                     content: content,
-                    uri: 'test.html#test_23'
+                    uri: 'test_23.html'
                     }
                 ]   
                 ).execute().then(function(res){
@@ -213,15 +213,15 @@ describe('Docset', function() {
                 type: 'function',
                 docset: 'test',
                 content: '',
-                parent:'test.html#test_2',
-                uri: 'test.html#test2_' + randomstring.generate(20)
+                parent:'test_2.html',
+                uri: 'test2_' + randomstring.generate(20) + '.html'
                 },
                 {reference: 'overriding'+name,
                 type: 'function',
                 docset: 'test',
                 content: '',
-                parent:'test.html#test_22',
-                uri: 'test.html#test2_' + randomstring.generate(20)
+                parent:'test_22.html',
+                uri: 'test2_' + randomstring.generate(20) + '.html'
                 },
             ]   
             ).execute().then(function(res){

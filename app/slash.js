@@ -15,9 +15,7 @@ exports.get = function(identity){
 	
 	docsets = new Docsets();
 	return docsets
-        .filter('docset', filters.operators.EQUALS, identity.docset)
-        .filter('reference', filters.operators.EQUALS, identity.reference)
-        .filter('type', filters.operators.EQUALS, identity.type)
+        .filter('uri', filters.operators.EQUALS, identity)
         .select(['docset', 'reference', 'type', 'content', 'uri'])
         .execute().then(function(references) {
             return references[0];

@@ -7,7 +7,7 @@ exports.search = function(req, res) {
 };
 
 exports.get = function(req, res) {
-    slash.get(req.params).then(function(references) {
+    slash.get(req.params.uri).then(function(references) {
         res.send(references);
     });
 };

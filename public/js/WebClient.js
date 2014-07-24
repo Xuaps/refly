@@ -57,12 +57,10 @@ $(function() {
         });
     });
 
-    var docset = $('input[name="docset"]').val();
-    var type = $('input[name="type"]').val();
-    var reference = $('input[name="ref"]').val();
-    if (docset != 'undefined') {
+    var uri = $('input[name="uri"]').val();
+    if (uri != 'undefined') {
         $.ajax({
-            url: '/api/get/' + docset + '/' + type + '/' + reference,
+            url: '/api/get/' + uri,
             method: 'get'
         }).done(function(result) {
             Result.show(result);
