@@ -7,7 +7,7 @@ exports.search = function(options) {
         .filter('docset', filters.operators.IN, options.docsets)
         .filter('reference', filters.operators.CONTAINS, options.reference)
         .filter('type', filters.operators.IN, options.types)
-        .select(['docset', 'reference', 'type'])
+        .select(['docset', 'reference', 'type', 'uri'])
         .execute();
 };
 

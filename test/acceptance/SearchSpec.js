@@ -10,7 +10,7 @@ describe('/api/search', function() {
         });
 
         request('http://localhost:3000')
-            .get('/api/search?reference=search&types=function&types=class&docsets=slash')
+            .get('/api/search?reference=search&types=function&types=class&docsets=java')
             .end(function(err, res) {
                 if (err) {
                     throw err;
@@ -23,8 +23,9 @@ describe('/api/search', function() {
             expect(result.body.length).toBeGreaterThan(0);
             result.body.forEach(function(reference) {
                 expect(reference.reference).toEqual('search');
-                expect(reference.docset).toEqual('slash');
+                expect(reference.docset).toEqual('java');
                 expect(reference.type).toEqual('function');
+                expect(reference.uri).toEqual('test.html#test_3');
                 expect(reference.content).toBeUndefined();
                 expect(reference.id).toBeUndefined();
             });
@@ -55,6 +56,7 @@ describe('/api/search', function() {
                 result.body.forEach(function(reference) {
                     expect(reference.reference).toEqual('search');
                     expect(reference.type).toEqual('function');
+                    expect(reference.uri).not.toBeUndefined()
                     expect(reference.content).toBeUndefined();
                     expect(reference.id).toBeUndefined();
                 });
@@ -83,6 +85,7 @@ describe('/api/search', function() {
                 result.body.forEach(function(reference) {
                     expect(reference.reference).toEqual('search');
                     expect(reference.docset).toEqual('slash');
+                    expect(reference.uri).not.toBeUndefined()
                     expect(reference.content).toBeUndefined();
                     expect(reference.id).toBeUndefined();
                 });
