@@ -28,7 +28,7 @@ app.configure('development', function(){
 app.get('/', function(req, res) {
   res.render('index', {});
 });
-app.get('/show/:docset/:type/:reference', function(req, res) {
+app.get('/:docset/:type/:reference', function(req, res) {
   res.render('index', {
     docset: req.params.docset,
     type: req.params.type,
