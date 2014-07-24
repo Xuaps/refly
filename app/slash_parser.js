@@ -33,17 +33,43 @@ function processReferences(docset,url,html){
 		.find(':header')
 		.each(function(index, element){
 			var data = $(element);
-			var uri = url+data.find('a').first().attr('href');
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), uri, getParent(data, url));
+			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getParentUrl(data));
 			references.push(ref);	
 		});
 
 	return references;
 };
 
-function createRef(docset,name, content, uri, parent){
-	var ref = {'docset': docset};
+function getParentUrl(data){
+	var url='';
+	for(var prev = data.prevAll().filter(calculateParentTag(data)); 
+			prev.length>0;prev=prev.prevAll().filter(calculateParentTag(prev))){
+		
+		url='/'+parseReference(prev.text()).reference+url;
+	}
+
+	return url.toLowerCase();
+};
+
+function calculateParentTag(data){
+	var tag = data['0'].name;
+	return tag_parent = 'h'+(tag[1]-1);
+};
+
+function createRef(docset,name, content, parent){
+	var ref = parseReference(name);
+
+	ref.docset = docset;
+	ref.parent = parent==''? null : docset.toLowerCase() + parent;
+	ref.uri = (ref.parent || docset.toLowerCase()) + '/' + ref.reference.toLowerCase();
+	ref.content = content===undefined?undefined:md(content);
+
+	return ref;
+};
+
+function parseReference(name){
+	var ref = {};
 
 	if(/Class: /.test(name)){
 		ref.reference = name.match(/Class: '{0,1}([\w\.]*)'{0,1}/)[1];
@@ -62,21 +88,5 @@ function createRef(docset,name, content, uri, parent){
 		ref.reference = name.match(/([\w ]*)/)[1];
 	}
 
-	ref.uri = uri;
-	ref.content = content===undefined?undefined:md(content);
-	ref.parent = parent;
-
 	return ref;
-};
-
-function getParent(data, url){
-	var tag = data['0'].name;
-	var tag_parent = 'h'+(tag[1]-1);
-	var prev = data.prevAll().filter(tag_parent);
-
-	if(prev.length>0){
-		return url+prev.find('a').first().attr('href');
-	}
-
-	return null;
-};
+}

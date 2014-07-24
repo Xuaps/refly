@@ -83,7 +83,7 @@ used as part of a secure HTTPS net or http connection.\n\
 \n\
 It also offers a set of wrappers for OpenSSL's hash, hmac, cipher,\n\
 decipher, sign and verify methods.\n\n\n[0]: #crypto_crypto",
-                        uri: 'crypto.html#crypto_crypto',
+                        uri: 'node.js v0.10.29/crypto',
                         parent: null
                     },
                         {
@@ -102,8 +102,8 @@ methods are also supported.\n\
 \n\
 [0]: #crypto_class_cipher\n\
 [1]: stream.html",
-                            uri: 'crypto.html#crypto_class_cipher',
-                            parent: 'crypto.html#crypto_crypto'
+                            uri: 'node.js v0.10.29/crypto/cipher',
+                            parent: 'node.js v0.10.29/crypto'
                         },
                     {
                         docset: "Node.js v0.10.29",
@@ -120,8 +120,8 @@ provided, then a buffer is returned.\n\
 \n\
 Returns the enciphered contents, and can be called many times with new\n\
 data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_output_encoding",
-                        uri: 'crypto.html#crypto_cipher_update_data_input_encoding_output_encoding',
-                        parent: 'crypto.html#crypto_class_cipher'
+                        uri: 'node.js v0.10.29/crypto/cipher/cipher.update(data, [input_encoding], [output_encoding])',
+                        parent: 'node.js v0.10.29/crypto/cipher'
                     }
                 ]);
             });
@@ -183,10 +183,10 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
             runs(function() {
                 expect(references.length).toEqual(10);
                 expect(references[0].parent).toBeNull();
-                expect(references[2].parent).toEqual('crypto.html#tty_tty');
-                expect(references[5].parent).toEqual('crypto.html#tty_class_readstream');
-                expect(references[6].parent).toEqual('crypto.html#tty_tty');
-                expect(references[8].parent).toEqual('crypto.html#tty_class_writestream');
+                expect(references[2].parent).toEqual('node.js v0.10.29/tty');
+                expect(references[5].parent).toEqual('node.js v0.10.29/tty/readstream');
+                expect(references[6].parent).toEqual('node.js v0.10.29/tty');
+                expect(references[8].parent).toEqual('node.js v0.10.29/tty/writestream');
             });
         });
     });
