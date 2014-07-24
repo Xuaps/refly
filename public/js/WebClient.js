@@ -27,6 +27,11 @@ var Result = {
     },
 
     show: function(result) {
+        $('#breadcrumb').html(
+            '<a href="">' + result.docset + '</a> &gt; '
+            + '<a href="">' + result.type + '</a> &gt; '
+            + '<a href="">' + result.reference + '</a>'
+        );
         $('#result').html(markdown.toHTML(result.content));
     }
 

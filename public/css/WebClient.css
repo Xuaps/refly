@@ -14,7 +14,6 @@ fieldset {
     padding: 15px;
     border-radius: 10px;
     background-color: #666;
-    z-index: 0;
 }
 header {
     background-color: #7163A8;
@@ -33,9 +32,20 @@ h1 {
     line-height: 100px;
     height: 100px;
 }
-#result {
+body {
+    margin-top: 120px;
+}
+p {
     width: 100%;
     float: left;
     padding: 1em;
-    margin-top: 100px;
+}
+#breadcrumb {
+    float: none;
+    width: 50%;
+    margin: 10px auto;
+    border: 2px dashed gray;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #aaa;
 }
