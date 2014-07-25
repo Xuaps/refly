@@ -195,8 +195,14 @@ describe('Docset', function() {
                 });
 
             runs(function() {
-                expect(rows.length).toEqual(1);
-                expect(rows[0].content).toEqual(content);
+                expect(rows.length).toBeGreaterThan(0);
+                var found = false;
+                rows.forEach(function(row) {
+                    if (row.content == content) {
+                        found = true;
+                    }
+                });
+                expect(found).toBeTruthy();
             }); 
         });
 

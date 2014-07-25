@@ -19,6 +19,46 @@ var ResultList = {
 
 };
 
+var TreeView = {
+
+    reset: function() {
+        $('#tree-view').html('<h2>Tree View</h2>');
+    },
+
+    _printItem: function(text, indent, item, current) {
+        var cssClass = (current == item.uri) ? 'current' : '';
+        return text + indent + ' +- <a href="' + item.uri + '" class="' + cssClass + '">' + item.name + '</a>\n';
+    },
+
+    _printNode: function(text, indent, node, current) {
+        var name = node.uri.split('/').slice(-1);
+        text = TreeView._printItem(text, indent, { name: name, uri: node.uri }, current);
+        if (node.children) {
+            node.children.forEach(function(child) {
+                text = TreeView._printNode(text, indent + '    ', child, current);
+            });
+        }
+        return text;
+    },
+
+    show: function(node, current) {
+        TreeView.reset();
+        var content = $('#tree-view').html() + '<pre>';
+        var indent = '';
+        var parents = node.uri.substring(1).split('/').slice(0, -1);
+        var url = '';
+        parents.forEach(function(text) {
+            url += '/' + text;
+            content = TreeView._printItem(content, indent, { name: text, uri: url }, current);
+            indent += '    ';
+        });
+        content = TreeView._printNode(content, indent, node, current);
+        content += '</pre>';
+        $('#tree-view').html(content);
+    }
+
+};
+
 var Breadcrumb = {
 
     reset: function() {
@@ -28,7 +68,7 @@ var Breadcrumb = {
     show: function(data) {
         var parts = [];
         data.forEach(function(item) {
-            parts.push('<a href="' + item.url + '">' + item.text + '</a>');
+            parts.push('<a href="' + item.uri + '">' + item.text + '</a>');
         });
         $('#breadcrumb').css('display', 'block');
         $('#breadcrumb').html(
@@ -44,18 +84,32 @@ var Result = {
         $('#result').html('');
     },
 
-    show: function(result) {
-        var parts = [];
+    show: function(reference) {
+        var parents = [];
         var url = '';
-        result.uri.split('/').forEach(function(part) {
+        reference.uri.substring(1).split('/').forEach(function(part) {
             url += '/' + part;
-            parts.push({
-                url: url,
+            parents.push({
+                uri: url,
                 text: part
             });
         });
-        Breadcrumb.show(parts);
-        $('#result').html(markdown.toHTML(result.content));
+        Breadcrumb.show(parents);
+
+        var parent_uri = reference.uri.split('/').slice(0, -1).join('/');
+        $.ajax({
+            url: '/api/get' + parent_uri,
+            method: 'get'
+        }).done(function(theParent) {
+            $.ajax({
+                url: '/api/children' + parent_uri,
+                method: 'get'
+            }).done(function(children) {
+                theParent.children = children;
+                TreeView.show(theParent, reference.uri);
+            });
+        });
+        $('#result').html(markdown.toHTML(reference.content));
     }
 
 };
@@ -65,6 +119,7 @@ $(function() {
     var REFERENCE = 'input[name="reference"]';
 
     Breadcrumb.reset();
+    TreeView.reset();
     ResultList.reset();
     Result.reset();
 

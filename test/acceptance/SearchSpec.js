@@ -25,7 +25,7 @@ describe('/api/search', function() {
                 expect(reference.reference).toEqual('search');
                 expect(reference.docset).toEqual('java');
                 expect(reference.type).toEqual('function');
-                expect(reference.uri).toEqual('test_3.html');
+                expect(reference.uri).toEqual('/test_3.html');
                 expect(reference.content).toBeUndefined();
                 expect(reference.id).toBeUndefined();
             });

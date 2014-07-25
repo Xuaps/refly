@@ -11,3 +11,12 @@ exports.get = function(req, res) {
         res.send(references);
     });
 };
+
+exports.children = function(req, res) {
+    slash.get_id(req.params.uri).then(function(id) {
+        slash.children(id).then(function(references) {
+            res.send(references);
+        });
+    });
+};
+

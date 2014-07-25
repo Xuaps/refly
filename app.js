@@ -36,6 +36,7 @@ app.get('/js/:path(*)', function(req, res) {
 });
 app.get('/api/search', docsets.search);
 app.get('/api/get/:uri(*)', docsets.get);
+app.get('/api/children/:uri(*)', docsets.children);
 app.get('/:uri(*)', function(req, res) {
   res.render('index', { uri: req.params.uri });
 });

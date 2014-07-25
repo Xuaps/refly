@@ -24,7 +24,7 @@ describe('/api/get', function() {
             expect(result.body.docset).toEqual('java');
             expect(result.body.type).toEqual('function');
             expect(result.body.content).toEqual('This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}');
-            expect(result.body.uri).toEqual('test_3.html');
+            expect(result.body.uri).toEqual('/test_3.html');
             expect(result.body.id).toBeUndefined();
         });
     });

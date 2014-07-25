@@ -6,6 +6,9 @@ body, fieldset, p {
 body {
     background-color: #ccc;
 }
+div {
+    box-sizing: border-box;
+}
 fieldset {
     float: right;
     margin-right: 20px;
@@ -35,11 +38,6 @@ h1 {
 body {
     margin-top: 120px;
 }
-p {
-    width: 100%;
-    float: left;
-    padding: 1em;
-}
 #breadcrumb {
     float: none;
     width: 50%;
@@ -48,4 +46,23 @@ p {
     padding: 15px;
     border-radius: 10px;
     background-color: #aaa;
+}
+#tree-view {
+    float: left;
+    width: 25%;
+    background-color: #aaa;
+    border: 3px dotted #888;
+}
+#tree-view a {
+    color: #3E3EBD;
+    text-decoration: none;
+}
+#tree-view a:hover, #tree-view a.current {
+    color: #272769;
+    text-decoration: underline;
+}
+#result {
+    width: 75%;
+    float: left;
+    padding: 1em;
 }
