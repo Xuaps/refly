@@ -57,6 +57,7 @@ function processReferences(docset,uri,html){
 			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
 			references.push(ref);	
 			links[data.find('a').first().attr('href')] = ref.uri;
+			links[uri+data.find('a').first().attr('href')] = ref.uri;
 			if(ref.parent === null){
 				links[uri] = ref.uri;
 			}

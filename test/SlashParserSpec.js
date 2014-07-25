@@ -73,6 +73,7 @@ describe('slash_parser',function(){
 
             slash_parser.processReferences('Node.js v0.10.29', 'crypto_node.html', html).then(function(result){
                 expect(result.links['#crypto_class_cipher']).toEqual('/node.js%20v0.10.29/crypto/cipher');
+                expect(result.links['crypto_node.html#crypto_class_cipher']).toEqual('/node.js%20v0.10.29/crypto/cipher');
                 expect(result.links['crypto_node.html']).toEqual('/node.js%20v0.10.29/crypto');
                 done();
             });
