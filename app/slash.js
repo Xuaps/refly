@@ -29,7 +29,7 @@ exports.get_id = function(identity){
         .filter('uri', filters.operators.EQUALS, identity)
         .select(['id'])
         .execute().then(function(references) {
-            return references[0].id;
+            return (references.length > 0) ? references[0].id : null;
         });
 }
 

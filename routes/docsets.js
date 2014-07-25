@@ -14,9 +14,13 @@ exports.get = function(req, res) {
 
 exports.children = function(req, res) {
     slash.get_id(req.params.uri).then(function(id) {
-        slash.children(id).then(function(references) {
-            res.send(references);
-        });
+        if (id == null) {
+            res.send([]);
+        } else {
+            slash.children(id).then(function(references) {
+                res.send(references);
+            });
+        }
     });
 };
 

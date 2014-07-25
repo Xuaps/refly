@@ -33,4 +33,27 @@ describe('/api/children', function() {
         });
     });
     
+    it('should return OK and an empty list of results if querying for an unexisting parent', function() {
+        var result = null;
+
+        waitsFor(function() {
+            return result != null;
+        });
+
+        request('http://localhost:3000')
+            .get('/api/children/this_should_be_an_unexisting_uri.html')
+            .end(function(err, res) {
+                if (err) {
+                    throw err;
+                }
+                result = res;
+            });
+
+        runs(function() {
+            expect(result.status).toEqual(200);
+
+            expect(result.body.length).toEqual(0);
+        });
+    });
+    
 });
