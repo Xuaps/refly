@@ -25,8 +25,15 @@ var TreeView = {
         $('#tree-view').html('<h2>Tree View</h2>');
     },
 
+    _isFirstLevel: function(indent) {
+        return indent == '';
+    },
+
     _printItem: function(text, indent, item, current) {
         var cssClass = (current == item.uri) ? 'current' : '';
+        if (TreeView._isFirstLevel(indent)) {
+            return text + indent + ' +- ' + item.name + '\n';
+        }
         return text + indent + ' +- <a href="' + item.uri + '" class="' + cssClass + '">' + item.name + '</a>\n';
     },
 
@@ -100,26 +107,26 @@ var Result = {
         Breadcrumb.show(parents);
 
         var parent_uri = reference.uri.split('/').slice(0, -1).join('/');
+        var theParent = { uri: parent_uri };
         $.ajax({
-            url: '/api/get' + parent_uri,
+            url: '/api/children' + parent_uri,
             method: 'get'
-        }).done(function(theParent) {
+        }).done(function(siblings) {
             $.ajax({
-                url: '/api/children' + parent_uri,
+                url: '/api/children' + reference.uri,
                 method: 'get'
-            }).done(function(siblings) {
-                $.ajax({
-                    url: '/api/children' + reference.uri,
-                    method: 'get'
-                }).done(function(children) {
+            }).done(function(children) {
+                if (siblings.length > 0) {
                     theParent.children = siblings;
-                    theParent.children.forEach(function(node) {
-                        if (node.uri == reference.uri) {
-                            node.children = children;
-                        }
-                    });
-                    TreeView.show(theParent, reference.uri);
+                } else {
+                    theParent.children = [ reference ];
+                }
+                theParent.children.forEach(function(node) {
+                    if (node.uri == reference.uri) {
+                        node.children = children;
+                    }
                 });
+                TreeView.show(theParent, reference.uri);
             });
         });
         $('#result').html(markdown.toHTML(reference.content));
