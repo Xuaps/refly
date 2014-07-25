@@ -19,6 +19,25 @@ var ResultList = {
 
 };
 
+var Breadcrumb = {
+
+    reset: function() {
+        $('#breadcrumb').css('display', 'none');
+    },
+
+    show: function(data) {
+        var parts = [];
+        data.forEach(function(item) {
+            parts.push('<a href="' + item.url + '">' + item.text + '</a>');
+        });
+        $('#breadcrumb').css('display', 'block');
+        $('#breadcrumb').html(
+            parts.join(' &gt; ')
+        );
+    }
+
+};
+
 var Result = {
 
     reset: function() {
@@ -30,11 +49,12 @@ var Result = {
         var url = '';
         result.uri.split('/').forEach(function(part) {
             url += '/' + part;
-            parts.push('<a href="' + url + '">' + part + '</a>');
+            parts.push({
+                url: url,
+                text: part
+            });
         });
-        $('#breadcrumb').html(
-            parts.join(' &gt; ')
-        );
+        Breadcrumb.show(parts);
         $('#result').html(markdown.toHTML(result.content));
     }
 
@@ -44,6 +64,7 @@ $(function() {
     var SUBMIT = 'input[type="submit"]';
     var REFERENCE = 'input[name="reference"]';
 
+    Breadcrumb.reset();
     ResultList.reset();
     Result.reset();
 
