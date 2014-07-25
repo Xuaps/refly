@@ -21,7 +21,7 @@ function processContentLinks(references, links){
 		while(match!=null){
 			if(links[match[1]])
 				ref.content = ref.content.replace(match[1], links[match[1]]);
-			
+
 			match = myRegex.exec(ref.content);
 		}
 	});
@@ -107,8 +107,8 @@ function parseReference(name){
 	}else if(/[\w.|(new )]*\([ \w.,\[\]]*\)/.test(name)){
 		ref.reference = name.match(/([\w.|(new )]*\([ \w.,\[\]]*\))/)[1];
 		ref.type = "function";
-	}else if(/([\w]+\.[A-Z_]+)/.test(name)){
-		ref.reference = name.match(/([\w]+\.[A-Z_]+)/)[1];
+	}else if(/([\w]+\.[a-zA-Z_]+)/.test(name)){
+		ref.reference = name.match(/([\w]+\.[a-zA-Z_]+)/)[1];
 		ref.type = "property";
 	}else{ 
 		ref.type = "module";

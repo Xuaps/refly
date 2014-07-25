@@ -53,6 +53,19 @@ describe('slash_parser',function(){
                         done();
                     });
             });
+
+            it('should get a complete name for a property -  another example', function(done){
+
+                slash_parser.processReferences('juas', 'juas.html',
+                    '<div id="apicontent">\
+                        <h1>http.IncomingMessage<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
+                        <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
+                    </div>').then(function(res){
+                        expect(res.references[0].reference).toEqual('http.IncomingMessage');
+                        expect(res.references[0].type).toEqual('property');
+                        done();
+                    });
+            });
         });
 
         it('should get a links collection from html', function(done){
