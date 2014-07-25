@@ -107,9 +107,19 @@ var Result = {
             $.ajax({
                 url: '/api/children' + parent_uri,
                 method: 'get'
-            }).done(function(children) {
-                theParent.children = children;
-                TreeView.show(theParent, reference.uri);
+            }).done(function(siblings) {
+                $.ajax({
+                    url: '/api/children' + reference.uri,
+                    method: 'get'
+                }).done(function(children) {
+                    theParent.children = siblings;
+                    theParent.children.forEach(function(node) {
+                        if (node.uri == reference.uri) {
+                            node.children = children;
+                        }
+                    });
+                    TreeView.show(theParent, reference.uri);
+                });
             });
         });
         $('#result').html(markdown.toHTML(reference.content));
