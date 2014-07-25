@@ -9,6 +9,14 @@ body {
 div {
     box-sizing: border-box;
 }
+a {
+    color: #3E3EBD;
+    text-decoration: none;
+}
+a:hover, a.current {
+    color: #272769;
+    text-decoration: underline;
+}
 fieldset {
     float: right;
     margin-right: 20px;
@@ -52,14 +60,6 @@ body {
     width: 25%;
     background-color: #aaa;
     border: 3px dotted #888;
-}
-#tree-view a {
-    color: #3E3EBD;
-    text-decoration: none;
-}
-#tree-view a:hover, #tree-view a.current {
-    color: #272769;
-    text-decoration: underline;
 }
 #result {
     width: 75%;

@@ -68,7 +68,8 @@ var Breadcrumb = {
     show: function(data) {
         var parts = [];
         data.forEach(function(item) {
-            parts.push('<a href="' + item.uri + '">' + item.text + '</a>');
+            var cssClass = item.current ? 'current' : '';
+            parts.push('<a href="' + item.uri + '" class="' + cssClass + '">' + item.text + '</a>');
         });
         $('#breadcrumb').css('display', 'block');
         $('#breadcrumb').html(
@@ -91,9 +92,11 @@ var Result = {
             url += '/' + part;
             parents.push({
                 uri: url,
-                text: part
+                text: part,
+                current: false
             });
         });
+        parents[parents.length - 1].current = true;
         Breadcrumb.show(parents);
 
         var parent_uri = reference.uri.split('/').slice(0, -1).join('/');
