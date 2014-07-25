@@ -12,8 +12,7 @@ var ResultList = {
             '<tr><td>' + result.docset +
             '</td><td>' + result.reference +
             '</td><td>' + result.type +
-            '</td><td><a href="/' + result.docset + '/' + result.type + '/'
-                + result.reference + '">Show</a></td></tr>'
+            '</td><td><a href="' + result.uri + '">Show</a></td></tr>'
         );
         return $('#results tr:last-child');
     }
