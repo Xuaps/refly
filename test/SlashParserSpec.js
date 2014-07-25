@@ -7,51 +7,61 @@ describe('slash_parser',function(){
         describe('generate reference name', function(){
             it('should get a complete name for modules', function(done){
 
-                slash_parser.processReferences('juas', 
+                slash_parser.processReferences('juas', 'juas.html',
                     '<div id="apicontent">\
                         <h1>File Modules<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
                     </div>').then(function(res){
-                        expect(res[0].reference).toEqual('File Modules');
+                        expect(res.references[0].reference).toEqual('File Modules');
                         done();
                     });
             });
 
             it('should get a complete name for class with dots', function(done){
 
-                slash_parser.processReferences('juas', 
+                slash_parser.processReferences('juas', 'juas.html',
                     '<div id="apicontent">\
                         <h1>Class: fs.WriteStream<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
                     </div>').then(function(res){
-                        expect(res[0].reference).toEqual('fs.WriteStream');
+                        expect(res.references[0].reference).toEqual('fs.WriteStream');
                         done();
                     });
             });
 
             it('should get a complete name for functions', function(done){
 
-                slash_parser.processReferences('juas', 
+                slash_parser.processReferences('juas', 'juas.html',
                     '<div id="apicontent">\
                         <h1>new Buffer(array)<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
                     </div>').then(function(res){
-                        expect(res[0].reference).toEqual('new Buffer(array)');
+                        expect(res.references[0].reference).toEqual('new Buffer(array)');
                         done();
                     });
             });
 
             it('should get a complete name for a property', function(done){
 
-                slash_parser.processReferences('juas', 
+                slash_parser.processReferences('juas', 'juas.html',
                     '<div id="apicontent">\
                         <h1>buffer.INSPECT_MAX_BYTES<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
                     </div>').then(function(res){
-                        expect(res[0].reference).toEqual('buffer.INSPECT_MAX_BYTES');
-                        expect(res[0].type).toEqual('property');
+                        expect(res.references[0].reference).toEqual('buffer.INSPECT_MAX_BYTES');
+                        expect(res.references[0].type).toEqual('property');
                         done();
                     });
+            });
+        });
+
+        it('should get a links collection from html', function(done){
+            var html = fs.readFileSync(__dirname+'/html/crypto_node.html', 'utf-8');
+
+            slash_parser.processReferences('Node.js v0.10.29', 'crypto_node.html', html).then(function(result){
+                expect(result.links['#crypto_class_cipher']).toEqual('/node.js%20v0.10.29/crypto/cipher');
+                expect(result.links['crypto_node.html']).toEqual('/node.js%20v0.10.29/crypto');
+                done();
             });
         });
 
@@ -63,8 +73,8 @@ describe('slash_parser',function(){
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29',html).then(function(result) {
-                references = result;
+            slash_parser.processReferences('Node.js v0.10.29', 'crypto_node.html',html).then(function(result) {
+                references = result.references;
             });
 
             runs(function() {
@@ -135,8 +145,8 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
-                references = result;
+            slash_parser.processReferences('Node.js v0.10.29', 'tty_node.html', html).then(function(result) {
+                references = result.references;
             });
 
             runs(function() {
@@ -156,8 +166,8 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29',  html).then(function(result) {
-                references = result;
+            slash_parser.processReferences('Node.js v0.10.29', 'tty_node.html', html).then(function(result) {
+                references = result.references;
             });
 
             runs(function() {
@@ -176,8 +186,8 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
-                references = result;
+            slash_parser.processReferences('Node.js v0.10.29', 'tty_node.html', html).then(function(result) {
+                references = result.references;
             });
 
             runs(function() {
@@ -208,6 +218,33 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 expect(urls.length).toEqual(36);
                 expect(urls[3]).toEqual('buffer.html');
                 expect(urls[35]).toEqual('zlib.html');
+            });
+        });
+    });
+
+    describe('processContentLinks', function(){
+        it('should replace all original links with slash generated links', function(done){
+            var references = [{content:'## Class: Cipher[\\#][0]\n\nClass for encrypting data.\n\
+\n\
+Returned by `crypto.createCipher` and `crypto.createCipheriv`.\n\
+\n\
+Cipher objects are [streams][1] that are both readable and\n\
+writable. The written plain text data is used to produce the\n\
+encrypted data on the readable side. The legacy `update` and `final`\n\
+methods are also supported.\n\
+\n\
+\n\
+[0]: #crypto_class_cipher\n\
+[1]: stream.html\n\
+[2]: http://xuaps.com'}];
+            var links = {'#crypto_class_cipher':'node.js v0.10.29/crypto/cipher',
+                        'stream.html':'juas'};
+
+            slash_parser.processContentLinks(references, links).then(function(references){
+                expect(references[0].content).not.toContain('[0]: #crypto_class_cipher');
+                expect(references[0].content).toContain('[0]: node.js v0.10.29/crypto/cipher');
+                expect(references[0].content).toContain('[2]: http://xuaps.com');
+                done();
             });
         });
     });

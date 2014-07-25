@@ -14,13 +14,27 @@ module.exports=function(docset, base_url, toc_url, callback){
 				promises.push(
 				 request(base_url+'/'+url)
 				 	.then(function(html){
-				 		return slash_parser.processReferences(docset, html);
-				 	})
-				 	.then(function(refs){
-			 			return docsets.addRefsRange(refs).execute();
-			 		}));
+				 		return slash_parser.processReferences(docset, url, html);
+				 	}));
 			});
 			return q.all(promises);
+		})
+		.then(function(arg){
+			var references = arg.reduce(function(previousValue, currentValue, index, array){
+			  return previousValue.concat(currentValue.references);
+			},[]);
+			var links = arg.reduce(function(previousValue, currentValue, index, array){
+				debugger;
+			  for(property in currentValue.links){
+			  	previousValue[property] = currentValue.links[property];
+			  }
+			  return previousValue;
+			},{});
+
+			return slash_parser.processContentLinks(references, links);
+		})
+		.then(function(references){
+			return docsets.addRefsRange(references).execute();
 		})
 		.then(callback)
 		.fail(function(error){

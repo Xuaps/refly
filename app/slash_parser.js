@@ -10,6 +10,25 @@ exports.processToc = function(html){
 	return q.fcall(processToc, html);
 };
 
+exports.processContentLinks = function(references, links){
+	return q.fcall(processContentLinks, references, links);
+}
+
+function processContentLinks(references, links){
+	references.map(function(ref){
+		var myRegex = /\[\d*\]: (.*)/g;
+		var match = myRegex.exec(ref.content);
+		while(match!=null){
+			if(links[match[1]])
+				ref.content = ref.content.replace(match[1], links[match[1]]);
+			
+			match = myRegex.exec(ref.content);
+		}
+	});
+
+	return references;
+}
+
 function processToc(html){
 	var $ = cheerio.load(html);
 	var urls = [];
@@ -24,9 +43,10 @@ function processToc(html){
 	return urls;
 };
 
-function processReferences(docset, html){
+function processReferences(docset,uri,html){
 	var $ = cheerio.load(html);
 	var references = [];
+	var links = {};
 	var parent = null;
 	
 	$('#apicontent')
@@ -36,9 +56,13 @@ function processReferences(docset, html){
 			var content = data.nextUntil(':header');
 			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
 			references.push(ref);	
+			links[data.find('a').first().attr('href')] = ref.uri;
+			if(ref.parent === null){
+				links[uri] = ref.uri;
+			}
 		});
 
-	return references;
+	return {'references':references, 'links':links};
 };
 
 function getUrl(docset, data){
