@@ -7,49 +7,49 @@ describe('slash_parser',function(){
         describe('generate reference name', function(){
             it('should get a complete name for modules', function(done){
 
-                slash_parser.processReferences('juas', 'juas.html', 
+                slash_parser.processReferences('juas', 
                     '<div id="apicontent">\
                         <h1>File Modules<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
-                    </div>').then(function(refs){
-                        expect(refs[0].reference).toEqual('File Modules');
+                    </div>').then(function(res){
+                        expect(res[0].reference).toEqual('File Modules');
                         done();
                     });
             });
 
             it('should get a complete name for class with dots', function(done){
 
-                slash_parser.processReferences('juas', 'juas.html', 
+                slash_parser.processReferences('juas', 
                     '<div id="apicontent">\
                         <h1>Class: fs.WriteStream<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
-                    </div>').then(function(refs){
-                        expect(refs[0].reference).toEqual('fs.WriteStream');
+                    </div>').then(function(res){
+                        expect(res[0].reference).toEqual('fs.WriteStream');
                         done();
                     });
             });
 
             it('should get a complete name for functions', function(done){
 
-                slash_parser.processReferences('juas', 'juas.html', 
+                slash_parser.processReferences('juas', 
                     '<div id="apicontent">\
                         <h1>new Buffer(array)<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
-                    </div>').then(function(refs){
-                        expect(refs[0].reference).toEqual('new Buffer(array)');
+                    </div>').then(function(res){
+                        expect(res[0].reference).toEqual('new Buffer(array)');
                         done();
                     });
             });
 
             it('should get a complete name for a property', function(done){
 
-                slash_parser.processReferences('juas', 'juas.html', 
+                slash_parser.processReferences('juas', 
                     '<div id="apicontent">\
                         <h1>buffer.INSPECT_MAX_BYTES<span><a class="mark" href="#tty_tty" id="tty_tty">#</a></span></h1>\
                         <pre class="api_stability_2">Stability: 2 - Unstable</pre>\
-                    </div>').then(function(refs){
-                        expect(refs[0].reference).toEqual('buffer.INSPECT_MAX_BYTES');
-                        expect(refs[0].type).toEqual('property');
+                    </div>').then(function(res){
+                        expect(res[0].reference).toEqual('buffer.INSPECT_MAX_BYTES');
+                        expect(res[0].type).toEqual('property');
                         done();
                     });
             });
@@ -63,7 +63,7 @@ describe('slash_parser',function(){
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', 'crypto.html', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29',html).then(function(result) {
                 references = result;
             });
 
@@ -83,7 +83,7 @@ used as part of a secure HTTPS net or http connection.\n\
 \n\
 It also offers a set of wrappers for OpenSSL's hash, hmac, cipher,\n\
 decipher, sign and verify methods.\n\n\n[0]: #crypto_crypto",
-                        uri: 'node.js v0.10.29/crypto',
+                        uri: '/node.js%20v0.10.29/crypto',
                         parent: null
                     },
                         {
@@ -102,8 +102,8 @@ methods are also supported.\n\
 \n\
 [0]: #crypto_class_cipher\n\
 [1]: stream.html",
-                            uri: 'node.js v0.10.29/crypto/cipher',
-                            parent: 'node.js v0.10.29/crypto'
+                            uri: '/node.js%20v0.10.29/crypto/cipher',
+                            parent: '/node.js%20v0.10.29/crypto'
                         },
                     {
                         docset: "Node.js v0.10.29",
@@ -120,8 +120,8 @@ provided, then a buffer is returned.\n\
 \n\
 Returns the enciphered contents, and can be called many times with new\n\
 data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_output_encoding",
-                        uri: 'node.js v0.10.29/crypto/cipher/cipher.update(data, [input_encoding], [output_encoding])',
-                        parent: 'node.js v0.10.29/crypto/cipher'
+                        uri: '/node.js%20v0.10.29/crypto/cipher/cipher.update(data,%20%5Binput_encoding%5D,%20%5Boutput_encoding%5D)',
+                        parent: '/node.js%20v0.10.29/crypto/cipher'
                     }
                 ]);
             });
@@ -135,7 +135,7 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', 'crypto.html', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
                 references = result;
             });
 
@@ -156,7 +156,7 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', 'crypto.html', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29',  html).then(function(result) {
                 references = result;
             });
 
@@ -176,17 +176,17 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
                 return references != null;
             });
 
-            slash_parser.processReferences('Node.js v0.10.29','crypto.html', html).then(function(result) {
+            slash_parser.processReferences('Node.js v0.10.29', html).then(function(result) {
                 references = result;
             });
 
             runs(function() {
                 expect(references.length).toEqual(10);
                 expect(references[0].parent).toBeNull();
-                expect(references[2].parent).toEqual('node.js v0.10.29/tty');
-                expect(references[5].parent).toEqual('node.js v0.10.29/tty/readstream');
-                expect(references[6].parent).toEqual('node.js v0.10.29/tty');
-                expect(references[8].parent).toEqual('node.js v0.10.29/tty/writestream');
+                expect(references[2].parent).toEqual('/node.js%20v0.10.29/tty');
+                expect(references[5].parent).toEqual('/node.js%20v0.10.29/tty/readstream');
+                expect(references[6].parent).toEqual('/node.js%20v0.10.29/tty');
+                expect(references[8].parent).toEqual('/node.js%20v0.10.29/tty/writestream');
             });
         });
     });

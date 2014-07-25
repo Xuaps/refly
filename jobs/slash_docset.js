@@ -14,7 +14,7 @@ module.exports=function(docset, base_url, toc_url, callback){
 				promises.push(
 				 request(base_url+'/'+url)
 				 	.then(function(html){
-				 		return slash_parser.processReferences(docset,url,html);
+				 		return slash_parser.processReferences(docset, html);
 				 	})
 				 	.then(function(refs){
 			 			return docsets.addRefsRange(refs).execute();

@@ -24,7 +24,7 @@ function processToc(html){
 	return urls;
 };
 
-function processReferences(docset,url,html){
+function processReferences(docset, html){
 	var $ = cheerio.load(html);
 	var references = [];
 	var parent = null;
@@ -34,22 +34,22 @@ function processReferences(docset,url,html){
 		.each(function(index, element){
 			var data = $(element);
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getParentUrl(data));
+			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
 			references.push(ref);	
 		});
 
 	return references;
 };
 
-function getParentUrl(data){
-	var url='';
+function getUrl(docset, data){
+	var url='/'+parseReference(data.text()).reference;
 	for(var prev = data.prevAll().filter(calculateParentTag(data)); 
 			prev.length>0;prev=prev.prevAll().filter(calculateParentTag(prev))){
 		
 		url='/'+parseReference(prev.text()).reference+url;
 	}
 
-	return url.toLowerCase();
+	return encodeURI('/'+docset.toLowerCase()+url.toLowerCase());
 };
 
 function calculateParentTag(data){
@@ -57,12 +57,15 @@ function calculateParentTag(data){
 	return tag_parent = 'h'+(tag[1]-1);
 };
 
-function createRef(docset,name, content, parent){
+function createRef(docset,name, content, uri){
 	var ref = parseReference(name);
 
+	ref.parent=null;
 	ref.docset = docset;
-	ref.parent = parent==''? null : docset.toLowerCase() + parent;
-	ref.uri = (ref.parent || docset.toLowerCase()) + '/' + ref.reference.toLowerCase();
+	ref.uri = uri;
+	if(uri.split('/').length>3){
+		ref.parent = uri.substring(0,uri.lastIndexOf('/'));
+	}
 	ref.content = content===undefined?undefined:md(content);
 
 	return ref;
