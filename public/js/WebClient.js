@@ -38,7 +38,7 @@ var TreeView = {
     },
 
     _printNode: function(text, indent, node, current) {
-        var name = node.uri.split('/').slice(-1);
+        var name = node.uri.split('/').slice(-1)[0].replace(/%20/g, ' ');
         text = TreeView._printItem(text, indent, { name: name, uri: node.uri }, current);
         if (node.children) {
             node.children.forEach(function(child) {
@@ -56,7 +56,7 @@ var TreeView = {
         var url = '';
         parents.forEach(function(text) {
             url += '/' + text;
-            content = TreeView._printItem(content, indent, { name: text, uri: url }, current);
+            content = TreeView._printItem(content, indent, { name: text.replace(/%20/g, ' '), uri: url }, current);
             indent += '    ';
         });
         content = TreeView._printNode(content, indent, node, current);
