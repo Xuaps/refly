@@ -1,20 +1,21 @@
+var RESULTS = '#results';
+
 var ResultList = {
 
     reset: function() {
-        $('#results').html('');
+        $(RESULTS).html('');
     },
 
-    add: function(result) {
-        if ($('#results').html() == '') {
-            $('#results').html('<tr><th>Docset</th><th>Reference</th><th>Type</th></tr>');
-        }
-        $('#results').append(
-            '<tr><td>' + result.docset +
-            '</td><td>' + result.reference +
-            '</td><td>' + result.type +
-            '</td><td><a href="' + result.uri + '">Show</a></td></tr>'
-        );
-        return $('#results tr:last-child');
-    }
+    show: function(results) {
+        $(RESULTS).html('<tr><th>Docset</th><th>Reference</th><th>Type</th></tr>');
+        results.forEach(function(result) {
+            $(RESULTS).append(
+                '<tr><td>' + result.docset +
+                '</td><td>' + result.reference +
+                '</td><td>' + result.type +
+                '</td><td><a href="' + result.uri + '">Show</a></td></tr>'
+            );
+        });
+    },
 
 };

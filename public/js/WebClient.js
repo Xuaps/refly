@@ -13,10 +13,7 @@ $(function() {
             url: '/api/search?reference=' + $(REFERENCE).val(),
             method: 'get'
         }).done(function(results) {
-            ResultList.reset();
-            results.forEach(function(result) {
-                ResultList.add(result);
-            });
+            ResultList.show(results);
         });
     });
 
