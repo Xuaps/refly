@@ -3,7 +3,6 @@ var REFERENCE = 'input[name="reference"]';
 var URI = 'input[name="uri"]';
 
 $(function() {
-    Breadcrumb.reset();
     TreeView.reset();
     ResultList.reset();
     MarkdownViewer.reset();

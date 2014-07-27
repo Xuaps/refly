@@ -46,15 +46,6 @@ h1 {
 body {
     margin-top: 120px;
 }
-#breadcrumb {
-    float: none;
-    width: 50%;
-    margin: 10px auto;
-    border: 2px dashed gray;
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #A8A2A2;
-}
 #tree-view {
     float: left;
     width: 25%;

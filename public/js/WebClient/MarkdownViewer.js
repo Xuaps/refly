@@ -8,19 +8,6 @@ var MarkdownViewer = {
         if (!reference.uri) {
             return;
         }
-        var parents = [];
-        var url = '';
-        reference.uri.substring(1).split('/').forEach(function(part) {
-            url += '/' + part;
-            parents.push({
-                uri: url,
-                text: part,
-                current: false
-            });
-        });
-        parents[parents.length - 1].current = true;
-        Breadcrumb.show(parents);
-
         var parent_uri = reference.uri.split('/').slice(0, -1).join('/');
         var theParent = { uri: parent_uri };
         $.ajax({
