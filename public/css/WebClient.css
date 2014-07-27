@@ -66,3 +66,7 @@ body {
     float: left;
     padding: 1em;
 }
+td.type {
+    border: 1px solid black;
+    border-radius: 10px;
+}
