@@ -1,19 +1,18 @@
+var BREADCRUMB = '#breadcrumb';
+
 var Breadcrumb = {
 
     reset: function() {
-        $('#breadcrumb').css('display', 'none');
+        $(BREADCRUMB).css('display', 'none');
     },
 
     show: function(data) {
-        var parts = [];
+        var items = [];
         data.forEach(function(item) {
-            var cssClass = item.current ? 'current' : '';
-            parts.push('<a href="' + item.uri + '" class="' + cssClass + '">' + item.text + '</a>');
+            items.push('<a href="' + item.uri + '"' + (item.current ? ' class="current"' : '') + '>' + item.text + '</a>');
         });
-        $('#breadcrumb').css('display', 'block');
-        $('#breadcrumb').html(
-            parts.join(' &gt; ')
-        );
+        $(BREADCRUMB).html(items.join(' &gt; '));
+        $(BREADCRUMB).css('display', 'block');
     }
 
 };
