@@ -46,11 +46,15 @@ h1 {
 body {
     margin-top: 120px;
 }
+#content {
+    padding: 0 15px;
+}
 #tree-view {
     float: left;
     width: 25%;
     background-color: #A8A2A2;
     border: 3px dotted #888;
+    overflow-x: scroll;
 }
 #result {
     width: 75%;
