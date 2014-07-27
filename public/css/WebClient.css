@@ -24,7 +24,7 @@ fieldset {
     border: 2px solid gray;
     padding: 15px;
     border-radius: 10px;
-    background-color: #666;
+    background-color: #A8A2A2;
 }
 header {
     background-color: #7163A8;
@@ -53,12 +53,12 @@ body {
     border: 2px dashed gray;
     padding: 15px;
     border-radius: 10px;
-    background-color: #aaa;
+    background-color: #A8A2A2;
 }
 #tree-view {
     float: left;
     width: 25%;
-    background-color: #aaa;
+    background-color: #A8A2A2;
     border: 3px dotted #888;
 }
 #result {
@@ -66,7 +66,11 @@ body {
     float: left;
     padding: 1em;
 }
+td.separator {
+    width: 5px;
+}
 td.type {
     border: 1px solid black;
     border-radius: 10px;
+    width: 10px;
 }
