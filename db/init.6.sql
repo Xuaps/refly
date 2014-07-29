@@ -1,4 +1,4 @@
-create sequence rid_seq start 1;
+create sequence rid_seq start 5;
 
 CREATE TABLE refs
 (
