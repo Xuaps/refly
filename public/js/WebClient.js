@@ -16,11 +16,11 @@ $(function() {
         });
     });
 
-    $.ajax({
-        url: '/api/get/' + $(URI).val(),
-        method: 'get'
-    }).done(function(result) {
-        MarkdownViewer.show(result);
+    var reference = new Reference($(URI).val());
+    reference.load(function() {
+        MarkdownViewer.show(reference);
+        TreeView.show(reference);
     });
+
 });
 

@@ -27,7 +27,11 @@ var TreeView = {
         return text;
     },
 
-    show: function(node, current) {
+    show: function(reference) {
+        TreeView._show(reference.parent, reference.uri);
+    },
+
+    _show: function(node, current) {
         TreeView.reset();
         var content = $('#tree-view').html() + '<pre>';
         var indent = '';
