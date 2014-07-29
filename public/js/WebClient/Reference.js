@@ -1,38 +1,32 @@
 function Reference(path) {
 
-    this.path = path;
+    this.uri = path.replace(/ /g, '%20');
+
+    this.parent = { uri: this.uri.split('/').slice(0, -1).join('/') };
 
     this.load = function(callback) {
         var that = this;
 
         $.ajax({
-            url: '/api/get/' + this.path,
+            url: '/api/get' + this.uri,
             method: 'get'
-        }).done(function(reference) {
-            that.uri = reference.uri;
-            that.content = reference.content;
+        }).done(function(data) {
+            that.content = data.content;
 
-            var parent_uri = reference.uri.split('/').slice(0, -1).join('/');
-            var theParent = { uri: parent_uri };
             $.ajax({
-                url: '/api/children' + parent_uri,
+                url: '/api/children' + that.parent.uri,
                 method: 'get'
             }).done(function(siblings) {
                 $.ajax({
-                    url: '/api/children' + reference.uri,
+                    url: '/api/children' + that.uri,
                     method: 'get'
                 }).done(function(children) {
-                    if (siblings.length > 0) {
-                        theParent.children = siblings;
-                    } else {
-                        theParent.children = [ reference ];
-                    }
-                    theParent.children.forEach(function(node) {
-                        if (node.uri == reference.uri) {
+                    that.parent.children = (siblings.length > 0) ? siblings : [ data ];
+                    that.parent.children.forEach(function(node) {
+                        if (node.uri == that.uri) {
                             node.children = children;
                         }
                     });
-                    that.parent = theParent;
                     callback();
                 });
             });
