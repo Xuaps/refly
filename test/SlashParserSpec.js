@@ -72,9 +72,9 @@ describe('slash_parser',function(){
             var html = fs.readFileSync(__dirname+'/html/crypto_node.html', 'utf-8');
 
             slash_parser.processReferences('Node.js v0.10.29', 'crypto_node.html', html).then(function(result){
-                expect(result.links['#crypto_class_cipher']).toEqual('/node.js%20v0.10.29/crypto/cipher');
-                expect(result.links['crypto_node.html#crypto_class_cipher']).toEqual('/node.js%20v0.10.29/crypto/cipher');
-                expect(result.links['crypto_node.html']).toEqual('/node.js%20v0.10.29/crypto');
+                expect(result.links['#crypto_class_cipher']).toEqual('/node.js v0.10.29/crypto/cipher');
+                expect(result.links['crypto_node.html#crypto_class_cipher']).toEqual('/node.js v0.10.29/crypto/cipher');
+                expect(result.links['crypto_node.html']).toEqual('/node.js v0.10.29/crypto');
                 done();
             });
         });
@@ -107,7 +107,7 @@ used as part of a secure HTTPS net or http connection.\n\
 \n\
 It also offers a set of wrappers for OpenSSL's hash, hmac, cipher,\n\
 decipher, sign and verify methods.\n\n\n[0]: #crypto_crypto",
-                        uri: '/node.js%20v0.10.29/crypto',
+                        uri: '/node.js v0.10.29/crypto',
                         parent: null
                     },
                         {
@@ -126,8 +126,8 @@ methods are also supported.\n\
 \n\
 [0]: #crypto_class_cipher\n\
 [1]: stream.html",
-                            uri: '/node.js%20v0.10.29/crypto/cipher',
-                            parent: '/node.js%20v0.10.29/crypto'
+                            uri: '/node.js v0.10.29/crypto/cipher',
+                            parent: '/node.js v0.10.29/crypto'
                         },
                     {
                         docset: "Node.js v0.10.29",
@@ -144,8 +144,8 @@ provided, then a buffer is returned.\n\
 \n\
 Returns the enciphered contents, and can be called many times with new\n\
 data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_output_encoding",
-                        uri: '/node.js%20v0.10.29/crypto/cipher/cipher.update(data,%20%5Binput_encoding%5D,%20%5Boutput_encoding%5D)',
-                        parent: '/node.js%20v0.10.29/crypto/cipher'
+                        uri: '/node.js v0.10.29/crypto/cipher/cipher.update(data, [input_encoding], [output_encoding])',
+                        parent: '/node.js v0.10.29/crypto/cipher'
                     }
                 ]);
             });
@@ -207,10 +207,10 @@ data as it is streamed.\n\n\n[0]: #crypto_cipher_update_data_input_encoding_outp
             runs(function() {
                 expect(references.length).toEqual(10);
                 expect(references[0].parent).toBeNull();
-                expect(references[2].parent).toEqual('/node.js%20v0.10.29/tty');
-                expect(references[5].parent).toEqual('/node.js%20v0.10.29/tty/readstream');
-                expect(references[6].parent).toEqual('/node.js%20v0.10.29/tty');
-                expect(references[8].parent).toEqual('/node.js%20v0.10.29/tty/writestream');
+                expect(references[2].parent).toEqual('/node.js v0.10.29/tty');
+                expect(references[5].parent).toEqual('/node.js v0.10.29/tty/readstream');
+                expect(references[6].parent).toEqual('/node.js v0.10.29/tty');
+                expect(references[8].parent).toEqual('/node.js v0.10.29/tty/writestream');
             });
         });
     });
@@ -256,7 +256,7 @@ methods are also supported.\n\
 
             slash_parser.processContentLinks(references, links).then(function(references){
                 expect(references[0].content).not.toContain('[0]: #crypto_class_cipher');
-                expect(references[0].content).toContain('[0]: node.js v0.10.29/crypto/cipher');
+                expect(references[0].content).toContain('[0]: node.js%20v0.10.29/crypto/cipher');
                 expect(references[0].content).toContain('[2]: http://xuaps.com');
                 done();
             });

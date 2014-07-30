@@ -20,7 +20,7 @@ function processContentLinks(references, links){
 		var match = myRegex.exec(ref.content);
 		while(match!=null){
 			if(links[match[1]])
-				ref.content = ref.content.replace(match[1], links[match[1]]);
+				ref.content = ref.content.replace(match[1], encodeURI(links[match[1]]));
 
 			match = myRegex.exec(ref.content);
 		}
@@ -74,7 +74,7 @@ function getUrl(docset, data){
 		url='/'+parseReference(prev.text()).reference+url;
 	}
 
-	return encodeURI('/'+docset.toLowerCase()+url.toLowerCase());
+	return '/'+docset.toLowerCase()+url.toLowerCase();
 };
 
 function calculateParentTag(data){
