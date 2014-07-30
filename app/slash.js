@@ -12,10 +12,9 @@ exports.search = function(options) {
 };
 
 exports.get = function(identity){
-    identity = '/' + identity.replace(/ /g, '%20');
 	docsets = new Docsets();
 	return docsets
-        .filter('uri', filters.operators.EQUALS, identity)
+        .filter('uri', filters.operators.EQUALS, '/' + identity)
         .select(['docset', 'reference', 'type', 'content', 'uri'])
         .execute().then(function(references) {
             return references[0];
@@ -23,10 +22,9 @@ exports.get = function(identity){
 }
 
 exports.get_id = function(identity){
-    identity = '/' + identity.replace(/ /g, '%20');
 	docsets = new Docsets();
 	return docsets
-        .filter('uri', filters.operators.EQUALS, identity)
+        .filter('uri', filters.operators.EQUALS, '/' + identity)
         .select(['id'])
         .execute().then(function(references) {
             return (references.length > 0) ? references[0].id : null;

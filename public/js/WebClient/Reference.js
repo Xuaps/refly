@@ -1,6 +1,6 @@
 function Reference(path) {
 
-    this.uri = path.replace(/ /g, '%20');
+    this.uri = path;
 
     this.parent = { uri: this.uri.split('/').slice(0, -1).join('/') };
 
