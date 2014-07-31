@@ -68,7 +68,27 @@ module.exports = function (grunt) {
         // }
       },
       all: ['test/']
-    }
+    },
+    clean: {
+      release: ['build/release/**/*'],
+      tmp: ['build/tmp']
+    },
+    copy: {
+      app: {
+        files: [
+          { expand: true, src: ['app/**', 'config/**', 'jobs/**', 'public/**', 'routes/**', 'views/index.jade', 'app.js', 'package.json'], dest: 'build/release/'},
+          { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
+        ]
+      },
+      config:{
+        files: [
+          { expand: true, flatten:true, src: ['build/release/config/production.json'], dest: 'build/tmp/config/', filter: 'isFile'},
+        ]
+      }
+    },
+    mkdir: {
+      tmp: { options: { create: ['build/tmp', 'build/tmp/config'] } }
+    },
   });
 
   grunt.config.requires('watch.server.files');
@@ -90,6 +110,9 @@ module.exports = function (grunt) {
     }, 500);
   });
 
+  grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config'])
+
   grunt.registerTask('default', ['shell', 'develop', 'watch']);
   grunt.registerTask('test', ['develop', 'jasmine_node']);
+  grunt.registerTask('release', ['copy-config-files','clean:release','shell', 'copy:app', 'clean:tmp'])
 };
