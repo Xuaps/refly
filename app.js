@@ -1,17 +1,14 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , docsets = require('./routes/docsets')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , config = require('config');
 
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', config.serverConfig.port);
+  app.set('ipaddr', config.serverConfig.ip);
   app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
@@ -44,6 +41,6 @@ app.get('/:uri(*)', function(req, res) {
   res.render('index', { uri: '/' + req.params.uri });
 });
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
