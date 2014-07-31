@@ -49,9 +49,12 @@ body {
 #content {
     padding: 0 15px;
 }
-#tree-view {
+#left-pane {
     float: left;
     width: 25%;
+}
+#tree-view, #outline-view {
+    width: 100%;
     background-color: #A8A2A2;
     border: 3px dotted #888;
     overflow-x: scroll;

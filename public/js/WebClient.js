@@ -4,6 +4,7 @@ var URI = 'input[name="uri"]';
 
 $(function() {
     TreeView.reset();
+    OutlineView.reset();
     ResultList.reset();
     MarkdownViewer.reset();
 
@@ -16,10 +17,16 @@ $(function() {
         });
     });
 
-    var reference = new Reference($(URI).val());
-    reference.load(function() {
-        MarkdownViewer.show(reference);
-        TreeView.show(reference);
+    var reference = new Reference({
+        uri: $(URI).val(),
+        load: true,
+        onLoadData: function(reference) {
+            MarkdownViewer.show(reference);
+        },
+        onLoadChildren: function(reference) {
+            TreeView.show(reference);
+            OutlineView.show(reference);
+        }
     });
 
 });

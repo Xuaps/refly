@@ -1,11 +1,26 @@
 var TreeView = {
 
     reset: function() {
-        $('#tree-view').html('<h2>Tree View</h2>');
+        $('#tree-view').html('<h2>Tree View</h2><pre>Loading...</pre>');
     },
 
-    _isFirstLevel: function(indent) {
-        return indent == '';
+    show: function(reference) {
+        TreeView._show(reference.parent, reference.uri);
+    },
+
+    _show: function(node, current) {
+        TreeView.reset();
+        var content = '';
+        var indent = '';
+        var parents = node.uri.substring(1).split('/').slice(0, -1);
+        var url = '';
+        parents.forEach(function(text) {
+            url += '/' + text;
+            content = TreeView._printItem(content, indent, { name: text.replace(/%20/g, ' '), uri: url }, current);
+            indent += '    ';
+        });
+        content = TreeView._printNode(content, indent, node, current);
+        $('#tree-view pre').html(content);
     },
 
     _printItem: function(text, indent, item, current) {
@@ -14,6 +29,10 @@ var TreeView = {
             return text + indent + ' +- ' + item.name + '\n';
         }
         return text + indent + ' +- <a href="' + item.uri + '" class="' + cssClass + '">' + item.name + '</a>\n';
+    },
+
+    _isFirstLevel: function(indent) {
+        return indent == '';
     },
 
     _printNode: function(text, indent, node, current) {
@@ -25,26 +44,6 @@ var TreeView = {
             });
         }
         return text;
-    },
-
-    show: function(reference) {
-        TreeView._show(reference.parent, reference.uri);
-    },
-
-    _show: function(node, current) {
-        TreeView.reset();
-        var content = $('#tree-view').html() + '<pre>';
-        var indent = '';
-        var parents = node.uri.substring(1).split('/').slice(0, -1);
-        var url = '';
-        parents.forEach(function(text) {
-            url += '/' + text;
-            content = TreeView._printItem(content, indent, { name: text.replace(/%20/g, ' '), uri: url }, current);
-            indent += '    ';
-        });
-        content = TreeView._printNode(content, indent, node, current);
-        content += '</pre>';
-        $('#tree-view').html(content);
     }
 
 };
