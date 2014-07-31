@@ -34,6 +34,9 @@ app.get('/css/:path(*)', function(req, res) {
 app.get('/js/:path(*)', function(req, res) {
   res.sendfile('public/js/' + req.params.path);
 });
+app.get('/img/:path(*)', function(req, res) {
+  res.sendfile('public/img/' + req.params.path);
+});
 app.get('/api/search', docsets.search);
 app.get('/api/get/:uri(*)', docsets.get);
 app.get('/api/children/:uri(*)', docsets.children);
