@@ -29,10 +29,10 @@
     "proxyquire": "^1.0.1",
     "randomstring": "^1.0.3",
     "request": "~2.27.0",
+    "serve-favicon": "^2.0.1",
     "sinon": "^1.10.2",
     "supertest": "^0.13.0",
     "time-grunt": "~0.1.1"
   },
-
   "main": "app.js"
 }

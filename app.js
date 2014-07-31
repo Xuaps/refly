@@ -1,4 +1,5 @@
 var express = require('express')
+  , favicon = require('serve-favicon')
   , docsets = require('./routes/docsets')
   , http = require('http')
   , path = require('path')
@@ -10,7 +11,7 @@ app.configure(function(){
   app.set('port', config.serverConfig.port);
   app.set('ipaddr', config.serverConfig.ip);
   app.set('view engine', 'jade');
-  app.use(express.favicon());
+  app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -33,6 +34,9 @@ app.get('/js/:path(*)', function(req, res) {
 });
 app.get('/img/:path(*)', function(req, res) {
   res.sendfile('public/img/' + req.params.path);
+});
+app.get('/favicon.ico', function(req, res) {
+  res.sendfile('favicon.ico');
 });
 app.get('/api/search', docsets.search);
 app.get('/api/get/:uri(*)', docsets.get);
