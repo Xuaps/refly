@@ -1,0 +1,17 @@
+h2 Tree View
+
+mixin children(node)
+  ul
+    each child in node.children
+      li
+        unless child.uri === current_uri
+          a(href="#{child.uri}") #{child.reference}
+        else
+          a(href="#{child.uri}", class="current") #{child.reference}
+        +children(child)
+
+pre
+  ul
+    li
+      span #{root.reference}
+      +children(root)

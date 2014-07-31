@@ -1,7 +1,8 @@
 function Reference(options) {
 
     if (!options.uri) {
-        return null;
+        this.invalid = true;
+        return this;
     }
 
     this.load = false;
@@ -14,7 +15,14 @@ function Reference(options) {
     this.onLoadData = this.onLoadData || function() {};
     this.onLoadChildren = this.onLoadChildren || function() {};
 
-    this.parent = new Reference({ uri: this.uri.split('/').slice(0, -1).join('/') });
+    if (!this.parent) {
+        var uri_parts = this.uri.split('/').slice(0, -1);
+        this.parent = new Reference({
+            uri: uri_parts.join('/'),
+            reference: uri_parts[uri_parts.length - 1],
+            children: [ this ]
+        });
+    }
 
     this._setChildren = function(children, callback) {
         var that = this;
@@ -28,7 +36,7 @@ function Reference(options) {
 
         for (var i  in children) {
             (function(i) {
-                that.children[i] = new Reference({ uri: children[i].uri });
+                that.children[i] = new Reference({ uri: children[i].uri, parent: that });
                 $.ajax({
                     url: '/api/children' + children[i].uri,
                     method: 'get'
@@ -60,6 +68,10 @@ function Reference(options) {
         return objects;
     },
 
+    this.root = function() {
+        return (this.parent.invalid) ? this : this.parent.root();
+    },
+
     this._load = function() {
         var that = this;
 
@@ -81,6 +93,7 @@ function Reference(options) {
                     that.parent.children = [];
                     if (siblings.length > 0) {
                         siblings.forEach(function(sibling) {
+                            sibling.parent = that.parent;
                             that.parent.children.push(new Reference(sibling));
                         });
                     } else {
@@ -90,6 +103,7 @@ function Reference(options) {
                         if (node.uri == that.uri) {
                             node.children = [];
                             children.forEach(function(child) {
+                                child.parent = node;
                                 node.children.push(new Reference(child));
                             });
                         }

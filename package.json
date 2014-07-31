@@ -18,10 +18,12 @@
     "q": "^1.0.1"
   },
   "devDependencies": {
+    "clientjade": "^0.1.1",
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-develop": "~0.2.2",
     "grunt-jasmine-node": "~0.2.1",
+    "grunt-shell": "^0.7.0",
     "load-grunt-tasks": "~0.2.0",
     "nock": "^0.39.0",
     "proxyquire": "^1.0.1",

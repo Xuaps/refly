@@ -12,6 +12,11 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    shell: {
+      clientjade: {
+        command: 'clientjade views/*.jade > public/js/jade-templates.js'
+      }
+    },
     develop: {
       server: {
         file: 'app.js'
@@ -85,6 +90,6 @@ module.exports = function (grunt) {
     }, 500);
   });
 
-  grunt.registerTask('default', ['develop', 'watch']);
+  grunt.registerTask('default', ['shell', 'develop', 'watch']);
   grunt.registerTask('test', ['develop', 'jasmine_node']);
 };

@@ -26,3 +26,4 @@ node_modules
 
 # Temporal files
 *.swp
+public/js/jade-templates.js

@@ -1,0 +1,10 @@
+h2 Outline View
+
+each objects, symbol_name in symbols
+  h3 #{symbol_name}
+  ul
+    each object in objects
+      unless object.uri === current_uri
+        li: a(href="#{object.uri}") #{object.reference}
+      else
+        li: a(href="#{object.uri}", class="current") #{object.reference}
