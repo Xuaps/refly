@@ -70,8 +70,6 @@ body {
 td.separator {
     width: 5px;
 }
-td.type {
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 10px;
+.cursive {
+    font-style: italic;
 }

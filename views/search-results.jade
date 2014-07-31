@@ -1,0 +1,7 @@
+each result in results
+  tr
+    td: img(src="/img/type-#{result.type}.png", title="#{result.type}")
+    td(class="separator")
+    td
+        a(href="#{result.uri}") #{result.reference}
+        span(class="cursive") " #{result.docset}"
