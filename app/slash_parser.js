@@ -6,10 +6,6 @@ exports.processReferences = function(docset, url, html){
 	return q.fcall(processReferences, docset, url, html);
 }
 
-exports.processToc = function(html){
-	return q.fcall(processToc, html);
-};
-
 exports.processContentLinks = function(references, links){
 	return q.fcall(processContentLinks, references, links);
 }
@@ -29,26 +25,12 @@ function processContentLinks(references, links){
 	return references;
 }
 
-function processToc(html){
-	var $ = cheerio.load(html);
-	var urls = [];
-	
-	$('#apicontent')
-		.find('a')
-		.each(function(index, element){
-			var data = $(element);
-			urls.push(data.attr('href'));	
-		});
-
-	return urls;
-};
-
 function processReferences(docset,uri,html){
 	var $ = cheerio.load(html);
 	var references = [];
 	var links = {};
 	var parent = null;
-	
+		console.log(uri);
 	$('#apicontent')
 		.find(':header')
 		.each(function(index, element){
@@ -62,7 +44,7 @@ function processReferences(docset,uri,html){
 				links[uri] = ref.uri;
 			}
 		});
-
+		
 	return {'references':references, 'links':links};
 };
 
