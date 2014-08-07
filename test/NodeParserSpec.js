@@ -2,7 +2,7 @@ var nock = require('nock');
 var fs = require('fs');
 var slash_parser = require('../app/node_parser');
 
-describe('slash_parser',function(){
+describe('node_parser',function(){
     describe('processReference', function(){
         describe('generate reference name', function(){
             it('should get a complete name for modules', function(done){
@@ -72,9 +72,9 @@ describe('slash_parser',function(){
             var html = fs.readFileSync(__dirname+'/html/crypto_node.html', 'utf-8');
 
             slash_parser.processReferences('Node.js v0.10.29', 'crypto_node.html', html).then(function(result){
-                expect(result.links['#crypto_class_cipher']).toEqual('/node.js v0.10.29/crypto/cipher');
-                expect(result.links['crypto_node.html#crypto_class_cipher']).toEqual('/node.js v0.10.29/crypto/cipher');
-                expect(result.links['crypto_node.html']).toEqual('/node.js v0.10.29/crypto');
+                expect(result.links.get('#crypto_class_cipher')).toEqual('/node.js v0.10.29/crypto/cipher');
+                expect(result.links.get('crypto_node.html#crypto_class_cipher')).toEqual('/node.js v0.10.29/crypto/cipher');
+                expect(result.links.get('crypto_node.html')).toEqual('/node.js v0.10.29/crypto');
                 done();
             });
         });

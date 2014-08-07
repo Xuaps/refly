@@ -9,8 +9,8 @@ function processContentLinks(references, links){
 		var myRegex = /\[\d*\]: (.*)/g;
 		var match = myRegex.exec(ref.content);
 		while(match!=null){
-			if(links[match[1]])
-				ref.content = ref.content.replace(match[1], encodeURI(links[match[1]]));
+			if(links.has(match[1]))
+				ref.content = ref.content.replace(match[1], encodeURI(links.get(match[1])));
 
 			match = myRegex.exec(ref.content);
 		}

@@ -1,6 +1,7 @@
 var cheerio = require('cheerio');
 var q = require('q');
 var md = require('html-md');
+var Map = require('hashmap').HashMap;
 
 exports.processReferences = function(docset, url, html){
 	return q.fcall(processReferences, docset, url, html);
@@ -9,7 +10,7 @@ exports.processReferences = function(docset, url, html){
 function processReferences(docset,uri,html){
 	var $ = cheerio.load(html);
 	var references = [];
-	var links = {};
+	var links = new Map();
 	var parent = null;
 
 	$('#apicontent')
@@ -19,10 +20,10 @@ function processReferences(docset,uri,html){
 			var content = data.nextUntil(':header');
 			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
 			references.push(ref);	
-			links[data.find('a').first().attr('href')] = ref.uri;
-			links[uri+data.find('a').first().attr('href')] = ref.uri;
+			links.set(data.find('a').first().attr('href'), ref.uri);
+			links.set(uri+data.find('a').first().attr('href'),ref.uri);
 			if(ref.parent === null){
-				links[uri] = ref.uri;
+				links.set(uri, ref.uri);
 			}
 		});
 		
