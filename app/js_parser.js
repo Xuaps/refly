@@ -1,6 +1,7 @@
 var cheerio = require('cheerio');
 var q = require('q');
 var md = require('html-md');
+var Map = require('hashmap').HashMap;
 
 exports.processReferences = function(docset, url, html){
 	return q.fcall(processReferences, docset, url, html);
@@ -9,40 +10,17 @@ exports.processReferences = function(docset, url, html){
 function processReferences(docset,uri,html){
 	var $ = cheerio.load(html);
 	var references = [];
-	var links = {};
+	var links = new Map();
 	var parent = null;
+	
+	var name = $('h1');
+	var content = $('article');
+	var ref=createRef(docset,name.text(), $.html(name)+content.html(), getSlashUrl(docset, $('nav.crumbs'),$));
 
-	$('#apicontent')
-		.find(':header')
-		.each(function(index, element){
-			var data = $(element);
-			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
-			references.push(ref);	
-			links[data.find('a').first().attr('href')] = ref.uri;
-			links[uri+data.find('a').first().attr('href')] = ref.uri;
-			if(ref.parent === null){
-				links[uri] = ref.uri;
-			}
-		});
-		
+	references.push(ref);	
+	links.set(uri, ref.uri);
+
 	return {'references':references, 'links':links};
-};
-
-function getUrl(docset, data){
-	var url='/'+parseReference(data.text()).reference;
-	for(var prev = data.prevAll().filter(calculateParentTag(data)); 
-			prev.length>0;prev=prev.prevAll().filter(calculateParentTag(prev))){
-		
-		url='/'+parseReference(prev.text()).reference+url;
-	}
-
-	return '/'+docset.toLowerCase()+url.toLowerCase();
-};
-
-function calculateParentTag(data){
-	var tag = data['0'].name;
-	return tag_parent = 'h'+(tag[1]-1);
 };
 
 function createRef(docset,name, content, uri){
@@ -51,12 +29,31 @@ function createRef(docset,name, content, uri){
 	ref.parent=null;
 	ref.docset = docset;
 	ref.uri = uri;
-	if(uri.split('/').length>3){
-		ref.parent = uri.substring(0,uri.lastIndexOf('/'));
-	}
+	ref.parent = getParentSlashUrl(uri);	
 	ref.content = content===undefined?undefined:md(content);
 
 	return ref;
+};
+
+function getSlashUrl(docset, data, $){
+	var lis = data.find('li');
+	var url='';
+
+	for(var i=lis.length-1;$(lis[i]).text().indexOf(docset)==-1;i--){
+
+		url = '/' + $(lis[i]).text() + url;
+	}
+
+	return '/'+docset.toLowerCase()+url.toLowerCase();
+};
+
+function getParentSlashUrl(child_url){
+	var parent_url='';
+	if(child_url.split('/').length>3){
+		parent_url = child_url.substring(0,child_url.lastIndexOf('/'));
+	}
+
+	return parent_url;
 };
 
 function parseReference(name){

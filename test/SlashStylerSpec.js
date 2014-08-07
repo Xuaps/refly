@@ -1,4 +1,4 @@
-var slash_parser = require('../app/slash_parser');
+var styler = require('../app/slash_styler');
 
 describe('processContentLinks', function(){
     it('should replace all original links with slash generated links', function(done){
@@ -18,7 +18,7 @@ methods are also supported.\n\
         var links = {'#crypto_class_cipher':'node.js v0.10.29/crypto/cipher',
                     'stream.html':'juas'};
 
-        slash_parser.processContentLinks(references, links).then(function(references){
+        styler.processContentLinks(references, links).then(function(references){
             expect(references[0].content).not.toContain('[0]: #crypto_class_cipher');
             expect(references[0].content).toContain('[0]: node.js%20v0.10.29/crypto/cipher');
             expect(references[0].content).toContain('[2]: http://xuaps.com');

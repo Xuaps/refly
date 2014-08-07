@@ -2,6 +2,7 @@ var Docsets = require('../app/docsets.js');
 var request = require('../app/slash_request.js');
 var slash_parser = require('../app/slash_parser.js');
 var spider = require('../app/slash_spider.js');
+var styler = require('../app/slash_styler.js');
 
 var q = require('q');
 
@@ -10,8 +11,6 @@ module.exports=function(docset, domain, start_page, selector, callback){
 
 	spider.run(domain, start_page, new RegExp(selector))
 	.then(function(urls){
-		
-
 		var promises = [];
 		urls.forEach(function(html, url){
 			promises.push(slash_parser.processReferences(docset, url, html));
@@ -19,7 +18,6 @@ module.exports=function(docset, domain, start_page, selector, callback){
 		return q.all(promises);
 	})
 	.then(function(arg){
-		console.log(arg);
 		var references = arg.reduce(function(previousValue, currentValue, index, array){
 		  return previousValue.concat(currentValue.references);
 		},[]);
@@ -30,7 +28,7 @@ module.exports=function(docset, domain, start_page, selector, callback){
 		  }
 		  return previousValue;
 		},{});
-		return slash_parser.processContentLinks(references, links);
+		return styler.processContentLinks(references, links);
 	})
 	.then(function(references){
 		return docsets.addRefsRange(references).execute();
