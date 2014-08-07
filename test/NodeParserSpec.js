@@ -1,6 +1,6 @@
 var nock = require('nock');
 var fs = require('fs');
-var slash_parser = require('../app/slash_parser');
+var slash_parser = require('../app/node_parser');
 
 describe('slash_parser',function(){
     describe('processReference', function(){

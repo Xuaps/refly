@@ -1,6 +1,6 @@
 var Docsets = require('../app/docsets.js');
 var request = require('../app/slash_request.js');
-var slash_parser = require('../app/slash_parser.js');
+var slash_parser = require('../app/node_parser.js');
 var spider = require('../app/slash_spider.js');
 var styler = require('../app/slash_styler.js');
 
