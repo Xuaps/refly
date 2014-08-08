@@ -1,4 +1,5 @@
-var slash_parser = require('../app/slash_parser');
+var styler = require('../app/slash_styler');
+var Map = require('hashmap').HashMap;
 
 describe('processContentLinks', function(){
     it('should replace all original links with slash generated links', function(done){
@@ -15,10 +16,11 @@ methods are also supported.\n\
 [0]: #crypto_class_cipher\n\
 [1]: stream.html\n\
 [2]: http://xuaps.com'}];
-        var links = {'#crypto_class_cipher':'node.js v0.10.29/crypto/cipher',
-                    'stream.html':'juas'};
+        var links = new Map();
+        links.set('#crypto_class_cipher','node.js v0.10.29/crypto/cipher');
+        links.set('stream.html','juas');
 
-        slash_parser.processContentLinks(references, links).then(function(references){
+        styler.processContentLinks(references, links).then(function(references){
             expect(references[0].content).not.toContain('[0]: #crypto_class_cipher');
             expect(references[0].content).toContain('[0]: node.js%20v0.10.29/crypto/cipher');
             expect(references[0].content).toContain('[2]: http://xuaps.com');

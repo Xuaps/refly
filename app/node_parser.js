@@ -1,36 +1,18 @@
 var cheerio = require('cheerio');
 var q = require('q');
 var md = require('html-md');
+var Map = require('hashmap').HashMap;
 
 exports.processReferences = function(docset, url, html){
 	return q.fcall(processReferences, docset, url, html);
 }
 
-exports.processContentLinks = function(references, links){
-	return q.fcall(processContentLinks, references, links);
-}
-
-function processContentLinks(references, links){
-	references.map(function(ref){
-		var myRegex = /\[\d*\]: (.*)/g;
-		var match = myRegex.exec(ref.content);
-		while(match!=null){
-			if(links[match[1]])
-				ref.content = ref.content.replace(match[1], encodeURI(links[match[1]]));
-
-			match = myRegex.exec(ref.content);
-		}
-	});
-
-	return references;
-}
-
 function processReferences(docset,uri,html){
 	var $ = cheerio.load(html);
 	var references = [];
-	var links = {};
+	var links = new Map();
 	var parent = null;
-		console.log(uri);
+
 	$('#apicontent')
 		.find(':header')
 		.each(function(index, element){
@@ -38,10 +20,10 @@ function processReferences(docset,uri,html){
 			var content = data.nextUntil(':header');
 			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
 			references.push(ref);	
-			links[data.find('a').first().attr('href')] = ref.uri;
-			links[uri+data.find('a').first().attr('href')] = ref.uri;
+			links.set(data.find('a').first().attr('href'), ref.uri);
+			links.set(uri+data.find('a').first().attr('href'),ref.uri);
 			if(ref.parent === null){
-				links[uri] = ref.uri;
+				links.set(uri, ref.uri);
 			}
 		});
 		
