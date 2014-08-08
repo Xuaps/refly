@@ -12,23 +12,26 @@ function processReferences(docset,uri,html){
 	var references = [];
 	var links = new Map();
 	var parent = null;
-	
 	var name = $('h1');
 	var content = $('article');
-	var ref=createRef(docset,name.text(), $.html(name)+content.html(), getSlashUrl(docset, $('nav.crumbs'),$));
+	var type =  resolveType(name, uri, $);
+	if(name.length>0 && content.length>0){
+		var ref=createRef(docset,name.text(), type, $.html(name)+content.html(), getSlashUrl(docset, $('nav.crumbs'),$));
 
-	references.push(ref);	
-	links.set(uri, ref.uri);
-
+		references.push(ref);	
+		links.set(uri, ref.uri);
+	}else{
+		console.log(uri+" not processed");
+	}
 	return {'references':references, 'links':links};
 };
 
-function createRef(docset,name, content, uri){
-	var ref = parseReference(name);
+function createRef(docset,name, type, content, uri){
+	var ref = {"reference":name,
+				"docset": docset,
+				"uri": uri,
+				"type": type};
 
-	ref.parent=null;
-	ref.docset = docset;
-	ref.uri = uri;
 	ref.parent = getParentSlashUrl(uri);	
 	ref.content = content===undefined?undefined:md(content);
 
@@ -56,25 +59,16 @@ function getParentSlashUrl(child_url){
 	return parent_url;
 };
 
-function parseReference(name){
-	var ref = {};
-
-	if(/Class: /.test(name)){
-		ref.reference = name.match(/Class: '{0,1}([\w\.]*)'{0,1}/)[1];
-		ref.type = "class";
-	}else if(/Event: /.test(name)){
-		ref.reference = name.match(/Event: '{0,1}([\w\.]*)'{0,1}/)[1];
-		ref.type = "event";
-	}else if(/[\w.|(new )]*\([ \w.,\[\]]*\)/.test(name)){
-		ref.reference = name.match(/([\w.|(new )]*\([ \w.,\[\]]*\))/)[1];
-		ref.type = "function";
-	}else if(/([\w]+\.[a-zA-Z_]+)/.test(name)){
-		ref.reference = name.match(/([\w]+\.[a-zA-Z_]+)/)[1];
-		ref.type = "property";
-	}else{ 
-		ref.type = "module";
-		ref.reference = name.match(/([\w ]*)/)[1];
+function resolveType(name, uri, $){
+	var me  = $('#quick-links').find('a[href="'+uri+'"]');
+	if(me.length>0){
+		var me_element=$(me);
+		var type=me.closest('ol').prev('a').text();
+		if(type==='Methods'){
+			return 'method';
+		}else if(type==='Properties'){
+			return 'property';
+		}
 	}
-
-	return ref;
-}
+	return undefined;
+};

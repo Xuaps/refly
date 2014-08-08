@@ -15,7 +15,6 @@ exports.run = function(domain, path, selector){
 
 function process_url(domain, selector, to_visit, visited){
 	var path=to_visit.shift();
-
 	return request(domain+path)
 		.then(function(body){
 			visited.set(path, body);	

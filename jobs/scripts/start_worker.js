@@ -16,7 +16,8 @@ worker.on('job', function(worker, queue, job) {
 
 // Triggered every time a Job errors.
 worker.on('error', function(err, worker, queue, job) {
-	console.log(err);
+	console.log(err.message);
+	console.log(err.stack);
 });
 
 // Triggered on every successful Job run.

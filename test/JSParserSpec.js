@@ -7,7 +7,6 @@ describe('slash_parser',function(){
         it('should get a references collection from html', function(done){
             var references = null;
             var html = fs.readFileSync(__dirname+'/html/math_cos_javascript.html', 'utf-8');
-            var md = fs.readFileSync(__dirname+'/html/math_cos_javascript.md', 'utf-8');
 
             slash_parser.processReferences('JavaScript', 
                 '/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos',html)
@@ -18,7 +17,7 @@ describe('slash_parser',function(){
                 //resolve name
                 expect(reference.reference).toEqual('Math.cosh()');
                 //resolve type
-                expect(reference.type).toEqual('function');
+                expect(reference.type).toEqual('method');
                 //resolve url
                 expect(reference.uri).toEqual('/javascript/standard built-in objects/math/math.cosh()');
                 //resolve parent url
@@ -34,24 +33,89 @@ describe('slash_parser',function(){
             });
         });
 
-        xit('should return all posible types', function(){
+        it('should get a empty collection if html is not well formatted', function(done){
             var references = null;
-            var html = fs.readFileSync(__dirname+'/html/tty_node.html', 'utf-8');
+            var html = '<html></html>';
 
-            waitsFor(function() {
-                return references != null;
+            slash_parser.processReferences('JavaScript', 
+                '/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos',html)
+            .then(function(result) {
+                expect(result.references.length).toEqual(0);
+
+                done();
+            })
+            .fail(function(error){
+                done(error);
+            });
+        });
+
+        describe("resolve types", function(){
+            it('should return methods', function(done){
+                var html = fs.readFileSync(__dirname+'/html/math_cos_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('method');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                });
             });
 
-            slash_parser.processReferences('Node.js v0.10.29', 'tty_node.html', html).then(function(result) {
-                references = result.references;
+            it('should return properties', function(done){
+                var html = fs.readFileSync(__dirname+'/html/math_e_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/E',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('property');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                });
             });
 
-            runs(function() {
-                expect(references.length).toEqual(10);
-                expect(references[0].type).toEqual('module');
-                expect(references[2].type).toEqual('function');
-                expect(references[6].type).toEqual('class');
-                expect(references[9].type).toEqual('event');
+            xit('should return classes', function(done){
+             var html = fs.readFileSync(__dirname+'/html/math_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('class');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                });
+            });
+
+            xit('should return properties', function(done){
+             
+            });
+
+            xit('should return properties', function(done){
+             
+            });
+
+            xit('should return properties', function(done){
+             
+            });
+
+            xit('should return properties', function(done){
+             
+            });
+
+            xit('should return properties', function(done){
+             
             });
         });
     });

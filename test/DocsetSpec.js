@@ -59,9 +59,10 @@ describe('Docset', function() {
 
         it('should filter with op CONTAINS', function(done){
             docsets.filter('reference', filters.operators.CONTAINS, 'EaRc')
+                .filter('docset', filters.operators.EQUALS, 'slash')
                 .execute()
                 .then(function(rows){
-                    expect(rows.length).toEqual(3);
+                    expect(rows.length).toEqual(2);
                     done();
                 });
         });

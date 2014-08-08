@@ -2,7 +2,6 @@ var filters = require('../app/filters');
 var util = require('util');
 var db = require('./db');
 
-
 function Docsets(){
     this._query = db('refs');
 } 
@@ -40,14 +39,14 @@ Docsets.prototype.addRefsRange = function(refs) {
     var query='';
     refs.forEach(function(ref){
             var where=ref.parent?
-                util.format("WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$ and parent_id=(SELECT id FROM refs where uri=$$%s$$)",
+                util.format("WHERE reference=$slash$%s$slash$ and type=$slash$%s$slash$ and docset=$slash$%s$slash$ and parent_id=(SELECT id FROM refs where uri=$slash$%s$slash$)",
                      ref.reference, ref.type,ref.docset,ref.parent)
-                : util.format("WHERE reference=$$%s$$ and type=$$%s$$ and docset=$$%s$$ and parent_id is null",
+                : util.format("WHERE reference=$slash$%s$slash$ and type=$slash$%s$slash$ and docset=$slash$%s$slash$ and parent_id is null",
                      ref.reference, ref.type,ref.docset)
             query+=util.format("\n\
-                    UPDATE refs SET content=$$%s$$, uri=$$%s$$ "+where+";\
+                    UPDATE refs SET content=$slash$%s$slash$, uri=$slash$%s$slash$ "+where+";\
                     INSERT INTO refs ( reference, type, docset, content, uri, parent_id)\
-                    SELECT $$%s$$, $$%s$$, $$%s$$, $$%s$$, $$%s$$,(SELECT id FROM refs WHERE uri=$$%s$$)\
+                    SELECT $slash$%s$slash$, $slash$%s$slash$, $slash$%s$slash$, $slash$%s$slash$, $slash$%s$slash$,(SELECT id FROM refs WHERE uri=$slash$%s$slash$)\
                     WHERE NOT EXISTS (SELECT 1 FROM refs "+where+");"
                     ,ref.content, ref.uri,ref.reference, ref.type,ref.docset,ref.content, ref.uri, ref.parent);
         });
