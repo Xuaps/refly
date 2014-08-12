@@ -1,3 +1,13 @@
+var spyAjaxAndReturn = function(result) {
+    spyOn($, 'ajax').andCallFake(function() {
+        return {
+            done: function(callback) {
+                callback(result);
+            }
+        };
+    });
+};
+
 describe("A Reference", function () {
 
     describe('constructor', function() {
@@ -8,23 +18,20 @@ describe("A Reference", function () {
             } catch(e) {
                 expect(e.message).toMatch('missing');
             }
-            new Reference({uri: 'some/reference' });
+            new Reference({ uri: '/some/reference' });
+    	});
+    
+    	it ("stores the uri", function () {
+            var reference = new Reference({ uri: '/some/reference' });
+            expect(reference.uri).toEqual('/some/reference');
     	});
     
     	describe ("retrieves its data", function () {
     
-            var result = {
-                content: 'a content'
-            };
+            var result = { content: 'a content' };
     
             beforeEach(function() {
-                spyOn($, 'ajax').andCallFake(function() {
-                    return {
-                        done: function(callback) {
-                            callback(result);
-                        }
-                    };
-                });
+                spyAjaxAndReturn(result);
             });
     
             afterEach(function() {
@@ -59,6 +66,41 @@ describe("A Reference", function () {
                 expect(reference.content).toEqual(result.content);
             });
     
+        });
+
+        describe ('stores the parent info', function() {
+
+            var result = { content: 'a content' };
+    
+            beforeEach(function() {
+                spyAjaxAndReturn(result);
+            });
+    
+            afterEach(function() {
+                $.ajax.reset();
+            });
+            
+            it ('stores parent if given', function() {
+                var theParent = new Reference({
+                    uri: '/parent'
+                });
+                var theChild = new Reference({
+                    load: true,
+                    parent: theParent,
+                    uri: '/parent/child'
+                });
+                expect(theChild.parent).toEqual(theParent);
+            });
+
+            it ('creates parent if missing', function() {
+                var theChild = new Reference({
+                    load: true,
+                    uri: '/parent/child'
+                });
+                expect(theChild.parent).not.toBeUndefined();
+                expect(theChild.parent.uri).toEqual('/parent');
+            });
+
         });
 
     });

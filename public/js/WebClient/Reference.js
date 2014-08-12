@@ -11,9 +11,6 @@ function Reference(options) {
         this[i] = options[i];
     }
 
-    this.onLoadData = this.onLoadData || function() {};
-    this.onLoadChildren = this.onLoadChildren || function() {};
-
     if (!this.parent) {
         var uri_parts = this.uri.split('/').slice(0, -1);
         try {
@@ -86,7 +83,6 @@ function Reference(options) {
             method: 'get'
         }).done(function(data) {
             that.content = data.content;
-            that.onLoadData(that);
 
 /*
             $.ajax({
