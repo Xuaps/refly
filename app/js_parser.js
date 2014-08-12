@@ -14,7 +14,7 @@ function processReferences(docset,uri,html){
 	var parent = null;
 	var name = $('h1');
 	var content = $('article');
-	var type =  resolveType(name, uri, $);
+	var type =  resolveType(name.text(), uri, $);
 	if(name.length>0 && content.length>0){
 		var ref=createRef(docset,name.text(), type, $.html(name)+content.html(), getSlashUrl(docset, $('nav.crumbs'),$));
 
@@ -64,10 +64,26 @@ function resolveType(name, uri, $){
 	if(me.length>0){
 		var me_element=$(me);
 		var type=me.closest('ol').prev('a').text();
+		
 		if(type==='Methods'){
 			return 'method';
 		}else if(type==='Properties'){
 			return 'property';
+		}else if(type==='Standard built-in objects'){
+			if(name.indexOf('(')>-1)
+				return 'function';
+			return 'object';
+		}else{
+			var splitted_uri = uri.split('/');
+			var parent = splitted_uri[splitted_uri.length-2]
+
+			if(parent==='Global_Objects'){
+				return 'class';
+			}else if(parent === 'Statements'){
+				return 'statement';
+			}else if(parent === 'Operators'){
+				return 'expression';
+			}
 		}
 	}
 	return undefined;

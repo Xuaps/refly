@@ -14,4 +14,8 @@ if(parser==='node'){
 	resque.enqueue('docsets', 'slash_docset', ['JavaScript', 'https://developer.mozilla.org', '/en-US/docs/Web/JavaScript/Reference', "^\/en-US\/docs\/Web\/JavaScript\/Reference((?!\\$|#).)*$", 'js_parser'], function(err, remainingJobs) {
 	  console.log('New job '+ parser +' queued. Remaining jobs in queue: ' + remainingJobs);
 	});
+}else if(parser==='web'){
+	resque.enqueue('docsets', 'slash_docset', ['Web API', 'https://developer.mozilla.org', '/en-US/docs/Web/Reference/API', "^\/en-US\/docs\/Web\/API((?!\\$|#).)*$", 'js_parser'], function(err, remainingJobs) {
+	  console.log('New job '+ parser +' queued. Remaining jobs in queue: ' + remainingJobs);
+	});
 }
