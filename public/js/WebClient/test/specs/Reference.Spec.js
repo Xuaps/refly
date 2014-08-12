@@ -8,26 +8,27 @@ var spyAjaxAndReturn = function(result) {
     });
 };
 
-describe("A Reference", function () {
+describe('A Reference', function () {
 
     describe('constructor', function() {
 
-    	it ("fails if missing uri", function () {
+        it ('fails if missing uri', function () {
             try {
                 new Reference();
+                fail();
             } catch(e) {
                 expect(e.message).toMatch('missing');
             }
             new Reference({ uri: '/some/reference' });
-    	});
+        });
     
-    	it ("stores the uri", function () {
+        it ('stores the uri', function () {
             var reference = new Reference({ uri: '/some/reference' });
 
             expect(reference.uri).toEqual('/some/reference');
-    	});
+        });
     
-    	it ("stores any other data", function () {
+        it ('stores any other data', function () {
             var data = {
                 uri: '/some/reference',
                 content: 'a content',
@@ -39,20 +40,31 @@ describe("A Reference", function () {
             expect(reference.uri).toEqual(data.uri);
             expect(reference.content).toEqual(data.content);
             expect(reference.sampleField).toEqual(data.sampleField);
-    	});
+        });
+
+    });
     
-    	describe ("retrieves its data when queried", function () {
+    describe ('get()', function () {
+
+        var result = { content: 'a content' };
     
-            var result = { content: 'a content' };
-    
-            beforeEach(function() {
-                spyAjaxAndReturn(result);
-            });
-    
-            afterEach(function() {
-                $.ajax.reset();
-            });
+        beforeEach(function() {
+            spyAjaxAndReturn(result);
+        });
+   
+        afterEach(function() {
+            $.ajax.reset();
+        });
             
+        it ('returns the queried data', function() {
+            var reference = new Reference({ uri: '/some/reference' });
+            reference.get('content', function(response) {
+                expect(response).toEqual(result.content);
+            });
+        });
+    
+        describe ('retrieves its data when queried', function () {
+    
             it ('does not call the AJAX api if not queried', function() {
                 new Reference({ uri: '/some/reference' });
 
@@ -74,46 +86,45 @@ describe("A Reference", function () {
                 expect(reference.content).toEqual(result.content);
             });
     
-            it ('returns the queried data', function() {
-                var reference = new Reference({ uri: '/some/reference' });
-                reference.get('content', function(response) {
-                    expect(response).toEqual(result.content);
-                });
-            });
-    
         });
 
-        describe ('stores the parent info', function() {
+    });
 
-            var result = { content: 'a content' };
-    
-            beforeEach(function() {
-                spyAjaxAndReturn(result);
-            });
-    
-            afterEach(function() {
-                $.ajax.reset();
-            });
-            
-            it ('stores parent if given', function() {
-                var theParent = new Reference({
-                    uri: '/parent'
-                });
-                var theChild = new Reference({
-                    parent: theParent,
-                    uri: '/parent/child'
-                });
-                expect(theChild.parent).toEqual(theParent);
-            });
+    describe ('get("parent")', function() {
 
-            it ('creates parent if missing', function() {
-                var theChild = new Reference({
-                    uri: '/parent/child'
-                });
-                expect(theChild.parent).not.toBeUndefined();
-                expect(theChild.parent.uri).toEqual('/parent');
+        var result = { content: 'a content' };
+ 
+        beforeEach(function() {
+            spyAjaxAndReturn(result);
+        });
+ 
+        afterEach(function() {
+            $.ajax.reset();
+        });
+        
+        it ('returns parent if given', function() {
+            var theParent = new Reference({
+                uri: '/parent'
+            });
+            var theChild = new Reference({
+                parent: theParent,
+                uri: '/parent/child'
             });
 
+            theChild.get('parent', function(response) {
+                expect(response).toEqual(theParent);
+            });
+        });
+
+        it ('creates parent if missing', function() {
+            var theChild = new Reference({
+                uri: '/parent/child'
+            });
+
+            theChild.get('parent', function(response) {
+                expect(response).not.toBeUndefined();
+                expect(response.uri).toEqual('/parent');
+            });
         });
 
     });
