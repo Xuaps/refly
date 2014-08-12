@@ -1,9 +1,11 @@
+var q = require('q');
+var config = require('config')
+var njstrace = require('njstrace').inject(config.njstrace);
+
 var Docsets = require('../app/docsets.js');
 var request = require('../app/slash_request.js');
 var spider = require('../app/slash_spider.js');
 var styler = require('../app/slash_styler.js');
-
-var q = require('q');
 
 module.exports=function(docset, domain, start_page, selector, parser, callback){
 	var parser = require('../app/'+parser);
@@ -11,7 +13,6 @@ module.exports=function(docset, domain, start_page, selector, parser, callback){
 
 	spider.run(domain, start_page, new RegExp(selector))
 	.then(function(urls){
-		console.log("spider runned");
 		var promises = [];
 		urls.forEach(function(html, url){
 			promises.push(parser.processReferences(docset, url, html));
@@ -19,7 +20,6 @@ module.exports=function(docset, domain, start_page, selector, parser, callback){
 		return q.all(promises);
 	})
 	.then(function(arg){
-		console.log("all refrences processed");
 		var references = arg.reduce(function(previousValue, currentValue, index, array){
 		  return previousValue.concat(currentValue.references);
 		},[]);
@@ -33,7 +33,6 @@ module.exports=function(docset, domain, start_page, selector, parser, callback){
 		return styler.processContentLinks(references, links);
 	})
 	.then(function(references){
-		console.log("styler applied");
 		return docsets.addRefsRange(references).execute();
 	})
 	.then(callback)

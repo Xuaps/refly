@@ -82,7 +82,7 @@ describe('slash_parser',function(){
                 });
             });
 
-            xit('should return classes', function(done){
+            it('should return classes', function(done){
              var html = fs.readFileSync(__dirname+'/html/math_javascript.html', 'utf-8');
 
                 slash_parser.processReferences('JavaScript', 
@@ -98,23 +98,71 @@ describe('slash_parser',function(){
                 });
             });
 
-            xit('should return properties', function(done){
-             
+            it('should return objects', function(done){
+                var html = fs.readFileSync(__dirname+'/html/undefined_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('object');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                });
             });
 
-            xit('should return properties', function(done){
-             
+            it('should return functions', function(done){
+                var html = fs.readFileSync(__dirname+'/html/decodeURI_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('function');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                });
             });
 
-            xit('should return properties', function(done){
-             
+            it('should return statements', function(done){
+                var html = fs.readFileSync(__dirname+'/html/block_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Statements/block',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('statement');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                });
             });
 
-            xit('should return properties', function(done){
-             
+            it('should return expressions', function(done){
+                var html = fs.readFileSync(__dirname+'/html/this_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('JavaScript', 
+                    '/en-US/docs/Web/JavaScript/Reference/Operators/this',html)
+                .then(function(result) {
+                    reference = result.references[0];
+                    expect(reference.type).toEqual('expression');
+
+                    done();
+                })
+                .fail(function(error){
+                    done(error);
+                }); 
             });
 
-            xit('should return properties', function(done){
+            xit('should return documentations', function(done){
              
             });
         });
