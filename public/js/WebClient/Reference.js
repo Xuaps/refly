@@ -1,8 +1,7 @@
 function Reference(options) {
 
-    if (!options.uri) {
-        this.invalid = true;
-        return this;
+    if (!options || !options.uri) {
+        throw new Error('missing argument \'uri\'');
     }
 
     this.load = false;
@@ -17,11 +16,15 @@ function Reference(options) {
 
     if (!this.parent) {
         var uri_parts = this.uri.split('/').slice(0, -1);
-        this.parent = new Reference({
-            uri: uri_parts.join('/'),
-            reference: uri_parts[uri_parts.length - 1],
-            children: [ this ]
-        });
+        try {
+            this.parent = new Reference({
+                uri: uri_parts.join('/'),
+                reference: uri_parts[uri_parts.length - 1],
+                children: [ this ]
+            });
+        } catch (e) {
+            this.parent = null;
+        }
     }
 
     this._setChildren = function(children, callback) {
@@ -36,7 +39,10 @@ function Reference(options) {
 
         for (var i  in children) {
             (function(i) {
-                that.children[i] = new Reference({ uri: children[i].uri, parent: that });
+                that.children[i] = new Reference({
+                    uri: children[i].uri,
+                    parent: that
+                });
                 $.ajax({
                     url: '/api/children' + children[i].uri,
                     method: 'get'
@@ -69,7 +75,7 @@ function Reference(options) {
     },
 
     this.root = function() {
-        return (this.parent.invalid) ? this : this.parent.root();
+        return (this.parent == null) ? this : this.parent.root();
     },
 
     this._load = function() {
@@ -82,6 +88,7 @@ function Reference(options) {
             that.content = data.content;
             that.onLoadData(that);
 
+/*
             $.ajax({
                 url: '/api/children' + that.parent.uri,
                 method: 'get'
@@ -111,6 +118,7 @@ function Reference(options) {
                     that._setChildren(children, function() { that.onLoadChildren(that) });
                 });
             });
+*/
         });
     };
 
