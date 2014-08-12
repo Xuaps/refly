@@ -3,6 +3,8 @@ var q = require('q');
 var md = require('html-md');
 var Map = require('hashmap').HashMap;
 
+var Reference = require('./reference');
+
 exports.processReferences = function(docset, url, html){
 	return q.fcall(processReferences, docset, url, html);
 }
@@ -18,11 +20,12 @@ function processReferences(docset,uri,html){
 		.each(function(index, element){
 			var data = $(element);
 			var content = data.nextUntil(':header');
-			var ref=createRef(docset,data.text(), $.html(data)+$.html(content), getUrl(docset,data));
+			var parsedRef=parseReference(data.text());
+			var ref=new Reference(docset,parsedRef.reference, parsedRef.type, $.html(data)+$.html(content), getUrl(docset,data));
 			references.push(ref);	
 			links.set(data.find('a').first().attr('href'), ref.uri);
 			links.set(uri+data.find('a').first().attr('href'),ref.uri);
-			if(ref.parent === null){
+			if(ref.parent === ''){
 				links.set(uri, ref.uri);
 			}
 		});
@@ -44,20 +47,6 @@ function getUrl(docset, data){
 function calculateParentTag(data){
 	var tag = data['0'].name;
 	return tag_parent = 'h'+(tag[1]-1);
-};
-
-function createRef(docset,name, content, uri){
-	var ref = parseReference(name);
-
-	ref.parent=null;
-	ref.docset = docset;
-	ref.uri = uri;
-	if(uri.split('/').length>3){
-		ref.parent = uri.substring(0,uri.lastIndexOf('/'));
-	}
-	ref.content = content===undefined?undefined:md(content);
-
-	return ref;
 };
 
 function parseReference(name){

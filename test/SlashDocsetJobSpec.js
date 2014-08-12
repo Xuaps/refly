@@ -39,7 +39,7 @@ describe('Slash a docset', function(){
                               expect(Docsets.prototype._collection[0].docset).toEqual('Node.js v0.10.29')
                               expect(Docsets.prototype._collection[0].reference).toEqual('Crypto')
                               expect(Docsets.prototype._collection[0].type).toEqual('module')
-                              expect(Docsets.prototype._collection[0].parent).toBeNull();
+                              expect(Docsets.prototype._collection[0].parent).toEqual('');
                               expect(Docsets.prototype._collection[0].content).not.toContain('[0]: #crypto_class_cipher');
                               expect(Docsets.prototype._collection[0].content).toContain('[0]: /node.js%20v0.10.29/crypto');
 
