@@ -23,10 +23,25 @@ describe("A Reference", function () {
     
     	it ("stores the uri", function () {
             var reference = new Reference({ uri: '/some/reference' });
+
             expect(reference.uri).toEqual('/some/reference');
     	});
     
-    	describe ("retrieves its data", function () {
+    	it ("stores any other data", function () {
+            var data = {
+                uri: '/some/reference',
+                content: 'a content',
+                sampleField: 'value'
+            };
+
+            var reference = new Reference(data);
+
+            expect(reference.uri).toEqual(data.uri);
+            expect(reference.content).toEqual(data.content);
+            expect(reference.sampleField).toEqual(data.sampleField);
+    	});
+    
+    	describe ("retrieves its data when queried", function () {
     
             var result = { content: 'a content' };
     
@@ -38,32 +53,32 @@ describe("A Reference", function () {
                 $.ajax.reset();
             });
             
-            it ('does not call the AJAX api if load is false or omitted', function() {
-                new Reference({
-                    load: false,
-                    uri: '/some/reference'
-                });
-                new Reference({
-                    uri: '/some/reference'
-                });
+            it ('does not call the AJAX api if not queried', function() {
+                new Reference({ uri: '/some/reference' });
+
                 expect($.ajax).not.toHaveBeenCalled();
             });
     
             it ('calls the AJAX api with the proper url', function() {
-                new Reference({
-                    load: true,
-                    uri: '/some/reference'
-                });
+                var reference = new Reference({ uri: '/some/reference' });
+                reference.get('content');
+
                 expect($.ajax).toHaveBeenCalled();
                 expect($.ajax.mostRecentCall.args[0].url).toEqual('/api/get/some/reference');
             });
     
             it ('stores the result', function() {
-                var reference = new Reference({
-                    load: true,
-                    uri: '/some/reference'
-                });
+                var reference = new Reference({ uri: '/some/reference' });
+                reference.get('content');
+
                 expect(reference.content).toEqual(result.content);
+            });
+    
+            it ('returns the queried data', function() {
+                var reference = new Reference({ uri: '/some/reference' });
+                reference.get('content', function(response) {
+                    expect(response).toEqual(result.content);
+                });
             });
     
         });
@@ -85,7 +100,6 @@ describe("A Reference", function () {
                     uri: '/parent'
                 });
                 var theChild = new Reference({
-                    load: true,
                     parent: theParent,
                     uri: '/parent/child'
                 });
@@ -94,7 +108,6 @@ describe("A Reference", function () {
 
             it ('creates parent if missing', function() {
                 var theChild = new Reference({
-                    load: true,
                     uri: '/parent/child'
                 });
                 expect(theChild.parent).not.toBeUndefined();

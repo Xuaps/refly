@@ -1,32 +1,34 @@
 function Reference(options) {
 
+    var self = this;
+
     if (!options || !options.uri) {
         throw new Error('missing argument \'uri\'');
     }
 
-    this.load = false;
-    this.children = [];
+    self._store = function(fields) {
+        for (var i in fields) {
+            self[i] = fields[i];
+        }
+    };
 
-    for (var i in options) {
-        this[i] = options[i];
-    }
+    self.children = [];
+    self._store(options);
 
-    if (!this.parent) {
-        var uri_parts = this.uri.split('/').slice(0, -1);
+    if (!self.parent) {
+        var uri_parts = self.uri.split('/').slice(0, -1);
         try {
-            this.parent = new Reference({
+            self.parent = new Reference({
                 uri: uri_parts.join('/'),
                 reference: uri_parts[uri_parts.length - 1],
-                children: [ this ]
+                children: [ self ]
             });
         } catch (e) {
-            this.parent = null;
+            self.parent = null;
         }
     }
 
-    this._setChildren = function(children, callback) {
-        var that = this;
-
+    self._setChildren = function(children, callback) {
         var completed = 0;
         var total = children.length;
 
@@ -36,15 +38,15 @@ function Reference(options) {
 
         for (var i  in children) {
             (function(i) {
-                that.children[i] = new Reference({
+                self.children[i] = new Reference({
                     uri: children[i].uri,
-                    parent: that
+                    parent: self
                 });
                 $.ajax({
                     url: '/api/children' + children[i].uri,
                     method: 'get'
                 }).done(function(descendants) {
-                    that.children[i]._setChildren(descendants, function() {
+                    self.children[i]._setChildren(descendants, function() {
                         completed++;
                         if (completed == total) {
                             callback();
@@ -55,9 +57,9 @@ function Reference(options) {
         }
     },
 
-    this.objects = function() {
+    self.objects = function() {
         var objects = [];
-        this.children.forEach(function(child) {
+        self.children.forEach(function(child) {
             child.objects().forEach(function(obj) {
                 objects.push(obj);
             });
@@ -71,39 +73,53 @@ function Reference(options) {
         return objects;
     },
 
-    this.root = function() {
-        return (this.parent == null) ? this : this.parent.root();
+    self.root = function() {
+        return (self.parent == null) ? self : self.parent.root();
     },
 
-    this._load = function() {
-        var that = this;
+    self.get = function(fieldName, callback) {
+        callback = callback || function() {};
 
+        if (self[fieldName]) {
+            callback(self[fieldName]);
+        } else {
+            $.ajax({
+                url: '/api/get' + self.uri,
+                method: 'get'
+            }).done(function(data) {
+                self._store(data);
+                callback(self[fieldName]);
+            });
+        }
+    },
+
+    self._load = function() {
         $.ajax({
-            url: '/api/get' + this.uri,
+            url: '/api/get' + self.uri,
             method: 'get'
         }).done(function(data) {
-            that.content = data.content;
+            self.content = data.content;
 
 /*
             $.ajax({
-                url: '/api/children' + that.parent.uri,
+                url: '/api/children' + self.parent.uri,
                 method: 'get'
             }).done(function(siblings) {
                 $.ajax({
-                    url: '/api/children' + that.uri,
+                    url: '/api/children' + self.uri,
                     method: 'get'
                 }).done(function(children) {
-                    that.parent.children = [];
+                    self.parent.children = [];
                     if (siblings.length > 0) {
                         siblings.forEach(function(sibling) {
-                            sibling.parent = that.parent;
-                            that.parent.children.push(new Reference(sibling));
+                            sibling.parent = self.parent;
+                            self.parent.children.push(new Reference(sibling));
                         });
                     } else {
-                        that.parent.children.push(new Reference(data));
+                        self.parent.children.push(new Reference(data));
                     }
-                    that.parent.children.forEach(function(node) {
-                        if (node.uri == that.uri) {
+                    self.parent.children.forEach(function(node) {
+                        if (node.uri == self.uri) {
                             node.children = [];
                             children.forEach(function(child) {
                                 child.parent = node;
@@ -111,16 +127,12 @@ function Reference(options) {
                             });
                         }
                     });
-                    that._setChildren(children, function() { that.onLoadChildren(that) });
+                    self._setChildren(children, function() { self.onLoadChildren(self) });
                 });
             });
 */
         });
     };
 
-    if (this.load) {
-        this._load();
-    }
-
-    return this;
+    return self;
 }
