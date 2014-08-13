@@ -35,7 +35,7 @@ describe('Slash a docset', function(){
                         if(results instanceof Error){
                               done(results);
                         }else{
-            			expect(Docsets.prototype._collection.length).toEqual(12);
+            			expect(Docsets.prototype._collection.length).toEqual(3);
                               expect(Docsets.prototype._collection[0].docset).toEqual('Node.js v0.10.29')
                               expect(Docsets.prototype._collection[0].reference).toEqual('Crypto')
                               expect(Docsets.prototype._collection[0].type).toEqual('module')

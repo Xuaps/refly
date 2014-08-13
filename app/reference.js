@@ -19,6 +19,14 @@ Reference.prototype={
 
 		return parent_url;
 	},
+
+	isEqual: function(obj){
+
+		return obj instanceof Reference
+			&& obj.reference === this.reference
+			&& obj.docset === this.docset
+			&& obj.parent === this.parent;
+	}
 };
 
 module.exports = Reference;

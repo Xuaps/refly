@@ -21,7 +21,13 @@ module.exports=function(docset, domain, start_page, selector, parser, callback){
 	})
 	.then(function(arg){
 		var references = arg.reduce(function(previousValue, currentValue, index, array){
-		  return previousValue.concat(currentValue.references);
+		  
+		  currentValue.references.forEach(function(ref){
+		  	if(previousValue.every(function(cmp){return !ref.isEqual(cmp);})){
+		  		previousValue.push(ref);
+		  	}
+		  });
+		  return previousValue;
 		},[]);
 		var links = arg.reduce(function(previousValue, currentValue, index, array){
 			debugger;
