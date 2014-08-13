@@ -19,9 +19,9 @@ html
             div(id='result')
         header
             img(src='/img/logo.png')
-            fieldset Reference:
-                input(type='text', name='reference')
-                input(type='submit', value='Search')
+            fieldset
+                input(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+                input(type='submit', class='ry-btn', value='Search')
                 br
                 table(id='results')
         input(type='hidden', name='uri', value='#{uri}')
