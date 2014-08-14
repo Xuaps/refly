@@ -48,5 +48,12 @@ describe('slash_spider', function(){
                 done();
             });
         });
+
+        it('should continues even if some urls fails', function(done){
+            spider.run('http://refly1.co', url_A, /\/reference\/children\//).then(function(urls){
+                expect(urls.count()).toEqual(0);
+                done();
+            }).fail(done);
+        });
     });
 });

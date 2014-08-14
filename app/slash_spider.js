@@ -37,13 +37,19 @@ function process_url(domain, selector, to_visit, visited, bar){
 				}
 			});
 
-			if(to_visit.length==0){
-				bar.tick(1);
-				return visited;
-			}
-
-			bar.total=to_visit.length + visited.count();
-			bar.tick();
-			return process_url(domain, selector, to_visit, visited, bar);
+			return next(domain, selector, to_visit, visited, bar);
+		}).fail(function(err){
+			return next(domain, selector, to_visit, visited, bar);
 		});	
+}
+
+function next(domain, selector, to_visit, visited, bar){
+	if(to_visit.length==0){
+		bar.tick(1);
+		return visited;
+	}
+
+	bar.total=to_visit.length + visited.count();
+	bar.tick();
+	return process_url(domain, selector, to_visit, visited, bar);
 }
