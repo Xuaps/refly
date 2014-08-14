@@ -8,9 +8,9 @@ var spyAjaxAndReturn = function(result) {
     });
 };
 
-describe('A Reference', function () {
+describe ('Reference', function () {
 
-    describe('constructor', function() {
+    describe ('constructor', function() {
 
         it ('fails if missing uri', function () {
             try {
@@ -125,6 +125,74 @@ describe('A Reference', function () {
                 expect(response).not.toBeUndefined();
                 expect(response.uri).toEqual('/parent');
             });
+        });
+
+    });
+
+    describe ('get("children")', function() {
+
+        var children = [
+            { uri: '/parent/aChild' },
+            { uri: '/parent/anotherChild' }
+        ];
+ 
+        beforeEach(function() {
+            spyOn($, 'ajax').andCallFake(function(params) {
+                return {
+                    done: function(callback) {
+                        callback(children);
+                    }
+                };
+            });
+        });
+ 
+        afterEach(function() {
+            $.ajax.reset();
+        });
+        
+        it ('returns children if given', function() {
+            var theParent = new Reference({
+                uri: '/parent',
+                children: [
+                    new Reference({ uri: '/parent/aChild' }),
+                    new Reference({ uri: '/parent/anotherChild' })
+                ]
+            });
+
+            theParent.get('children', function(response) {
+                expect(response.length).toEqual(2);
+                expect(response[0].uri).toEqual('/parent/aChild');
+                expect(response[1].uri).toEqual('/parent/anotherChild');
+            });
+        });
+
+        describe ('retrieves children if necessary', function() {
+
+            var theParent;
+
+            beforeEach(function() {
+                theParent = new Reference({ uri: '/parent' });
+            });
+
+            it ('does not call the AJAX api if not queried', function() {
+                expect($.ajax).not.toHaveBeenCalled();
+            });
+    
+            it ('calls the AJAX api with the proper url', function() {
+                theParent.get('children', function(response) {
+                    expect($.ajax).toHaveBeenCalled();
+                    expect($.ajax.mostRecentCall.args[0].url).toEqual('/api/children/parent');
+                });
+            });
+    
+            it ('returns the result', function() {
+                theParent.get('children', function(response) {
+                    expect(response.length).toEqual(2);
+                    expect(response[0].uri).toEqual('/parent/aChild');
+                    expect(response[1].uri).toEqual('/parent/anotherChild');
+                });
+            });
+    
         });
 
     });

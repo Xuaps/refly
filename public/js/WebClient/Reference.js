@@ -19,7 +19,6 @@ function Reference(options) {
             throw new Error('missing argument \'uri\'');
         }
 
-        self.children = [];
         self._store(options);
 
         return self;
@@ -35,6 +34,9 @@ function Reference(options) {
         switch (fieldName) {
             case 'parent':
                 self._retrieve_parent(callback);
+                return;
+            case 'children':
+                self._retrieve_children(callback);
                 return;
             default:
                 self._retrieve_normal_field(fieldName, callback);
@@ -65,13 +67,13 @@ function Reference(options) {
         callback(self.parent);
     };
 
-    self._load = function() {
+    self._retrieve_children = function(callback) {
         $.ajax({
-            url: '/api/get' + self.uri,
+            url: '/api/children' + self.uri,
             method: 'get'
         }).done(function(data) {
-            self.content = data.content;
-
+            self.children = data;
+            callback(self.children);
         });
     };
 
@@ -117,6 +119,7 @@ function Reference(options) {
             callback();
         }
 
+        self.children = [];
         for (var i  in children) {
             (function(i) {
                 self.children[i] = new Reference({
