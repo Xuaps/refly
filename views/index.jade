@@ -14,14 +14,15 @@ html
     body
         div(id='content')
             div(id='left-pane')
+                div(id='search-view')
+                    fieldset
+                        input(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+                        input(type='submit', class='ry-btn', value='Search')
+                        br
+                        table(id='results')
                 div(id='tree-view')
                 div(id='outline-view')
             div(id='result')
         header
             img(src='/img/logo.png')
-            fieldset
-                input(type='text', class='ry-input-text', name='reference', placeholder="Reference")
-                input(type='submit', class='ry-btn', value='Search')
-                br
-                table(id='results')
         input(type='hidden', name='uri', value='#{uri}')
