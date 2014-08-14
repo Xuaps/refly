@@ -41,31 +41,22 @@ function getSlashUrl(docset, data, $){
 };
 
 function resolveType(name, uri, $){
-	var me  = $('#quick-links').find('a[href="'+uri+'"]');
-	if(me.length>0){
-		var me_element=$(me);
-		var type=me.closest('ol').prev('a').text();
-		
-		if(type==='Methods'){
-			return 'method';
-		}else if(type==='Properties'){
-			return 'property';
-		}else if(type==='Standard built-in objects'){
-			if(name.indexOf('(')>-1)
-				return 'function';
-			return 'object';
-		}else{
-			var splitted_uri = uri.split('/');
-			var parent = splitted_uri[splitted_uri.length-2]
 
-			if(parent==='Global_Objects'){
-				return 'class';
-			}else if(parent === 'Statements'){
-				return 'statement';
-			}else if(parent === 'Operators'){
-				return 'expression';
-			}
-		}
+	if(/^.*Statements\/((?!\/).)*$/.test(uri)){
+		return 'statement';
+	}else if(/^.*Operators\/((?!\/).)*$/.test(uri)){
+		return 'expression';
+	}else if(/^.*Global_Objects\/.*(?=\/).*$/.test(uri) && /^.*(?=\)$)/.test(name)){
+		return 'method';
+	}else if(/^.*Global_Objects\/.*(?=\/).*$/.test(uri) && /^((?!\().)*$/.test(name)){
+		return 'property';
+	}else if(/^.*Global_Objects\/((?!\/).)*$/.test(uri)&& /^[A-Z]((?!\().)*$/.test(name)){
+		return 'class';
+	}else if(/^.*Global_Objects\/((?!\/).)*$/.test(uri) && /^.*(?=\)$)/.test(name)){
+		return 'function';
+	}else if(/^.*Global_Objects\/((?!\/).)*$/.test(uri) && /^[a-z]((?!\().)*$/.test(name)){
+		return 'object';
 	}
+	
 	return undefined;
 };

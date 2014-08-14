@@ -1,6 +1,5 @@
 var q = require('q');
 var config = require('config')
-var njstrace = require('njstrace').inject(config.njstrace);
 
 var Docsets = require('../app/docsets.js');
 var request = require('../app/slash_request.js');

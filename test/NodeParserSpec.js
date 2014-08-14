@@ -14,7 +14,7 @@ describe('node_parser',function(){
                     </div>').then(function(res){
                         expect(res.references[0].reference).toEqual('File Modules');
                         done();
-                    });
+                    }).fail(done);
             });
 
             it('should get a complete name for class with dots', function(done){
