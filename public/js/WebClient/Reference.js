@@ -2,14 +2,21 @@ var Reference = function(options) {
 
     var self = this;
 
+    self.children = {};
+    self._all_children_retrieved = false;
+
     self.get = function(fieldName, callback) {
         callback = callback || function() {};
 
-        if (self[fieldName]) {
+        if (self._field_valid(fieldName)) {
             callback(self[fieldName]);
         } else {
             self._retrieve(fieldName, callback);
         }
+    };
+
+    self._field_valid = function(fieldName) {
+        return (fieldName == 'children') ? self._all_children_retrieved : self[fieldName];
     };
 
     // ____________________________________________________
@@ -17,6 +24,9 @@ var Reference = function(options) {
     self._store = function(fields) {
         for (var i in fields) {
             self[i] = fields[i];
+            if (i == 'parent') {
+                self['parent'].children[fields['uri']] = self;
+            }
         }
     };
 
@@ -46,10 +56,12 @@ var Reference = function(options) {
     self._retrieve_parent = function(callback) {
         var uri_parts = self.uri.split('/').slice(0, -1);
         try {
+            var children = {};
+            children[self.uri] = self;
             self.parent = Reference.create({
                 uri: uri_parts.join('/'),
                 reference: uri_parts[uri_parts.length - 1],
-                children: [ self ]
+                children: children
             });
         } catch (e) {
             self.parent = null;
@@ -62,7 +74,11 @@ var Reference = function(options) {
             url: '/api/children' + self.uri,
             method: 'get'
         }).done(function(data) {
-            self.children = data;
+            data.forEach(function(referenceData) {
+                var reference = Reference.create(referenceData);
+                self.children[reference.uri] = reference;
+            });
+            self._all_children_retrieved = true;
             callback(self.children);
         });
     };

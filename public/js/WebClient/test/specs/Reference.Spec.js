@@ -154,6 +154,38 @@ describe ('Reference', function () {
             });
         });
 
+        describe ('parent has this child', function() {
+
+            it ('if given', function() {
+                var theParent = Reference.create({
+                    uri: '/parent'
+                });
+                var theChild = Reference.create({
+                    parent: theParent,
+                    uri: '/parent/child'
+                });
+
+                theChild.get('parent', function(response) {
+                    expect(response).not.toBeUndefined();
+                    expect(response.uri).toEqual('/parent');
+                    expect(response.children['/parent/child']).toEqual(theChild);
+                });
+            });
+
+            it ('if missing', function() {
+                var theChild = Reference.create({
+                    uri: '/parent/child'
+                });
+
+                theChild.get('parent', function(response) {
+                    expect(response).not.toBeUndefined();
+                    expect(response.uri).toEqual('/parent');
+                    expect(response.children['/parent/child']).toEqual(theChild);
+                });
+            });
+
+        });
+
     });
 
     describe ('get("children")', function() {
@@ -178,18 +210,20 @@ describe ('Reference', function () {
         });
         
         it ('returns children if given', function() {
+            var first = Reference.create({ uri: '/parent/aChild' });
+            var second = Reference.create({ uri: '/parent/anotherChild' });
+
+            var children = {};
+            children[first.uri] = first;
+            children[second.uri] =second;
             var theParent = Reference.create({
                 uri: '/parent',
-                children: [
-                    Reference.create({ uri: '/parent/aChild' }),
-                    Reference.create({ uri: '/parent/anotherChild' })
-                ]
+                children: children
             });
 
             theParent.get('children', function(response) {
-                expect(response.length).toEqual(2);
-                expect(response[0].uri).toEqual('/parent/aChild');
-                expect(response[1].uri).toEqual('/parent/anotherChild');
+                expect(response[first.uri]).toEqual(first);
+                expect(response[second.uri]).toEqual(second);
             });
         });
 
@@ -214,9 +248,8 @@ describe ('Reference', function () {
     
             it ('returns the result', function() {
                 theParent.get('children', function(response) {
-                    expect(response.length).toEqual(2);
-                    expect(response[0].uri).toEqual('/parent/aChild');
-                    expect(response[1].uri).toEqual('/parent/anotherChild');
+                    expect(response['/parent/aChild']).not.toBeUndefined();
+                    expect(response['/parent/anotherChild']).not.toBeUndefined();
                 });
             });
     
