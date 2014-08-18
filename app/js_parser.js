@@ -32,9 +32,12 @@ function getSlashUrl(docset, data, $){
 	var lis = data.find('li');
 	var url='';
 
-	for(var i=lis.length-1;$(lis[i]).text().indexOf(docset)==-1;i--){
+	for(var i=lis.length-1;i>-1 && $(lis[i]).text().indexOf(docset)==-1;i--){
 
 		url = '/' + $(lis[i]).text() + url;
+	}
+	if(i<0){
+		console.log(url+" malformed");
 	}
 
 	return '/'+docset.toLowerCase()+url.toLowerCase();
