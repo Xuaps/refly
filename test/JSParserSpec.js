@@ -49,6 +49,17 @@ describe('slash_parser',function(){
             });
         });
 
+        describe("resolve slash url", function(done){
+            it('should return a wrong slash url for a reference if it not found root element (BUG)', function(){
+                var references = null;
+                var html = fs.readFileSync(__dirname+'/html/math_cos_javascript.html', 'utf-8');
+
+                slash_parser.processReferences('Java Script', 
+                    '/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos',html)
+                .then(done);
+            });
+        });
+
         describe("resolve types", function(){
             it('should return methods', function(done){
                 var html = fs.readFileSync(__dirname+'/html/math_cos_javascript.html', 'utf-8');

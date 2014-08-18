@@ -18,4 +18,8 @@ if(parser==='node'){
 	resque.enqueue('docsets', 'slash_docset', ['Web API', 'https://developer.mozilla.org', '/en-US/docs/Web/Reference/API', "^\/en-US\/docs\/Web\/API((?!\\$|#).)*$", 'js_parser'], function(err, remainingJobs) {
 	  console.log('New job '+ parser +' queued. Remaining jobs in queue: ' + remainingJobs);
 	});
+}else if(parser==='php'){
+	resque.enqueue('docsets', 'slash_docset', ['PHP Manual', 'http://es1.php.net/manual/en/', 'index.php', "^(.(?!\/))*\.php$", 'php_parser'], function(err, remainingJobs) {
+	  console.log('New job '+ parser +' queued. Remaining jobs in queue: ' + remainingJobs);
+	});
 }
