@@ -10,6 +10,10 @@ var spyAjaxAndReturn = function(result) {
 
 describe ('Reference', function () {
 
+    beforeEach(function() {
+        Reference.clearCache();
+    });
+
     describe ('create()', function() {
 
         it ('fails if missing uri', function () {
@@ -40,6 +44,20 @@ describe ('Reference', function () {
             expect(reference.uri).toEqual(data.uri);
             expect(reference.content).toEqual(data.content);
             expect(reference.sampleField).toEqual(data.sampleField);
+        });
+
+        it ('caches created references by uri', function() {
+            var aReference = Reference.create({ uri: '/some/reference', aField: 'a value' });
+            var anotherReference = Reference.create({ uri: '/some/reference', anotherField: 'another value' });
+
+            expect(aReference).toEqual(anotherReference);
+
+            expect(aReference.anotherField).toEqual('another value');
+            expect(anotherReference.aField).toEqual('a value');
+
+            aReference.additionalField = 'additional value';
+
+            expect(anotherReference.additionalField).toEqual('additional value');
         });
 
     });
@@ -84,6 +102,15 @@ describe ('Reference', function () {
                 reference.get('content');
 
                 expect(reference.content).toEqual(result.content);
+            });
+    
+            it ('calls the AJAX api only once', function() {
+                var reference = Reference.create({ uri: '/some/reference' });
+                reference.get('content');
+                reference.get('content');
+
+                expect($.ajax).toHaveBeenCalled();
+                expect($.ajax.calls.length).toEqual(1);
             });
     
         });

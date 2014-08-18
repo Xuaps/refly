@@ -14,16 +14,6 @@ var Reference = function(options) {
 
     // ____________________________________________________
 
-    self._init = function() {
-        if (!options || !options.uri) {
-            throw new Error('missing argument \'uri\'');
-        }
-
-        self._store(options);
-
-        return self;
-    };
-
     self._store = function(fields) {
         for (var i in fields) {
             self[i] = fields[i];
@@ -161,9 +151,25 @@ var Reference = function(options) {
         return (self.parent == null) ? self : self.parent.root();
     };
 
-    return self._init();
+    return self;
 }
 
+Reference.clearCache = function() {
+    Reference.instances = {};
+};
+
 Reference.create = function(options) {
-    return new Reference(options);
+    if (!options || !options.uri) {
+        throw new Error('missing argument \'uri\'');
+    }
+
+    if (Reference.instances[options.uri] == undefined) {
+        Reference.instances[options.uri] = new Reference(options);
+    }
+
+    Reference.instances[options.uri]._store(options);
+
+    return Reference.instances[options.uri];
 }
+
+Reference.clearCache();
