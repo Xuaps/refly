@@ -21,7 +21,9 @@ $(function() {
     reference.get('content', function(content) {
         MarkdownViewer.show(content);
     });
-    // TreeView.show(reference);
+    reference.get('root', function(root) {
+        TreeView.show(root, reference);
+    });
 
 });
 

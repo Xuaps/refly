@@ -4,13 +4,17 @@ var TreeView = {
         jade.render($('#tree-view')[0], 'tree-view-loading');
     },
 
-    show: function(reference) {
-        TreeView._show(reference.parent, reference.uri);
-    },
-
-    _show: function(node, current) {
+    show: function(node, current) {
         TreeView.reset();
-        jade.render($('#tree-view')[0], 'tree-view', { root: node.root(), current_uri: current });
+        node.get('children', function(children) {
+            node.get('root', function(root) {
+                jade.render(
+                    $('#tree-view')[0],
+                    'tree-view',
+                    { root: root, current_uri: current.uri }
+                );
+            });
+        });
     }
 
 };
