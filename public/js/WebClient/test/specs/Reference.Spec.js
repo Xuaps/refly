@@ -10,20 +10,20 @@ var spyAjaxAndReturn = function(result) {
 
 describe ('Reference', function () {
 
-    describe ('constructor', function() {
+    describe ('create()', function() {
 
         it ('fails if missing uri', function () {
             try {
-                new Reference();
+                Reference.create();
                 fail();
             } catch(e) {
                 expect(e.message).toMatch('missing');
             }
-            new Reference({ uri: '/some/reference' });
+            Reference.create({ uri: '/some/reference' });
         });
     
         it ('stores the uri', function () {
-            var reference = new Reference({ uri: '/some/reference' });
+            var reference = Reference.create({ uri: '/some/reference' });
 
             expect(reference.uri).toEqual('/some/reference');
         });
@@ -35,7 +35,7 @@ describe ('Reference', function () {
                 sampleField: 'value'
             };
 
-            var reference = new Reference(data);
+            var reference = Reference.create(data);
 
             expect(reference.uri).toEqual(data.uri);
             expect(reference.content).toEqual(data.content);
@@ -57,7 +57,7 @@ describe ('Reference', function () {
         });
             
         it ('returns the queried data', function() {
-            var reference = new Reference({ uri: '/some/reference' });
+            var reference = Reference.create({ uri: '/some/reference' });
             reference.get('content', function(response) {
                 expect(response).toEqual(result.content);
             });
@@ -66,13 +66,13 @@ describe ('Reference', function () {
         describe ('retrieves its data when queried', function () {
     
             it ('does not call the AJAX api if not queried', function() {
-                new Reference({ uri: '/some/reference' });
+                Reference.create({ uri: '/some/reference' });
 
                 expect($.ajax).not.toHaveBeenCalled();
             });
     
             it ('calls the AJAX api with the proper url', function() {
-                var reference = new Reference({ uri: '/some/reference' });
+                var reference = Reference.create({ uri: '/some/reference' });
                 reference.get('content');
 
                 expect($.ajax).toHaveBeenCalled();
@@ -80,7 +80,7 @@ describe ('Reference', function () {
             });
     
             it ('stores the result', function() {
-                var reference = new Reference({ uri: '/some/reference' });
+                var reference = Reference.create({ uri: '/some/reference' });
                 reference.get('content');
 
                 expect(reference.content).toEqual(result.content);
@@ -103,10 +103,10 @@ describe ('Reference', function () {
         });
         
         it ('returns parent if given', function() {
-            var theParent = new Reference({
+            var theParent = Reference.create({
                 uri: '/parent'
             });
-            var theChild = new Reference({
+            var theChild = Reference.create({
                 parent: theParent,
                 uri: '/parent/child'
             });
@@ -117,7 +117,7 @@ describe ('Reference', function () {
         });
 
         it ('creates parent if missing', function() {
-            var theChild = new Reference({
+            var theChild = Reference.create({
                 uri: '/parent/child'
             });
 
@@ -151,11 +151,11 @@ describe ('Reference', function () {
         });
         
         it ('returns children if given', function() {
-            var theParent = new Reference({
+            var theParent = Reference.create({
                 uri: '/parent',
                 children: [
-                    new Reference({ uri: '/parent/aChild' }),
-                    new Reference({ uri: '/parent/anotherChild' })
+                    Reference.create({ uri: '/parent/aChild' }),
+                    Reference.create({ uri: '/parent/anotherChild' })
                 ]
             });
 
@@ -171,7 +171,7 @@ describe ('Reference', function () {
             var theParent;
 
             beforeEach(function() {
-                theParent = new Reference({ uri: '/parent' });
+                theParent = Reference.create({ uri: '/parent' });
             });
 
             it ('does not call the AJAX api if not queried', function() {

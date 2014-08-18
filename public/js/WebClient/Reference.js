@@ -1,4 +1,4 @@
-function Reference(options) {
+var Reference = function(options) {
 
     var self = this;
 
@@ -56,7 +56,7 @@ function Reference(options) {
     self._retrieve_parent = function(callback) {
         var uri_parts = self.uri.split('/').slice(0, -1);
         try {
-            self.parent = new Reference({
+            self.parent = Reference.create({
                 uri: uri_parts.join('/'),
                 reference: uri_parts[uri_parts.length - 1],
                 children: [ self ]
@@ -92,17 +92,17 @@ function Reference(options) {
                     if (siblings.length > 0) {
                         siblings.forEach(function(sibling) {
                             sibling.parent = self.parent;
-                            self.parent.children.push(new Reference(sibling));
+                            self.parent.children.push(Reference.create(sibling));
                         });
                     } else {
-                        self.parent.children.push(new Reference(data));
+                        self.parent.children.push(Reference.create(data));
                     }
                     self.parent.children.forEach(function(node) {
                         if (node.uri == self.uri) {
                             node.children = [];
                             children.forEach(function(child) {
                                 child.parent = node;
-                                node.children.push(new Reference(child));
+                                node.children.push(Reference.create(child));
                             });
                         }
                     });
@@ -122,7 +122,7 @@ function Reference(options) {
         self.children = [];
         for (var i  in children) {
             (function(i) {
-                self.children[i] = new Reference({
+                self.children[i] = Reference.create({
                     uri: children[i].uri,
                     parent: self
                 });
@@ -162,4 +162,8 @@ function Reference(options) {
     };
 
     return self._init();
+}
+
+Reference.create = function(options) {
+    return new Reference(options);
 }
