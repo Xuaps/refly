@@ -255,6 +255,21 @@ describe ('Reference', function () {
     
         });
 
+        it ('properly mixes new children with existing references', function() {
+            var theParent = Reference.create({ uri: '/parent' });
+            var theChild = Reference.create({ uri: '/parent/aChild', parent: theParent, aField: 'a value' });
+
+            expect(theChild['aField']).toEqual('a value');
+            expect(theParent.children['/parent/aChild']).not.toBeUndefined();
+            expect(theParent.children['/parent/anotherChild']).toBeUndefined();
+
+            theParent.get('children', function(response) {
+                expect(theChild['aField']).toEqual('a value');
+                expect(theParent.children['/parent/aChild']).not.toBeUndefined();
+                expect(theParent.children['/parent/anotherChild']).not.toBeUndefined();
+            });
+        });
+
     });
 
 });
