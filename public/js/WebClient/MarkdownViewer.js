@@ -4,11 +4,9 @@ var MarkdownViewer = {
         $('#result').html('');
     },
 
-    show: function(reference) {
-        if (!reference.uri) {
-            return;
-        }
-        $('#result').html(markdown.toHTML(reference.content));
+    show: function(content) {
+        if (!content) { return; }
+        $('#result').html(markdown.toHTML(content));
     }
 
 };

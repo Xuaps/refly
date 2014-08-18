@@ -17,17 +17,11 @@ $(function() {
         });
     });
 
-    var reference = new Reference({
-        uri: $(URI).val(),
-        load: true,
-        onLoadData: function(reference) {
-            MarkdownViewer.show(reference);
-        },
-        onLoadChildren: function(reference) {
-            TreeView.show(reference);
-            OutlineView.show(reference);
-        }
+    var reference = Reference.create({ uri: $(URI).val() });
+    reference.get('content', function(content) {
+        MarkdownViewer.show(content);
     });
+    // TreeView.show(reference);
 
 });
 

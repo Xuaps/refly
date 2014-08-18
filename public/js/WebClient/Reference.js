@@ -69,68 +69,6 @@ var Reference = function(options) {
 
     // ____________________________________________________
 
-/*
-            $.ajax({
-                url: '/api/children' + self.parent.uri,
-                method: 'get'
-            }).done(function(siblings) {
-                $.ajax({
-                    url: '/api/children' + self.uri,
-                    method: 'get'
-                }).done(function(children) {
-                    self.parent.children = [];
-                    if (siblings.length > 0) {
-                        siblings.forEach(function(sibling) {
-                            sibling.parent = self.parent;
-                            self.parent.children.push(Reference.create(sibling));
-                        });
-                    } else {
-                        self.parent.children.push(Reference.create(data));
-                    }
-                    self.parent.children.forEach(function(node) {
-                        if (node.uri == self.uri) {
-                            node.children = [];
-                            children.forEach(function(child) {
-                                child.parent = node;
-                                node.children.push(Reference.create(child));
-                            });
-                        }
-                    });
-                    self._setChildren(children, function() { self.onLoadChildren(self) });
-                });
-            });
-*/
-
-    self._setChildren = function(children, callback) {
-        var completed = 0;
-        var total = children.length;
-
-        if (total == 0) {
-            callback();
-        }
-
-        self.children = [];
-        for (var i  in children) {
-            (function(i) {
-                self.children[i] = Reference.create({
-                    uri: children[i].uri,
-                    parent: self
-                });
-                $.ajax({
-                    url: '/api/children' + children[i].uri,
-                    method: 'get'
-                }).done(function(descendants) {
-                    self.children[i]._setChildren(descendants, function() {
-                        completed++;
-                        if (completed == total) {
-                            callback();
-                        }
-                    });
-                });
-            })(i);
-        }
-    };
-
     self.objects = function() {
         var objects = [];
         self.children.forEach(function(child) {
