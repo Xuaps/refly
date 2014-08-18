@@ -272,4 +272,21 @@ describe ('Reference', function () {
 
     });
 
+    it ('get("root")', function() {
+
+        Reference.create({ uri: '/a' }).get('root', function(root) {
+            expect(root.uri).toEqual('/a');
+        });
+        Reference.create({ uri: '/a/b' }).get('root', function(root) {
+            expect(root.uri).toEqual('/a');
+        });
+        Reference.create({ uri: '/a/b/c' }).get('root', function(root) {
+            expect(root.uri).toEqual('/a');
+        });
+        Reference.create({ uri: '/a/b/c/d' }).get('root', function(root) {
+            expect(root.uri).toEqual('/a');
+        });
+
+    });
+
 });

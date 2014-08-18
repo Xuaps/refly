@@ -38,6 +38,9 @@ var Reference = function(options) {
             case 'children':
                 self._retrieve_children(callback);
                 return;
+            case 'root':
+                self._retrieve_root(callback);
+                return;
             default:
                 self._retrieve_normal_field(fieldName, callback);
         };
@@ -83,6 +86,18 @@ var Reference = function(options) {
         });
     };
 
+    self._retrieve_root = function(callback) {
+        self.get('parent', function(parent) {
+            if (parent == null) {
+                callback(self);
+            } else {
+                parent.get('root', function(root) {
+                    self.root = root;
+                    callback(root);
+                });
+            }
+        });
+    };
     // ____________________________________________________
 
     self.objects = function() {
@@ -99,10 +114,6 @@ var Reference = function(options) {
             });
         });
         return objects;
-    };
-
-    self.root = function() {
-        return (self.parent == null) ? self : self.parent.root();
     };
 
     return self;
