@@ -24,6 +24,7 @@ $(function() {
     reference.get('root', function(root) {
         TreeView.show(root, reference);
     });
+    OutlineView.show(reference);
 
 });
 

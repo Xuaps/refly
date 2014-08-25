@@ -7,13 +7,19 @@ var OutlineView = {
     show: function(reference) {
         OutlineView.reset();
         var symbols = {};
-        reference.parent.objects().forEach(function(object) {
-            if (!symbols[object.type]) {
-                symbols[object.type] = [];
-            }
-            symbols[object.type].push(object);
+        reference.get('root', function(root) {
+            root.get('objects').each(function(object) {
+                if (!symbols[object.type]) {
+                    symbols[object.type] = [];
+                }
+                symbols[object.type].push(object);
+                jade.render(
+                    $('#outline-view')[0],
+                    'outline-view',
+                    { symbols: symbols, current_uri: reference.uri }
+                );
+            });
         });
-        jade.render($('#outline-view')[0], 'outline-view', { symbols: symbols, current_uri: reference.uri });
     }
 
 };

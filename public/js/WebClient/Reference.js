@@ -11,12 +11,15 @@ var Reference = function(options) {
         if (self._field_valid(fieldName)) {
             callback(self[fieldName]);
         } else {
-            self._retrieve(fieldName, callback);
+            return self._retrieve(fieldName, callback);
         }
     };
 
     self._field_valid = function(fieldName) {
-        return (fieldName == 'children') ? self._all_children_retrieved : self[fieldName];
+        if (fieldName == 'children') {
+            return self._all_children_retrieved;
+        }
+        return self[fieldName];
     };
 
     // ____________________________________________________
@@ -41,6 +44,8 @@ var Reference = function(options) {
             case 'root':
                 self._retrieve_root(callback);
                 return;
+            case 'objects':
+                return self._retrieve_objects();
             default:
                 self._retrieve_normal_field(fieldName, callback);
         };
@@ -78,8 +83,7 @@ var Reference = function(options) {
             method: 'get'
         }).done(function(data) {
             data.forEach(function(referenceData) {
-                var reference = Reference.create(referenceData);
-                self.children[reference.uri] = reference;
+                self.children[referenceData.uri] = Reference.create(referenceData);
             });
             self._all_children_retrieved = true;
             callback(self.children);
@@ -98,22 +102,26 @@ var Reference = function(options) {
             }
         });
     };
-    // ____________________________________________________
 
-    self.objects = function() {
-        var objects = [];
-        self.children.forEach(function(child) {
-            child.objects().forEach(function(obj) {
-                objects.push(obj);
-            });
-            objects.push({
-                uri: child.uri,
-                docset: child.docset,
-                type: child.type,
-                reference: child.reference
-            });
-        });
-        return objects;
+    self._retrieve_objects = function() {
+        return {
+            each: function(callback) {
+                callback({
+                    uri: self.uri,
+                    docset: self.docset,
+                    type: self.type,
+                    reference: self.reference
+                });
+                self.get('children', function(children) {
+                    for (var i in children) {
+                        var child = children[i];
+                        child.get('objects').each(callback);
+                    }
+                });
+                return this;
+            }
+        };
+
     };
 
     return self;

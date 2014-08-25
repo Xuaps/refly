@@ -27,7 +27,9 @@ describe ('Reference', function () {
         });
     
         it ('stores the uri', function () {
-            var reference = Reference.create({ uri: '/some/reference' });
+            var reference = Reference.create({
+                uri: '/some/reference'
+            });
 
             expect(reference.uri).toEqual('/some/reference');
         });
@@ -47,8 +49,14 @@ describe ('Reference', function () {
         });
 
         it ('caches created references by uri', function() {
-            var aReference = Reference.create({ uri: '/some/reference', aField: 'a value' });
-            var anotherReference = Reference.create({ uri: '/some/reference', anotherField: 'another value' });
+            var aReference = Reference.create({
+                uri: '/some/reference',
+                aField: 'a value'
+            });
+            var anotherReference = Reference.create({
+                uri: '/some/reference',
+                anotherField: 'another value'
+            });
 
             expect(aReference).toEqual(anotherReference);
 
@@ -57,7 +65,8 @@ describe ('Reference', function () {
 
             aReference.additionalField = 'additional value';
 
-            expect(anotherReference.additionalField).toEqual('additional value');
+            expect(anotherReference.additionalField)
+                .toEqual('additional value');
         });
 
     });
@@ -75,37 +84,51 @@ describe ('Reference', function () {
         });
             
         it ('returns the queried data', function() {
-            var reference = Reference.create({ uri: '/some/reference' });
+            var done = false;
+            var reference = Reference.create({
+                uri: '/some/reference'
+            });
+
+            waitsFor(function() { return done; });
+
             reference.get('content', function(response) {
                 expect(response).toEqual(result.content);
+                done = true;
             });
         });
     
         describe ('retrieves its data when queried', function () {
     
-            it ('does not call the AJAX api if not queried', function() {
+            it ('does not call AJAX api if not queried', function() {
                 Reference.create({ uri: '/some/reference' });
 
                 expect($.ajax).not.toHaveBeenCalled();
             });
     
             it ('calls the AJAX api with the proper url', function() {
-                var reference = Reference.create({ uri: '/some/reference' });
+                var reference = Reference.create({
+                    uri: '/some/reference'
+                });
                 reference.get('content');
 
                 expect($.ajax).toHaveBeenCalled();
-                expect($.ajax.mostRecentCall.args[0].url).toEqual('/api/get/some/reference');
+                expect($.ajax.mostRecentCall.args[0].url)
+                    .toEqual('/api/get/some/reference');
             });
     
             it ('stores the result', function() {
-                var reference = Reference.create({ uri: '/some/reference' });
+                var reference = Reference.create({
+                    uri: '/some/reference'
+                });
                 reference.get('content');
 
                 expect(reference.content).toEqual(result.content);
             });
     
             it ('calls the AJAX api only once', function() {
-                var reference = Reference.create({ uri: '/some/reference' });
+                var reference = Reference.create({
+                    uri: '/some/reference'
+                });
                 reference.get('content');
                 reference.get('content');
 
@@ -130,6 +153,7 @@ describe ('Reference', function () {
         });
         
         it ('returns parent if given', function() {
+            var done = false;
             var theParent = Reference.create({
                 uri: '/parent'
             });
@@ -138,25 +162,33 @@ describe ('Reference', function () {
                 uri: '/parent/child'
             });
 
+            waitsFor(function() { return done; });
+
             theChild.get('parent', function(response) {
                 expect(response).toEqual(theParent);
+                done = true;
             });
         });
 
         it ('creates parent if missing', function() {
+            var done = false;
             var theChild = Reference.create({
                 uri: '/parent/child'
             });
 
+            waitsFor(function() { return done; });
+
             theChild.get('parent', function(response) {
                 expect(response).not.toBeUndefined();
                 expect(response.uri).toEqual('/parent');
+                done = true;
             });
         });
 
         describe ('parent has this child', function() {
 
             it ('if given', function() {
+                var done = false;
                 var theParent = Reference.create({
                     uri: '/parent'
                 });
@@ -165,22 +197,31 @@ describe ('Reference', function () {
                     uri: '/parent/child'
                 });
 
+                waitsFor(function() { return done; });
+
                 theChild.get('parent', function(response) {
                     expect(response).not.toBeUndefined();
                     expect(response.uri).toEqual('/parent');
-                    expect(response.children['/parent/child']).toEqual(theChild);
+                    expect(response.children['/parent/child'])
+                        .toEqual(theChild);
+                    done = true;
                 });
             });
 
             it ('if missing', function() {
+                var done = false;
                 var theChild = Reference.create({
                     uri: '/parent/child'
                 });
 
+                waitsFor(function() { return done; });
+
                 theChild.get('parent', function(response) {
                     expect(response).not.toBeUndefined();
                     expect(response.uri).toEqual('/parent');
-                    expect(response.children['/parent/child']).toEqual(theChild);
+                    expect(response.children['/parent/child'])
+                        .toEqual(theChild);
+                    done = true;
                 });
             });
 
@@ -210,8 +251,13 @@ describe ('Reference', function () {
         });
         
         it ('returns children if given', function() {
-            var first = Reference.create({ uri: '/parent/aChild' });
-            var second = Reference.create({ uri: '/parent/anotherChild' });
+            var done = false;
+            var first = Reference.create({
+                uri: '/parent/aChild'
+            });
+            var second = Reference.create({
+                uri: '/parent/anotherChild'
+            });
 
             var children = {};
             children[first.uri] = first;
@@ -221,9 +267,12 @@ describe ('Reference', function () {
                 children: children
             });
 
+            waitsFor(function() { return done; });
+
             theParent.get('children', function(response) {
                 expect(response[first.uri]).toEqual(first);
                 expect(response[second.uri]).toEqual(second);
+                done = true;
             });
         });
 
@@ -235,38 +284,59 @@ describe ('Reference', function () {
                 theParent = Reference.create({ uri: '/parent' });
             });
 
-            it ('does not call the AJAX api if not queried', function() {
+            it ('does not call AJAX api if not queried', function() {
                 expect($.ajax).not.toHaveBeenCalled();
             });
     
             it ('calls the AJAX api with the proper url', function() {
                 theParent.get('children', function(response) {
                     expect($.ajax).toHaveBeenCalled();
-                    expect($.ajax.mostRecentCall.args[0].url).toEqual('/api/children/parent');
+                    expect($.ajax.mostRecentCall.args[0].url)
+                        .toEqual('/api/children/parent');
                 });
             });
     
             it ('returns the result', function() {
+                var done = false;
+
+                waitsFor(function() { return done; });
+
                 theParent.get('children', function(response) {
-                    expect(response['/parent/aChild']).not.toBeUndefined();
-                    expect(response['/parent/anotherChild']).not.toBeUndefined();
+                    expect(response['/parent/aChild'])
+                        .not.toBeUndefined();
+                    expect(response['/parent/anotherChild'])
+                        .not.toBeUndefined();
+                    done = true;
                 });
             });
     
         });
 
-        it ('properly mixes new children with existing references', function() {
+        it ('mixes new children with existing references', function() {
             var theParent = Reference.create({ uri: '/parent' });
-            var theChild = Reference.create({ uri: '/parent/aChild', parent: theParent, aField: 'a value' });
+            var theChild = Reference.create({
+                uri: '/parent/aChild',
+                parent: theParent,
+                aField: 'a value'
+            });
 
             expect(theChild['aField']).toEqual('a value');
-            expect(theParent.children['/parent/aChild']).not.toBeUndefined();
-            expect(theParent.children['/parent/anotherChild']).toBeUndefined();
+            expect(theParent.children['/parent/aChild'])
+                .not.toBeUndefined();
+            expect(theParent.children['/parent/anotherChild'])
+                .toBeUndefined();
+
+            var done = false;
+
+            waitsFor(function() { return done; });
 
             theParent.get('children', function(response) {
                 expect(theChild['aField']).toEqual('a value');
-                expect(theParent.children['/parent/aChild']).not.toBeUndefined();
-                expect(theParent.children['/parent/anotherChild']).not.toBeUndefined();
+                expect(theParent.children['/parent/aChild'])
+                    .not.toBeUndefined();
+                expect(theParent.children['/parent/anotherChild'])
+                    .not.toBeUndefined();
+                done = true;
             });
         });
 
@@ -274,17 +344,99 @@ describe ('Reference', function () {
 
     it ('get("root")', function() {
 
-        Reference.create({ uri: '/a' }).get('root', function(root) {
-            expect(root.uri).toEqual('/a');
+        var to_do = 4;
+        waitsFor(function() { return to_do == 0; });
+
+        Reference.create({ uri: '/a' }).get('root', function(r) {
+            expect(r.uri).toEqual('/a');
+            to_do--;
         });
-        Reference.create({ uri: '/a/b' }).get('root', function(root) {
-            expect(root.uri).toEqual('/a');
+        Reference.create({ uri: '/a/b' }).get('root', function(r) {
+            expect(r.uri).toEqual('/a');
+            to_do--;
         });
-        Reference.create({ uri: '/a/b/c' }).get('root', function(root) {
-            expect(root.uri).toEqual('/a');
+        Reference.create({ uri: '/a/b/c' }).get('root', function(r) {
+            expect(r.uri).toEqual('/a');
+            to_do--;
         });
-        Reference.create({ uri: '/a/b/c/d' }).get('root', function(root) {
-            expect(root.uri).toEqual('/a');
+        Reference.create({ uri: '/a/b/c/d' }).get('root', function(r) {
+            expect(r.uri).toEqual('/a');
+            to_do--;
+        });
+
+    });
+
+    describe ('get("objects")', function() {
+
+        var theReference;
+        var child1;
+        var child2;
+        var grandchild1;
+        var grandchild2;
+        var grandchild3;
+
+        beforeEach(function() {
+            theReference = Reference.create({ uri: '/parent' });
+            child1       = Reference.create({ uri: '/parent/c1' });
+            child2       = Reference.create({ uri: '/parent/c2' });
+            grandchild1  = Reference.create({ uri: '/parent/c1/c1' });
+            grandchild2  = Reference.create({ uri: '/parent/c1/c2' });
+            grandchild3  = Reference.create({ uri: '/parent/c2/c1' });
+
+            spyOn($, 'ajax').andCallFake(function(params) {
+                var response = [];
+                switch (params.url) {
+                    case '/api/children/parent': response = [
+                            { uri: child1.uri },
+                            { uri: child2.uri }
+                        ]
+                        break;
+                    case '/api/children/parent/c1': response = [
+                            { uri: grandchild1.uri },
+                            { uri: grandchild2.uri }
+                        ]
+                        break;
+                    case '/api/children/parent/c2': response = [
+                            { uri: grandchild3.uri }
+                        ]
+                        break;
+                }
+                return {
+                    done: function(callback) {
+                        callback(response);
+                    }
+                };
+            });
+        });
+ 
+        afterEach(function() {
+            $.ajax.reset();
+        });
+        
+        it ('returns all objects of recursive children', function() {
+            var count = 0;
+
+            waitsFor(function() { return count == 6; });
+
+            var response = [];
+            theReference.get('objects').each(function(object) {
+                response.push(object);
+                count++;
+            });
+
+            runs(function() {
+                expect(response.length).toEqual(6);
+
+                var uris = {};
+                response.forEach(function(item) { uris[item.uri] = true; });
+
+                expect(uris[grandchild1.uri]).toBeDefined();
+                expect(uris[grandchild2.uri]).toBeDefined();
+                expect(uris[child1.uri]).toBeDefined();
+                expect(uris[grandchild3.uri]).toBeDefined();
+                expect(uris[child2.uri]).toBeDefined();
+                expect(uris[theReference.uri]).toBeDefined();
+            });
         });
 
     });
