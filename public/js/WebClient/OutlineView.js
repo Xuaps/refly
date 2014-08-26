@@ -18,6 +18,7 @@ var OutlineView = {
                     'outline-view',
                     { symbols: symbols, current_uri: reference.uri }
                 );
+                $('#outline-view > div').accordion();
             });
         });
     }
