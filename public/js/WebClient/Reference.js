@@ -5,15 +5,21 @@ var Reference = function(options) {
     self.children = {};
     self._all_children_retrieved = false;
 
+
+	// Get data from a specific field
     self.get = function(fieldName, callback) {
         callback = callback || function() {};
-
-        if (self._field_valid(fieldName)) {
-            callback(self[fieldName]);
-        } else {
-            return self._retrieve(fieldName, callback);
-        }
+		return self._retrieve(fieldName, callback);
     };
+
+    // ____________________________________________________
+	// refresh data from field
+	self.refresh = function(fieldName) {
+		self[fieldName]='';
+	};
+
+    // ____________________________________________________
+	// checks whether the value is already loaded. and returns it
 
     self._field_valid = function(fieldName) {
         if (fieldName == 'children') {
@@ -23,6 +29,7 @@ var Reference = function(options) {
     };
 
     // ____________________________________________________
+	//  Store data in the internal array
 
     self._store = function(fields) {
         for (var i in fields) {
@@ -51,6 +58,7 @@ var Reference = function(options) {
         };
     };
 
+	// Load data from a regular field
     self._retrieve_normal_field = function(fieldName, callback) {
         $.ajax({
             url: '/api/get' + self.uri,
@@ -61,6 +69,8 @@ var Reference = function(options) {
         });
     };
 
+
+	// return the parent of a given url
     self._retrieve_parent = function(callback) {
         var uri_parts = self.uri.split('/').slice(0, -1);
         try {
@@ -77,6 +87,7 @@ var Reference = function(options) {
         callback(self.parent);
     };
 
+	//return the children url of a given url
     self._retrieve_children = function(callback) {
         $.ajax({
             url: '/api/children' + self.uri,
@@ -90,6 +101,7 @@ var Reference = function(options) {
         });
     };
 
+	// return de root of a given url
     self._retrieve_root = function(callback) {
         self.get('parent', function(parent) {
             if (parent == null) {
@@ -102,7 +114,7 @@ var Reference = function(options) {
             }
         });
     };
-
+	// I do not know what it does
     self._retrieve_objects = function() {
         return {
             each: function(callback) {
@@ -130,6 +142,7 @@ var Reference = function(options) {
 Reference.clearCache = function() {
     Reference.instances = {};
 };
+
 
 Reference.create = function(options) {
     if (!options || !options.uri) {

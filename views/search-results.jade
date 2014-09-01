@@ -1,7 +1,7 @@
-each result in results
-  tr
-    td: img(src="/img/type-#{result.type}.png", title="#{result.type}")
-    td(class="separator")
-    td
-        a(href="#{result.uri}") #{result.reference}
-        span(class="cursive") " #{result.docset}"
+ul
+	each result in results
+		li
+			img(src="/img/type-#{result.type}.png", title="#{result.type}")
+			a(href="#{result.uri}", class="resultlistitem") #{result.reference}
+			br
+			span(class="cursive")  #{result.docset}"
