@@ -21,6 +21,7 @@ var TreeView = {
 					MarkdownViewer.show(content);
 					reference.get('root', function(root) {
 						TreeView.show(root, reference);
+						OutlineView.show(reference);
 					});
 				});
 			});

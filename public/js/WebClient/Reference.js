@@ -114,6 +114,7 @@ var Reference = function(options) {
             }
         });
     };
+
 	// I do not know what it does
     self._retrieve_objects = function() {
         return {

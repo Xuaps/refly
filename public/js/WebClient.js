@@ -5,10 +5,6 @@ var REFERENCE = '#txtreference';
 var URI = '#uri';
 
 $(function() {
-	TreeView.reset();
-	OutlineView.reset();
-	ResultList.reset();
-	MarkdownViewer.reset();
 	reference = Reference();
 
 
@@ -17,18 +13,23 @@ $(function() {
             url: '/api/search?reference=' + $(REFERENCE).val(),
             method: 'get'
         }).done(function(results) {
-            ResultList.show(results);
+			jade.render($('#content')[0],'index', { uri: $(URI).val() });
+			ResultList.reset();
+			ResultList.show(results);
         });
     });
 
-	if($(URI).val()!='undefined' && $(URI).val()!=''){
+	if($(URI).val()!=undefined && $(URI).val()!='' && $(URI).val()!='undefined'){
 		var reference = Reference.create({ uri: $(URI).val() });
 		reference.get('content', function(content) {
+			MarkdownViewer.reset();
 		    MarkdownViewer.show(content);
 		});
 		reference.get('root', function(root) {
+			TreeView.reset();
 		    TreeView.show(root, reference);
 		});
+		OutlineView.reset();
 		OutlineView.show(reference);
 	}
 

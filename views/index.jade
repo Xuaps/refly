@@ -16,17 +16,10 @@ html
 		script(src='/js/WebClient/OutlineView.js', type='text/javascript')
 		script(src='/js/WebClient.js', type='text/javascript')
 	body
-		div(id='content')
-			div(id='left-pane')
-				div(id='search-view')
+		div#content
+				div.searchbox
 					fieldset
-						input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+						input#txtreference(type='text', class='ry-input-text', name='reference')
 						input#btnsearch(type='submit', class='ry-btn', value='Search')
-					div#results
-						ul#resultlist  
-				div#tree-view
-				div(id='outline-view')
-			div#result
-		header
-			img(src='/img/logo.png')
-		input#uri(type='hidden', value='#{uri}')
+						input#uri(type='hidden', value='#{uri}')
+				div#suggestions

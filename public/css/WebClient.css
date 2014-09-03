@@ -121,3 +121,32 @@ td.separator {
 .ry-btn:hover {
     background-color: #FF8311;
 }
+
+#center {
+position: absolute;
+top:0;
+left:0;
+right:0;
+bottom:0;
+margin: auto;
+background: #83C24A;
+height: 100px;
+width: 200px;
+box-shadow: 0 0 4px rgba(0,0,0,.3);
+}
+html {background: #DBDBDB}
+
+
+
+/* Landing Page */
+
+.searchbox {
+	background: #D5CABF;
+	border: 2px solid #fff;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 300px;
+	height: 20px;
+	margin: -10px 0 0 -150px;
+}
