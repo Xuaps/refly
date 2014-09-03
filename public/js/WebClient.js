@@ -13,13 +13,14 @@ $(function() {
             url: '/api/search?reference=' + $(REFERENCE).val(),
             method: 'get'
         }).done(function(results) {
-			jade.render($('#content')[0],'index', { uri: $(URI).val() });
+			jade.render($('#content')[0],'contentview', { uri: $(URI).val() });
 			ResultList.reset();
 			ResultList.show(results);
         });
     });
 
 	if($(URI).val()!=undefined && $(URI).val()!='' && $(URI).val()!='undefined'){
+		jade.render($('#content')[0],'contentview', { uri: $(URI).val() });
 		var reference = Reference.create({ uri: $(URI).val() });
 		reference.get('content', function(content) {
 			MarkdownViewer.reset();
