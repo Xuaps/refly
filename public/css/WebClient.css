@@ -122,6 +122,11 @@ td.separator {
     background-color: #FF8311;
 }
 
+.noresult{
+	border: 1px solid red;
+	color: red;
+}
+
 #center {
 position: absolute;
 top:0;

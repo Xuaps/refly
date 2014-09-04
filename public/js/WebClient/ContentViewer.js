@@ -1,8 +1,12 @@
 var ContentView = {
 
     reset: function() {
-        jade.render($('#content')[0],'landingpage', { uri: '/' });
-		this.bind(SUBMIT);
+		var _reference = $(REFERENCE).val();
+	    jade.render($('#content')[0],'landingpage', { uri: '/' });
+		$(REFERENCE).focus();
+		$(REFERENCE).val(_reference);
+		VIEW = 'LANDINGVIEW';
+		this.bind();
     },
 
     show: function(url) {
@@ -11,17 +15,23 @@ var ContentView = {
 		}else{
 			url = '/';
 		}
+		var _reference = $(REFERENCE).val();
 		jade.render($('#content')[0],'contentview', { uri: url });
-		this.bind(SUBMIT);
+		$(REFERENCE).focus();
+		$(REFERENCE).val(_reference);
+		VIEW = 'CONTENTVIEW';
+		this.bind();
     },
 
-	bind: function(button){
+	bind: function(){
+		LiveSearch.bind(REFERENCE);
 		$(SUBMIT).click(function() {
 		    $.ajax({
 		        url: '/api/search?reference=' + $(REFERENCE).val(),
 		        method: 'get'
 		    }).done(function(results) {
 				ContentView.show($(URI).val());
+				LiveSearch.bind();
 				ResultList.reset();
 				ResultList.show(results);
 		    });

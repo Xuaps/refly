@@ -3,6 +3,8 @@ var RESULTITEM = 'a[class=resultlistitem]';
 var TREEVIEWITEM = 'a[class=treeviewitem]';
 var REFERENCE = '#txtreference';
 var URI = '#uri';
+var VIEW = 'LANDINGVIEW';
+var RESULT = '';
 
 $(function() {
 	reference = Reference();
