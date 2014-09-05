@@ -1,14 +1,14 @@
-header
-    img(src='/img/logo.png')
-    input#uri(type='hidden', value='#{uri}')
 div#content
-    div#left-pane
-    div#search-view
-            fieldset
-                input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
-                input#btnsearch(type='submit', class='ry-btn', value='Search')
-        div#results
-            ul#resultlist  
-        div#tree-view
-        div#outline-view
+   header
+       img(src='/img/logo.png')
+       input#uri(type='hidden', value='#{uri}')
+   div#left-pane
+       div#search-view
+           fieldset
+               input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+               input#btnsearch(type='submit', class='ry-btn', value='Search')
+           div#results
+               ul#resultlist  
+       div#tree-view
+       div#outline-view
     div#result
