@@ -23,7 +23,7 @@ var LiveSearch = {
 					if(results.length==0){
 						LiveSearch.validate(FIELD,true);
 					}
-					//ResultList.reset();
+					ResultList.reset();
 					ResultList.show(results);
 				});
 			}else{
