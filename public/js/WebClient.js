@@ -9,7 +9,6 @@ var RESULT = '';
 $(function() {
 	reference = Reference();
 
-
 	if($(URI).val()!=undefined && $(URI).val()!='' && $(URI).val()!='undefined'){
 		ContentView.show($(URI).val());
 		var reference = Reference.create({ uri: $(URI).val() });

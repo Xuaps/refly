@@ -2,9 +2,8 @@ var LiveSearch = {
 
 
 	reset: function(){
-
-
-
+		var reference = Reference.create({ uri: '/api/get/node.js%20v0.10.29' });
+		OutlineView.show(reference);
 	},
 
 
@@ -28,7 +27,7 @@ var LiveSearch = {
 					ResultList.show(results);
 				});
 			}else{
-				this.reset();
+				LiveSearch.reset();
 			}
 		});
 	},

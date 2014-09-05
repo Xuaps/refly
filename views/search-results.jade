@@ -1,7 +1,7 @@
 ul
 	each result in results
 		li
-			img(src="/img/type-#{result.type}.png", title="#{result.type}")
+			img(src="/img/type-#{result.type}.png", title="#{result.type}", class="ry-type-source")
 			a(href="#{result.uri}", class="resultlistitem") #{result.reference}
 			br
 			span(class="cursive")  #{result.docset}"

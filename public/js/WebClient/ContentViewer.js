@@ -2,7 +2,7 @@ var ContentView = {
 
     reset: function() {
 		var _reference = $(REFERENCE).val();
-	    jade.render($('#content')[0],'landingpage', { uri: '/' });
+	    jade.render($('#container')[0],'landingpage', { uri: '/' });
 		$(REFERENCE).focus();
 		$(REFERENCE).val(_reference);
 		VIEW = 'LANDINGVIEW';
@@ -16,7 +16,7 @@ var ContentView = {
 			url = '/';
 		}
 		var _reference = $(REFERENCE).val();
-		jade.render($('#content')[0],'contentview', { uri: url });
+		jade.render($('#container')[0],'contentview', { uri: url });
 		$(REFERENCE).focus();
 		$(REFERENCE).val(_reference);
 		VIEW = 'CONTENTVIEW';
