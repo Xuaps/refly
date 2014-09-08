@@ -9,8 +9,10 @@ var ResultList = {
 // EVENTS FROM #Resultlist
 		$(RESULTITEM).click(function(e){
 			e.preventDefault();
+			E = e.currentTarget;
 			var url = RemoveBaseUrl(e.currentTarget.href);
 			var reference = Reference.create({ uri: url });
+			History.pushState(Math.random(), e.currentTarget.text,  url);
 			reference.refresh('content');
 			reference.get('content', function(content) {
 				MarkdownViewer.show(content);

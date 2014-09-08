@@ -5,9 +5,12 @@ var REFERENCE = '#txtreference';
 var URI = '#uri';
 var VIEW = 'LANDINGVIEW';
 var RESULT = '';
+var E='';
 
 $(function() {
 	reference = Reference();
+	var q = GetQueryParam('q');
+
 
 	if($(URI).val()!=undefined && $(URI).val()!='' && $(URI).val()!='undefined'){
 		ContentView.show($(URI).val());
@@ -26,5 +29,10 @@ $(function() {
 		ContentView.reset();
 	}
 
+	// If detects the param 'q' automatic search is triggered
+	if(q!=undefined){
+		$(REFERENCE).val(q);
+		LiveSearch.search();
+	}
 
 });
