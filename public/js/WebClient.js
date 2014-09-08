@@ -9,8 +9,6 @@ var E='';
 
 $(function() {
 	reference = Reference();
-	var q = GetQueryParam('q');
-
 
 	if($(URI).val()!=undefined && $(URI).val()!='' && $(URI).val()!='undefined'){
 		ContentView.show($(URI).val());
@@ -30,9 +28,19 @@ $(function() {
 	}
 
 	// If detects the param 'q' automatic search is triggered
+	var q = GetQueryParam('q');
 	if(q!=undefined){
 		$(REFERENCE).val(q);
 		LiveSearch.search();
 	}
+
+	// Bind custom event to the change of view, pushing a new uri in the History
+	$(document).on("LocationChange",function(e, url, text, kind){
+		if(kind == 'query'){
+			HistoryControl.Push(url, "Searching " + text);
+		}else if(kind='result'){
+			HistoryControl.Push(url, text);
+		}
+	});
 
 });

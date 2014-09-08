@@ -34,7 +34,7 @@ var LiveSearch = {
 				ContentView.show($(URI).val());
 			}
 			if($(REFERENCE).val().length>1){
-				History.pushState(Math.random(), "Searching " + $(REFERENCE).val(), '/?q=' + $(REFERENCE).val());
+				$(document).trigger("LocationChange",['/?q=' + $(REFERENCE).val(), $(REFERENCE).val(), 'query']);
 			}
 			if(results.length==0){
 				LiveSearch.validate(FIELD,true);

@@ -94,4 +94,16 @@ describe('Slash', function() {
         });
     });
 
+   describe('GetDocset', function(){
+       it("return all the docsets", function(done){
+           var docsets = slash.get_docsets().then(function(response){
+               expect(response).toEqual(['slash','java']);
+           }).fin(done);
+           
+           
+       });
+       
+       
+   });
+
 });
