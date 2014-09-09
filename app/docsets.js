@@ -24,6 +24,11 @@ Docsets.prototype.select = function(columns){
     return this;
 }
 
+Docsets.prototype.distinct = function(column){
+    this._query = this._query.distinct(column);
+    return this;
+}
+
 Docsets.prototype.execute = function() {
     return this._query.then(
         function(rows){

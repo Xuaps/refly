@@ -12,7 +12,7 @@ var ResultList = {
 			E = e.currentTarget;
 			var url = RemoveBaseUrl(e.currentTarget.href);
 			var reference = Reference.create({ uri: url });
-			$(document).trigger("LocationChange",[e.currentTarget.text, url,'result']);
+			$(document).trigger("LocationChange",[url, e.currentTarget.text]);
 			reference.refresh('content');
 			reference.get('content', function(content) {
 				MarkdownViewer.show(content);

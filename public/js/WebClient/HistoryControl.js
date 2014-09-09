@@ -1,10 +1,7 @@
 var HistoryControl = {
 
-    Push: function(url, title) {
-		History.pushState(Math.random(), title, url);
-    },
+    Push: function(url, text) {
+		History.pushState(Math.random(), text, url);
+    }
 
-    Change: function() {
-
-    },
 };

@@ -12,6 +12,12 @@ exports.get = function(req, res) {
     });
 };
 
+exports.get_docsets = function(req, res) {
+    slash.get_docsets(req.params.uri).then(function(docsets) {
+        res.send(docsets);
+    });
+};
+
 exports.children = function(req, res) {
     slash.get_id(req.params.uri).then(function(id) {
         if (id == null) {

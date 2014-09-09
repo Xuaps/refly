@@ -23,15 +23,13 @@ exports.get = function(identity){
 
 exports.get_docsets = function(){
     docsets = new Docsets();
-    return docsets.select(['docset']).execute().then(function(references){
-        var unique_references = {};
-        unique_references.push(docset.reduce(function(previousValue, currentValue, index, array) {
-            if(unique_references.indexOf(currentValue)!=-1){
-                return currentValue;
-            }
-}));
-        return unique_references;
-    })
+    return docsets.select(['docset']).distinct('docset').execute().then(function(references){
+        var unique_references = [];
+        references.reduce(function(previousValue, currentValue, index, array) {
+            unique_references.push(currentValue.docset);
+		});
+		return unique_references;
+	});
 }
 
 exports.get_id = function(identity){

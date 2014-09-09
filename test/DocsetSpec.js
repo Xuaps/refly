@@ -88,6 +88,10 @@ describe('Docset', function() {
         });
     
     });
+
+    describe('distinct', function(){
+        
+    })
     
     describe('execute', function(){
         it('should execute the select and clean the query', function(){
