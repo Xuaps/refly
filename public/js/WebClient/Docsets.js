@@ -7,7 +7,7 @@ var Docset = function(uri) {
 
     self._fill = function() {
         $.ajax({
-            url: '/api/search?docset=' + self.uri +'&reference=',
+            url: '/api/search?docset=' + self.uri,
             method: 'get'
         }).done(function(data) {
             data.forEach(function(referenceData) {
