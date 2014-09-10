@@ -5,11 +5,11 @@ var REFERENCE = '#txtreference';
 var URI = '#uri';
 var VIEW = 'LANDINGVIEW';
 var RESULT = '';
-var E='';
 
 $(function() {
 	reference = Reference();
-	
+	docset = Docset();
+	Docset.initialize();
 	$(document).on("LocationChange", function(e, url, text){
 		if(url==text){
 			HistoryControl.Push('/?q=' + url, 'Searching "' + text + '"');
