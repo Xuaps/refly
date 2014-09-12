@@ -8,7 +8,12 @@ var TreeView = {
 		this.reset();
 		$('#tree-view').append('<ul id="roottreeview"></ul>');
 		ulist = $('#roottreeview');
-		this.appendbranch(ulist,Docset.instances);
+		this.appendbranch(ulist,Docset.instances,function(){
+			if(container.attr('id')=="roottreeview"){
+				TreeView.appendbranch($('#UL' + jqSelector(item.uri)),item.types);
+			}	
+
+		});
     },
 
 
@@ -18,10 +23,9 @@ var TreeView = {
 		}else{
 			container.toggle();
 		}
-		
 	},
 
-	appendbranch: function(container, collection){
+	appendbranch: function(container, collection, callback){
 		container.html('');
 		$.each(collection, function(key,item){
 			container.append('<li><a id="A' + jqSelector(item.uri) + '" href="/'+ item.uri +'" class="treeviewitem">' + item.reference + '</a><ul id="UL' + jqSelector(item.uri) + '"></ul></li>');
@@ -40,7 +44,7 @@ var TreeView = {
 									//OutlineView.show(reference);
 								});
 							});*/
-						});			
+						});
 		});
 	}
 

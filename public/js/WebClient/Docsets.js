@@ -31,7 +31,7 @@ var Docset = function(uri) {
             method: 'get'
         }).done(function(data) {
             data.forEach(function(typeData) {
-                self.types.push({uri: typeData, reference: typeData});
+                self.types.push({uri: self.uri+ ':' + typeData, reference: typeData});
 				//self.fill(docset,typeData);
 				
             });
