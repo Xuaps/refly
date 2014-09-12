@@ -2,7 +2,7 @@ h2 Tree View
 
 mixin children(node)
   ul
-    each child in node.children
+    each child in node
       li
         unless child.uri === current_uri
           a(href="#{child.uri}", class="treeviewitem") #{child.reference}

@@ -18,6 +18,12 @@ exports.get_docsets = function(req, res) {
     });
 };
 
+exports.get_types = function(req, res) {
+    slash.get_types(req.params.uri).then(function(docsets) {
+        res.send(docsets);
+    });
+};
+
 exports.children = function(req, res) {
     slash.get_id(req.params.uri).then(function(id) {
         if (id == null) {

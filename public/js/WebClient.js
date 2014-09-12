@@ -5,11 +5,14 @@ var REFERENCE = '#txtreference';
 var URI = '#uri';
 var VIEW = 'LANDINGVIEW';
 var RESULT = '';
+var E;
 
 $(function() {
 	reference = Reference();
 	docset = Docset();
-	Docset.initialize();
+	Docset.init(function(){
+		TreeView.init();
+	});
 	$(document).on("LocationChange", function(e, url, text){
 		if(url==text){
 			HistoryControl.Push('/?q=' + url, 'Searching "' + text + '"');
@@ -27,10 +30,7 @@ $(function() {
 			MarkdownViewer.reset();
 		    MarkdownViewer.show(content);
 		});
-		reference.get('root', function(root) {
-			TreeView.reset();
-		    TreeView.show(root, reference);
-		});
+		
 		OutlineView.reset();
 		OutlineView.show(reference);
 	}else{

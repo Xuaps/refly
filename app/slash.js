@@ -34,6 +34,20 @@ exports.get_docsets = function(){
 	});
 }
 
+exports.get_types = function(docset){
+    docsets = new Docsets();
+    return docsets.filter('docset', filters.operators.IN, docset)
+		.select(['type']).execute().then(function(references){
+        var unique_references = [];
+        references.reduce(function(previousValue, currentValue, index, array) {
+			if(unique_references.indexOf(currentValue.type)==-1){
+            	unique_references.push(currentValue.type);
+			}
+		});
+		return unique_references;
+	});
+}
+
 exports.get_id = function(identity){
 	docsets = new Docsets();
 	return docsets

@@ -1,11 +1,21 @@
 var Reference = function(options) {
 
     var self = this;
-
+	self.len = 0;
     self.children = {};
-    self._all_children_retrieved = false;
 
 
+
+	self.search = function(uri){
+        $.ajax({
+            url: '/api/search?docsets=' + uri,
+            method: 'get'
+        }).done(function(data) {
+            data.forEach(function(referenceData) {
+                self.children[referenceData.uri] = Reference.create(referenceData);
+            });
+        });
+	}
 	// Get data from a specific field
     self.get = function(fieldName, callback) {
         callback = callback || function() {};
@@ -46,7 +56,7 @@ var Reference = function(options) {
                 self._retrieve_parent(callback);
                 return;
             case 'children':
-                self._retrieve_children(callback);
+                self.get_children(callback);
                 return;
             case 'root':
                 self._retrieve_root(callback);
@@ -88,15 +98,15 @@ var Reference = function(options) {
     };
 
 	//return the children url of a given url
-    self._retrieve_children = function(callback) {
+    self.get_children = function(callback) {
         $.ajax({
             url: '/api/children' + self.uri,
             method: 'get'
         }).done(function(data) {
             data.forEach(function(referenceData) {
                 self.children[referenceData.uri] = Reference.create(referenceData);
+				self.len++;
             });
-            self._all_children_retrieved = true;
             callback(self.children);
         });
     };

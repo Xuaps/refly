@@ -106,4 +106,16 @@ describe('Slash', function() {
        
    });
 
+   describe('GetTypes', function(){
+       it("return all the types of a given docsets", function(done){
+           var docsets = slash.get_types().then(function(response){
+               expect(response).toEqual(['constant','function']);
+           }).fin(done);
+           
+           
+       });
+       
+       
+   });
+
 });

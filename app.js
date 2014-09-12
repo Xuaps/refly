@@ -40,6 +40,7 @@ app.get('/favicon.ico', function(req, res) {
 });
 app.get('/api/search', docsets.search);
 app.get('/api/getdocsets', docsets.get_docsets);
+app.get('/api/gettypes', docsets.get_types);
 app.get('/api/get/:uri(*)', docsets.get);
 app.get('/api/children/:uri(*)', docsets.children);
 app.get('/:uri(*)', function(req, res) {
