@@ -53,11 +53,13 @@ Docset.init = function(callback) {
         data.forEach(function(docsetData) {
 			// if for testing only remove in production
 			if(docsetData!='test' && docsetData!='slash'){
-				_docset = Docset.create({uri: self.uri+ ':' + docsetData, reference: docsetData, schema: 'docset', type: 'docset'});
+				_docset = Docset.create({uri: docsetData, reference: docsetData, schema: 'docset', type: 'docset'});
 				_docset.gettypes(docsetData);
 			}
         });
-		callback();
+		if(callback != undefined){
+			callback();
+		}
     });
 };
 

@@ -4,12 +4,11 @@ var TreeView = {
         $('#tree-view').html('');
     },
 
-    init: function() {
-		this.reset();
+	show: function(){
 		$('#tree-view').append('<ul id="roottreeview"></ul>');
 		ulist = $('#roottreeview');
 		this.appendbranch(ulist,Docset.instances);
-    },
+	},
 
 
 	toggle: function(container, collection){

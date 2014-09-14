@@ -2,8 +2,6 @@ var LiveSearch = {
 
 
 	reset: function(){
-		var reference = Reference.create({ uri: '/api/get/node.js%20v0.10.29' });
-		OutlineView.show(reference);
 	},
 
 
@@ -14,15 +12,18 @@ var LiveSearch = {
 			if($(FIELD).val()!=''){
 				LiveSearch.validate(FIELD,false);
 				LiveSearch.search();
+				TreeView.reset();
 			}else{
-				LiveSearch.reset();
+				TreeView.show();
+				ResultList.reset();
+				LiveSearch.validate(FIELD,false);
 			}
 		});
 	},
 
 
-	validate: function(FIELD,addOrRemove){
-		$(FIELD).toggleClass( 'noresult', addOrRemove );
+	validate: function(field,addOrRemove){
+		$(field).toggleClass( 'noresult', addOrRemove );
 	},
 
 	search: function(){
@@ -33,14 +34,16 @@ var LiveSearch = {
 			if(VIEW == 'LANDINGVIEW'){
 				ContentView.show($(URI).val());
 			}
-			if($(REFERENCE).val().length>1){
-				$(document).trigger("LocationChange",[$(REFERENCE).val(), $(REFERENCE).val()]);
-			}
 			if(results.length==0){
-				LiveSearch.validate(FIELD,true);
+				LiveSearch.reset();
+				ResultList.noresult();
+				LiveSearch.validate(REFERENCE,true);
+			}else{
+				$(document).trigger("LocationChange",[$(REFERENCE).val(), $(REFERENCE).val()]);
+				ResultList.reset();
+				ResultList.show(results);
+
 			}
-			ResultList.reset();
-			ResultList.show(results);
 		});
 
 

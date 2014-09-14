@@ -10,9 +10,9 @@ var E;
 $(function() {
 	reference = Reference();
 	docset = Docset();
-	Docset.init(function(){
-		TreeView.init();
-	});
+	Docset.init();
+	var q = GetQueryParam('q');
+
 	$(document).on("LocationChange", function(e, url, text){
 		if(url==text){
 			HistoryControl.Push('/?q=' + url, 'Searching "' + text + '"');
@@ -37,9 +37,9 @@ $(function() {
 		ContentView.reset();
 	}
 
-	// If detects the param 'q' automatic search is triggered
+	// If detects the param 'q' automatic search is triggered (to put it in an object)
+	
 	if(q!=undefined){
-		var q = GetQueryParam('q');
 		$(REFERENCE).val(q);
 		LiveSearch.search();
 	}

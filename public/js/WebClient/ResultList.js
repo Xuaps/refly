@@ -2,6 +2,7 @@ var ResultList = {
 
     reset: function() {
         $('#results').html('');
+
     },
 
     show: function(results) {
@@ -17,11 +18,15 @@ var ResultList = {
 			reference.get('content', function(content) {
 				MarkdownViewer.show(content);
 				reference.get('root', function(root) {
-					TreeView.show(root, reference);
-					OutlineView.show(reference);
+					//TreeView.show(root, reference);
+					//OutlineView.show(reference);
 				});
 			});
 		});
 
     },
+	noresult: function(){
+		$('#results').html('Results not found!');
+
+	}
 };
