@@ -8,42 +8,48 @@ var TreeView = {
 		this.reset();
 		$('#tree-view').append('<ul id="roottreeview"></ul>');
 		ulist = $('#roottreeview');
-		this.appendbranch(ulist,Docset.instances,function(){
-			if(container.attr('id')=="roottreeview"){
-				TreeView.appendbranch($('#UL' + jqSelector(item.uri)),item.types);
-			}	
-
-		});
+		this.appendbranch(ulist,Docset.instances);
     },
 
 
-	unfold: function(container,docset){
+	toggle: function(container, collection){
 		if(container.children().length==0){
-			TreeView.appendbranch(container,Docset.instances[docset].types);
+			TreeView.appendbranch(container, collection);
 		}else{
 			container.toggle();
 		}
 	},
 
-	appendbranch: function(container, collection, callback){
+	appendbranch: function(container, collection){
 		container.html('');
 		$.each(collection, function(key,item){
-			container.append('<li><a id="A' + jqSelector(item.uri) + '" href="/'+ item.uri +'" class="treeviewitem">' + item.reference + '</a><ul id="UL' + jqSelector(item.uri) + '"></ul></li>');
+			container.append('<li><a id="A' + jqSelector(item.uri) + '" href="' + item.uri +'" class="treeviewitem">' + item.reference + '</a><ul id="UL' + jqSelector(item.uri) + '"></ul></li>');
 			$('#A'+jqSelector(item.uri)).click(function(e){
 							e.preventDefault();
-							E = e.currentTarget;
 							var url = RemoveBaseUrl(e.currentTarget.href);
-							var reference = Reference.create({ uri: url });
-							var uri = url.replace('%20',' ').replace('/','');
-							TreeView.unfold($('#UL' + jqSelector(item.uri)),uri);
-							/*reference.refresh('content');
-							reference.get('content', function(content) {
-								MarkdownViewer.show(content);
-								reference.get('root', function(root) {
-									//TreeView.show(root, reference);
-									//OutlineView.show(reference);
+							var id = url.replace('%20',' ').replace('/','');
+							
+							if(item.schema=='docset'){
+								TreeView.toggle($('#UL' + jqSelector(item.uri)),item.children);
+							}else if(item.schema=='type'){
+								E = item;
+								arrurl = url.split(':');
+								strdocset = arrurl[0].substr(1);
+								strtype = arrurl[1];
+								item.fill(strdocset,strtype,function(){
+									TreeView.toggle($('#UL' + jqSelector(item.uri)),item.children);
+								});								
+							}else if(item.schema=='reference'){
+								var reference = Reference.create({ uri: item.uri });
+								reference.refresh('content');
+								reference.get('content', function(content) {
+									MarkdownViewer.show(content);
 								});
-							});*/
+								item.get_children(function(){
+									TreeView.toggle($('#UL' + jqSelector(item.uri)),item.children);
+								});
+
+							}							
 						});
 		});
 	}

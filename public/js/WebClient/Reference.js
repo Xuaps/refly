@@ -3,12 +3,13 @@ var Reference = function(options) {
     var self = this;
 	self.len = 0;
     self.children = {};
+	self.schema = 'reference';
 
 
-
-	self.search = function(uri){
+	//Search for docset ans type unused
+	self.search = function(uri,type){
         $.ajax({
-            url: '/api/search?docsets=' + uri,
+            url: '/api/search?docsets=' + uri + '&type=' + type,
             method: 'get'
         }).done(function(data) {
             data.forEach(function(referenceData) {
@@ -123,28 +124,6 @@ var Reference = function(options) {
                 });
             }
         });
-    };
-
-	// I do not know what it does
-    self._retrieve_objects = function() {
-        return {
-            each: function(callback) {
-                callback({
-                    uri: self.uri,
-                    docset: self.docset,
-                    type: self.type,
-                    reference: self.reference
-                });
-                self.get('children', function(children) {
-                    for (var i in children) {
-                        var child = children[i];
-                        child.get('objects').each(callback);
-                    }
-                });
-                return this;
-            }
-        };
-
     };
 
     return self;

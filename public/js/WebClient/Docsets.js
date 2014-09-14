@@ -1,10 +1,11 @@
-var Docset = function(uri) {
+var Docset = function(options) {
 	
     var self = this;
-	self.uri = uri;
-	self.reference = uri;
+	self.uri = '';
+	self.reference = '';
 	self.children = {};
 	self.types = [];
+	self.schema = 'docset';
 
 
     self.fill = function(uri, type) {
@@ -31,7 +32,7 @@ var Docset = function(uri) {
             method: 'get'
         }).done(function(data) {
             data.forEach(function(typeData) {
-                self.types.push({uri: self.uri+ ':' + typeData, reference: typeData});
+                self.children[typeData] = Type.create({uri: self.uri+ ':' + typeData, reference: typeData, schema: 'type'});
 				//self.fill(docset,typeData);
 				
             });
@@ -41,6 +42,7 @@ var Docset = function(uri) {
 }
 
 Docset.init = function(callback) {
+	Type.init();
 	Docset.instances = {};
     $.ajax({
         url: '/api/getdocsets',
@@ -48,7 +50,7 @@ Docset.init = function(callback) {
     }).done(function(data) {
         data.forEach(function(referenceData) {
 			if(referenceData!='test' && referenceData!='slash'){
-				_docset = Docset.create({uri: referenceData});
+				_docset = Docset.create({uri: referenceData, reference: referenceData});
 				_docset.gettypes(referenceData);
 			}
         });
@@ -62,9 +64,9 @@ Docset.create = function(values) {
         throw new Error('missing argument \'uri\'');
     }
 
-    //if (Docset.instances[values.uri] == undefined) {
-        Docset.instances[values.uri] = new Docset(values.uri);
-    //}
+    if (Docset.instances[values.uri] == undefined) {
+        Docset.instances[values.uri] = new Docset(values);
+    }
 
     Docset.instances[values.uri]._store(values);
 	return Docset.instances[values.uri];
