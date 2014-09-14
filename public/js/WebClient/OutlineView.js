@@ -8,7 +8,7 @@ var OutlineView = {
         OutlineView.reset();
         var symbols = {};
         reference.get('root', function(root) {
-            root.get('objects').each(function(object) {
+            /*root.get('objects').each(function(object) {
                 if (!symbols[object.type]) {
                     symbols[object.type] = [];
                 }
@@ -19,7 +19,7 @@ var OutlineView = {
                     { symbols: symbols, current_uri: reference.uri }
                 );
                 $('#outline-view > div').accordion();
-            });
+            });*/
         });
     }
 

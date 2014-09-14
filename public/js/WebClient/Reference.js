@@ -62,8 +62,6 @@ var Reference = function(options) {
             case 'root':
                 self._retrieve_root(callback);
                 return;
-            case 'objects':
-                return self._retrieve_objects();
             default:
                 self._retrieve_normal_field(fieldName, callback);
         };
@@ -125,6 +123,8 @@ var Reference = function(options) {
             }
         });
     };
+
+
 
     return self;
 }

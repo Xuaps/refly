@@ -65,11 +65,18 @@ header img {
     height: 100%;
     overflow: auto;
 }
+/* Treeview Outline */
 #tree-view, #outline-view {
     width: 100%;
     background-color: white;
     padding: 20px;
+	height: 50%;
+	overflow: auto;
 }
+#tree-view ul {
+    list-style-type: none;
+}
+
 #results {
     margin: 10px 0;
 }

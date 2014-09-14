@@ -1,6 +1,7 @@
 var Docset = function(options) {
 	
     var self = this;
+	self.len = 0;
 	self.uri = '';
 	self.reference = '';
 	self.children = {};
@@ -33,7 +34,7 @@ var Docset = function(options) {
         }).done(function(data) {
             data.forEach(function(typeData) {
                 self.children[typeData] = Type.create({uri: self.uri+ ':' + typeData, reference: typeData, schema: 'type'});
-				//self.fill(docset,typeData);
+				self.len++;
 				
             });
         });
