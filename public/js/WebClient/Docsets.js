@@ -2,13 +2,14 @@ var Docset = function(options) {
 	
     var self = this;
 	self.len = 0;
+	self.type = 'docset';
 	self.uri = '';
 	self.reference = '';
-	self.children = {};
+	self.children = [];
 	self.types = [];
 	self.schema = 'docset';
 
-
+	// fill with references
     self.fill = function(uri, type) {
 		$.ajax({
             url: '/api/search?docsets=' + uri + '&type=' + type,
@@ -33,7 +34,7 @@ var Docset = function(options) {
             method: 'get'
         }).done(function(data) {
             data.forEach(function(typeData) {
-                self.children[typeData] = Type.create({uri: self.uri+ ':' + typeData, reference: typeData, schema: 'type'});
+                self.children.push(Type.create({uri: self.uri+ ':' + typeData, reference: typeData, schema: 'type', type: typeData}));
 				self.len++;
 				
             });
@@ -49,10 +50,11 @@ Docset.init = function(callback) {
         url: '/api/getdocsets',
         method: 'get'
     }).done(function(data) {
-        data.forEach(function(referenceData) {
-			if(referenceData!='test' && referenceData!='slash'){
-				_docset = Docset.create({uri: referenceData, reference: referenceData});
-				_docset.gettypes(referenceData);
+        data.forEach(function(docsetData) {
+			// if for testing only remove in production
+			if(docsetData!='test' && docsetData!='slash'){
+				_docset = Docset.create({uri: self.uri+ ':' + docsetData, reference: docsetData, schema: 'docset', type: 'docset'});
+				_docset.gettypes(docsetData);
 			}
         });
 		callback();
@@ -68,7 +70,6 @@ Docset.create = function(values) {
     if (Docset.instances[values.uri] == undefined) {
         Docset.instances[values.uri] = new Docset(values);
     }
-
     Docset.instances[values.uri]._store(values);
 	return Docset.instances[values.uri];
 }
