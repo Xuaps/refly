@@ -6,20 +6,23 @@ var Type = function(options) {
 	self.reference = '';
 	self.children = [];
 	self.types = [];
+	self.docset = '';
 	self.schema = 'docset';
 
 
-    self.fill = function(uri, type,callback) {
-		$.ajax({
-            url: '/api/search?docsets=' + uri + '&types=' + type,
-            method: 'get'
-        }).done(function(data) {
-            data.forEach(function(referenceData) {
-                self.children.push(Reference.create(referenceData));
-				self.len++;
-            });
-			callback();
-        });
+    self.fill = function(callback) {
+		if(self.children.length==0){
+			$.ajax({
+		        url: '/api/search?docsets=' + self.docset + '&types=' + self.type,
+		        method: 'get'
+		    }).done(function(data) {
+		        data.forEach(function(referenceData) {
+		            self.children.push(Reference.create(referenceData));
+					self.len++;
+		        });
+		    });
+		}
+		callback();
     };
 
     self._store = function(fields) {

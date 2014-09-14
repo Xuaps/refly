@@ -34,9 +34,9 @@ var Docset = function(options) {
             method: 'get'
         }).done(function(data) {
             data.forEach(function(typeData) {
-                self.children.push(Type.create({uri: self.uri+ ':' + typeData, reference: typeData, schema: 'type', type: typeData}));
-				self.len++;
-				
+				_type = Type.create({uri: self.uri+ ':' + typeData, reference: typeData, schema: 'type', type: typeData, docset: self.uri});
+				self.children.push(_type);
+				_type.fill(function(){});
             });
         });
     };
