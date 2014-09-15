@@ -67,7 +67,7 @@ var Reference = function(options) {
         };
     };
 
-	// Load data from a regular field
+	// return field from a reference through the uri
     self._retrieve_normal_field = function(fieldName, callback) {
         $.ajax({
             url: '/api/get' + self.uri,
@@ -104,13 +104,14 @@ var Reference = function(options) {
         }).done(function(data) {
             data.forEach(function(referenceData) {
                 self.children[referenceData.uri] = Reference.create(referenceData);
+				//self.children[referenceData.uri].get_children(function(){});
 				self.len++;
             });
             callback(self.children);
         });
     };
 
-	// return de root of a given url
+	// return de root of a given url (unused)
     self._retrieve_root = function(callback) {
         self.get('parent', function(parent) {
             if (parent == null) {
