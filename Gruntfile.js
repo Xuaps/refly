@@ -76,7 +76,7 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'config/**', 'jobs/**', 'public/**', 'routes/**', 'views/index.jade', 'app.js', 'package.json'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'config/**', 'jobs/**', 'public/**', 'routes/**', 'views/landingpage.jade', 'views/index.jade', 'app.js', 'package.json'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
         ]
       },
