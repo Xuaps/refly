@@ -33,11 +33,5 @@ GetQueryParam = function(param){
 	}
 
 }
-
-function jqSelector(str)
-
-{
-
-	return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[ \]\(\)/ /=>\|])/g, '-').replace(/\r?\n/g, "_");;
-
-}
+jqSelector = function(str){return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[ \]\(\)/ /=>\|])/g, '-').replace(/\r?\n/g, "_");}
+addslash = function(str){ if(str[0] !='/'){return '/' + str;}};

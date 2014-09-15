@@ -27,9 +27,9 @@ var TreeView = {
 
 	appendbranch: function(container, collection){
 		container.html('');
+		jade.render(container[0], 'tree-view', { collection: collection });
 		$.each(collection, function(key,item){
-			E = item;
-			container.append('<li><img src="/img/type-' + item.type + '.png" title="' + item.type + '" class="ry-type-source" /><a id="A' + jqSelector(item.uri) + '" href="' + ((item.uri[0] == '/') ? item.uri : '/' + item.uri) +'" class="treeviewitem">' + ((item.reference != '') ? item.reference : '(Titulo Vacio)') + '</a>' + ((item.len > 0) ? ' ('+ item.len +')' : '') + '<ul id="UL' + jqSelector(item.uri) + '"></ul></li>');
+			//container.append('<li><img src="/img/type-' + item.type + '.png" title="' + item.type + '" class="ry-type-source" /><a id="A' + jqSelector(item.uri) + '" href="' + ((item.uri[0] == '/') ? item.uri : '/' + item.uri) +'" class="treeviewitem">' + ((item.reference != '') ? item.reference : '(Titulo Vacio)') + '</a>' + ((item.len > 0) ? ' ('+ item.len +')' : '') + '<ul id="UL' + jqSelector(item.uri) + '"></ul></li>');
 			$('#A'+jqSelector(item.uri)).click(function(e){
 							e.preventDefault();
 							var url = RemoveBaseUrl(e.currentTarget.href);
