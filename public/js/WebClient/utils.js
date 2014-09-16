@@ -34,4 +34,3 @@ GetQueryParam = function(param){
 
 }
 jqSelector = function(str){return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[ \]\(\)/ /=>\|])/g, '-').replace(/\r?\n/g, "_");}
-addslash = function(str){ if(str[0] !='/'){return '/' + str;}};

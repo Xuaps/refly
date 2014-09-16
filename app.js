@@ -50,7 +50,6 @@ app.get('/:uri(*)', function(req, res) {
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
-app.locals.addslash = function(str){ if(str[0] !='/'){return '/' + str;}else{return str}};
-// Functions for Jade
 
-app.locals.jqSelector = function(str){ return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[ \]\(\)/ /=>\|])/g, '-').replace(/\r?\n/g, "_")};
+// Functions for Jade
+app.locals.jqSelector;
