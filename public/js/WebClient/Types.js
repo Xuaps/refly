@@ -18,7 +18,6 @@ var Type = function(options) {
 		    }).done(function(data) {
 		        data.forEach(function(referenceData) {
 					_reference = Reference.create(referenceData);
-					//_reference.get_children(function(){});
 					self.children.push(_reference);
 					self.len++;
 		        });

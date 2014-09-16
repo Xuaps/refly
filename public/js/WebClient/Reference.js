@@ -104,7 +104,6 @@ var Reference = function(options) {
         }).done(function(data) {
             data.forEach(function(referenceData) {
                 self.children[referenceData.uri] = Reference.create(referenceData);
-				//self.children[referenceData.uri].get_children(function(){});
 				self.len++;
             });
             callback(self.children);

@@ -33,4 +33,5 @@ GetQueryParam = function(param){
 	}
 
 }
+
 jqSelector = function(str){return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[ \]\(\)/ /=>\|])/g, '-').replace(/\r?\n/g, "_");}

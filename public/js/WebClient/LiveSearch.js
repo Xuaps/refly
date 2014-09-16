@@ -1,11 +1,6 @@
 var LiveSearch = {
 
 
-	reset: function(){
-	},
-
-
-
 
 	bind: function(FIELD){
 		$(FIELD).keyup(function() {
