@@ -6,6 +6,7 @@ var URI = '#uri';
 var VIEW = 'LANDINGVIEW';
 var RESULT = '';
 var E;
+var F;
 
 $(function() {
 	reference = Reference();

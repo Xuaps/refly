@@ -9,6 +9,8 @@ var OutlineView = {
         var symbols = {};
 		reference.get('parent', function(parent) {
 			parent.get_children(function(children){
+				children[parent.uri]=Reference.create(
+				{uri: parent.uri, reference: parent.reference, type:reference.type});
 				$.each(children, function(key,item){
 		            if (!symbols[item.type]) {
 		                symbols[item.type] = [];
