@@ -5,6 +5,7 @@ var REFERENCE = '#txtreference';
 var URI = '#uri';
 var VIEW = 'LANDINGVIEW';
 var RESULT = '';
+// These are for debugging
 var E;
 var F;
 

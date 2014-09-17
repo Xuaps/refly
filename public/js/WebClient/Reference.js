@@ -29,15 +29,6 @@ var Reference = function(options) {
 		self[fieldName]='';
 	};
 
-    // ____________________________________________________
-	// checks whether the value is already loaded. and returns it
-
-    self._field_valid = function(fieldName) {
-        if (fieldName == 'children') {
-            return self._all_children_retrieved;
-        }
-        return self[fieldName];
-    };
 
     // ____________________________________________________
 	//  Store data in the internal array
@@ -90,6 +81,7 @@ var Reference = function(options) {
                 reference: uri_parts[uri_parts.length - 1],
                 children: children
             });
+			self.parent.get("reference",function(){});
         } catch (e) {
             self.parent = null;
         }

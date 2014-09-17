@@ -7,6 +7,6 @@ div
       ul
         each object in objects
           unless object.uri === current_uri
-            li: a(href="#{object.uri}") #{object.reference}
+            li: a(href="#{object.uri}", id="OLA#{jqSelector(object.uri)}") #{object.reference}
           else
-            li: a(href="#{object.uri}", class="current") #{object.reference}
+            li: a(href="#{object.uri}", class="current", id="OLA#{jqSelector(object.uri)}") #{object.reference}
