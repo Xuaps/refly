@@ -42,6 +42,8 @@ var TreeView = {
 					reference.get('content', function(content) {
 						MarkdownViewer.show(content);
 						$(document).trigger("LocationChange",[item.uri, item.reference]);
+						OutlineView.reset();
+						OutlineView.show(item);
 					});
 				}
 						});

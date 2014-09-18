@@ -20,6 +20,7 @@ $(function() {
 			HistoryControl.Push('/?q=' + url, 'Searching "' + text + '"');
 		}else{
 			HistoryControl.Push( url, text);
+			$(URI).val(url);
 		}
 
 	});

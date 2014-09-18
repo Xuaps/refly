@@ -10,13 +10,14 @@ var ResultList = {
 // EVENTS FROM #Resultlist
 		$(RESULTITEM).click(function(e){
 			e.preventDefault();
-			E = e.currentTarget;
 			var url = RemoveBaseUrl(e.currentTarget.href);
 			var reference = Reference.create({ uri: url });
 			$(document).trigger("LocationChange",[url, e.currentTarget.text]);
 			reference.refresh('content');
 			reference.get('content', function(content) {
 				MarkdownViewer.show(content);
+				OutlineView.reset();
+				OutlineView.show(reference);
 			});
 		});
 
