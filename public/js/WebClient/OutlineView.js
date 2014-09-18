@@ -18,7 +18,8 @@ var OutlineView = {
 		            }
 					symbols[item.type].push(item);
 				});
-				jade.render($('#outline-view')[0],'outline-view',{ symbols: symbols, current_uri: reference.uri });
+				jade.render($('#outline-view')[0],'outline-view',
+				{ symbols: symbols, current_uri: reference.uri });
 				$('#outline-view > div').accordion();
 				OutlineView.initevents(children);
 			});
