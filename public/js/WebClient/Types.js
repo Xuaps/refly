@@ -17,6 +17,7 @@ var Type = function(options) {
 		        method: 'get'
 		    }).done(function(data) {
 		        data.forEach(function(referenceData) {
+                    _reference = Reference.create(referenceData);
 					self.children.push(_reference);
 					self.len++;
 		        });
