@@ -1,12 +1,15 @@
 div#content
-   header
-       img(src='/img/logo.png')
-   div#left-pane
-       div#search-view
-           fieldset
-               input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
-           div#results
-               ul#resultlist  
-       div#tree-view
-       div#outline-view
+    header
+        a(href="/")
+            img(src='/img/logo.png')
+    div#left-pane
+        div#search-view
+            fieldset
+                div#ry-search
+                    input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+                    span(class='ry-icon fa-close')
+            div#results
+                ul#resultlist  
+        div#tree-view
+        div#outline-view
     div#result

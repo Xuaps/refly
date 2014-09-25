@@ -3,7 +3,10 @@ div.trazo
 div.searchbox(class='bg-flywing')
     img(src='/img/refly.png')
     fieldset
-        input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+        div#ry-homesearch
+            input#txtreference(type='text', class='ry-input-text', name='reference', placeholder="Reference")
+            button(class='ry-icon fa-search', type='submit')
+                Buscar
 div.docsets
     div(class='center-content span3')
         h2(class='centered-text') Our flies are searching all day for you
