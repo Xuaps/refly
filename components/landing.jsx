@@ -11,7 +11,7 @@ module.exports = React.createClass({
                 <div className="searchbox bg-flywing">
                     <img src="/img/refly.png"/>
                     <fieldset>
-                        <input id="txtreference" onKeyUp={this.props.onKeyUpEvent} type="text" name="reference" placeholder="Reference" className="ry-input-text"/>
+                        <input id="txtreference" onKeyUp={this.props.onKeyUpEvent} type="text" name="reference" placeholder="Reference" className="ry-input-text" autoFocus />
                     </fieldset>
                 </div>
                 <div className="docsets">

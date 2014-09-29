@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react')
-var LandingPage = require('./landing.js')
-var Dashboard = require('./dashboard.js')
+var LandingPage = require('./landing.jsx')
+var Dashboard = require('./dashboard.jsx')
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -10,6 +10,7 @@ module.exports = React.createClass({
 
     hanldeOnKeyUpEvent: function(event){
         this.setState({landing: false});
+        this.setState({search: event.target.value});
     },
 
     render: function(){
@@ -19,7 +20,7 @@ module.exports = React.createClass({
             )    
         }else{
             return(
-                <Dashboard />
+                <Dashboard search={this.state.search}/>
             )    
         }
     }

@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Shell = require('./shell.js')
+var Shell = require('./shell.jsx')
 
 React.renderComponent(
   <Shell />,
