@@ -24,14 +24,19 @@ module.exports = React.createClass({
         });
     },
 
+    emptySearch: function(event){
+        this.refs.search_box.getDOMNode('#txtreference').value='';
+        this.setState({results:[]})
+    },
+
     render: function(){
         return(
             <div id="search-view">
                 <fieldset>
                     <div id="ry-search">
-                        <input id="txtreference" type="text" className="ry-input-text" name="reference"
+                        <input id="txtreference" ref="search_box" type="text" className="ry-input-text" name="reference"
                         placeholder="Reference" autoFocus onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
-                        <span className="ry-icon fa-close"></span>
+                        <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                     </div>
                 </fieldset>
                 <div id="results">

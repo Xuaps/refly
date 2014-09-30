@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Search = require('./search.jsx');
-// var TreeView = require('./treeview.jsx');
+var TreeView = require('./treeview.jsx');
 // var Outline = require('./outline.jsx');
 
 module.exports = React.createClass({
@@ -15,6 +15,7 @@ module.exports = React.createClass({
                 </header>
                 <div id="left-pane">
                     <Search search={this.props.search}/>
+                    <TreeView />
                 </div>
                 <this.props.activeRouteHandler/>
             </div>
