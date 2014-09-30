@@ -21,7 +21,7 @@ module.exports = React.createClass({
         var content = this.state ? markdown.toHTML(this.state.reference.content):'';
         return (
 
-            <div className="result" dangerouslySetInnerHTML={{__html: content}}/>
+            <div id="result" className="result" dangerouslySetInnerHTML={{__html: content}}/>
         );
     }
 });

@@ -15,7 +15,6 @@ body, fieldset, p {
 }
 body {
     margin-top: 72px;
-    overflow: hidden;
     margin-bottom: 60px;
 }
 div {
@@ -49,6 +48,27 @@ pre {
     -moz-box-shadow:    0px 3px 3px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         0px 3px 3px 0px rgba(50, 50, 50, 0.75);
 }
+
+.center-content {
+    margin: 0 auto;
+    display: table;
+}
+.centered-text {
+    text-align: center;
+}
+.floated {
+    float: left;
+}
+.floated-right {
+    float: right;
+}
+.span3 {
+    width: 600px;
+}
+.span4 {
+    width: 800px;
+}
+
 header {
     background-color: #FFF;
     border-bottom: 1px solid #d2e4f7;
@@ -61,6 +81,24 @@ header {
 }
 header img {
     margin-left: 40px;
+}
+
+.searchbox fieldset {
+    position: relative;
+}
+#search-view fieldset {
+    top: 18px;
+    position: absolute;
+    left: 150px;
+    width: 20%;
+}
+#content {
+}
+#left-pane {
+    float: left;
+    width: 30%;
+    height: 100%;
+    overflow: auto;
 }
 footer {
     border-top: 1 solid #fdb436;
@@ -102,32 +140,6 @@ footer .copyright {
     padding: 10px 0;
     text-align: center;
     width: 40%;
-}
-.centered-text {
-    text-align: center;
-}
-.floated {
-    float: left;
-}
-.floated-right {
-    float: right;
-}
-.searchbox fieldset {
-    position: relative;
-}
-#search-view fieldset {
-    top: 18px;
-    position: absolute;
-    left: 150px;
-    width: 20%;
-}
-#content {
-}
-#left-pane {
-    float: left;
-    width: 30%;
-    height: 100%;
-    overflow: auto;
 }
 /* Treeview Outline */
 #tree-view, #outline-view {
@@ -176,8 +188,8 @@ td.separator {
     font-family: "fontawesome";
     font-size: 1.5em;
     position: absolute;
-    right: .4em;
-    top: .15em;
+    right: 0;
+    top: 5px;
     color: #C8DDF2;
     margin: 0;
     padding: 0;
@@ -217,18 +229,9 @@ td.separator {
     color: #333;
     background-color: #fff;
     border: 1px solid #d2e4f7;
-    -webkit-border-top-left-radius:5px;
-    -moz-border-radius-topleft:5px;
-    border-top-left-radius:5px;
-    -webkit-border-top-right-radius:5px;
-    -moz-border-radius-topright:5px;
-    border-top-right-radius:5px;
-    -webkit-border-bottom-right-radius:5px;
-    -moz-border-radius-bottomright:5px;
-    border-bottom-right-radius:5px;
-    -webkit-border-bottom-left-radius:5px;
-    -moz-border-radius-bottomleft:5px;
-    border-bottom-left-radius:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
     height: 35px;
     min-width: 30%;
     padding: 0 5px;
@@ -246,20 +249,41 @@ textarea.ry-input-text {
     width: 100%;
     margin-bottom: 15px;
 }
+.ry-state {
+    width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.ry-state-blocked {
+    background-color: #776666;
+    color: white;
+}
+.ry-state-idle {
+    background-color: #667766;
+    color: white;
+}
+.ry-state-bussy {
+    background-color: #666677;
+    color: white;
+}
+.ry-state-blocked:hover {
+    background-color: #FF9933;
+    color: white;
+}
+.ry-state-idle:hover {
+    background-color: #00CC33;
+    color: white;
+}
+.ry-state-bussy:hover {
+    background-color: #3399FF;
+    color: white;
+}
 .ry-btn {
     border: 0 none;
-    -webkit-border-top-left-radius:5px;
-    -moz-border-radius-topleft:5px;
-    border-top-left-radius:5px;
-    -webkit-border-top-right-radius:5px;
-    -moz-border-radius-topright:5px;
-    border-top-right-radius:5px;
-    -webkit-border-bottom-right-radius:5px;
-    -moz-border-radius-bottomright:5px;
-    border-bottom-right-radius:5px;
-    -webkit-border-bottom-left-radius:5px;
-    -moz-border-radius-bottomleft:5px;
-    border-bottom-left-radius:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
     height: 30px;
     color: white;
     background-color: #3399FF;
@@ -294,16 +318,6 @@ box-shadow: 0 0 4px rgba(0,0,0,.3);
 
 /* Landing Page */
 
-.center-content {
-    margin: 0 auto;
-    display: table;
-}
-.span3 {
-    width: 600px;
-}
-.span4 {
-    width: 800px;
-}
 .trazo {
     position: absolute;
     top: 45px;
@@ -395,4 +409,89 @@ box-shadow: 0 0 4px rgba(0,0,0,.3);
     background-repeat: no-repeat;
     background-position: center top;
     color: #3399FF;
+}
+
+
+/* Cookies */
+
+@keyframes desaparecer
+{
+    0%      {bottom: 0px;}
+    80%     {bottom: 0px;}
+    100%        {bottom: -50px;}
+}
+
+@-webkit-keyframes desaparecer /* Safari and Chrome */
+{
+    0%      {bottom: 0px;}
+    80%     {bottom: 0px;}
+    100%        {bottom: -50px;}
+}
+
+@keyframes aparecer
+{
+    0%      {bottom: -38px;}
+    10%     {bottom: 0px;}
+    90%     {bottom: 0px;}
+    100%        {bottom: -38px;}
+}
+
+@-webkit-keyframes aparecer /* Safari and Chrome */
+{
+    0%      {bottom: -38px;}
+    10%     {bottom: 0px;}
+    90%     {bottom: 0px;}
+    100%        {bottom: -38px;}
+}
+#cookiesms1:target {
+    display: none;
+}
+.cookiesms{
+    width:100%;
+    height:43px;
+    margin:0 auto;
+    padding-left:1%;
+        padding-top:5px;
+        font-size: 1.2em;
+    clear:both;
+        font-weight: strong;
+color: #333;
+bottom:0px;
+position:fixed;
+left: 0px;
+background-color: #FFF;
+opacity:0.7;
+filter:alpha(opacity=70); /* For IE8 and earlier */
+transition: bottom 1s;
+-webkit-transition:bottom 1s; /* Safari */
+-webkit-box-shadow: 3px -3px 1px rgba(50, 50, 50, 0.56);
+-moz-box-shadow:    3px -3px 1px rgba(50, 50, 50, 0.56);
+box-shadow:         3px -3px 1px rgba(50, 50, 50, 0.56);
+z-index:999999999;
+}
+
+.cookiesms:hover{
+bottom:0px;
+}
+.cookies2{
+background-color: #FFF;
+display:inline;
+opacity:0.95;
+filter:alpha(opacity=95);
+position:absolute;
+left:1%;
+top:-30px;
+font-size:15px;
+height:30px;
+padding-left:25px;
+padding-right:25px;
+-webkit-border-top-right-radius: 15px;
+-webkit-border-top-left-radius: 15px;
+-moz-border-radius-topright: 15px;
+-moz-border-radius-topleft: 15px;
+border-top-right-radius: 15px;
+border-top-left-radius: 15px;
+-webkit-box-shadow: 3px -3px 1px rgba(50, 50, 50, 0.56);
+-moz-box-shadow:    3px -3px 1px rgba(50, 50, 50, 0.56);
+box-shadow:         3px -3px 1px rgba(50, 50, 50, 0.56);
 }

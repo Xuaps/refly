@@ -17,7 +17,7 @@ module.exports = React.createClass({
     },
     render: function(){
         return(
-            <div>
+            <div id="content">
                 <header>
                     <a href="/">
                         <img src="/img/logo.png"/>
