@@ -4,7 +4,9 @@ var React = require('react');
 module.exports = React.createClass({
     render: function() {
         return (
-            <div className="class"></div>
+            <ul>
+                {this.props.nodes}
+            </ul>
         );
     }
 });
