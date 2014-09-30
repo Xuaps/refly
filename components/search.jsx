@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
-var SearchResult = require('./search_result.jsx');
+var SearchResultRow = require('./search_result_row.jsx');
+var $ = require('jquery-browserify');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -8,7 +9,19 @@ module.exports = React.createClass({
     },
 
     onKeyUp: function(event){
-        this.setState({results:[<SearchResult key="juas" type="function" docset="node" />]})
+        //TODO:
+        references = [];
+        $.ajax({
+            context: this,
+            url: '/api/search?reference=' + event.target.value,
+            method: 'get'
+        }).done(function(results) {
+            results.forEach(function(r){
+                references.push(<SearchResultRow key={r.reference} 
+                    type={r.type} docset={r.docset} uri={r.uri.substring(1, r.uri.length)}/>)
+            });
+            this.setState({results:references})
+        });
     },
 
     render: function(){

@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react')
 var LandingPage = require('./landing.jsx')
-var Dashboard = require('./dashboard.jsx')
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -20,7 +19,7 @@ module.exports = React.createClass({
             )    
         }else{
             return(
-                <Dashboard search={this.state.search}/>
+                <this.props.activeRouteHandler search={this.state.search}/>
             )    
         }
     }
