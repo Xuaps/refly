@@ -34,3 +34,6 @@ config/develop.json
 #floobits
 .floo
 .flooignore
+
+#browserify
+.module-cache

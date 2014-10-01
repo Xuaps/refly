@@ -12,11 +12,6 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    shell: {
-      clientjade: {
-        command: 'clientjade views/*.jade > public/js/jade-templates.js'
-      }
-    },
     develop: {
       server: {
         file: 'app.js'
@@ -46,8 +41,9 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       },
-      jade: {
-        files: ['views/*.jade'],
+      react: {
+        files: ['components/*.jsx'],
+        tasks: ['browserify'],
         options: {
           livereload: reloadPort
         }
@@ -76,7 +72,8 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'config/**', 'jobs/**', 'public/**', 'routes/**', 'views/landingpage.jade', 'views/index.jade', 'app.js', 'package.json'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'config/**', 'jobs/**', 'public/**', 'routes/**', 'views/landingpage.jade', 'views/index.jade',  
+          'views/footer.jade', 'app.js', 'package.json'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
         ]
       },
@@ -89,6 +86,15 @@ module.exports = function (grunt) {
     mkdir: {
       tmp: { options: { create: ['build/tmp', 'build/tmp/config'] } }
     },
+    browserify: {
+      options: {
+        transform:  [ require('grunt-react').browserify ]
+      },
+      app:          {
+        src:        'components/*.jsx',
+        dest:       'public/bundle.js'
+      }
+    }
   });
 
   grunt.config.requires('watch.server.files');
@@ -112,7 +118,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config'])
 
-  grunt.registerTask('default', ['shell', 'develop', 'watch']);
+  grunt.registerTask('default', ['browserify', 'develop', 'watch']);
   grunt.registerTask('test', ['develop', 'jasmine_node']);
   grunt.registerTask('release', ['copy-config-files','clean:release','shell', 'copy:app', 'clean:tmp'])
 };
