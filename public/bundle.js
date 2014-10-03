@@ -247,11 +247,9 @@ module.exports = React.createClass({displayName: 'exports',
         return(
             React.DOM.div({id: "search-view"}, 
                 React.DOM.fieldset(null, 
-                    React.DOM.div({id: "ry-search"}, 
-                        React.DOM.input({id: "txtreference", ref: "search_box", type: "text", className: "ry-input-text", name: "reference", 
-                        placeholder: "Reference", autoFocus: true, onKeyUp: this.onKeyUp, defaultValue: this.props.search}), 
-                        React.DOM.span({className: "ry-icon fa-close", onClick: this.emptySearch})
-                    )
+                    React.DOM.input({id: "txtreference", ref: "search_box", type: "text", className: "ry-input-text", name: "reference", 
+                    placeholder: "Reference", autoFocus: true, onKeyUp: this.onKeyUp, defaultValue: this.props.search}), 
+                    React.DOM.span({className: "ry-icon fa-close", onClick: this.emptySearch})
                 ), 
                 React.DOM.div({id: "results"}, 
                     React.DOM.ul({id: "resultlist"}, 
