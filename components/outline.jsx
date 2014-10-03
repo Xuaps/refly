@@ -19,19 +19,4 @@ var Outline = React.createClass({
   }
 });
 
-var OutlineNodeList = React.createClass({
-  render: function() {
-    var OutlineNodes = this.props.data.map(function (item) {
-      return (
-        <OutlineNode reference={item} />
-      );
-    });
-    return (
-      <ul>
-        {OutlineNodes}
-      </ul>
-    );
-  }
-});
-
-module.exports = OutlineNodeList;
+module.exports = Outline;

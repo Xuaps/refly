@@ -209,22 +209,7 @@ var Outline = React.createClass({displayName: 'Outline',
   }
 });
 
-var OutlineNodeList = React.createClass({displayName: 'OutlineNodeList',
-  render: function() {
-    var OutlineNodes = this.props.data.map(function (item) {
-      return (
-        OutlineNode({reference: item})
-      );
-    });
-    return (
-      React.DOM.ul(null, 
-        OutlineNodes
-      )
-    );
-  }
-});
-
-module.exports = OutlineNodeList;
+module.exports = Outline;
 
 },{"./outlinenode.jsx":5,"react":209}],5:[function(require,module,exports){
 /**
@@ -235,11 +220,20 @@ var React = require('react');
 var Link = require('react-router').Link;
 var Outline = require('./outline.jsx');
 var OutlineNode = React.createClass({displayName: 'OutlineNode',
+
+  reLoad: function(){
+    data=[
+		  {reference: "getElementById", type: "function", uri: "uri3"},
+		  {reference: "null", type: "class", uri: "uri4"}
+    ];
+	this.setState({"data": data});
+
+  },
   render: function() {
 	var item = this.props.reference;
     return (
         React.DOM.li(null, 
-			Link({to: "result", params: {splat: item.uri}}, item.reference)
+			Link({to: "result", params: {splat: item.uri}, onClick: this.reLoad}, item.reference)
         )
     );
   }
