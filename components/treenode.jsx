@@ -24,7 +24,7 @@ var TreeNode = React.createClass({
         var item = this.props;
         return (
             <li>
-                <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type.source"/>
+               <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type.source"/>
                 <Link to='result' params={{splat: item.uri}} onClick={this.loadChildren}>{item.reference}</Link>
                 <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
                 <TreeView nodes={this.state.children} />
