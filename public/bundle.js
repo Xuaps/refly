@@ -15,12 +15,12 @@ module.exports = React.createClass({displayName: 'exports',
                 TreeNode({key: "c", type: "docset", uri: "", reference: "javascript++", len: "0"})
             ],
 			Outlinenodes:[
-				  {reference: "getElementById", type: "function", uri: "uri1"},
-				  {reference: "null", type: "constant", uri: "uri2"},
-				  {reference: "window", type: "function", uri: "uri3"},
-				  {reference: "XMLHTTPrequest", type: "class", uri: "uri4"},
-				  {reference: "getElementByClassName", type: "method", uri: "uri5"},
-				  {reference: "document.write", type: "method", uri: "uri6"}
+				  {reference: "getElementById", type: "function", uri: ""},
+				  {reference: "null", type: "constant", uri: ""},
+				  {reference: "window", type: "function", uri: ""},
+				  {reference: "XMLHTTPrequest", type: "class", uri: ""},
+				  {reference: "getElementByClassName", type: "method", uri: ""},
+				  {reference: "document.write", type: "method", uri: ""}
 						 ]
 
 			};
@@ -201,15 +201,16 @@ var Outline = React.createClass({displayName: 'Outline',
   getInitialState: function() {
         return {data: this.props.data};
   },
-  clicked: function(){
-	data = this.LoadData("node.js+v0.10.29/buffer/buffer/buf.tojson()");
+  clicked: function(e){
+	e.preventDefault();
+	//data = this.LoadData("node.js+v0.10.29/buffer/buffer/buf.tojson()");
     data=[
-		  {reference: "getElementById2", type: "function", uri: "uri1"},
-		  {reference: "null2", type: "constant", uri: "uri2"},
-		  {reference: "window2", type: "function", uri: "uri3"},
-		  {reference: "XMLHTTPrequest2", type: "class", uri: "uri4"},
-		  {reference: "getElementByClassName2", type: "method", uri: "uri5"},
-		  {reference: "document.write2", type: "method", uri: "uri6"}
+		  {reference: "getElementById2", type: "function", uri: ""},
+		  {reference: "null2", type: "constant", uri: ""},
+		  {reference: "window2", type: "function", uri: ""},
+		  {reference: "XMLHTTPrequest2", type: "class", uri: ""},
+		  {reference: "getElementByClassName2", type: "method", uri: ""},
+		  {reference: "document.write2", type: "method", uri: ""}
 		 ];
 	this.setState({data: data});
 

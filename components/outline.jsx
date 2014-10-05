@@ -6,15 +6,16 @@ var Outline = React.createClass({
   getInitialState: function() {
         return {data: this.props.data};
   },
-  clicked: function(){
-	data = this.LoadData("node.js+v0.10.29/buffer/buffer/buf.tojson()");
+  clicked: function(e){
+	e.preventDefault();
+	//data = this.LoadData("node.js+v0.10.29/buffer/buffer/buf.tojson()");
     data=[
-		  {reference: "getElementById2", type: "function", uri: "uri1"},
-		  {reference: "null2", type: "constant", uri: "uri2"},
-		  {reference: "window2", type: "function", uri: "uri3"},
-		  {reference: "XMLHTTPrequest2", type: "class", uri: "uri4"},
-		  {reference: "getElementByClassName2", type: "method", uri: "uri5"},
-		  {reference: "document.write2", type: "method", uri: "uri6"}
+		  {reference: "getElementById2", type: "function", uri: ""},
+		  {reference: "null2", type: "constant", uri: ""},
+		  {reference: "window2", type: "function", uri: ""},
+		  {reference: "XMLHTTPrequest2", type: "class", uri: ""},
+		  {reference: "getElementByClassName2", type: "method", uri: ""},
+		  {reference: "document.write2", type: "method", uri: ""}
 		 ];
 	this.setState({data: data});
 
