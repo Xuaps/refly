@@ -13,11 +13,16 @@ module.exports = React.createClass({
                 <TreeNode key='b' type='docset' uri= '' reference='javascript#' len='0'/>,
                 <TreeNode key='c' type='docset' uri= '' reference='javascript++' len='0'/>
             ],
-            Outlinenodes:[
-				  {reference: "IsNan", type: "function", uri: "uri1"},
-				  {reference: "alert", type: "class", uri: ""}
-            ]
-        };
+			Outlinenodes:[
+				  {reference: "getElementById", type: "function", uri: "uri1"},
+				  {reference: "null", type: "constant", uri: "uri2"},
+				  {reference: "window", type: "function", uri: "uri3"},
+				  {reference: "XMLHTTPrequest", type: "class", uri: "uri4"},
+				  {reference: "getElementByClassName", type: "method", uri: "uri5"},
+				  {reference: "document.write", type: "method", uri: "uri6"}
+						 ]
+
+			};
     },
     render: function(){
         return(
@@ -34,6 +39,6 @@ module.exports = React.createClass({
                 </div>
                 <this.props.activeRouteHandler/>
             </div>
-        )
+        );
     }
 });
