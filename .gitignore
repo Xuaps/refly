@@ -37,3 +37,4 @@ config/develop.json
 
 #browserify
 .module-cache
+public/bundle.js
