@@ -8,16 +8,22 @@
     font-weight: normal;
     font-style: normal;
 }
+html {
+    height: 100%
+}
 body, fieldset, p {
     margin: 0;
     border: 0;
     padding: 0;
 }
 body {
-    margin-top: 72px;
-    margin-bottom: 60px;
+    box-sizing: border-box;
+    padding-top: 72px;
+    padding-bottom: 60px;
+    min-height: 100%;
+    position: relative;
 }
-div {
+*, div {
     box-sizing: border-box;
 }
 a {
@@ -73,7 +79,7 @@ header {
     background-color: #FFF;
     border-bottom: 1px solid #d2e4f7;
     float: left;
-    height: 60px;
+    height: 70px;
     width: 100%;
     position: absolute;
     padding: 5px 0;
@@ -92,7 +98,15 @@ header img {
     left: 150px;
     width: 20%;
 }
+#container {
+    height: 100%;
+}
 #content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 70px 0 60px;
+    top: 0;
 }
 #left-pane {
     float: left;
@@ -101,10 +115,12 @@ header img {
     overflow: auto;
 }
 footer {
-    border-top: 1 solid #fdb436;
+    border-top: 1px solid #fdb436;
     width: 100%;
-    padding-bottom: 5px;
     float: left;
+    position: absolute;
+    bottom: 0;
+    height: 60px;
 }
 footer .center-block {
     margin: 0 auto;
@@ -188,7 +204,7 @@ td.separator {
     font-family: "fontawesome";
     font-size: 1.5em;
     position: absolute;
-    right: 0;
+    right: 10px;
     top: 5px;
     color: #C8DDF2;
     margin: 0;
@@ -355,7 +371,7 @@ box-shadow: 0 0 4px rgba(0,0,0,.3);
     background-color: white;
     color: #3399FF;
     padding: 100px 0;
-    margin-top: 280px;
+    margin-top: 212px;
 }
 .docsets table {
     color: #3399FF;
