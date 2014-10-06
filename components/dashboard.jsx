@@ -2,17 +2,12 @@
 var React = require('react');
 var Search = require('./search.jsx');
 var TreeView = require('./treeview.jsx');
-var TreeNode = require('./treenode.jsx');
 var Outline = require('./outline.jsx');
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {
-            nodes:[
-                <TreeNode key='a' type='docset' uri= '' reference='javascript' len='0'/>,
-                <TreeNode key='b' type='docset' uri= '' reference='javascript#' len='0'/>,
-                <TreeNode key='c' type='docset' uri= '' reference='javascript++' len='0'/>
-            ],
+            nodes:[],
 			Outlinenodes:[
 				  {reference: "getElementById", type: "function", uri: "#"},
 				  {reference: "null", type: "constant", uri: "#"},
