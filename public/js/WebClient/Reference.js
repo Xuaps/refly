@@ -3,6 +3,7 @@ var Reference = function(options) {
     var self = this;
 	self.len = 0;
     self.children = {};
+	self.listchildren = [];
 	self.schema = 'reference';
 
 
@@ -90,16 +91,18 @@ var Reference = function(options) {
 
 	//return the children url of a given url
     self.get_children = function(callback) {
+		self.listchildren = [];
         $.ajax({
             url: '/api/children' + self.uri,
             method: 'get'
         }).done(function(data) {
             data.forEach(function(referenceData) {
-                self.children[referenceData.uri] = Reference.create(referenceData);
+                self.listchildren.push(Reference.create(referenceData));
+                //self.children[referenceData.uri] = Reference.create(referenceData);
 				//self.children[referenceData.uri].get_children(function(){});
 				self.len++;
             });
-            callback(self.children);
+            callback(self.listchildren);
         });
     };
 

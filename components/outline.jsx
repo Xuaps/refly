@@ -2,45 +2,43 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var Outline = React.createClass({
-
+  self: this,
   getInitialState: function() {
+		self = this;
         return {data: this.props.data};
   },
   clicked: function(e){
 	e.preventDefault();
-	//data = this.LoadData("node.js+v0.10.29/buffer/buffer/buf.tojson()");
-    data=[
-		  {reference: "getElementById2", type: "function", uri: ""},
-		  {reference: "null2", type: "constant", uri: ""},
-		  {reference: "window2", type: "function", uri: ""},
-		  {reference: "XMLHTTPrequest2", type: "class", uri: ""},
-		  {reference: "getElementByClassName2", type: "method", uri: ""},
-		  {reference: "document.write2", type: "method", uri: ""}
-		 ];
-	this.setState({data: data});
+	ref = Reference.create(
+	{uri: "/node.js v0.10.29/buffer/buffer/buf.length", reference: "buf.json()", type:"method"});
+	ref.get('parent', function(parent) {
+		self.LoadData(parent,function(data){
+			self.setState({data: data});
+
+
+		});
+	});
 
   },
 
-  LoadData: function(uri){
-        var uri_parts = uri.split('/').slice(0, -1);
-        try {
-            var children = {};
-            children[self.uri] = self;
-            parent = Reference.create({
-                uri: uri_parts.join('/'),
-                reference: uri_parts[uri_parts.length - 1],
-                children: children
-            });
-			self.parent.get("reference",function(){});
-        } catch (e) {
-            self.parent = null;
-        }
-        callback(self.parent);
-
+  LoadData: function(parent,callback){
+		list = [];
+		// recursividad con asincronia. Revisar esto
+		parent.get_children(function(children){
+			if(children.length>0){
+				children.forEach(function(ref) {
+					self.LoadData(ref,function(data){
+						callback(list);
+					});
+				});
+			}else{
+				list.push(parent);
+			}
+			callback(list);
+		});
   },
 
   render: function() {
-	self = this;
 	var rows = [];
 	var symbols = {};
 	$.each(this.state.data, function(key,item){
