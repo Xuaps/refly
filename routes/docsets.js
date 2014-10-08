@@ -36,3 +36,14 @@ exports.children = function(req, res) {
     });
 };
 
+exports.branch = function(req, res) {
+    slash.get_id(req.params.uri).then(function(id) {
+        if (id == null) {
+            res.send([]);
+        } else {
+            slash.branch(id).then(function(references) {
+                res.send(references);
+            });
+        }
+    });
+};

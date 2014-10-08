@@ -65,3 +65,27 @@ exports.children = function(id){
         .select(['docset', 'reference', 'type', 'uri'])
         .execute();
 }
+
+exports.branch = function(id){
+	list = [];
+	docsets = new Docsets();
+	docsets
+        .filter('parent_id', filters.operators.EQUALS, id)
+        .select(['docset', 'reference', 'type', 'uri'])
+        .execute();
+	list.concat(docsets);
+	if(docsets.length>0){
+		for(ref in docsets){
+			slash.get_id(ref.uri).then(function(id) {
+				if (id == null) {
+				    res.send([]);
+				} else {
+				    slash.branch(id).then(function(references) {
+				        res.send(references);
+				    });
+				}
+			});
+		}
+	}
+	return list;
+}

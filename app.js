@@ -23,11 +23,12 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/api/search', docsets.search);
-app.get('/api/getdocsets', docsets.get_docsets);
-app.get('/api/gettypes', docsets.get_types);
-app.get('/api/get/:uri(*)', docsets.get);
-app.get('/api/children/:uri(*)', docsets.children);
+app.get('/api/references?', docsets.search);
+app.get('/api/docsets', docsets.get_docsets);
+app.get('/api/types', docsets.get_types);
+app.get('/api/reference/:uri(*)', docsets.get);
+app.get('/api/references/:uri(*)', docsets.children);
+app.get('/api/references/tree/:uri(*)', docsets.branch);
 
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){

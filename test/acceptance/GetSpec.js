@@ -1,6 +1,6 @@
 var request = require('supertest');
 
-describe('/api/get', function() {
+describe('/api/reference', function() {
 
     it('should return a reference with its content', function() {
         var result = null;
@@ -10,7 +10,7 @@ describe('/api/get', function() {
         });
 
         request('http://localhost:3000')
-            .get('/api/get/test_3.html')
+            .get('/api/reference/test_3.html')
             .end(function(err, res) {
                 if (err) {
                     throw err;

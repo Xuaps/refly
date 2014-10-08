@@ -14,8 +14,6 @@ var Outline = React.createClass({
 	ref.get('parent', function(parent) {
 		self.LoadData(parent,function(data){
 			self.setState({data: data});
-
-
 		});
 	});
 
@@ -24,6 +22,7 @@ var Outline = React.createClass({
   LoadData: function(parent,callback){
 		list = [];
 		// recursividad con asincronia. Revisar esto
+		list.push(parent);
 		parent.get_children(function(children){
 			if(children.length>0){
 				children.forEach(function(ref) {

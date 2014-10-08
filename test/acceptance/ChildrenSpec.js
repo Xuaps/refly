@@ -1,6 +1,6 @@
 var request = require('supertest');
 
-describe('/api/children', function() {
+describe('/api/references/:uri(*)', function() {
 
     it('should return OK and the list of results for a succeeding query', function() {
         var result = null;
@@ -10,7 +10,7 @@ describe('/api/children', function() {
         });
 
         request('http://localhost:3000')
-            .get('/api/children/test_2.html')
+            .get('/api/references/test_2.html')
             .end(function(err, res) {
                 if (err) {
                     throw err;
@@ -41,7 +41,7 @@ describe('/api/children', function() {
         });
 
         request('http://localhost:3000')
-            .get('/api/children/this_should_be_an_unexisting_uri.html')
+            .get('/api/references/this_should_be_an_unexisting_uri.html')
             .end(function(err, res) {
                 if (err) {
                     throw err;

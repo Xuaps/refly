@@ -99,23 +99,25 @@ describe('Slash', function() {
            var docsets = slash.get_docsets().then(function(response){
                expect(response).toEqual(['slash','java']);
            }).fin(done);
-           
-           
+ 
        });
-       
-       
    });
 
    describe('GetTypes', function(){
        it("return all the types of a given docsets", function(done){
            var docsets = slash.get_types().then(function(response){
                expect(response).toEqual(['constant','function']);
-           }).fin(done);
-           
-           
+           }).fin(done);           
        });
-       
-       
+
    });
 
+   describe('Branch', function(){
+
+       xit("return all reference from the same branch of a specific reference", function(done){
+           var docsets = slash.branch().then(function(response){
+               expect(response.length).toEqual(3);
+           }).fin(done); 
+       });       
+   });
 });
