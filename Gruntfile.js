@@ -86,9 +86,14 @@ module.exports = function (grunt) {
     mkdir: {
       tmp: { options: { create: ['build/tmp', 'build/tmp/config'] } }
     },
+    jest: {
+        options: {
+            config: 'jest.config'
+        }
+    },
     browserify: {
       options: {
-        transform:  [ require('grunt-react').browserify ]
+        transform:  [ 'reactify' ]
       },
       app:          {
         src:        'components/*.jsx',
@@ -116,9 +121,10 @@ module.exports = function (grunt) {
     }, 500);
   });
 
-  grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config'])
+  grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config']);
 
   grunt.registerTask('default', ['browserify', 'develop', 'watch']);
   grunt.registerTask('test', ['develop', 'jasmine_node']);
-  grunt.registerTask('release', ['copy-config-files','clean:release','shell', 'copy:app', 'clean:tmp'])
+  grunt.registerTask('testc', ['jest']);
+  grunt.registerTask('release', ['copy-config-files','clean:release','shell', 'copy:app', 'clean:tmp']);
 };
