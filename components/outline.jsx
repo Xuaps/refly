@@ -55,14 +55,17 @@ var Outline = React.createClass({
 );
 	});
 	$.each(symbols, function(symbol,items){
-		rows.push(<h3>{symbol}</h3>);
-		rows.push(<ul>{items}</ul>);
+        rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
 	});
 	return(
-      <div className="outlineBox">
-        <h1>Outline</h1>
-		{rows}
-      </div>);
+        <div id="outline-view" className="half-height">
+            <div className="component-header"><a>Outline</a></div>
+            <div className="component-content">
+                <ul className="outline-list">
+                    {rows}
+                </ul>
+            </div>
+        </div>);
   }
 });
 

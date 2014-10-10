@@ -31,7 +31,7 @@ module.exports = React.createClass({
 
     render: function(){
         return(
-            <div id="search-view">
+            <div id="search-view" className="half-height">
                 <fieldset>
                     <input id="txtreference" ref="search_box" type="text" className="ry-input-text" name="reference"
                     placeholder="Reference" autoFocus onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
