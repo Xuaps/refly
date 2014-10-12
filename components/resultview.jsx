@@ -9,7 +9,7 @@ module.exports = React.createClass({
         //TODO:
         $.ajax({
             context:this,
-            url: '/api/get/' + (newProps.params?newProps.params.splat:''),
+            url: '/api/reference/' + (newProps.params?newProps.params.splat:''),
             method: 'get'
         }).done(function(ref){
             this.setState({reference: ref});

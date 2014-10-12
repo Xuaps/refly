@@ -13,7 +13,7 @@ module.exports = React.createClass({
         references = [];
         $.ajax({
             context: this,
-            url: '/api/search?reference=' + event.target.value,
+            url: '/api/references?reference=' + event.target.value,
             method: 'get'
         }).done(function(results) {
             results.forEach(function(r){
