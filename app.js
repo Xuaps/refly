@@ -28,7 +28,7 @@ app.get('/api/docsets', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
 app.get('/api/reference/:uri(*)', docsets.get);
 app.get('/api/references/:uri(*)', docsets.children);
-app.get('/api/references/tree/:uri(*)', docsets.branch);
+app.get('/api/referencesbranch/:uri(*)', docsets.branch);
 
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){

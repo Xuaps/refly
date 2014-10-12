@@ -14,12 +14,12 @@ module.exports = React.createClass({
                 <TreeNode key='c' type='docset' uri= '' reference='javascript++' len='0'/>
             ],
 			Outlinenodes:[
-				  {reference: "getElementById", type: "function", uri: ""},
-				  {reference: "null", type: "constant", uri: ""},
-				  {reference: "window", type: "function", uri: ""},
-				  {reference: "XMLHTTPrequest", type: "class", uri: ""},
-				  {reference: "getElementByClassName", type: "method", uri: ""},
-				  {reference: "document.write", type: "method", uri: ""}
+				  {reference: "getElementById", type: "function", uri: "#"},
+				  {reference: "null", type: "constant", uri: "#"},
+				  {reference: "window", type: "function", uri: "#"},
+				  {reference: "XMLHTTPrequest", type: "class", uri: "#"},
+				  {reference: "getElementByClassName", type: "method", uri: "#"},
+				  {reference: "document.write", type: "method", uri: "#"}
 						 ]
 
 			};

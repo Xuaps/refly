@@ -1,7 +1,8 @@
 var Docsets = require('./docsets');
 var filters = require('./filters');
+var q = require('q');
 
-exports.search = function(options) {
+var search = function(options) {
     docsets = new Docsets();
     return docsets
         .filter('docset', filters.operators.IN, options.docsets)
@@ -11,7 +12,7 @@ exports.search = function(options) {
         .execute();
 };
 
-exports.get = function(identity){
+var get = function(identity){
 	docsets = new Docsets();
 	return docsets
         .filter('uri', filters.operators.EQUALS, '/' + identity)
@@ -21,7 +22,7 @@ exports.get = function(identity){
         });
 }
 
-exports.get_docsets = function(){
+var get_docsets = function(){
     docsets = new Docsets();
     return docsets.select(['docset']).execute().then(function(references){
         var unique_references = [];
@@ -34,7 +35,7 @@ exports.get_docsets = function(){
 	});
 }
 
-exports.get_types = function(docset){
+var get_types = function(docset){
     docsets = new Docsets();
     return docsets.filter('docset', filters.operators.IN, docset)
 		.select(['type']).execute().then(function(references){
@@ -48,17 +49,20 @@ exports.get_types = function(docset){
 	});
 }
 
-exports.get_id = function(identity){
+var get_id = function(identity){
 	docsets = new Docsets();
+	if(identity[0]!='/'){
+		identity = '/' + identity;
+	}
 	return docsets
-        .filter('uri', filters.operators.EQUALS, '/' + identity)
+        .filter('uri', filters.operators.EQUALS, identity)
         .select(['id'])
         .execute().then(function(references) {
             return (references.length > 0) ? references[0].id : null;
         });
 }
 
-exports.children = function(id){
+var children = function(id){
 	docsets = new Docsets();
 	return docsets
         .filter('parent_id', filters.operators.EQUALS, id)
@@ -66,26 +70,24 @@ exports.children = function(id){
         .execute();
 }
 
-exports.branch = function(id){
-	list = [];
-	docsets = new Docsets();
-	docsets
-        .filter('parent_id', filters.operators.EQUALS, id)
-        .select(['docset', 'reference', 'type', 'uri'])
-        .execute();
-	list.concat(docsets);
-	if(docsets.length>0){
-		for(ref in docsets){
-			slash.get_id(ref.uri).then(function(id) {
-				if (id == null) {
-				    res.send([]);
-				} else {
-				    slash.branch(id).then(function(references) {
-				        res.send(references);
-				    });
-				}
-			});
-		}
-	}
-	return list;
+var branch = function(id){
+	var promises = [];
+	firstchildren = children(id)
+	promises.push(firstchildren);
+	return firstchildren.then(function(references){
+		
+		references.forEach(function(child){
+			promises.push(get_id(child.uri).then(function(id){
+			return (id!=null) ? branch(id) : [{reference: child.reference, uri: child.uri}];}));
+		});
+		return q.all(promises);
+	});
 }
+
+module.exports.children = children;
+module.exports.branch = branch;
+module.exports.get_id = get_id;
+module.exports.get_types = get_types;
+module.exports.get_docsets = get_docsets;
+module.exports.get = get;
+module.exports.search = search;
