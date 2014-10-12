@@ -35,6 +35,9 @@ app.get('/js/:path(*)', function(req, res) {
 app.get('/img/:path(*)', function(req, res) {
   res.sendfile('public/img/' + req.params.path);
 });
+app.get('/fonts/:path(*)', function(req, res) {
+  res.sendfile('public/fonts/' + req.params.path);
+});
 app.get('/favicon.ico', function(req, res) {
   res.sendfile('favicon.ico');
 });
