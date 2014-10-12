@@ -36,3 +36,25 @@ exports.children = function(req, res) {
     });
 };
 
+var JSONflatten = function  (arr) {
+	return arr.reduce(function  (a,b) {
+		if (b instanceof Array) {
+			return a.concat(JSONflatten(b));
+		}else{
+			return a.concat(b);
+		}
+	},[]);
+}
+
+exports.branch = function(req, res) {
+    slash.get_id(req.params.uri).then(function(id) {
+        if (id == null) {
+            res.send([]);
+        } else {
+            slash.branch(id).then(function(references){
+				list = JSONflatten(references);
+				res.send(list);
+			});
+        }
+    });
+};

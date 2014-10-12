@@ -5,7 +5,9 @@ var REFERENCE = '#txtreference';
 var URI = '#uri';
 var VIEW = 'LANDINGVIEW';
 var RESULT = '';
+// These are for debugging
 var E;
+var F;
 
 $(function() {
 	reference = Reference();
@@ -18,6 +20,7 @@ $(function() {
 			HistoryControl.Push('/?q=' + url, 'Searching "' + text + '"');
 		}else{
 			HistoryControl.Push( url, text);
+			$(URI).val(url);
 		}
 
 	});
