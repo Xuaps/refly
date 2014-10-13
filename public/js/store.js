@@ -1,9 +1,14 @@
+var jQuery = require('jquery-browserify');
+
 function Api(){
-    this._url='';
+    this._url='/api/docsets';
 }
 
 Api.prototype.get = function (resource){
-    return [];
+    return jQuery.ajax({
+        url: this._url,
+        method: 'GET'
+    });
 };
 
 module.exports = new Api();
