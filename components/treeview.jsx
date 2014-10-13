@@ -3,27 +3,9 @@
  */
 
 var React = require('react');
-var Link = require('react-router').Link;
-var TreeNode = React.createClass({
-    getInitialState: function() {
-        return {
-        };
-    },
-
-    render: function() {
-        var item = this.props;
-        return (
-            <li>
-               <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type.source"/>
-               {/*<Link to='result' params={{splat: item.uri}}>{item.reference}</Link>*/}
-               <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
-            </li>
-        );
-    }
-
-});
-
 var store = require('../public/js/store.js');
+var TreeNode = require('./treenode.jsx');
+
 var TreeView = React.createClass({
     getInitialState: function() {
         return {
@@ -37,7 +19,7 @@ var TreeView = React.createClass({
         }.bind(this));
     },
 
-    render: function() {
+   render: function() {
         return (
             <div id="tree-view" className="half-height">
                 <div className="component-header"><a>Treeview</a></div>
@@ -45,14 +27,14 @@ var TreeView = React.createClass({
                     <ul>
                         {this.state.data.map(
                             function(ref){
-                                return ( <TreeNode key={ref.uri} type={ref.type} reference={ref.name} uri={ref.uri}/> );
+                                return ( <TreeNode key={ref.url} type={ref.type} name={ref.name} url={ref.url}/> );
                             })
                         }
                     </ul>
                </div>
             </div>
         );
-    },
+    }
 });
 
 module.exports = TreeView;
