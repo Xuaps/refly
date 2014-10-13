@@ -1,8 +1,0 @@
-each item in collection
-  li
-    img(src="/img/type-#{item.type}.png", title="#{item.type}", class="ry-type-source")
-    a.treeviewitem(href="#{item.uri}", id="A#{jqSelector(item.uri)}") #{item.reference}
-    span(class="cursive")
-      if item.len >0
-        &#40;#{item.len}&#41;
-    ul(id="UL#{jqSelector(item.uri)}")
