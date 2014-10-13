@@ -3,22 +3,20 @@ var React = require('react');
 var Search = require('./search.jsx');
 var TreeView = require('./treeview.jsx');
 var Outline = require('./outline.jsx');
+var Resultview = require('./resultview.jsx');
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {
             nodes:[],
-			Outlinenodes:[
-				  {reference: "getElementById", type: "function", uri: "#"},
-				  {reference: "null", type: "constant", uri: "#"},
-				  {reference: "window", type: "function", uri: "#"},
-				  {reference: "XMLHTTPrequest", type: "class", uri: "#"},
-				  {reference: "getElementByClassName", type: "method", uri: "#"},
-				  {reference: "document.write", type: "method", uri: "#"}
-						 ]
-
+			Outlinenodes:[]
 			};
     },
+	componentWillReceiveProps: function (newProps) {
+		this.setState({splat: newProps.splat});
+
+	},
+
     render: function(){
         return(
             <div id="content">
@@ -30,9 +28,9 @@ module.exports = React.createClass({
                 <div id="left-pane">
                     <Search search={this.props.search}/>
                     <TreeView nodes={this.state.nodes}/>
-                    <Outline data={this.state.Outlinenodes}/>
+                    <Outline params={{splat: this.props.params.splat}}/>
                 </div>
-                <this.props.activeRouteHandler/>
+                <Resultview params={{splat: this.props.params.splat}}/>
             </div>
         );
     }

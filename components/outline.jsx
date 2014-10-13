@@ -5,20 +5,28 @@ var Outline = React.createClass({
   self: this,
   selecteduri: '',
   getInitialState: function() {
-		self = this;
-        return {data: this.props.data};
+	self = this;
+	if(self.props.params.splat!=''){
+		return LoadData(self.props.params.splat);
+	}else{
+		return {data: []};
+	}
+  },
+  componentWillReceiveProps: function (newProps) {
+	self.setState({splat: newProps.params.splat});
+	var refuri = newProps.params.splat;
+	self.LoadData(refuri);
   },
   clicked: function(e){
-	e.preventDefault();
-	var ref = {uri: "/node.js v0.10.29/buffer/buffer/buf.tojson()", reference: "buf.json()", type:"method"};
-	self.LoadData(ref);
+	var refuri = self.props.params.splat;
+	self.LoadData(refuri);
   },
 
-  LoadData: function(ref){
-	Reference.get_parent(ref.uri, function(parent) {
+  LoadData: function(refuri){
+	Reference.get_parent(refuri, function(parent) {
 		Reference.get_branch(parent.uri,function(data){
 			data.unshift(parent);
-			self.selecteduri = ref.uri;
+			self.selecteduri = '/' + refuri;
 			self.setState({data: data});
 		});
 	});

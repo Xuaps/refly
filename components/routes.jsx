@@ -13,10 +13,7 @@ var Result = require('./resultview.jsx');
 var routes = (
   <Routes location="history">
     <Route handler={Shell}>
-        <Route handler={Dashboard}>
-            <Route name="result" path='*' handler={Result}>
-            </Route>
-        </Route>
+            <Route name="result" path='*' handler={Dashboard}/>
     </Route>
   </Routes>
 );
