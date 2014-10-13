@@ -1,16 +1,15 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/treeview.jsx');
-var TreeView;
-var TestUtils;
-var routes;
-var React;
+jest.dontMock('../components/treenode.jsx');
+var React = require('react/addons');
+var routes = require('../components/routes.jsx');
+var TestUtils = React.addons.TestUtils;
+var TreeView = require('../components/treeview.jsx'); 
+var TreeNode = require('../components/treenode.jsx');
 
 describe('TreeView Component', function(){
     beforeEach(function(){
-        React = require('react/addons');
-        routes = require('../components/routes.jsx');
-        TestUtils = React.addons.TestUtils;
-        TreeView = require('../components/treeview.jsx'); 
+
     });
 
     describe('Initial State', function(){
@@ -23,14 +22,26 @@ describe('TreeView Component', function(){
     });
 
     describe('Click in one docset', function() {
-        xit('should load all docset types', function() {
-        
+        it('should load all docset types', function() {
+            React.renderComponent(routes, document.createElement('div'));
+            var treeview = TestUtils.renderIntoDocument(<TreeView/>);
+            var treenode = TestUtils.scryRenderedComponentsWithType(treeview, <TreeNode/>)[0];
+            var link = TestUtils.findRenderedDOMComponentWithTag(treenode, 'a');
+            TestUtils.Simulate.click(link);
+
+            expect(treenode.state.data.length).toEqual(3);     
         });
     });
 
     describe('Click in one type', function() {
         xit('should load all refrence by type and docset', function () {
-        
+            React.renderComponent(routes, document.createElement('div'));
+            var treeview = TestUtils.renderIntoDocument(<TreeView/>);
+            var treenode = TestUtils.scryRenderedComponentsWithType(treeview, <TreeNode/>)[0];
+            var link = TestUtils.findRenderedDOMComponentWithTag(treenode, 'a');
+            TestUtils.Simulate.click(link);
+
+            expect(treenode.state.data.length).toEqual(3);     
         });
     }); 
 
