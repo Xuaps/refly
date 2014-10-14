@@ -14,8 +14,12 @@ var TreeView = React.createClass({
     },
     
     componentWillMount: function(){
-        store.get('docsets').then(function(response){
-            this.setState({data: response});
+        store.get('docset').then(function(response){
+            var docs = [];
+            response.forEach(function(doc){
+                docs.push(<TreeNode key={doc} type='docset' name={doc}/>);
+            });
+            this.setState({data: docs});
         }.bind(this));
     },
 
@@ -25,11 +29,7 @@ var TreeView = React.createClass({
                 <div className="component-header"><a>Treeview</a></div>
                 <div className="component-content">
                     <ul>
-                        {this.state.data.map(
-                            function(ref){
-                                return ( <TreeNode key={ref.url} type={ref.type} name={ref.name} url={ref.url}/> );
-                            })
-                        }
+                        {this.state.data}
                     </ul>
                </div>
             </div>
