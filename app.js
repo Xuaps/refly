@@ -30,10 +30,7 @@ app.get('/api/reference/:uri(*)', docsets.get);
 app.get('/api/references/:uri(*)', docsets.children);
 app.get('/api/referencesbranch/:uri(*)', docsets.branch);
 
-
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-// Functions for Jade
-app.locals.jqSelector;

@@ -22,7 +22,7 @@ var get = function(identity){
         });
 }
 
-var get_docsets = function(){
+var get_docsets = function(identity){
     docsets = new Docsets();
     return docsets.select(['docset']).execute().then(function(references){
         var unique_references = [];
@@ -33,7 +33,7 @@ var get_docsets = function(){
 		});
 		return unique_references;
 	});
-}
+};
 
 var get_types = function(docset){
     docsets = new Docsets();
