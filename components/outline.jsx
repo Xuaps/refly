@@ -10,7 +10,6 @@ var Outline = React.createClass({
   },
 
   componentWillReceiveProps: function (newProps) {
-	self.setState({splat: newProps.params.splat});
 	var refuri = newProps.params.splat;
 	Reference.get_parent(refuri, function(parent) {
 		if(parent.uri==undefined){
