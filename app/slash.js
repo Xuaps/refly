@@ -23,35 +23,16 @@ var get = function(identity){
 }
 
 var get_docsets = function(identity){
-	return { 
-        then: function(callback){
-            callback([
-                        {
-                            id: 'docset/slash', 
-                            url: 'slash/',
-                            name: 'slash',
-                            type: 'docset'
-                        },
-                        {
-                            id: 'docset/javascript',
-                            url: 'javascript/',
-                            name:'javascript',
-                             type: 'docset'
-                        }]);
-            return {
-                fin: function(callback){
-                    callback();
-                }
-            };
-        }
-    };
-    //docsets = new Docsets();
-	//return docsets
-    //    .filter('uri', filters.operators.EQUALS, '/' + identity)
-    //    .select(['docset', 'reference', 'type', 'content', 'uri'])
-    //    .execute().then(function(references) {
-    //        return references[0];
-    //    });
+    docsets = new Docsets();
+    return docsets.select(['docset']).execute().then(function(references){
+        var unique_references = [];
+        references.reduce(function(previousValue, currentValue, index, array) {
+			if(unique_references.indexOf(currentValue.docset)==-1){
+            	unique_references.push(currentValue.docset);
+			}
+		});
+		return unique_references;
+	});
 };
 
 var get_types = function(docset){
