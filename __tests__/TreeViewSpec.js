@@ -54,7 +54,7 @@ describe('TreeView Component', function(){
             var link = TestUtils.findRenderedComponentWithType(treenode_ref, <Link/>);
             
             expect(treenode_ref.props.url).toBeDefined();
-            //expect(link.handleClick.mock.calls.length).toBe(1);
+            expect(link).toBeDefined();
         });
     });
 
