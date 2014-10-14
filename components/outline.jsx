@@ -6,27 +6,20 @@ var Outline = React.createClass({
   selecteduri: '',
   getInitialState: function() {
 	self = this;
-	if(self.props.params.splat!=''){
-		return LoadData(self.props.params.splat);
-	}else{
-		return {data: []};
-	}
+	return {data: []};
   },
+
   componentWillReceiveProps: function (newProps) {
 	self.setState({splat: newProps.params.splat});
 	var refuri = newProps.params.splat;
-	self.LoadData(refuri);
-  },
-  clicked: function(e){
-	var refuri = self.props.params.splat;
-	self.LoadData(refuri);
-  },
-
-  LoadData: function(refuri){
 	Reference.get_parent(refuri, function(parent) {
+		if(parent.uri==undefined){
+			self.setState({data: []});
+			return false;
+		}
 		Reference.get_branch(parent.uri,function(data){
 			data.unshift(parent);
-			self.selecteduri = '/' + refuri;
+			self.selecteduri = refuri;
 			self.setState({data: data});
 		});
 	});
@@ -40,6 +33,7 @@ var Outline = React.createClass({
 		if (!symbols[item.type]) {
 			symbols[item.type] = [];
 		}
+		item.uri = item.uri.substr(1);
 		if(item.uri==self.selecteduri){
 		symbols[item.type].push(
         <li>
@@ -49,7 +43,7 @@ var Outline = React.createClass({
 		}else{
 		symbols[item.type].push(
         <li>
-			<Link to='result' params={{splat: item.uri}} onClick={self.clicked}>{item.reference}</Link>
+			<Link to='result' params={{splat: item.uri}}>{item.reference}</Link><br/>
         </li>
 							   );
 		}
