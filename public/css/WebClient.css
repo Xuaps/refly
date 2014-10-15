@@ -240,7 +240,11 @@ header img {
     color: grey;
     font-size: 0.9em;
 }
-
+.selected-item {
+    background-color: #fdb436;
+    font-weight: bold;
+    padding: 5px;
+}
 /* Main content */
 
 #result {

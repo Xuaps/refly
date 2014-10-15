@@ -34,8 +34,8 @@ var Outline = React.createClass({
 		}
 		if(item.uri==self.selecteduri){
 		symbols[item.type].push(
-        <li>
-			<strong>{item.reference}</strong>
+        <li className="selected-item">
+			{item.reference}
         </li>
 		);
 		}else{
