@@ -62,6 +62,7 @@ p {
 }
 code {
     background-color: #d2e4f7;
+    white-space: pre-line;
 }
 pre {
     background-color: #d2e4f7;
