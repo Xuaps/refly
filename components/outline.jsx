@@ -13,12 +13,16 @@ var Outline = React.createClass({
 
   componentWillReceiveProps: function (newProps) {
 	var refuri = newProps.params.splat;
-	Reference.get_parent(refuri, function(parent) {
+	store.get('parent', {'refuri': refuri})
+    .then(function(parent){
+	//Reference.get_parent(refuri, function(parent) {
 		if(parent.uri==undefined){
 			self.setState({data: [{reference: 'test',uri: '/uri'},{reference: 'test2',uri: '/uri2'}]});
 			return false;
 		}
-		Reference.get_branch(parent.uri,function(data){
+		store.get('branch', {'uri': parent.uri})
+		.then(function(data){
+		//Reference.get_branch(parent.uri,function(data){
 			data.unshift(parent);
 			self.selecteduri = refuri;
 			self.setState({data: data});
