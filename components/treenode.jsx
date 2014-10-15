@@ -33,6 +33,9 @@ var TreeNode = React.createClass({
     },
 
     loadChildren: function(){
+        if(this.state.data.length>0)
+            return;
+
         this.props.config.loadData(this.props.config.innerLevel, this.props.parents)
             .then(function(treenodes){
                    this.setState({data: treenodes});

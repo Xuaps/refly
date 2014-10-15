@@ -1,17 +1,17 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/treeview.jsx');
 jest.dontMock('../components/treenode.jsx');
-jest.dontMock('q');
 var React = require('react/addons');
 var routes = require('../components/routes.jsx');
 var TestUtils = React.addons.TestUtils;
 var TreeView = require('../components/treeview.jsx'); 
 var TreeNode = require('../components/treenode.jsx');
 var Link = require('react-router').Link;
+var storeMock = require('../public/js/store.js');
 
 describe('TreeView Component', function(){
     beforeEach(function(){
-
+    
     });
 
     describe('Initial State', function(){
@@ -23,12 +23,26 @@ describe('TreeView Component', function(){
     });
 
     describe('Click in one docset', function() {
+
+        beforeEach(function(){
+
+        });
+
         it('should load all docset types', function() {
             var treeview = render_treeview();
             var treenode = emulate_click_docset(treeview,0); 
 
             expect(treenode.props.parents.length).toEqual(1);
             expect(treenode.state.data.length).toEqual(3);     
+        });
+
+        it('should not load all docset types of those have already been loaded', function(){
+            var treeview = render_treeview();
+            //workaround
+            var expected = storeMock.get.mock.calls.length+1;
+            var treenode = emulate_click_docset(treeview,0,2); 
+            
+            expect(storeMock.get.mock.calls.length).toEqual(expected);
         });
     });
 
@@ -66,10 +80,13 @@ describe('TreeView Component', function(){
         return TestUtils.renderIntoDocument(<TreeView/>);
     };   
 
-    var emulate_click_docset = function(parent,index){
+    var emulate_click_docset = function(parent,index, clicks){
+        clicks = clicks || 1;
         var treenode = TestUtils.scryRenderedComponentsWithType(parent, <TreeNode/>)[index];
         var link = TestUtils.findRenderedDOMComponentWithTag(treenode, 'a');
-        TestUtils.Simulate.click(link);
+        for(var i=0;i<clicks;i++){
+            TestUtils.Simulate.click(link);
+        }
 
         return treenode;
     };
