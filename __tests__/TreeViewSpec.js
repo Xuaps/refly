@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/treeview.jsx');
 jest.dontMock('../components/treenode.jsx');
+jest.dontMock('q');
 var React = require('react/addons');
 var routes = require('../components/routes.jsx');
 var TestUtils = React.addons.TestUtils;
@@ -25,6 +26,8 @@ describe('TreeView Component', function(){
         it('should load all docset types', function() {
             var treeview = render_treeview();
             var treenode = emulate_click_docset(treeview,0); 
+
+            expect(treenode.props.parents.length).toEqual(1);
             expect(treenode.state.data.length).toEqual(3);     
         });
     });
@@ -35,7 +38,7 @@ describe('TreeView Component', function(){
             var treenode_docset = emulate_click_docset(treeview,0);
             var treenode_type = emulate_click_docset(treenode_docset, 1);
 
-            expect(treenode_type.props.docset).toBeDefined();
+            expect(treenode_type.props.parents.length).toEqual(2);
             expect(treenode_type.state.data.length).toEqual(1);     
         });
     });
@@ -54,7 +57,7 @@ describe('TreeView Component', function(){
             var link = TestUtils.findRenderedComponentWithType(treenode_ref, <Link/>);
             
             expect(treenode_ref.props.url).toBeDefined();
-            //expect(link.handleClick.mock.calls.length).toBe(1);
+            expect(link).toBeDefined();
         });
     });
 

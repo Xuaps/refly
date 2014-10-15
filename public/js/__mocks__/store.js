@@ -13,13 +13,15 @@ ApiStub.prototype.get =function (resource, filters) {
     var _filters = filters || {};
     return { 
         then: function(callback){
+            var data;
             if(resource==='type'){
-                callback(this._types);
+                data = callback(this._types);
             }else if(resource==='docset'){
-                callback(this._docsets);
+                data =callback(this._docsets);
             }else{
-                callback(this._references);
+                data =callback(this._references);
             }
+            return {then: function(callback){callback(data);}};
         }.bind(this)
     };
 };
