@@ -1,0 +1,24 @@
+/* TEAM */
+    Software Sculptor: David Vilchez
+    Twitter: @
+    From: Galicia, Spain
+
+    Software Sculptor: Álvaro
+    Twitter: @
+    From: Andalucía, Spain
+
+    Designer: Eduardo Jose Alvarez Novoa
+    Twitter: @eanovoa
+    From: Vigo, Galicia, Spain
+
+/* THANKS */
+    Change Agent: José Doval González
+    Twitter: @pepellou
+    From: Santiago de Compostela, Galicia, Spain
+    Thanks for:
+    
+/* SITE */
+    Last update: 2014/10/14
+    Language: Castellano
+    Doctype: HTML
+    IDE: vi, Sublime Text

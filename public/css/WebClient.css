@@ -424,10 +424,21 @@ footer .footer-logos {
     height: 34px;
     text-align: right;
     width: 30%;
-    margin-top: 9px;
+    margin-top: 6px;
+}
+footer .footer-logos a:first-child img {
+    padding-bottom: 6px;
 }
 footer .footer-logos img {
-    margin-right: 10px;
+    margin-right: 20px;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+footer .footer-logos img:hover {
+    -webkit-filter: grayscale(0%);
+    -moz-filter: grayscale(0%);
+    filter: grayscale(0%);
 }
 footer .copyright {
     color: #a7ccf2;
