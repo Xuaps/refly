@@ -33,27 +33,10 @@ var TreeNode = React.createClass({
     },
 
     loadChildren: function(){
-        if(this.props.type==='docset'){
-            store.get('type', {docset: this.props.name})
-                .then(function(types){
-                    var treenodes = [];
-                    types.forEach(function(type){
-                        treenodes.push(<TreeNode key={type} type={type} name={type} docset={this.props.name}/>);
-                    }.bind(this));
-                    this.setState({data: treenodes});
+        this.props.config.loadData(this.props.config.innerLevel, this.props.parents)
+            .then(function(treenodes){
+                   this.setState({data: treenodes});
                 }.bind(this));
-        }else{
-             store.get('reference', {docset: this.props.docset, type: this.props.name})
-                .then(function(references){
-                    var treenodes = [];
-                    //TODO
-                    references.forEach(function(ref){
-                        treenodes.push(<TreeNode key={ref.reference} type={ref.type} name={ref.reference} 
-                            url={ref.uri.substring(1,ref.uri.length)}/>);
-                    });
-                    this.setState({data: treenodes});
-                }.bind(this));
-        }
     }
 });
 
