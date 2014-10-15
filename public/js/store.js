@@ -4,7 +4,8 @@ function Api(){
     this._url_docset='/api/docsets';
     this._url_types='/api/types';
     this._url_references='/api/references';
-    this._url_references='/api/reference';
+    this._url_parent='/api/reference/';
+    this._url_branch='/api/referencesbranch';
 }
 
 Api.prototype.get = function (resource, filters){
@@ -19,10 +20,15 @@ Api.prototype.get = function (resource, filters){
             method: 'GET'
         });
     }else if(resource==='parent'){
-		var uri_parts = filters.refuri.split('/').slice(0, -1);
+		var uri_parts = filters.uri.split('/').slice(0, -1);
 		var uri = uri_parts.join('/');
         return jQuery.ajax({
-            url: this._url_reference +uri,
+            url: this._url_parent + uri,
+            method: 'GET'
+        });
+    }else if(resource==='branch'){
+        return jQuery.ajax({
+            url: this._url_branch + filters.uri,
             method: 'GET'
         });
     }else{

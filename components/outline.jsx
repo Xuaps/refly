@@ -2,6 +2,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var Reference = require('../public/js/WebClient/Reference.js');
+var store = require('../public/js/store.js');
 
 var Outline = React.createClass({
   self: this,
@@ -13,16 +14,14 @@ var Outline = React.createClass({
 
   componentWillReceiveProps: function (newProps) {
 	var refuri = newProps.params.splat;
-	store.get('parent', {'refuri': refuri})
+	store.get('parent', {'uri': refuri})
     .then(function(parent){
-	//Reference.get_parent(refuri, function(parent) {
 		if(parent.uri==undefined){
-			self.setState({data: [{reference: 'test',uri: '/uri'},{reference: 'test2',uri: '/uri2'}]});
+			self.setState({data: []});
 			return false;
 		}
 		store.get('branch', {'uri': parent.uri})
 		.then(function(data){
-		//Reference.get_branch(parent.uri,function(data){
 			data.unshift(parent);
 			self.selecteduri = refuri;
 			self.setState({data: data});

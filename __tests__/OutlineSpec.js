@@ -26,7 +26,7 @@ describe('Outline Component', function(){
             React.renderComponent(routes, document.createElement('div'));
             var outline = TestUtils.renderIntoDocument(<Outline/>);
 			outline.setProps({params: {splat: 'node.js+v0.10.29/buffer/buffer'}});
-			expect(outline.state.data.length).toEqual(2);
+			expect(outline.state.data.length).toEqual(3);
         });
     });
 
