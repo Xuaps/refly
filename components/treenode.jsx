@@ -22,7 +22,7 @@ var TreeNode = React.createClass({
         }            
         return (
             <li>
-               <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type.source"/>
+               <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>
                {link}
                <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
                <ul>
