@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Link = require('react-router').Link;
+var Reference = require('../public/js/WebClient/Reference.js');
+
 var Outline = React.createClass({
   self: this,
   selecteduri: '',
@@ -13,7 +15,7 @@ var Outline = React.createClass({
 	var refuri = newProps.params.splat;
 	Reference.get_parent(refuri, function(parent) {
 		if(parent.uri==undefined){
-			self.setState({data: []});
+			self.setState({data: [{reference: 'test',uri: '/uri'},{reference: 'test2',uri: '/uri2'}]});
 			return false;
 		}
 		Reference.get_branch(parent.uri,function(data){

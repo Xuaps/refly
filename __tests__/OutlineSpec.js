@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-jest.dontMock('../public/js/WebClient/Reference.js');
 jest.dontMock('../components/outline.jsx');
 var TreeView;
 var TestUtils;
@@ -17,7 +16,7 @@ describe('Outline Component', function(){
     describe('Initial State', function(){
         xit('should have all children of the reference', function(){
             React.renderComponent(routes, document.createElement('div'));
-            var outline = TestUtils.renderIntoDocument(<Outline params={{splat: ''}}/>);
+            var outline = TestUtils.renderIntoDocument(<Outline/>);
 			expect(outline.state.data.length).toEqual(0);
         });
     });
@@ -26,7 +25,7 @@ describe('Outline Component', function(){
         it('should have all children of the reference', function(){
             React.renderComponent(routes, document.createElement('div'));
             var outline = TestUtils.renderIntoDocument(<Outline/>);
-			outline.setProps({params: {splat: '/node.js+v0.10.29/buffer/buffer/+buffer.isencoding(encoding)'}});
+			outline.setProps({params: {splat: 'node.js+v0.10.29/buffer/buffer'}});
 			expect(outline.state.data.length).toEqual(2);
         });
     });
