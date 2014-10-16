@@ -1,11 +1,11 @@
 /* TEAM */
-    Software Sculptor: David Vilchez
-    Twitter: @
-    From: Galicia, Spain
+    Software Sculptor: David Vílchez
+    Twitter: @dvilchez
+    From: Vilagarcía de Arousa, Galicia, Spain
 
     Software Sculptor: Álvaro
-    Twitter: @
-    From: Andalucía, Spain
+    Twitter: @averdion
+    From: Málaga, Andalucía, Spain
 
     Designer: Eduardo Jose Alvarez Novoa
     Twitter: @eanovoa
@@ -21,4 +21,4 @@
     Last update: 2014/10/14
     Language: Castellano
     Doctype: HTML
-    IDE: vi, Sublime Text
+    IDE: vi, Sublime Text, Gedit
