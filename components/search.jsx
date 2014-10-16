@@ -38,7 +38,7 @@ module.exports = React.createClass({
             <div id="search-view" className="half-height">
                 <fieldset>
                     <input id="txtreference" ref="search_box" type="text" className="ry-input-text" name="reference"
-                    placeholder="Reference" autoFocus onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
+                    placeholder="Reference" autoFocus onKeyUp={this.onKeyUp} defaultValue={this.props.search}/>
                     <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                 </fieldset>
                 <div id="results">

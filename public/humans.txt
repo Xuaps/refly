@@ -3,7 +3,7 @@
     Twitter: @dvilchez
     From: Vilagarcía de Arousa, Galicia, Spain
 
-    Software Sculptor: Álvaro
+    Software Sculptor: Álvaro Verdión
     Twitter: @averdion
     From: Málaga, Andalucía, Spain
 
