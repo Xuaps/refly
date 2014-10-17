@@ -424,7 +424,7 @@ footer .footer-links {
     width: 30%;
 }
 footer .footer-links a {
-    color: #a7ccf2;
+    color: #aaa;
     text-decoration: none;
     margin: 0 10px;
 }
@@ -453,7 +453,7 @@ footer .footer-logos img:hover {
     filter: grayscale(0%);
 }
 footer .copyright {
-    color: #a7ccf2;
+    color: #aaa;
     float: left;
     padding: 10px 0;
     text-align: center;
