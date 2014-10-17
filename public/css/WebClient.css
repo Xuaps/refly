@@ -49,7 +49,6 @@ a {
 }
 a:hover, a.current {
     color: #FF8311;
-    text-decoration: underline;
 }
 h1 {
     margin: 0;
@@ -472,6 +471,7 @@ footer .copyright {
     background-image: url('../img/fly_texture.png');
     background-position: bottom;
     background-size: 330px;
+    background-repeat: repeat-x;
     -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    0px 3px 10px 0px rgba(50, 50, 50, 0.75);
     box-shadow:         0px 3px 10px 0px rgba(50, 50, 50, 0.75);
@@ -547,7 +547,7 @@ footer .copyright {
 }
 .contact {
     font-size: 1.2em;
-    background-color: #d2e4f7;
+    background-color: #ececec;
     padding: 60px 0;
     background-image: url("../img/big-bluefly.png");
     background-repeat: no-repeat;
