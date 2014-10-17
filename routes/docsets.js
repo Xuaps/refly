@@ -1,4 +1,5 @@
 var slash = require('../app/slash');
+var JSON = require('../app/JSON');
 
 exports.search = function(req, res) {
     slash.search(req.query).then(function(references) {
@@ -36,23 +37,13 @@ exports.children = function(req, res) {
     });
 };
 
-var JSONflatten = function  (arr) {
-	return arr.reduce(function  (a,b) {
-		if (b instanceof Array) {
-			return a.concat(JSONflatten(b));
-		}else{
-			return a.concat(b);
-		}
-	},[]);
-}
-
 exports.branch = function(req, res) {
     slash.get_id(req.params.uri).then(function(id) {
         if (id == null) {
             res.send([]);
         } else {
             slash.branch(id).then(function(references){
-				list = JSONflatten(references);
+				list = JSON.Flatten(references);
 				res.send(list);
 			});
         }

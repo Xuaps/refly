@@ -13,7 +13,7 @@ describe('TreeView Component', function(){
     describe('Initial State', function(){
         it('should have all docsets', function(){
             var treeview = render_treeview();
-            
+
             expect(treeview.state.data.length).toEqual(2);
         });
     });
