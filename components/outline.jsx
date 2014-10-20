@@ -11,22 +11,14 @@ var Outline = React.createClass({
 	self = this;
 	return {data: []};
   },
+    
+  componentWillMount: function(){
+    if(this.props.params && this.props.params.uri && this.props.params.docset)
+      this.loadData(this.props.params);
+  },
 
   componentWillReceiveProps: function (newProps) {
-	var refuri = newProps.params.splat;
-	store.get('parent', {'uri': refuri})
-    .then(function(parent){
-		if(parent.uri==undefined){
-			self.setState({data: []});
-			return false;
-		}
-		store.get('branch', {'uri': parent.uri})
-		.then(function(data){
-			data.unshift(parent);
-			self.selecteduri = refuri;
-			self.setState({data: data});
-		});
-	});
+	this.loadData(newProps.params);
   },
 
   render: function() {
@@ -37,8 +29,8 @@ var Outline = React.createClass({
 		if (!symbols[item.type]) {
 			symbols[item.type] = [];
 		}
-		item.uri = item.uri.substr(1);
-		if(item.uri==self.selecteduri){
+		
+        if(item.uri==self.selecteduri){
 		symbols[item.type].push(
         <li className="selected-item">
 			{item.reference}
@@ -47,7 +39,7 @@ var Outline = React.createClass({
 		}else{
 		symbols[item.type].push(
         <li>
-			<Link to='result' params={{splat: item.uri}}>{item.reference}</Link><br/>
+			<Link to='result' params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
         </li>
 							   );
 		}
@@ -64,6 +56,23 @@ var Outline = React.createClass({
               </ul>
           </div>
       </div>);
+  },
+
+  loadData: function(params){
+    var refuri = params.docset+'/'+params.uri;
+	store.get('parent', {'uri': refuri})
+    .then(function(parent){
+		if(parent.uri==undefined){
+			self.setState({data: []});
+			return false;
+		}
+		store.get('branch', {'uri': parent.uri})
+		.then(function(data){
+			data.unshift(parent);
+			self.selecteduri = refuri;
+			self.setState({data: data});
+		});
+	});
   }
 });
 

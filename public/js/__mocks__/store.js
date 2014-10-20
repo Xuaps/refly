@@ -5,11 +5,13 @@
         ];
    	var _types=['method','class', 'function'];
    	var _references=[
-            {reference: "aaaa", uri: "/node/aaaaa", type: "method"} 
+            {reference: "aaaa", docset:'node', ref_uri:'aaaaa', uri: "/node/aaaaa", type: "method"} 
         ];
     var _formattedreferences=[
-   {"docset":"Node.js v0.10.29","reference":"Buffer","type":"module","uri":"/node.js v0.10.29/buffer"},
-   {"docset":"Node.js v0.10.29","reference":"Buffer","type":"class","uri":"/node.js v0.10.29/buffer/buffer"}
+   {"docset":"node.js v0.10.29","reference":"Buffer","type":"module","uri":"/node.js v0.10.29/buffer", 
+   "ref_uri": "buffer"},
+   {"docset":"node.js v0.10.29","reference":"Buffer","type":"class","uri":"/node.js v0.10.29/buffer/buffer",
+   "ref_uri": "buffer/buffer"}
 	];
 
 function get (resource, filters) {

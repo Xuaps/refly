@@ -25,7 +25,7 @@ describe('Outline Component', function(){
         it('should have all children of the reference', function(){
             React.renderComponent(routes, document.createElement('div'));
             var outline = TestUtils.renderIntoDocument(<Outline/>);
-			outline.setProps({params: {splat: 'node.js+v0.10.29/buffer/buffer'}});
+			outline.setProps({params: {docset:'node.js v0.10.29', uri: 'buffer/buffer'}});
 			expect(outline.state.data.length).toEqual(3);
         });
     });

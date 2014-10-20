@@ -38,7 +38,7 @@ var nodes = {
                     //TODO
                     references.forEach(function(ref){
                         treenodes.push(<TreeNode key={ref.reference} type={ref.type} name={ref.reference} 
-                            url={ref.uri.substring(1,ref.uri.length)}/>);
+                            uri={ref.ref_uri} docset={ref.docset}/>);
                     });
                     return treenodes;
                 });

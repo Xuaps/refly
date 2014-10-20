@@ -19,8 +19,8 @@ var TreeNode = React.createClass({
     render: function() {
         var item = this.props;
         var link;
-        if(item.url){
-           link = <Link to="result" params={{splat: item.url}}>{item.name}</Link>;
+        if(item.uri){
+           link = <Link to="result" params={{docset:item.docset, splat: item.uri}}>{item.name}</Link>;
         }else{
            link = <a onClick={this.show}>{item.name}</a>;
         }            

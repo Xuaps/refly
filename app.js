@@ -17,6 +17,10 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(function(req, res){
+        res.set('Content-Type', 'text/html');
+        res.sendfile('public/index.html');
+    });   
 });
 
 app.configure('development', function(){

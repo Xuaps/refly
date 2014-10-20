@@ -6,16 +6,6 @@ var Outline = require('./outline.jsx');
 var Resultview = require('./resultview.jsx');
 
 module.exports = React.createClass({
-    getInitialState: function() {
-        return {
-            nodes:[],
-			Outlinenodes:[]
-			};
-    },
-	componentWillReceiveProps: function (newProps) {
-		this.setState({splat: newProps.splat});
-
-	},
 
     render: function(){
         return(
@@ -26,11 +16,11 @@ module.exports = React.createClass({
                     </a>
                 </header>
                 <div id="left-pane">
-                    <Search search={this.props.search}/>
-                    <TreeView nodes={this.state.nodes}/>
-                    <Outline params={{splat: this.props.params.splat}}/>
+                    <Search search={this.props.query.ref}/>
+                    <TreeView />
+                    <Outline params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                 </div>
-                <Resultview params={{splat: this.props.params.splat}}/>
+                <Resultview params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
             </div>
         );
     }

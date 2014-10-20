@@ -76,7 +76,8 @@ describe('TreeView Component', function(){
                 var treenode_ref = emulate_click_docset(treenode_type, 1)[0];
                 var link = TestUtils.findRenderedComponentWithType(treenode_ref, <Link/>);
                 
-                expect(treenode_ref.props.url).toBeDefined();
+                expect(treenode_ref.props.uri).toBeDefined();
+                expect(treenode_ref.props.docset).toBeDefined();
                 expect(link).toBeDefined();
             });
         });

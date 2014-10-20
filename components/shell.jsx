@@ -1,26 +1,17 @@
 /** @jsx React.DOM */
-var React = require('react')
-var LandingPage = require('./landing.jsx')
+var React = require('react');
+var LandingPage = require('./landing.jsx');
+var Router = require('react-router');
 
 module.exports = React.createClass({
-    getInitialState: function() {
-        return {landing: true};
-    },
 
-    hanldeOnKeyUpEvent: function(event){
-        this.setState({landing: false});
-        this.setState({search: event.target.value});
+    handleOnKeyUpEvent: function(event){
+        Router.transitionTo('search', null ,{ref: event.target.value});
     },
 
     render: function(){
-        if(this.state.landing){
             return(
-                <LandingPage onKeyUpEvent={this.hanldeOnKeyUpEvent} />
-            )    
-        }else{
-            return(
-                <this.props.activeRouteHandler search={this.state.search}/>
-            )    
-        }
+                <this.props.activeRouteHandler onKeyUpEvent={this.handleOnKeyUpEvent}/>
+            );    
     }
 });

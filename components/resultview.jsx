@@ -4,16 +4,14 @@ var Router = require('react-router');
 var markdown = require( "markdown" ).markdown;
 
 module.exports = React.createClass({
+    componentWillMount: function(){
+        if(this.props.params && this.props.params.uri && this.props.params.docset)
+            this.loadRef(this.props.params);
+    },
 
     componentWillReceiveProps: function (newProps) {
-        //TODO:
-        $.ajax({
-            context:this,
-            url: '/api/reference/' + (newProps.params?newProps.params.splat:''),
-            method: 'get'
-        }).done(function(ref){
-            this.setState({reference: ref});
-        })
+        if(newProps.params)
+            this.loadRef(newProps.params);
     },
 
     render: function() {
@@ -23,5 +21,16 @@ module.exports = React.createClass({
 
             <div id="result" className="result" dangerouslySetInnerHTML={{__html: content}}/>
         );
+    },
+
+    loadRef: function(params){
+        //TODO:
+        $.ajax({
+            context:this,
+            url: '/api/reference/' + params.docset+'/'+params.uri,
+            method: 'get'
+        }).done(function(ref){
+            this.setState({reference: ref});
+        });
     }
 });

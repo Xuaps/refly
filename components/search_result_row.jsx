@@ -8,10 +8,10 @@ module.exports = React.createClass({
         return (
             <li>
                 <img src={"/img/type-" + this.props.type + ".png"} title={this.props.type} className="ry-type-source"/>
-                <Link to="result" className="resultlistitem" params={{splat: this.props.uri}}>{this.props.key}</Link>
+                <Link to="result" className="resultlistitem" params={{'docset': this.props.docset, splat: this.props.uri}}>{this.props.key}</Link>
                 <br/>
                 <span className="cursive">{this.props.docset}</span>
             </li>
-        )
+        );
     }
 });
