@@ -30,7 +30,8 @@ module.exports = React.createClass({
 
     emptySearch: function(event){
         this.refs.search_box.getDOMNode('#txtreference').value='';
-        this.setState({results:[]})
+        this.setState({results:[]});
+		this.props.onSetDisposition({origin: 'search',value: ''});
     },
 
     render: function(){

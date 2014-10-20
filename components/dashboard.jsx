@@ -6,11 +6,19 @@ var Outline = require('./outline.jsx');
 var Resultview = require('./resultview.jsx');
 
 var dispositions = {
-	basic: ['search','treeview','outline'],
+	full: ['search','treeview','outline'],
 	notreeview: ['search','outline']
 };
 
 module.exports = React.createClass({
+	
+handleDisposition: function(state){
+		alert(state.origin);
+		if(this.state.disposition=="full"){
+			
+		}
+
+	},
 
     render: function(){
 		rows = [];
@@ -18,7 +26,7 @@ module.exports = React.createClass({
 		for(i in currentdisposition){
 			item=currentdisposition[i];
 			if(item=='search'){
-				rows.push(<Search search={this.props.query.ref}/>);
+				rows.push(<Search onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(item=='treeview'){
 				rows.push(<TreeView />);
 			}else if(item=='outline'){

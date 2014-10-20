@@ -5,6 +5,7 @@ var Router = require('react-router');
 
 module.exports = React.createClass({
 
+<<<<<<< HEAD
     handleOnKeyUpEvent: function(event){
         Router.transitionTo('search', null ,{ref: event.target.value});
     },
@@ -22,6 +23,7 @@ module.exports = React.createClass({
 
     render: function(){
             return(
+<<<<<<< HEAD
                 <this.props.activeRouteHandler onKeyUpEvent={this.handleOnKeyUpEvent}/>
             );
     }
