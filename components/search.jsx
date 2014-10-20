@@ -17,8 +17,12 @@ module.exports = React.createClass({
             method: 'get'
         }).done(function(results) {
             results.forEach(function(r){
+                var pos = r.uri.indexOf('/', 1);
+                var docset = r.uri.substring(1,pos);
+                var ref = r.uri.substring(pos+1,r.uri.length);
+
                 references.push(<SearchResultRow key={r.reference} 
-                    type={r.type} docset={r.docset} uri={r.uri.substring(1, r.uri.length)}/>)
+                    type={r.type} docset={docset} uri={ref}/>)
             });
             this.setState({results:references})
         });

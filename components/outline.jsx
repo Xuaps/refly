@@ -1,27 +1,24 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Link = require('react-router').Link;
+var Reference = require('../public/js/WebClient/Reference.js');
+var store = require('../public/js/store.js');
+
 var Outline = React.createClass({
   self: this,
   selecteduri: '',
   getInitialState: function() {
-		self = this;
-        return {data: this.props.data};
+	self = this;
+	return {data: []};
   },
-  clicked: function(e){
-	e.preventDefault();
-	var ref = {uri: "/node.js v0.10.29/buffer/buffer/buf.tojson()", reference: "buf.json()", type:"method"};
-	self.LoadData(ref);
+    
+  componentWillMount: function(){
+    if(this.props.params && this.props.params.uri && this.props.params.docset)
+      this.loadData(this.props.params);
   },
 
-  LoadData: function(ref){
-	Reference.get_parent(ref.uri, function(parent) {
-		Reference.get_branch(parent.uri,function(data){
-			data.unshift(parent);
-			self.selecteduri = ref.uri;
-			self.setState({data: data});
-		});
-	});
+  componentWillReceiveProps: function (newProps) {
+	this.loadData(newProps.params);
   },
 
   render: function() {
@@ -32,7 +29,8 @@ var Outline = React.createClass({
 		if (!symbols[item.type]) {
 			symbols[item.type] = [];
 		}
-		if(item.uri==self.selecteduri){
+		
+        if(item.uri==self.selecteduri){
 		symbols[item.type].push(
         <li className="selected-item">
 			{item.reference}
@@ -41,7 +39,7 @@ var Outline = React.createClass({
 		}else{
 		symbols[item.type].push(
         <li>
-			<Link to='result' params={{splat: item.uri}} onClick={self.clicked}>{item.reference}</Link>
+			<Link to='result' params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
         </li>
 							   );
 		}
@@ -58,6 +56,23 @@ var Outline = React.createClass({
               </ul>
           </div>
       </div>);
+  },
+
+  loadData: function(params){
+    var refuri = params.docset+'/'+params.uri;
+	store.get('parent', {'uri': refuri})
+    .then(function(parent){
+		if(parent.uri==undefined){
+			self.setState({data: []});
+			return false;
+		}
+		store.get('branch', {'uri': parent.uri})
+		.then(function(data){
+			data.unshift(parent);
+			self.selecteduri = refuri;
+			self.setState({data: data});
+		});
+	});
   }
 });
 
