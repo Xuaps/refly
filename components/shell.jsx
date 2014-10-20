@@ -8,6 +8,17 @@ module.exports = React.createClass({
     handleOnKeyUpEvent: function(event){
         Router.transitionTo('search', null ,{ref: event.target.value});
     },
+	
+	setDisposition: function(origin){
+		if(this.state.search!=''){
+			if(result){
+				this.setState({disposition: "notreeview"});
+			}
+		}else{
+
+		}
+		alert('p');
+	},
 
     render: function(){
             return(
