@@ -20,79 +20,70 @@ module.exports = React.createClass({
                 <div className="docsets">
                     <div className="center-content span3">
                         <h2 className="centered-text">Our flies are searching all day for you</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>docset</th>
-                                    <th>robot</th>
-                                    <th>state</th>
-                                    <th>last update</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className="docset-logo">
+                        <div className="ry-table">
+                            <div className="ry-table-body">
+                                <div className="ry-table-row">
+                                    <div className="docset-logo">
                                         <img src="/img/languages/java-logo.png" title="java"/>
-                                    </td>
-                                    <td className="docset-name"><a>java</a>
-                                    </td>
-                                    <td className="docset-robot">
+                                    </div>
+                                    <div className="docset-name"><a><span>java</span></a>
+                                    </div>
+                                    <div className="docset-robot">
                                         <img src="/img/red-robot.png" title="redfly"/>
-                                    </td>
-                                    <td className="docset-state ok-state">ready</td>
-                                    <td>17/11/2012</td>
-                                </tr>
-                                <tr>
-                                    <td className="docset-logo">
+                                    </div>
+                                    <div className="docset-state ok-state"><span>ready</span></div>
+                                    <div><span>17/11/2012</span></div>
+                                </div>
+                                <div className="ry-table-row">
+                                    <div className="docset-logo">
                                         <img src="/img/languages/js-logo.png" title="js"/>
-                                    </td>
-                                    <td className="docset-name"><a>javascript</a>
-                                    </td>
-                                    <td className="docset-robot">
+                                    </div>
+                                    <div className="docset-name"><a><span>javascript</span></a>
+                                    </div>
+                                    <div className="docset-robot">
                                         <img src="/img/blue-robot.png" title="bluefly"/>
-                                    </td>
-                                    <td className="docset-state off-state">resting</td>
-                                    <td>07/05/2013</td>
-                                </tr>
-                                <tr>
-                                    <td className="docset-logo">
+                                    </div>
+                                    <div className="docset-state off-state"><span>resting</span></div>
+                                    <div><span>07/05/2013</span></div>
+                                </div>
+                                <div className="ry-table-row">
+                                    <div className="docset-logo">
                                         <img src="/img/languages/php-logo.png" title="php"/>
-                                    </td>
-                                    <td className="docset-name"><a>php</a>
-                                    </td>
-                                    <td className="docset-robot">
+                                    </div>
+                                    <div className="docset-name"><a><span>php</span></a>
+                                    </div>
+                                    <div className="docset-robot">
                                         <img src="/img/yellow-robot.png" title="yellowfly"/>
-                                    </td>
-                                    <td className="docset-state ok-state">flying</td>
-                                    <td>15/09/2014</td>
-                                </tr>
-                                <tr>
-                                    <td className="docset-logo">
+                                    </div>
+                                    <div className="docset-state ok-state"><span>flying</span></div>
+                                    <div><span>15/09/2014</span></div>
+                                </div>
+                                <div className="ry-table-row">
+                                    <div className="docset-logo">
                                         <img src="/img/languages/haskell-logo.png" title="haskell"/>
-                                    </td>
-                                    <td className="docset-name"><a>haskell</a>
-                                    </td>
-                                    <td className="docset-robot">
+                                    </div>
+                                    <div className="docset-name"><a><span>haskell</span></a>
+                                    </div>
+                                    <div className="docset-robot">
                                         <img src="/img/blue-robot.png" title="bluefly"/>
-                                    </td>
-                                    <td className="docset-state ok-state">ready</td>
-                                    <td>07/01/2013</td>
-                                </tr>
-                                <tr>
-                                    <td className="docset-logo">
+                                    </div>
+                                    <div className="docset-state ok-state"><span>ready</span></div>
+                                    <div><span>07/01/2013</span></div>
+                                </div>
+                                <div className="ry-table-row">
+                                    <div className="docset-logo">
                                         <img src="/img/languages/ruby-logo.png" title="ruby"/>
-                                    </td>
-                                    <td className="docset-name"><a>ruby</a>
-                                    </td>
-                                    <td className="docset-robot">
+                                    </div>
+                                    <div className="docset-name"><a><span>ruby</span></a>
+                                    </div>
+                                    <div className="docset-robot">
                                         <img src="/img/green-robot.png" title="greenfly"/>
-                                    </td>
-                                    <td className="docset-state off-state">resting</td>
-                                    <td>24/02/2013</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </div>
+                                    <div className="docset-state off-state"><span>resting</span></div>
+                                    <div><span>24/02/2013</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="description">

@@ -252,6 +252,7 @@ header img {
     font-weight: bold;
     padding: 5px;
 }
+
 /* Main content */
 
 #result {
@@ -262,10 +263,6 @@ header img {
     height: 100%;
     overflow: auto;
 }
-
-
-
-
 td.separator {
     width: 5px;
 }
@@ -391,8 +388,6 @@ textarea.ry-input-text {
 .ry-btn:hover {
     background-color: #fdb436;
 }
-
-
 #center {
     position: absolute;
     top:0;
@@ -502,25 +497,52 @@ footer .copyright {
 .docsets {
     background-color: white;
     color: #3399FF;
-    padding: 100px 0;
+    padding: 60px 0 80px;
     margin-top: 212px;
 }
-.docsets table {
+.docsets .ry-table {
     color: #3399FF;
     text-align: center;
     margin-top: 60px;
-    padding: 10px;
     width: 100%;
     border-collapse: collapse;
 }
-.docsets table th {
+.docsets .ry-table-header {
     color: #FDB231;
     padding: 5px;
+}
+.docsets .ry-table-row {
+    float: left;
+    width: 100%;
+    background-color: #ececec;
+    border: 1px solid #39F;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.docsets .ry-table-row:hover {
+    background-color: #FFF;
+    border: 1px solid #fdb436;
+}
+.docsets .ry-table-row div {
+    float: left;
+    width: 20%;
+}
+.docsets .ry-table-row span {
+    margin-top: 8px;
+    float: left;
+    width: 100%;
 }
 .docsets table td {
     margin: 0;
     padding: 5px;
-    border-top: 2px solid #d2e4f7;
+}
+.docsets table tbody tr {
 }
 .docsets table td.docset-logo {
     text-align: right;
