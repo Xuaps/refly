@@ -24,30 +24,36 @@ module.exports = React.createClass({
                 references.push(<SearchResultRow key={r.reference} 
                     type={r.type} docset={docset} uri={ref}/>)
             });
-			this.props.onSetDisposition({component: 'search', action: 'hide'});
             this.setState({results:references})
+			this.props.onSetDisposition({component: 'search', action: 'show'});
         });
     },
 
     emptySearch: function(event){
         this.refs.search_box.getDOMNode('#txtreference').value='';
         this.setState({results:[]});
-		this.props.onSetDisposition('hidesearch');
+		this.props.onSetDisposition({component: 'search', action: 'hide'});
     },
 
     render: function(){
+		var results = [];
+		if(this.props.visibility=='show'){
+		    results.push(
+					<div id="results">
+		                <ul id="resultlist">
+		                    {this.state.results}
+		                </ul>
+		            </div>);
+		}
+
         return(
             <div id="search-view" className="half-height">
                 <fieldset>
                     <input id="txtreference" ref="search_box" type="text" className="ry-input-text" name="reference"
                     placeholder="Reference" autoFocus onKeyUp={this.onKeyUp} defaultValue={this.props.search}/>
                     <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
-                </fieldset>);
-                <div id="results">
-                    <ul id="resultlist">
-                        {this.state.results}
-                    </ul>
-                </div>
+                </fieldset>
+				{results}
             </div>
         )
     }
