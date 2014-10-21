@@ -5,32 +5,36 @@ var TreeView = require('./treeview.jsx');
 var Outline = require('./outline.jsx');
 var Resultview = require('./resultview.jsx');
 
-var dispositions = {
-	full: ['search','treeview','outline'],
-	notreeview: ['search','outline']
-};
-
 module.exports = React.createClass({
-	
-handleDisposition: function(state){
-		alert(state.origin);
-		if(this.state.disposition=="full"){
-			
-		}
 
+    getInitialState: function() {
+        return {currentdisposition: [{component: 'search', action: 'show'},
+			   {component: 'treeview', action: 'show'},{component: 'outline', action: 'show'}]};
+    },
+	
+	handleDisposition: function(_disposition){
+		newdisposition = [];
+		for(i in this.state.currentdisposition){
+			item=this.state.currentdisposition[i];
+			if(item.component==_disposition.component){
+				newdisposition.push(_disposition);
+			}else{
+				newdisposition.push(item);
+			}
+		}
+		this.setState({currentdisposition: newdisposition});
 	},
 
     render: function(){
 		rows = [];
-		var currentdisposition = dispositions[this.props.disposition];
-		for(i in currentdisposition){
-			item=currentdisposition[i];
-			if(item=='search'){
-				rows.push(<Search onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
-			}else if(item=='treeview'){
-				rows.push(<TreeView />);
-			}else if(item=='outline'){
-				rows.push(<Outline params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
+		for(i in this.state.currentdisposition){
+			item=this.state.currentdisposition[i];
+			if(item.component=='search'){
+				rows.push(<Search visibility={item.action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
+			}else if(item.component=='treeview'){
+				rows.push(<TreeView visibility={item.action} onSetDisposition={this.handleDisposition} />);
+			}else if(item.component=='outline'){
+				rows.push(<Outline visibility={item.action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		
