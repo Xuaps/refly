@@ -24,15 +24,19 @@ module.exports = React.createClass({
                 references.push(<SearchResultRow key={r.reference} 
                     type={r.type} docset={docset} uri={ref}/>)
             });
-            this.setState({results:references})
-			this.props.onSetDisposition({component: 'search', action: 'show'});
+            this.setState({results:references});
+			if(references>0){
+				this.props.onSetDisposition({component: 'treeview', action: 'hide'});
+				this.props.onSetDisposition({component: 'search', action: 'show'});
+			}
         });
     },
 
     emptySearch: function(event){
         this.refs.search_box.getDOMNode('#txtreference').value='';
         this.setState({results:[]});
-		this.props.onSetDisposition({component: 'search', action: 'hide'});
+			this.props.onSetDisposition({component: 'treeview', action: 'show'});
+			this.props.onSetDisposition({component: 'search', action: 'hide'});
     },
 
     render: function(){

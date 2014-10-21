@@ -9,11 +9,18 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {currentdisposition: [{component: 'search', action: 'show'},
-			   {component: 'treeview', action: 'show'},{component: 'outline', action: 'show'}]};
+			   {component: 'treeview', action: 'show'},{component: 'outline', action: 'hide'}]};
     },
-	
+	componentWillReceiveProps: function (newProps) {
+		if(newProps.params.splat!=''){
+			this.handleDisposition({component: 'outline', action: 'show'});
+		}else{
+			this.handleDisposition({component: 'outline', action: 'hide'});
+		}
+	},
 	handleDisposition: function(_disposition){
 		newdisposition = [];
+		alert(_disposition.component + ' - ' + _disposition.action);
 		for(i in this.state.currentdisposition){
 			item=this.state.currentdisposition[i];
 			if(item.component==_disposition.component){
@@ -32,9 +39,14 @@ module.exports = React.createClass({
 			if(item.component=='search'){
 				rows.push(<Search visibility={item.action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(item.component=='treeview'){
-				rows.push(<TreeView visibility={item.action} onSetDisposition={this.handleDisposition} />);
+				alert(item.component + ' - ' + item.action);
+				if(item.action=='show'){
+					rows.push(<TreeView onSetDisposition={this.handleDisposition} />);
+				}
 			}else if(item.component=='outline'){
-				rows.push(<Outline visibility={item.action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
+				if(item.action=='show'){
+					rows.push(<Outline onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
+				}
 			}
 		}
 		

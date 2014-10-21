@@ -64,6 +64,7 @@ var Outline = React.createClass({
     .then(function(parent){
 		if(parent.uri==undefined){
 			self.setState({data: []});
+			this.props.onSetDisposition({component: 'outline', action: 'hide'});
 			return false;
 		}
 		store.get('branch', {'uri': parent.uri})
