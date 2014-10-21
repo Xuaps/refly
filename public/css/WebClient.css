@@ -277,7 +277,11 @@ td.separator {
 #search-view li, #tree-view li, #outline-view ul.outline-list>li {
     padding: 5px 20px;
 }
-
+.ry-language-source {
+    margin-right: 7px;
+    width: 24px;
+    vertical-align: bottom;
+}
 .ry-type-source {
     margin: 0 10px -3px 0px;
 }

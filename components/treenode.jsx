@@ -26,6 +26,7 @@ var TreeNode = React.createClass({
         }            
         return (
             <li>
+               <img src={'/img/languages/' + item.name + '-logo.png'} title={item.name} className="ry-language-source"/>
                <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>
                {link}
                <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
