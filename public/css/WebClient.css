@@ -97,12 +97,17 @@ pre {
     width: 800px;
 }
 .half-height {
-    max-height: 32%;
-    min-height: 32%;
+    max-height: 49%;
+    min-height: 49%;
 }
 .noresult{
 	border: 1px solid red;
 	color: red;
+}
+.collapse {
+    min-height: 0%;
+    margin: 0;
+    height: 0;
 }
 .hide {
     display: none;
@@ -173,6 +178,7 @@ header img {
 
 #search-view {
     overflow: auto;
+    margin-bottom: 2%;
 }
 #search-view .ry-input-text {
     background-color: #F5F7F7;
@@ -190,7 +196,7 @@ header img {
     position: relative;
 }
 #left-pane>#tree-view {
-    margin-top: 2%;
+    margin-bottom: 2%;
     overflow: auto;
 }
 
@@ -229,18 +235,12 @@ header img {
 }
 #outline-view {
     padding: 0;
-    margin-top: 2%;
+    margin-bottom: 2%;
     position: relative;
 }
 #outline-view ul {
     margin: 0;
     padding: 5px 5px 10px 15px;
-}
-#outline-view:nth-child(even) {
-    background-color: #CCC;
-}
-#outline-view:nth-child(odd) {
-    background-color: #FFF;
 }
 .items-amount {
     margin-left: 20px;
