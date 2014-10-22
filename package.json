@@ -2,14 +2,13 @@
   "name": "slash",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "config": "^0.4.36",
     "express": "~3.3.4",
     "jquery-browserify": "^1.8.1",
     "knex": "^0.6.16",
-    "markdown": "^0.5.0",
+    "marked": "^0.3.2",
     "pg": "^3.3.0",
     "q": "^1.0.1",
     "react": "^0.11.2",

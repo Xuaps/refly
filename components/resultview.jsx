@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var markdown = require( "markdown" ).markdown;
+var mk = require('marked');
 
 module.exports = React.createClass({
     componentWillMount: function(){
@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
     render: function() {
         //TODO:
-        var content = this.state ? markdown.toHTML(this.state.reference.content):'';
+        var content = this.state ? mk(this.state.reference.content):'';
         return (
 
             <div id="result" className="result" dangerouslySetInnerHTML={{__html: content}}/>
