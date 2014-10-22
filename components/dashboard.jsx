@@ -5,19 +5,16 @@ var TreeView = require('./treeview.jsx');
 var Outline = require('./outline.jsx');
 var Resultview = require('./resultview.jsx');
 
+
+var currentdisposition = [{component: 'search', action: 'show'},
+		   {component: 'treeview', action: 'hide'},{component: 'outline', action: 'hide'}];
+
+
 module.exports = React.createClass({
 
 
 	getInitialState: function(){
-		//alert('recarga: ' + this.props.query.ref);
-		if(this.props.query.ref!=''){
-			return {currentdisposition: [{component: 'search', action: 'show'},
-			   {component: 'treeview', action: 'twirl'},{component: 'outline', action: 'hide'}]};
-		}else{
-			return {currentdisposition: [{component: 'search', action: 'hide'},
-			   {component: 'treeview', action: 'show'},{component: 'outline', action: 'hide'}]};
-
-		}
+		return {currentdisposition: currentdisposition};
 	},
 	componentWillReceiveProps: function (newProps) {
 		if(newProps.params.splat!=''){
@@ -28,22 +25,22 @@ module.exports = React.createClass({
 	},
 	handleDisposition: function(_disposition){
 		newdisposition = [];
-		//alert('set disp: ' + _disposition.component + ' - ' + _disposition.action);
-		for(i in this.state.currentdisposition){
-			item=this.state.currentdisposition[i];
+		for(i in currentdisposition){
+			item=currentdisposition[i];
 			if(item.component==_disposition.component){
 				newdisposition.push(_disposition);
 			}else{
 				newdisposition.push(item);
 			}
 		}
+		currentdisposition = newdisposition;
 		this.setState({currentdisposition: newdisposition});
 	},
 
     render: function(){
 		rows = [];
-		for(i in this.state.currentdisposition){
-			item=this.state.currentdisposition[i];
+		for(i in currentdisposition){
+			item=currentdisposition[i];
 			if(item.component=='search'){
 				rows.push(<Search visibility={item.action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(item.component=='treeview'){

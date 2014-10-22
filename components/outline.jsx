@@ -11,17 +11,18 @@ var Outline = React.createClass({
 	self = this;
 	return {data: []};
   },
-    
-  componentWillMount: function(){
-    if(this.props.params && this.props.params.uri && this.props.params.docset)
-      this.loadData(this.props.params);
-  },
 
-  componentWillReceiveProps: function (newProps) {
-	this.loadData(newProps.params);
+  componentDidMount: function () {
+	if(this.props.params && this.props.params.uri && this.props.params.docset)
+		this.loadData(newProps.params);
   },
 
   render: function() {
+	if(this.props.visibility=='hide'){
+		cssclass = "half-height hide";
+	}else{
+		cssclass = "half-height";
+	}
 	var visibility = this.props.visibility;
 	var rows = [];
 	var symbols = {};
@@ -49,7 +50,7 @@ var Outline = React.createClass({
         rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
 	});
 	return(
-      <div id="outline-view" className="half-height {visibility}">
+      <div id="outline-view" className={cssclass}>
           <div className="component-header"><a>Outline</a></div>
           <div className="component-content">
               <ul className="outline-list">

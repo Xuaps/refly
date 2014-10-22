@@ -6,17 +6,19 @@ var store = require('../public/js/store.js');
 
 module.exports = React.createClass({
     getInitialState: function() {
-		self = this;
         return {results: []};
     },
 
 	componentDidMount: function(){
+		self = this;
 		this.refs.searchbox.getDOMNode('#txtreference').value = this.props.search;
 		this.refs.searchbox.getDOMNode('#txtreference').focus();
 		if(this.props.search==''){
-			
+			this.ToggleSearch(false);
+		}else{
+			this.ToggleSearch(true);
+			this.loadData(this.props.search);
 		}
-		this.loadData(this.props.search);
 	},
     onKeyUp: function(event){
 
@@ -25,6 +27,7 @@ module.exports = React.createClass({
 		}else{
 		    //TODO:
 			this.loadData(event.target.value);
+			this.ToggleSearch(true);
 		}
     },
 
@@ -40,15 +43,13 @@ module.exports = React.createClass({
 	            references.push(<SearchResultRow key={r.reference} 
 	                type={r.type} docset={docset} uri={ref}/>)
 	        });
-		    self.setState({results:references});
-			if(references>0){
-				this.ToggleSearch(true);
-			}
+			self.setState({results:references})
 		});
 
 	},
 
 	ToggleSearch: function(visible){
+	// TODO: Refactorizar y pasar la visuañlizacion del triview a dashboard
 		if(visible){
 			this.props.onSetDisposition({component: 'treeview', action: 'hide'});
 			this.props.onSetDisposition({component: 'search', action: 'show'});
