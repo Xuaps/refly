@@ -106,7 +106,7 @@ pre {
 }
 .collapse {
     min-height: 0%;
-    margin: 0;
+    margin: 0 !important;
     height: 0;
 }
 .hide {
