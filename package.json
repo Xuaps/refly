@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
+    "URIjs": "^1.14.1",
     "config": "^0.4.36",
     "express": "~3.3.4",
     "jquery-browserify": "^1.8.1",
