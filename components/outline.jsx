@@ -12,9 +12,12 @@ var Outline = React.createClass({
 	return {data: []};
   },
 
-  componentDidMount: function () {
-	if(this.props.params && this.props.params.uri && this.props.params.docset)
-		this.loadData(newProps.params);
+
+  componentWillReceiveProps: function (newProps) {
+	if(newProps.params && newProps.params.uri && newProps.params.docset)
+		if(!this.loadData(newProps.params)){
+			this.props.onSetDisposition({component: 'outline', action: 'hide'});
+		}
   },
 
   render: function() {
@@ -26,8 +29,8 @@ var Outline = React.createClass({
 	var visibility = this.props.visibility;
 	var rows = [];
 	var symbols = {};
-	$.each(this.state.data, function(key,item){
-		
+	for(index in self.state.data){
+		item=self.state.data[index];
 		if (!symbols[item.type]) {
 			symbols[item.type] = [];
 		}
@@ -45,7 +48,7 @@ var Outline = React.createClass({
         </li>
 							   );
 		}
-	});
+	}
 	$.each(symbols, function(symbol,items){
         rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
 	});
@@ -61,12 +64,12 @@ var Outline = React.createClass({
   },
 
   loadData: function(params){
+	self = this;
     var refuri = params.docset+'/'+params.uri;
-	store.get('parent', {'uri': refuri})
+	return store.get('parent', {'uri': refuri})
     .then(function(parent){
 		if(parent.uri==undefined){
 			self.setState({data: []});
-			this.props.onSetDisposition({component: 'outline', action: 'hide'});
 			return false;
 		}
 		store.get('branch', {'uri': parent.uri})
@@ -74,6 +77,7 @@ var Outline = React.createClass({
 			data.unshift(parent);
 			self.selecteduri = refuri;
 			self.setState({data: data});
+			return true;
 		});
 	});
   }

@@ -12,7 +12,6 @@ var currentdisposition = [{component: 'search', action: 'show'},
 
 module.exports = React.createClass({
 
-
 	getInitialState: function(){
 		return {currentdisposition: currentdisposition};
 	},

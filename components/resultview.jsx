@@ -6,10 +6,6 @@ var Showdown = require('../public/js/showdown.js');
 var converter = new Showdown.converter();
 
 module.exports = React.createClass({
-    componentWillMount: function(){
-        if(this.props.params && this.props.params.uri && this.props.params.docset)
-            this.loadRef(this.props.params);
-    },
 
     componentWillReceiveProps: function (newProps) {
         if(newProps.params)
