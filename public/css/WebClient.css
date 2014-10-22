@@ -263,6 +263,50 @@ header img {
     height: 100%;
     overflow: auto;
 }
+#result table {
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    border-spacing: 0px;
+    background-color: #666;
+}
+#result table th {
+    color: #FFF;
+    background-color: #39F;
+    padding: 7px 10px;
+}
+#result table td {
+    background-color: #FFF;
+    padding: 10px;
+}
+#result table code {
+    background-color: #39F;
+    font-weight: bold;
+}
+#result table th:first-child {
+    -moz-border-radius-topleft:10px;
+    -webkit-border-top-left-radius:10px;
+    border-top-left-radius:10px
+}
+#result table th:last-child {
+    -moz-border-radius-topright:10px;
+    -webkit-border-top-right-radius:10px;
+    border-top-right-radius:10px
+}
+#result table tr:last-child td:first-child {
+    -moz-border-radius-bottomleft:10px;
+    -webkit-border-bottom-left-radius:10px;
+    border-bottom-left-radius:10px
+}
+#result table tr:last-child td:last-child {
+    -moz-border-radius-bottomright:10px;
+    -webkit-border-bottom-right-radius:10px;
+    border-bottom-right-radius:10px
+}
+
 td.separator {
     width: 5px;
 }
