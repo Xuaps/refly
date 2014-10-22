@@ -7,10 +7,18 @@ var Resultview = require('./resultview.jsx');
 
 module.exports = React.createClass({
 
-    getInitialState: function() {
-        return {currentdisposition: [{component: 'search', action: 'show'},
+
+	getInitialState: function(){
+		//alert('recarga: ' + this.props.query.ref);
+		if(this.props.query.ref!=''){
+			return {currentdisposition: [{component: 'search', action: 'show'},
+			   {component: 'treeview', action: 'twirl'},{component: 'outline', action: 'hide'}]};
+		}else{
+			return {currentdisposition: [{component: 'search', action: 'hide'},
 			   {component: 'treeview', action: 'show'},{component: 'outline', action: 'hide'}]};
-    },
+
+		}
+	},
 	componentWillReceiveProps: function (newProps) {
 		if(newProps.params.splat!=''){
 			this.handleDisposition({component: 'outline', action: 'show'});
@@ -20,7 +28,7 @@ module.exports = React.createClass({
 	},
 	handleDisposition: function(_disposition){
 		newdisposition = [];
-		alert(_disposition.component + ' - ' + _disposition.action);
+		//alert('set disp: ' + _disposition.component + ' - ' + _disposition.action);
 		for(i in this.state.currentdisposition){
 			item=this.state.currentdisposition[i];
 			if(item.component==_disposition.component){
@@ -39,14 +47,9 @@ module.exports = React.createClass({
 			if(item.component=='search'){
 				rows.push(<Search visibility={item.action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(item.component=='treeview'){
-				alert(item.component + ' - ' + item.action);
-				if(item.action=='show'){
-					rows.push(<TreeView onSetDisposition={this.handleDisposition} />);
-				}
+					rows.push(<TreeView visibility={item.action} onSetDisposition={this.handleDisposition} />);
 			}else if(item.component=='outline'){
-				if(item.action=='show'){
-					rows.push(<Outline onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
-				}
+					rows.push(<Outline visibility={item.action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		

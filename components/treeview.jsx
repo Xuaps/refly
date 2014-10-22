@@ -61,8 +61,13 @@ var TreeView = React.createClass({
     },
 
    render: function() {
+		if(this.props.visibility=='hide'){
+			cssclass = "half-height collapse";
+		}else{
+			cssclass = "half-height";
+		}
         return (
-            <div id="tree-view" className="half-height">
+            <div id="tree-view" className={cssclass}>
                 <div className="component-header"><a>Treeview</a></div>
                 <div className="component-content">
                     <ul>

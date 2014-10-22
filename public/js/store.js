@@ -48,6 +48,11 @@ Api.prototype.get = function (resource, filters){
             url: this._url_branch + filters.uri,
             method: 'GET'
         }).then(this._addUrisToReferences.bind(this));
+    }else if(resource==='search'){
+        return jQuery.ajax({
+            url: this._url_references + '?reference=' + filters.searchtext,
+            method: 'GET'
+        }).then(this._addUrisToReferences.bind(this));
     }else{
          return jQuery.ajax({
             url:this._url_references +'?docsets='+filters.docset+'&types='+filters.type,

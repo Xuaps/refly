@@ -22,6 +22,7 @@ var Outline = React.createClass({
   },
 
   render: function() {
+	var visibility = this.props.visibility;
 	var rows = [];
 	var symbols = {};
 	$.each(this.state.data, function(key,item){
@@ -48,7 +49,7 @@ var Outline = React.createClass({
         rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
 	});
 	return(
-      <div id="outline-view" className="half-height">
+      <div id="outline-view" className="half-height {visibility}">
           <div className="component-header"><a>Outline</a></div>
           <div className="component-content">
               <ul className="outline-list">
