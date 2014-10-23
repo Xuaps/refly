@@ -283,17 +283,22 @@ header img {
     border-spacing: 0px;
     background-color: #666;
 }
+#result table tr:nth-child(even) {
+    background: #FFF;
+}
+#result table tr:nth-child(odd) {
+    background: #ececec;
+}
 #result table th {
     color: #FFF;
     background-color: #39F;
     padding: 7px 10px;
 }
 #result table td {
-    background-color: #FFF;
     padding: 10px;
 }
 #result table code {
-    background-color: #39F;
+    background-color: inherit;
     font-weight: bold;
 }
 #result table th:first-child {
