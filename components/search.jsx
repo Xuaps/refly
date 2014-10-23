@@ -32,7 +32,6 @@ module.exports = React.createClass({
 		}else{
 		    //TODO:
 			this.loadData(event.target.value);
-			this.ToggleSearch(true);
 		}
     },
 
@@ -46,6 +45,11 @@ module.exports = React.createClass({
 	                type={r.type} docset={r.docset} uri={r.ref_uri}/>)
 	        });
 			this.setState({results:references});
+			if(references.length==0){
+				this.ToggleSearch(false);
+			}else{
+				this.ToggleSearch(true);
+			}
 		}.bind(this));
 
 	},
@@ -53,10 +57,8 @@ module.exports = React.createClass({
 	ToggleSearch: function(visible){
 	// TODO: Refactorizar y pasar la visuañlizacion del triview a dashboard
 		if(visible){
-			this.props.onSetDisposition({component: 'treeview', action: 'hide'});
 			this.props.onSetDisposition({component: 'search', action: 'show'});
 		}else{
-			this.props.onSetDisposition({component: 'treeview', action: 'show'});
 			this.props.onSetDisposition({component: 'search', action: 'hide'});
 		}
 	},

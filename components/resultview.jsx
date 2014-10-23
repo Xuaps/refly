@@ -9,8 +9,7 @@ var store = require('../public/js/store.js');
 module.exports = React.createClass({
 
     componentWillReceiveProps: function (newProps) {
-        if(newProps.params && newProps.params.uri && newProps.params.docset)
-            this.loadRef(newProps.params);
+		this.loadRef(newProps.params);
     },
 
     render: function() {

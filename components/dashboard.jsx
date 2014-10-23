@@ -6,9 +6,8 @@ var Outline = require('./outline.jsx');
 var Resultview = require('./resultview.jsx');
 
 
-var currentdisposition = [{component: 'search', action: 'show'},
-		   {component: 'treeview', action: 'hide'},{component: 'outline', action: 'hide'}];
-
+var currentdisposition = {search: 'show', treeview: 'hide',outline: 'hide'};
+var inversevalues = {show: 'hide',hide: 'show'};
 
 module.exports = React.createClass({
 
@@ -22,30 +21,37 @@ module.exports = React.createClass({
 			this.handleDisposition({component: 'outline', action: 'hide'});
 		}
 	},
+
 	handleDisposition: function(_disposition){
-		newdisposition = [];
-		for(i in currentdisposition){
-			item=currentdisposition[i];
-			if(item.component==_disposition.component){
-				newdisposition.push(_disposition);
-			}else{
-				newdisposition.push(item);
+		var newdisposition = currentdisposition;
+		for(component in currentdisposition){
+			action=currentdisposition[component];
+			if(component==_disposition.component){
+				if(action!=_disposition.action){
+					if(_disposition.component=='search'){
+						newdisposition.search = _disposition.action;
+						newdisposition.treeview = inversevalues[_disposition.action];
+						this.setState({currentdisposition: newdisposition});
+					}else{
+						newdisposition[component] = _disposition.action;
+						this.setState({currentdisposition: newdisposition});
+					}
+				}
 			}
 		}
-		currentdisposition = newdisposition;
-		this.setState({currentdisposition: newdisposition});
+		currentdisposition = newdisposition;		
 	},
 
     render: function(){
 		rows = [];
-		for(i in currentdisposition){
-			item=currentdisposition[i];
-			if(item.component=='search'){
-				rows.push(<Search visibility={item.action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
-			}else if(item.component=='treeview'){
-					rows.push(<TreeView visibility={item.action} onSetDisposition={this.handleDisposition} />);
-			}else if(item.component=='outline'){
-					rows.push(<Outline visibility={item.action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
+		for(component in currentdisposition){
+			action = currentdisposition[component];
+			if(component=='search'){
+				rows.push(<Search visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
+			}else if(component=='treeview'){
+					rows.push(<TreeView visibility={action} onSetDisposition={this.handleDisposition} />);
+			}else if(component=='outline'){
+					rows.push(<Outline visibility={action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		

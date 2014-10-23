@@ -20,7 +20,7 @@ Api.prototype._addUris = function(ref){
 };
 
 Api.prototype._addUrisToReferences= function(references){
-    if(!references || references==undefined)
+    if(!references)
         return references;
 
     return references.map(this._addUris);

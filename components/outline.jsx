@@ -11,7 +11,7 @@ var Outline = React.createClass({
 
 
   componentWillReceiveProps: function (newProps) {
-	if(newProps.params && newProps.params.uri && newProps.params.docset)
+	if(newProps.params)
 		this.loadData(newProps.params);
   },
 
@@ -43,9 +43,10 @@ var Outline = React.createClass({
 							   );
 		}
 	}
-	$.each(symbols, function(symbol,items){
+	for(var symbol in symbols){
+		items = symbols[symbol];
         rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
-	});
+	};
 	return(
       <div id="outline-view" className={cssclass}>
           <div className="component-header"><a>Outline</a></div>
@@ -70,7 +71,6 @@ var Outline = React.createClass({
 				data.unshift(parent);
 				this.selecteduri = '/' + refuri;
 				this.setState({data: data});
-				this.props.onSetDisposition({component: 'outline', action: 'show'});
 			}.bind(this));
 		}
 	}.bind(this));
