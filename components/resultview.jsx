@@ -32,12 +32,9 @@ module.exports = React.createClass({
 
     loadRef: function(params){
         //TODO:
-        $.ajax({
-            context:this,
-            url: '/api/reference/' + params.docset+'/'+params.uri,
-            method: 'get'
-        }).done(function(ref){
-            this.setState({reference: ref});
-        });
+		return store.get('reference', {docset: params.docset, uri: params.uri})
+    		.then(function(ref){
+				this.setState({reference: ref});
+			}.bind(this));
     }
 });

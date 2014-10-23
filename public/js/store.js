@@ -51,7 +51,7 @@ Api.prototype.get = function (resource, filters){
         }).then(this._addUris);
     }else if(resource==='branch'){
 		uri = filters.uri;
-		if(filters.uri.indexOf('/')>0)
+		if(uri.indexOf('/')>0)
 			uri = '/' + filters.uri;
         return jQuery.ajax({
             url: this._url_branch + uri,

@@ -5,7 +5,6 @@ var Reference = require('../public/js/WebClient/Reference.js');
 var store = require('../public/js/store.js');
 
 var Outline = React.createClass({
-  selecteduri: '',
   getInitialState: function() {
 	return {data: []};
   },
@@ -13,9 +12,7 @@ var Outline = React.createClass({
 
   componentWillReceiveProps: function (newProps) {
 	if(newProps.params && newProps.params.uri && newProps.params.docset)
-		if(!this.loadData(newProps.params)){
-			this.props.onSetDisposition({component: 'outline', action: 'hide'});
-		}
+		this.loadData(newProps.params);
   },
 
   render: function() {
@@ -32,7 +29,7 @@ var Outline = React.createClass({
 		if (!symbols[item.type]) {
 			symbols[item.type] = [];
 		}
-        if(item.uri==self.selecteduri){
+        if(item.uri==this.selecteduri){
 		symbols[item.type].push(
         <li className="selected-item">
 			{item.reference}
