@@ -9,7 +9,7 @@ function Api(){
 }
 
 Api.prototype._addUris = function(ref){
-    if(!ref)
+	if(!ref)
 		return ref;
     var pos = ref.uri.indexOf('/', 1);
     ref.docset = ref.uri.substring(1,pos);

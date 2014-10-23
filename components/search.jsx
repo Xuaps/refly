@@ -5,14 +5,13 @@ var $ = require('jquery-browserify');
 var store = require('../public/js/store.js');
 
 module.exports = React.createClass({
+	
     getInitialState: function() {
         return {results: []};
     },
 
 	componentDidMount: function(){
-		self = this;
-		this.refs.searchbox.getDOMNode('#txtreference').value = this.props.search;
-		this.refs.searchbox.getDOMNode('#txtreference').focus();
+		this.setFocus('#txtreference',this.props.search);
 		if(this.props.search==''){
 			this.ToggleSearch(false);
 		}else{
@@ -20,6 +19,12 @@ module.exports = React.createClass({
 			this.loadData(this.props.search);
 		}
 	},
+
+	setFocus: function(input, searchtext){
+		this.refs.searchbox.getDOMNode(input).value = searchtext;
+		this.refs.searchbox.getDOMNode(input).focus();
+	},
+
     onKeyUp: function(event){
 
 		if(event.target.value==''){
@@ -36,15 +41,12 @@ module.exports = React.createClass({
     	.then(function(results){
 			references = [];
 	        results.forEach(function(r){
-	            var pos = r.uri.indexOf('/', 1);
-	            var docset = r.uri.substring(1,pos);
-	            var ref = r.uri.substring(pos+1,r.uri.length);
 
 	            references.push(<SearchResultRow key={r.reference} 
-	                type={r.type} docset={docset} uri={ref}/>)
+	                type={r.type} docset={r.docset} uri={r.ref_uri}/>)
 	        });
-			self.setState({results:references})
-		});
+			this.setState({results:references});
+		}.bind(this));
 
 	},
 
@@ -66,7 +68,6 @@ module.exports = React.createClass({
     },
 
     render: function(){
-
 		if(this.props.visibility=='hide'){
 			cssclass = "half-height collapse";
 		}else{

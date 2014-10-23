@@ -4,11 +4,12 @@ var Router = require('react-router');
 var Showdown = require('../public/js/showdown.js');
 
 var converter = new Showdown.converter();
+var store = require('../public/js/store.js');
 
 module.exports = React.createClass({
 
     componentWillReceiveProps: function (newProps) {
-        if(newProps.params)
+        if(newProps.params && newProps.params.uri && newProps.params.docset)
             this.loadRef(newProps.params);
     },
 

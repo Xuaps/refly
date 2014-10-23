@@ -5,10 +5,8 @@ var Reference = require('../public/js/WebClient/Reference.js');
 var store = require('../public/js/store.js');
 
 var Outline = React.createClass({
-  self: this,
   selecteduri: '',
   getInitialState: function() {
-	self = this;
 	return {data: []};
   },
 
@@ -29,12 +27,11 @@ var Outline = React.createClass({
 	var visibility = this.props.visibility;
 	var rows = [];
 	var symbols = {};
-	for(index in self.state.data){
-		item=self.state.data[index];
+	for(index in this.state.data){
+		item=this.state.data[index];
 		if (!symbols[item.type]) {
 			symbols[item.type] = [];
 		}
-		
         if(item.uri==self.selecteduri){
 		symbols[item.type].push(
         <li className="selected-item">
@@ -64,22 +61,22 @@ var Outline = React.createClass({
   },
 
   loadData: function(params){
-	self = this;
     var refuri = params.docset+'/'+params.uri;
 	return store.get('parent', {'uri': refuri})
     .then(function(parent){
 		if(parent.uri==undefined){
-			self.setState({data: []});
-			return false;
+			this.setState({data: []});
+			this.props.onSetDisposition({component: 'outline', action: 'hide'});
+		}else{
+			store.get('branch', {'uri': parent.uri})
+			.then(function(data){
+				data.unshift(parent);
+				this.selecteduri = '/' + refuri;
+				this.setState({data: data});
+				this.props.onSetDisposition({component: 'outline', action: 'show'});
+			}.bind(this));
 		}
-		store.get('branch', {'uri': parent.uri})
-		.then(function(data){
-			data.unshift(parent);
-			self.selecteduri = refuri;
-			self.setState({data: data});
-			return true;
-		});
-	});
+	}.bind(this));
   }
 });
 
