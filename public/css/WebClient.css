@@ -199,6 +199,16 @@ header img {
     margin-bottom: 2%;
     overflow: auto;
 }
+#left-pane>#tree-view li {
+    background-image: url('../img/closed-list.png');
+    background-repeat: no-repeat;
+    background-position-y: 15px;
+    margin-left: 20px;
+    padding-left: 12px;
+}
+#left-pane>#tree-view li.checked {
+    background-image: url('../img/opened-list.png');
+}
 
 /* Outline */
 
