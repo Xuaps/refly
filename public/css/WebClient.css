@@ -202,7 +202,7 @@ header img {
 #left-pane>#tree-view li {
     background-image: url('../img/closed-list.png');
     background-repeat: no-repeat;
-    background-position-y: 15px;
+    background-position-y: 13px;
     margin-left: 20px;
     padding-left: 12px;
 }
@@ -332,6 +332,7 @@ td.separator {
     margin-right: 7px;
     width: 24px;
     vertical-align: bottom;
+    margin-bottom: -3px;
 }
 .ry-type-source {
     margin: 0 10px -3px 0px;
