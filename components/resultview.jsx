@@ -19,7 +19,7 @@ module.exports = React.createClass({
 
         if(!this.state){
             content = '';
-        }else if(!this.state.reference){
+        }else if(!this.state.reference || this.state.reference===''){
             content =<div>
                             Ups!!
                             Alguien ha aplastado "sin querer" una de nuestras moscas y aún no hemos recopilado esa información.
