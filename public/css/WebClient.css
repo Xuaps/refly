@@ -297,6 +297,7 @@ header img {
     box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
     border-spacing: 0px;
     background-color: #666;
+    margin-bottom: 1em;
 }
 #result table tr:nth-child(even) {
     background: #FFF;
