@@ -8,6 +8,7 @@ var store = require('../public/js/store.js');
 var TreeNode = React.createClass({
     HIDE_CLASS: 'hide',
     SHOW_CLASS:'show',
+    CHECKED_CLASS: 'checked',
 
     getInitialState: function() {
         return {
@@ -25,7 +26,7 @@ var TreeNode = React.createClass({
            link = <a onClick={this.show}>{item.name}</a>;
         }            
         return (
-            <li>
+            <li className={this.state.show?this.CHECKED_CLASS:''}>
                {item.type==='docset'?<img src={'/img/languages/' + item.name + '-logo.png'} title={item.name} className="ry-language-source"/>:''}
                <img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>
                {link}
