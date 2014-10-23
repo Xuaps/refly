@@ -5,6 +5,7 @@ function Api(){
     this._url_types='/api/types';
     this._url_references='/api/references';
     this._url_parent='/api/reference/';
+    this._url_reference='/api/reference/';
     this._url_branch='/api/referencesbranch';
 }
 
@@ -19,7 +20,7 @@ Api.prototype._addUris = function(ref){
 };
 
 Api.prototype._addUrisToReferences= function(references){
-    if(!references)
+    if(!references || references==undefined)
         return references;
 
     return references.map(this._addUris);
@@ -43,9 +44,17 @@ Api.prototype.get = function (resource, filters){
             url: this._url_parent + uri,
             method: 'GET'
         }).then(this._addUris);
-    }else if(resource==='branch'){
+    }else if(resource==='reference'){
         return jQuery.ajax({
-            url: this._url_branch + filters.uri,
+            url: this._url_reference + filters.docset + '/' + filters.uri,
+            method: 'GET'
+        }).then(this._addUris);
+    }else if(resource==='branch'){
+		uri = filters.uri;
+		if(filters.uri.indexOf('/')>0)
+			uri = '/' + filters.uri;
+        return jQuery.ajax({
+            url: this._url_branch + uri,
             method: 'GET'
         }).then(this._addUrisToReferences.bind(this));
     }else if(resource==='search'){
