@@ -273,6 +273,21 @@ header img {
     height: 100%;
     overflow: auto;
 }
+#result h2 {
+    margin-top: 2em;
+    border-bottom: 1px solid #fdb436;
+}
+#result h3 {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    margin-left: 20px;
+}
+#result p {
+    margin: 10px 0;
+}
+#result p code {
+    margin: 0 20px;
+}
 #result table {
     border-radius: 10px;
     text-align: center;
