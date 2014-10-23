@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var mk = require('marked');
+var converter = new Showdown.converter();
 
 module.exports = React.createClass({
     componentWillMount: function(){
@@ -15,12 +15,21 @@ module.exports = React.createClass({
     },
 
     render: function() {
-        //TODO:
-        var content = this.state ? mk(this.state.reference.content):'';
-        return (
+        var content;
 
-            <div id="result" className="result" dangerouslySetInnerHTML={{__html: content}}/>
-        );
+        if(!this.state){
+            content = '';
+        }else if(!this.state.reference){
+            content = <div id="result" className="result">
+                            Ups!!
+                            Alguien ha aplastado "sin querer" una de nuestras moscas y aún no hemos recopilado esa información.
+                            Haz una nueva búsqueda o haz click aquí para ver los resultados de tu buscador favorito.
+                      </div>;
+        }else{
+            content = <div id="result" className="result" dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
+        }
+
+        return (<div id="result" className="result">{content}</div>);
     },
 
     loadRef: function(params){
