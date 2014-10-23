@@ -61,15 +61,15 @@ p {
     margin-top: 5px;
 }
 code {
-    background-color: #d2e4f7;
     white-space: pre-line;
 }
 pre {
-    background-color: #d2e4f7;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
     padding: 10px;
-    -webkit-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 3px 3px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 3px 3px 0px rgba(50, 50, 50, 0.75);
 }
 
 /* Custom clases */
@@ -97,8 +97,8 @@ pre {
     width: 800px;
 }
 .half-height {
-    max-height: 49%;
-    min-height: 49%;
+    max-height: 50%;
+    min-height: 50%;
 }
 .noresult{
 	border: 1px solid red;
@@ -153,19 +153,12 @@ header img {
     width: 30%;
     height: 100%;
     overflow: hidden;
-    padding: 10px;
 }
 #left-pane .ry-input-text {
     width: 100%;
 }
 #left-pane>div {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
     background-color: #FFF;
-    -webkit-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 1px 5px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 1px 5px 0px rgba(50, 50, 50, 0.75);
 }
 #search-view fieldset {
     top: 18px;
@@ -178,7 +171,6 @@ header img {
 
 #search-view {
     overflow: auto;
-    margin-bottom: 2%;
 }
 #search-view .ry-input-text {
     background-color: #F5F7F7;
@@ -196,7 +188,6 @@ header img {
     position: relative;
 }
 #left-pane>#tree-view {
-    margin-bottom: 2%;
     overflow: auto;
 }
 #left-pane>#tree-view li {
@@ -215,12 +206,6 @@ header img {
 .component-header {
     background-color: #3399FF;
     width: 100%;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     position: absolute;
 }
 .component-header:hover {
@@ -245,7 +230,6 @@ header img {
 }
 #outline-view {
     padding: 0;
-    margin-bottom: 2%;
     position: relative;
 }
 #outline-view ul {
@@ -272,6 +256,7 @@ header img {
     padding: 20px;
     height: 100%;
     overflow: auto;
+    border-left: 1px solid #d2e4f7;
 }
 #result h2 {
     margin-top: 2em;
@@ -285,22 +270,16 @@ header img {
 #result p {
     margin: 10px 0;
 }
-#result p code {
-    padding: 0 10px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
 #result table {
-    border-radius: 10px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
     text-align: center;
     width: 100%;
-    -webkit-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
-    box-shadow: 0px 1px 5px 0px rgba(50, 50, 50, 0.75);
     border-spacing: 0px;
     background-color: #666;
     margin-bottom: 1em;
+    border: 1px solid #ccc;
 }
 #result table tr:nth-child(even) {
     background: #FFF;
@@ -321,24 +300,24 @@ header img {
     font-weight: bold;
 }
 #result table th:first-child {
-    -moz-border-radius-topleft:10px;
-    -webkit-border-top-left-radius:10px;
-    border-top-left-radius:10px
+    -moz-border-radius-topleft:5px;
+    -webkit-border-top-left-radius:5px;
+    border-top-left-radius:5px
 }
 #result table th:last-child {
-    -moz-border-radius-topright:10px;
-    -webkit-border-top-right-radius:10px;
-    border-top-right-radius:10px
+    -moz-border-radius-topright:5px;
+    -webkit-border-top-right-radius:5px;
+    border-top-right-radius:5px
 }
 #result table tr:last-child td:first-child {
-    -moz-border-radius-bottomleft:10px;
-    -webkit-border-bottom-left-radius:10px;
-    border-bottom-left-radius:10px
+    -moz-border-radius-bottomleft:5px;
+    -webkit-border-bottom-left-radius:5px;
+    border-bottom-left-radius:5px
 }
 #result table tr:last-child td:last-child {
-    -moz-border-radius-bottomright:10px;
-    -webkit-border-bottom-right-radius:10px;
-    border-bottom-right-radius:10px
+    -moz-border-radius-bottomright:5px;
+    -webkit-border-bottom-right-radius:5px;
+    border-bottom-right-radius:5px
 }
 
 td.separator {
