@@ -20,13 +20,13 @@ module.exports = React.createClass({
         if(!this.state){
             content = '';
         }else if(!this.state.reference){
-            content = <div id="result" className="result">
+            content =<div>
                             Ups!!
                             Alguien ha aplastado "sin querer" una de nuestras moscas y aún no hemos recopilado esa información.
                             Haz una nueva búsqueda o haz click aquí para ver los resultados de tu buscador favorito.
                       </div>;
         }else{
-            content = <div id="result" className="result" dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
+            content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
         }
 
         return (<div id="result" className="result">{content}</div>);
