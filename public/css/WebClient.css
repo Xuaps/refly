@@ -252,7 +252,6 @@ header img {
 .result {
     background-color: #f5f7f7;
     width: 70%;
-    float: left;
     padding: 20px;
     height: 100%;
     overflow: auto;
