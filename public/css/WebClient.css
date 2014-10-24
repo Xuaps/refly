@@ -25,7 +25,8 @@
 /* Basic elements */
 
 html {
-    height: 100%
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
 }
 body, fieldset, p {
     margin: 0;
