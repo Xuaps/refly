@@ -2,7 +2,9 @@
   "name": "slash",
   "version": "0.0.1",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "test": "jest -c jest.config && jasmine-node test/ && exit 1"
+  },
   "dependencies": {
     "URIjs": "^1.14.1",
     "config": "^0.4.36",
