@@ -259,7 +259,12 @@ header img {
 }
 .result h2 {
     margin-top: 2em;
-    border-bottom: 1px solid #fdb436;
+    border-left: 3px solid #fdb436;
+    color: #333;
+    padding-left: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 .result h3 {
     margin-top: 1.5em;
