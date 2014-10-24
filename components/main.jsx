@@ -7,7 +7,7 @@ var routes = require('./routes.jsx');
 
 React.renderComponent(routes, document.getElementById('container'));
 
-$(document).on('click', '#result a', function(event) {
+$(document).on('click', 'div.result a', function(event) {
     var baseUri=new URI(window.document.baseURI);
     var uri=new URI(this.href);
     if(uri.host()!==baseUri.host())

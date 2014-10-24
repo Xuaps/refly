@@ -249,7 +249,7 @@ header img {
 
 /* Main content */
 
-#result {
+.result {
     background-color: #f5f7f7;
     width: 70%;
     float: left;
@@ -258,19 +258,19 @@ header img {
     overflow: auto;
     border-left: 1px solid #d2e4f7;
 }
-#result h2 {
+.result h2 {
     margin-top: 2em;
     border-bottom: 1px solid #fdb436;
 }
-#result h3 {
+.result h3 {
     margin-top: 1.5em;
     margin-bottom: 1em;
     margin-left: 20px;
 }
-#result p {
+.result p {
     margin: 10px 0;
 }
-#result table {
+.result table {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
@@ -281,40 +281,40 @@ header img {
     margin-bottom: 1em;
     border: 1px solid #ccc;
 }
-#result table tr:nth-child(even) {
+.result table tr:nth-child(even) {
     background: #FFF;
 }
-#result table tr:nth-child(odd) {
+.result table tr:nth-child(odd) {
     background: #ececec;
 }
-#result table th {
+.result table th {
     color: #FFF;
     background-color: #39F;
     padding: 7px 10px;
 }
-#result table td {
+.result table td {
     padding: 10px;
 }
-#result table code {
+.result table code {
     background-color: inherit;
     font-weight: bold;
 }
-#result table th:first-child {
+.result table th:first-child {
     -moz-border-radius-topleft:5px;
     -webkit-border-top-left-radius:5px;
     border-top-left-radius:5px
 }
-#result table th:last-child {
+.result table th:last-child {
     -moz-border-radius-topright:5px;
     -webkit-border-top-right-radius:5px;
     border-top-right-radius:5px
 }
-#result table tr:last-child td:first-child {
+.result table tr:last-child td:first-child {
     -moz-border-radius-bottomleft:5px;
     -webkit-border-bottom-left-radius:5px;
     border-bottom-left-radius:5px
 }
-#result table tr:last-child td:last-child {
+.result table tr:last-child td:last-child {
     -moz-border-radius-bottomright:5px;
     -webkit-border-bottom-right-radius:5px;
     border-bottom-right-radius:5px

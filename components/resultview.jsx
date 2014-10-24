@@ -28,8 +28,7 @@ module.exports = React.createClass({
         }else{
             content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
         }
-
-        return (<div id="result" className="result">{content}</div>);
+        return (<div className="result">{content}</div>);
     },
 
     loadRef: function(params){
