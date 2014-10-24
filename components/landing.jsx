@@ -36,7 +36,7 @@ module.exports = React.createClass({
                                 </div>
                                 <div className="ry-table-row">
                                     <div className="docset-logo">
-                                        <img src="/img/languages/js-logo.png" title="js"/>
+                                        <img src="/img/languages/JavaScript-logo.png" title="js"/>
                                     </div>
                                     <div className="docset-name"><a><span>javascript</span></a>
                                     </div>
