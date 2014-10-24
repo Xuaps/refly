@@ -197,12 +197,13 @@ header img {
 #left-pane>#tree-view li {
     background-image: url('../img/closed-list.png');
     background-repeat: no-repeat;
-    background-position-y: 13px;
+    background-position-y: 11px;
     margin-left: 20px;
-    padding-left: 12px;
+    padding-left: 11px;
 }
 #left-pane>#tree-view li.checked {
     background-image: url('../img/opened-list.png');
+    background-position-y: 12px;
 }
 
 /* Outline */
