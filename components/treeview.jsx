@@ -32,7 +32,7 @@ var nodes = {
 
         innerLevel: {
             loadData: function(config, parents){
-                return store.get('reference', {'docset': parents[0], 'type': parents[1]})
+                return store.get('treeviewreference', {'docset': parents[0], 'type': parents[1]})
                 .then(function(references){
                     var treenodes = [];
                     //TODO
