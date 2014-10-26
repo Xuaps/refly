@@ -72,8 +72,7 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'config/**', 'jobs/**', 'public/**', 'routes/**', 'views/landingpage.jade', 'views/index.jade',  
-          'views/footer.jade', 'app.js', 'package.json'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'package.json', '!public/js/**'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
         ]
       },
@@ -99,6 +98,16 @@ module.exports = function (grunt) {
         src:        'components/*.jsx',
         dest:       'public/bundle.js'
       }
+    },
+    uglify: {
+        bundle: {
+          options: {
+            report: 'gzip'
+          },
+          files: {
+            'build/release/public/bundle.js': ['build/release/public/bundle.js']
+          }
+        }
     }
   });
 
@@ -126,5 +135,5 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['browserify', 'develop', 'watch']);
   grunt.registerTask('test', ['develop', 'jasmine_node']);
   grunt.registerTask('testc', ['jest']);
-  grunt.registerTask('release', ['copy-config-files','clean:release','shell', 'copy:app', 'clean:tmp']);
+  grunt.registerTask('release', ['copy-config-files','clean:release', 'copy:app', 'uglify:bundle', 'clean:tmp']);
 };
