@@ -73,12 +73,11 @@ describe('TreeView Component', function(){
                 var treeview = render_treeview();
                 var treenode_docset = emulate_click_docset(treeview,0)[0];
                 var treenode_type = emulate_click_docset(treenode_docset,1)[0];
-                var treenode_ref = emulate_click_docset(treenode_type, 1)[0];
-                var link = TestUtils.findRenderedComponentWithType(treenode_ref, <Link/>);
+                var treenode_ref = emulate_click_docset(treenode_type, 1);
                 
-                expect(treenode_ref.props.uri).toBeDefined();
-                expect(treenode_ref.props.docset).toBeDefined();
-                expect(link).toBeDefined();
+                expect(treenode_ref[0].props.uri).toBeDefined();
+                expect(treenode_ref[0].props.docset).toBeDefined();
+                expect(treenode_ref[1]).toBeDefined();
             });
         });
     });

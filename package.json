@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "test": "jest -c jest.config && jasmine-node test/ && exit 1"
+    "test": "jest -c jest.config && jasmine-node test/"
   },
   "dependencies": {
     "URIjs": "^1.14.1",
