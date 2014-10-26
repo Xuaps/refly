@@ -3,6 +3,7 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('../public/js/store.js');
+var debounce = require('../public/js/utils.js');
 
 module.exports = React.createClass({
 	
@@ -31,7 +32,8 @@ module.exports = React.createClass({
 			this.emptySearch(event);
 		}else{
 		    //TODO:
-			this.loadData(event.target.value);
+			debounce(this.loadData(event.target.value),500,true);
+			this.props.onKeyUpEvent(event);
 		}
     },
 
@@ -41,8 +43,8 @@ module.exports = React.createClass({
 			references = [];
 	        results.forEach(function(r){
 
-	            references.push(<SearchResultRow key={r.reference} 
-	                type={r.type} docset={r.docset} uri={r.ref_uri}/>)
+	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} 
+	                reference={r.reference} type={r.type} docset={r.docset} uri={r.ref_uri}/>)
 	        });
 			this.setState({results:references});
 			if(references.length==0){

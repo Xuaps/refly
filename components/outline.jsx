@@ -38,7 +38,7 @@ var Outline = React.createClass({
 		}else{
 		symbols[item.type].push(
         <li>
-			<Link to='result' params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
+			<Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
         </li>
 							   );
 		}

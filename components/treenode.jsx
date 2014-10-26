@@ -21,7 +21,7 @@ var TreeNode = React.createClass({
         var item = this.props;
         var link;
         if(item.uri){
-           link = <Link to="result" params={{docset:item.docset, splat: item.uri}}><img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>{item.name}</Link>;
+           link = <Link to="result" key={'TL' + item.uri} params={{docset:item.docset, splat: item.uri}}><img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>{item.name}</Link>;
         }else{
            link = <a onClick={this.show}><img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>{item.name}</a>;
         }            
