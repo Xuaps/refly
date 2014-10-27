@@ -38,7 +38,7 @@ module.exports = React.createClass({
     },
 
 	ChangeHash: function(searchtext){
-		path = '?q=' + event.target.value;
+		path = '?q=' + searchtext;
 		window.history.pushState(path, '', path);
 	},
 

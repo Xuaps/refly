@@ -11,7 +11,7 @@ var Outline = React.createClass({
 
 
   componentWillReceiveProps: function (newProps) {
-	if(newProps.params)
+	if(newProps.params && newProps.params.uri!=undefined)
 		this.loadData(newProps.params);
   },
 

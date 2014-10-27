@@ -4,14 +4,11 @@ var Outline;
 var TestUtils;
 var routes;
 var React;
-
+React = require('react/addons');
+routes = require('../components/routes.jsx');
+TestUtils = React.addons.TestUtils;
+Outline = require('../components/outline.jsx');
 describe('Outline Component', function(){
-    beforeEach(function(){
-        React = require('react/addons');
-        routes = require('../components/routes.jsx');
-        TestUtils = React.addons.TestUtils;
-        Outline = require('../components/outline.jsx');
-    });
 
     describe('Initial State', function(){
         xit('should have all children of the reference', function(){
