@@ -31,18 +31,22 @@ module.exports = React.createClass({
 		if(event.target.value==''){
 			this.emptySearch(event);
 		}else{
-		    //TODO:
-			debounce(this.loadData(event.target.value),500,true);
+			debounce(this.loadData(event.target.value),1000,true);
+			debounce(this.ChangeHash(event.target.value),1000,true);
 			this.props.onKeyUpEvent(event);
 		}
     },
+
+	ChangeHash: function(searchtext){
+		path = '?q=' + event.target.value;
+		window.history.pushState(path, '', path);
+	},
 
 	loadData: function(searchtext){
 		store.get('search', {'searchtext': searchtext})
     	.then(function(results){
 			references = [];
 	        results.forEach(function(r){
-
 	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} 
 	                reference={r.reference} type={r.type} docset={r.docset} uri={r.ref_uri}/>)
 	        });

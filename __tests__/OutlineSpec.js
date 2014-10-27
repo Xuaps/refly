@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/outline.jsx');
-var TreeView;
+var Outline;
 var TestUtils;
 var routes;
 var React;

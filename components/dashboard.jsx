@@ -15,7 +15,7 @@ module.exports = React.createClass({
 		return {currentdisposition: currentdisposition};
 	},
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.params.splat!=''){
+		if(newProps.params.splat!=undefined && newProps.params.splat!=''){
 			this.handleDisposition({component: 'outline', action: 'show'});
 		}else{
 			this.handleDisposition({component: 'outline', action: 'hide'});
