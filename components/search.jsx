@@ -31,8 +31,8 @@ module.exports = React.createClass({
 		if(event.target.value==''){
 			this.emptySearch(event);
 		}else{
-			debounce(this.loadData(event.target.value),1000,true);
-			debounce(this.ChangeHash(event.target.value),1000,true);
+			debounce(this.loadData(event.target.value),10000,true);
+			debounce(this.ChangeHash(event.target.value),10000,true);
 			this.props.onKeyUpEvent(event);
 		}
     },
@@ -61,11 +61,12 @@ module.exports = React.createClass({
 	},
 
 	ToggleSearch: function(visible){
-	// TODO: Refactorizar y pasar la visuañlizacion del triview a dashboard
-		if(visible){
-			this.props.onSetDisposition({component: 'search', action: 'show'});
-		}else{
-			this.props.onSetDisposition({component: 'search', action: 'hide'});
+		if(this.props.onSetDisposition != undefined){
+			if(visible){
+				this.props.onSetDisposition({component: 'search', action: 'show'});
+			}else{
+				this.props.onSetDisposition({component: 'search', action: 'hide'});
+			}
 		}
 	},
 
