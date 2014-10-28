@@ -195,16 +195,23 @@ header img {
 #left-pane>#tree-view {
     overflow: auto;
 }
-#left-pane>#tree-view li {
+.list-arrow {
     background-image: url('../img/closed-list.png');
     background-repeat: no-repeat;
-    background-position-y: 11px;
-    margin-left: 20px;
-    padding-left: 11px;
+    width: 9px;
+    height: 9px;
+    margin: 3px 2px 0 6px;
+    padding: 2px;
+    float: left;
+    box-sizing: initial;
+    background-position: 2px 2px;
 }
-#left-pane>#tree-view li.checked {
+#left-pane>#tree-view li.checked>a>div.list-arrow{
     background-image: url('../img/opened-list.png');
-    background-position-y: 12px;
+    margin-top: 4px;
+}
+#tree-view ul.show li {
+    padding: 5px 0 5px 46px;
 }
 
 /* Outline */
@@ -360,13 +367,14 @@ td.separator {
     padding: 5px 20px;
 }
 .ry-language-source {
-    margin-right: 7px;
     width: 24px;
     vertical-align: bottom;
-    margin-bottom: -3px;
+    margin-top: -2px;
+    float: left;
 }
 .ry-type-source {
-    margin: 0 10px -3px 0px;
+    margin: 2px 8px 0px 6px;
+    float: left;
 }
 .ry-icon {
     font-family: "fontawesome";
