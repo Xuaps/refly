@@ -9,7 +9,8 @@ var store = require('../public/js/store.js');
 module.exports = React.createClass({
 
     componentWillReceiveProps: function (newProps) {
-		if(newProps.params && newProps.params.uri!=undefined){
+		console.log(newProps.params.docset);
+		if(newProps.params){
 			this.loadRef(newProps.params);
 		}
     },

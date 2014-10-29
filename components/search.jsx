@@ -17,7 +17,7 @@ module.exports = React.createClass({
 			this.ToggleSearch(false);
 		}else{
 			this.ToggleSearch(true);
-			this.loadData(this.props.search);
+			debounce(this.loadData(this.props.search),3000);
 		}
 	},
 
@@ -31,8 +31,7 @@ module.exports = React.createClass({
 		if(event.target.value==''){
 			this.emptySearch(event);
 		}else{
-			debounce(this.loadData(event.target.value),10000,true);
-			debounce(this.ChangeHash(event.target.value),10000,true);
+			debounce(this.loadData(event.target.value),3000);
 			this.props.onKeyUpEvent(event);
 		}
     },
@@ -51,11 +50,7 @@ module.exports = React.createClass({
 	                reference={r.reference} type={r.type} docset={r.docset} uri={r.ref_uri}/>)
 	        });
 			this.setState({results:references});
-			if(references.length==0){
-				this.ToggleSearch(false);
-			}else{
-				this.ToggleSearch(true);
-			}
+			this.ToggleSearch(true);
 		}.bind(this));
 
 	},
@@ -82,8 +77,8 @@ module.exports = React.createClass({
 		}else{
 			cssclass = "half-height";
 		}
-
-        return(
+		if(this.state.results.length>0){
+        	return(
             <div id="search-view" className={cssclass}>
                 <fieldset>
                     <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
@@ -96,6 +91,20 @@ module.exports = React.createClass({
 		                </ul>
 		            </div>
             </div>
-        )
+        	);
+		}else{
+        	return(
+            <div id="search-view" className={cssclass}>
+                <fieldset>
+                    <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
+                    placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
+                    <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
+                </fieldset>
+					<div id="results">
+						<p>Reference not found!</p>
+		            </div>
+            </div>
+        	);
+		}
     }
 });

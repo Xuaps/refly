@@ -47,11 +47,11 @@ module.exports = React.createClass({
 		for(component in currentdisposition){
 			action = currentdisposition[component];
 			if(component=='search'){
-				rows.push(<Search key="searchc" onKeyUpEvent={this.props.onKeyUpEvent} visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
+				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(component=='treeview'){
-					rows.push(<TreeView key="treeviewc" visibility={action} onSetDisposition={this.handleDisposition} />);
+					rows.push(<TreeView key="treeviewcomp" visibility={action} onSetDisposition={this.handleDisposition} />);
 			}else if(component=='outline'){
-					rows.push(<Outline key="outlinec" visibility={action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
+					rows.push(<Outline key="outlinecomp" visibility={action} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		
@@ -65,7 +65,7 @@ module.exports = React.createClass({
                 <div id="left-pane">
 					{rows}
                 </div>
-                <Resultview key="resultviewc" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
+                <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
             </div>
         );
     }
