@@ -48,7 +48,7 @@ var Outline = React.createClass({
         rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
 	};
 	return(
-      <div id="outline-view" className={cssclass}>
+      <div id="outline-view" key="OLC1" className={cssclass}>
           <div className="component-header"><a>Outline</a></div>
           <div className="component-content">
               <ul className="outline-list">

@@ -4,14 +4,12 @@ var Search;
 var TestUtils;
 var routes;
 var React;
+React = require('react/addons');
+routes = require('../components/routes.jsx');
+TestUtils = React.addons.TestUtils;
+Search = require('../components/search.jsx');
 
 describe('Search Component', function(){
-    beforeEach(function(){
-        React = require('react/addons');
-        routes = require('../components/routes.jsx');
-        TestUtils = React.addons.TestUtils;
-        Search = require('../components/search.jsx');
-    });
 
     describe('Initial State', function(){
         xit('should be empty', function(){

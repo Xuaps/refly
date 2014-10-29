@@ -3,11 +3,11 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('../public/js/store.js');
-var debounce = require('../public/js/utils.js');
 
 module.exports = React.createClass({
 	
     getInitialState: function() {
+		this.props.message = "";
         return {results: []};
     },
 
@@ -17,7 +17,7 @@ module.exports = React.createClass({
 			this.ToggleSearch(false);
 		}else{
 			this.ToggleSearch(true);
-			debounce(this.loadData(this.props.search),3000);
+			this.loadData(this.props.search);
 		}
 	},
 
@@ -27,19 +27,34 @@ module.exports = React.createClass({
 	},
 
     onKeyUp: function(event){
-
+		event.persist();
 		if(event.target.value==''){
 			this.emptySearch(event);
 		}else{
-			debounce(this.loadData(event.target.value),3000);
-			this.props.onKeyUpEvent(event);
+		    this.debouncedKeyUp(event.target.value).then(function (result) {
+		        this.loadData(event.target.value);
+				this.props.onKeyUpEvent(event);
+		    }.bind(this));
 		}
     },
 
-	ChangeHash: function(searchtext){
-		path = '?q=' + searchtext;
-		window.history.pushState(path, '', path);
-	},
+	debouncedKeyUp: function (value) {
+        var dfd = vow.defer();
+        
+        var timerId = this.timerId;
+        var self = this;
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+        timerId = setTimeout((function (innerValue) {
+                return function () {
+                    dfd.resolve(innerValue);
+                }
+            })(value), 1000);
+        this.timerId = timerId;
+        
+        return dfd.promise();
+    },
 
 	loadData: function(searchtext){
 		store.get('search', {'searchtext': searchtext})
@@ -93,6 +108,11 @@ module.exports = React.createClass({
             </div>
         	);
 		}else{
+			if(this.props.search!='' && this.props.message!=''){
+				var message = "<p>Reference not found!</p>"
+			}else{
+				var message = "<p>Look for any reference</p>"
+			}
         	return(
             <div id="search-view" className={cssclass}>
                 <fieldset>
@@ -101,7 +121,7 @@ module.exports = React.createClass({
                     <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                 </fieldset>
 					<div id="results">
-						<p>Reference not found!</p>
+						{message}
 		            </div>
             </div>
         	);
