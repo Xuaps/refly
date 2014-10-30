@@ -14,8 +14,8 @@ var Landing = require('./landing.jsx');
 var routes = (
   <Routes location="history">
     <Route handler={Shell} path='/'>
+            <Route name='search' path='/search' handler={Dashboard}/>
             <Route name="result" path=':docset/*' handler={Dashboard}/>
-            <Route name='search' handler={Dashboard}/>
             <DefaultRoute handler={Landing}/>
     </Route>                     
   </Routes>                      

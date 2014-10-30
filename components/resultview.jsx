@@ -9,15 +9,21 @@ var store = require('../public/js/store.js');
 module.exports = React.createClass({
 
     componentWillReceiveProps: function (newProps) {
-		this.loadRef(newProps.params);
+		if(newProps.params){
+			this.loadRef(newProps.params);
+		}
     },
+
+	componentDidUpdate: function(){
+		this.resetScroll();
+	},
 
     render: function() {
         var content;
 
         if(!this.state){
             content = '';
-        }else if(!this.state.reference || this.state.reference===''){
+        }else if(!this.state.reference && this.props.params.uri!=undefined){
             content = <div className="warning">
                         <h2>Referencia no encontrada</h2>
                         <h3>{ String.fromCharCode(161) + 'Vaya! Alguien ha aplastado "sin querer" una de nuestras moscas y a' + String.fromCharCode(250) + 'n no hemos recopilado esa informaci' + String.fromCharCode(243) + 'n.'}</h3>
@@ -26,7 +32,7 @@ module.exports = React.createClass({
         }else{
             content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
         }
-        return (<div className="result">{content}</div>);
+        return (<div ref="resultcontent" className="result">{content}</div>);
     },
 
     loadRef: function(params){
@@ -35,5 +41,9 @@ module.exports = React.createClass({
     		.then(function(ref){
 				this.setState({reference: ref});
 			}.bind(this));
-    }
+    },
+
+	resetScroll: function(){
+		this.refs.resultcontent.getDOMNode().scrollTop = 0;
+	}
 });

@@ -15,7 +15,7 @@ module.exports = React.createClass({
 		return {currentdisposition: currentdisposition};
 	},
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.params.splat!=''){
+		if(newProps.params.splat!=undefined && newProps.params.splat!=''){
 			this.handleDisposition({component: 'outline', action: 'show'});
 		}else{
 			this.handleDisposition({component: 'outline', action: 'hide'});
@@ -47,11 +47,11 @@ module.exports = React.createClass({
 		for(component in currentdisposition){
 			action = currentdisposition[component];
 			if(component=='search'){
-				rows.push(<Search visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
+				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(component=='treeview'){
-					rows.push(<TreeView visibility={action} onSetDisposition={this.handleDisposition} />);
+					rows.push(<TreeView key="treeviewcomp" visibility={action} onSetDisposition={this.handleDisposition} />);
 			}else if(component=='outline'){
-					rows.push(<Outline visibility={action} onSetDisposition={this.handleDisposition} params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>);
+					rows.push(<Outline key="outlinecomp" visibility={action} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		
@@ -65,7 +65,7 @@ module.exports = React.createClass({
                 <div id="left-pane">
 					{rows}
                 </div>
-                <Resultview params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
+                <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
             </div>
         );
     }

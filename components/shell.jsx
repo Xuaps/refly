@@ -6,7 +6,7 @@ var Router = require('react-router');
 module.exports = React.createClass({
 
     handleOnKeyUpEvent: function(event){
-        Router.transitionTo('search', null ,{ref: event.target.value});
+       	Router.transitionTo('search', null ,{ref: event.target.value});
     },
 
     render: function(){

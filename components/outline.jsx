@@ -11,7 +11,7 @@ var Outline = React.createClass({
 
 
   componentWillReceiveProps: function (newProps) {
-	if(newProps.params)
+	if(newProps.params && newProps.params.uri!=undefined)
 		this.loadData(newProps.params);
   },
 
@@ -38,7 +38,7 @@ var Outline = React.createClass({
 		}else{
 		symbols[item.type].push(
         <li>
-			<Link to='result' params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
+			<Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
         </li>
 							   );
 		}
@@ -48,7 +48,7 @@ var Outline = React.createClass({
         rows.push(<li><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}<ul>{items}</ul></li>);
 	};
 	return(
-      <div id="outline-view" className={cssclass}>
+      <div id="outline-view" key="OLC1" className={cssclass}>
           <div className="component-header"><a>Outline</a></div>
           <div className="component-content">
               <ul className="outline-list">
