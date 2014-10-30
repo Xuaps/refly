@@ -23,7 +23,7 @@ module.exports = React.createClass({
 
         if(!this.state){
             content = '';
-        }else if(!this.state.reference){
+        }else if(!this.state.reference && this.props.params.uri!=undefined){
             content = <div className="warning">
                         <h2>Referencia no encontrada</h2>
                         <h3>{ String.fromCharCode(161) + 'Vaya! Alguien ha aplastado "sin querer" una de nuestras moscas y a' + String.fromCharCode(250) + 'n no hemos recopilado esa informaci' + String.fromCharCode(243) + 'n.'}</h3>

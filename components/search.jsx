@@ -3,6 +3,7 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('../public/js/store.js');
+var Q = require('q');
 
 module.exports = React.createClass({
 	
@@ -32,15 +33,14 @@ module.exports = React.createClass({
 			this.emptySearch(event);
 		}else{
 		    this.debouncedKeyUp(event.target.value).then(function (result) {
-		        this.loadData(event.target.value);
+		        this.loadData(result);
 				this.props.onKeyUpEvent(event);
 		    }.bind(this));
 		}
     },
 
 	debouncedKeyUp: function (value) {
-        var dfd = vow.defer();
-        
+        var deferred = Q.defer();
         var timerId = this.timerId;
         var self = this;
         if (timerId) {
@@ -48,12 +48,12 @@ module.exports = React.createClass({
         }
         timerId = setTimeout((function (innerValue) {
                 return function () {
-                    dfd.resolve(innerValue);
+                    deferred.resolve(innerValue);
                 }
             })(value), 1000);
         this.timerId = timerId;
         
-        return dfd.promise();
+        return deferred.promise;
     },
 
 	loadData: function(searchtext){
@@ -109,9 +109,9 @@ module.exports = React.createClass({
         	);
 		}else{
 			if(this.props.search!='' && this.props.message!=''){
-				var message = "<p>Reference not found!</p>"
+				var this.props.message = "<p>Reference not found!</p>"
 			}else{
-				var message = "<p>Look for any reference</p>"
+				var this.props.message = "<p>Loading results...</p>"
 			}
         	return(
             <div id="search-view" className={cssclass}>
@@ -121,7 +121,7 @@ module.exports = React.createClass({
                     <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                 </fieldset>
 					<div id="results">
-						{message}
+						{this.props.message}
 		            </div>
             </div>
         	);
