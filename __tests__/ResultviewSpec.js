@@ -15,7 +15,7 @@ describe('ResultView Component', function(){
         xit('should be empty', function(){
             React.renderComponent(routes, document.createElement('div'));
             var resultviewc = TestUtils.renderIntoDocument(<Resultview/>);
-			expect(resultviewc.state.data.length).toEqual(0);
+			expect(resultviewc.state.reference.length).toEqual(0);
         });
     });
 
@@ -24,9 +24,9 @@ describe('ResultView Component', function(){
             React.renderComponent(routes, document.createElement('div'));
             var resultviewc = TestUtils.renderIntoDocument(<Resultview/>);
 			resultviewc.setProps({params: 
-			{docset: '/javascript', uri: 'javascript_reference/standard_built-in_objects/json/json.parse()'}});
-			expect(resultviewc.state.reference.uri)
-			.toEqual('/javascript/javascript_reference/standard_built-in_objects/json/json.parse()');
+			{docset: 'node', uri: 'aaaaa'}});
+			expect(resultviewc.state.reference[0].uri)
+			.toEqual('/node/aaaaa');
         });
     });
 
