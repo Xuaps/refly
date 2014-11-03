@@ -72,7 +72,7 @@ var children = function(id){
 
 var branch = function(id){
 	var promises = [];
-	firstchildren = children(id)
+	firstchildren = children(id);
 	promises.push(firstchildren);
 	return firstchildren.then(function(references){
 		
@@ -84,8 +84,29 @@ var branch = function(id){
 	});
 }
 
+var breadcrumbs = function(id){
+	var promises = [];
+	firstitem = get_by_id(id);
+	promises.push(firstitem);
+	return firstitem.then(function(ref){
+			promises.push((ref.parent_id!=null) ? breadcrumbs(ref.parent_id): ref);
+			return q.all(promises);
+	});
+}
+
+var get_by_id = function(id){
+	docsets = new Docsets();
+	return docsets
+        .filter('id', filters.operators.EQUALS, id)
+        .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_id'])
+        .execute().then(function(references) {
+            return (references.length > 0) ? references[0].id : null;
+        });
+}
+
 module.exports.children = children;
 module.exports.branch = branch;
+module.exports.breadcrumbs = breadcrumbs;
 module.exports.get_id = get_id;
 module.exports.get_types = get_types;
 module.exports.get_docsets = get_docsets;

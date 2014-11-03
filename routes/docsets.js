@@ -49,3 +49,15 @@ exports.branch = function(req, res) {
         }
     });
 };
+
+exports.breadcrumbs = function(req, res) {
+    slash.get_id(req.params.uri).then(function(id) {
+        if (id == null) {
+            res.send([]);
+        } else {
+            slash.breadcrumbs(id).then(function(references){
+				res.send(references);
+			});
+        }
+    });
+};

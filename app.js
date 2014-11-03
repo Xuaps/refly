@@ -33,6 +33,7 @@ app.get('/api/types', docsets.get_types);
 app.get('/api/reference/:uri(*)', docsets.get);
 app.get('/api/references/:uri(*)', docsets.children);
 app.get('/api/referencesbranch/:uri(*)', docsets.branch);
+app.get('/api/referencesbreadcrumbs/:uri(*)', docsets.breadcrumbs);
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
   console.log("Express server listening on port " + app.get('port'));
