@@ -68,7 +68,6 @@ var TreeView = React.createClass({
 		}
         return (
             <div id="tree-view" className={cssclass}>
-                <div className="component-header"><a>Treeview</a></div>
                 <div className="component-content">
                     <ul>
                         {this.state.data}

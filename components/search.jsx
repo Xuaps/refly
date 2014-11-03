@@ -97,16 +97,18 @@ module.exports = React.createClass({
 		if(this.state.results.length>0){
         	return(
             <div id="search-view" className={cssclass}>
-                <fieldset>
-                    <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
-                    placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
-                    <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
-                </fieldset>
-					<div id="results">
-		                <ul id="resultlist">
-		                    {this.state.results}
-		                </ul>
-		            </div>
+                <div className="search-header">
+                    <fieldset>
+                        <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
+                        placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
+                        <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
+                    </fieldset>
+                </div>
+                <div id="results">
+                    <ul id="resultlist">
+                        {this.state.results}
+                    </ul>
+                </div>
             </div>
         	);
 		}else{
@@ -117,11 +119,13 @@ module.exports = React.createClass({
 			}
         	return(
             <div id="search-view" className={cssclass}>
-                <fieldset>
-                    <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
-                    placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
-                    <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
-                </fieldset>
+                <div className="search-header">
+                    <fieldset>
+                        <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
+                        placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
+                        <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
+                    </fieldset>
+                </div>
 					<div id="results">
 						{this.props.message}
 		            </div>
