@@ -9,7 +9,7 @@ routes = require('../components/routes.jsx');
 TestUtils = React.addons.TestUtils;
 Resultview = require('../components/resultview.jsx');
 
-describe('Search Component', function(){
+describe('ResultView Component', function(){
 
     describe('Initial State', function(){
         xit('should be empty', function(){
@@ -20,9 +20,9 @@ describe('Search Component', function(){
     });
 
     describe('Load reference', function(){
-        xit('should have all reference that contains "about"', function(){
+        it('should have loaded the selected reference', function(){
             React.renderComponent(routes, document.createElement('div'));
-            var searchc = TestUtils.renderIntoDocument(<Resultview/>);
+            var resultviewc = TestUtils.renderIntoDocument(<Resultview/>);
 			resultviewc.setProps({params: 
 			{docset: '/javascript', uri: 'javascript_reference/standard_built-in_objects/json/json.parse()'}});
 			expect(resultviewc.state.reference.uri)
