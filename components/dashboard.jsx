@@ -58,12 +58,12 @@ module.exports = React.createClass({
         return(
             <div id="content">
                 <header>
-                    <a href="/">
-                        <img src="/img/logo.png"/>
-                    </a>
                 </header>
                 <div id="left-pane">
 					{rows}
+                    <a className="logo" href="/">
+                        <img src="/img/white-logo.png"/>
+                    </a>
                 </div>
                 <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
             </div>
