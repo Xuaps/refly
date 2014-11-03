@@ -13,12 +13,14 @@ module.exports = React.createClass({
     },
 
 	componentDidMount: function(){
-		this.setFocus('#txtreference',this.props.search);
-		if(this.props.search==''){
+		var search = this.props.search || '';
+
+        this.setFocus('#txtreference', search);
+		if(search==''){
 			this.ToggleSearch(false);
 		}else{
 			this.ToggleSearch(true);
-			this.loadData(this.props.search);
+			this.loadData(search);
 		}
 	},
 
