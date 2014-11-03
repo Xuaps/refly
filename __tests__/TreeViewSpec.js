@@ -90,7 +90,8 @@ describe('TreeView Component', function(){
     var emulate_click_docset = function(parent,index, clicks){
         clicks = clicks || 1;
         var treenode = TestUtils.scryRenderedComponentsWithType(parent, <TreeNode/>)[index];
-        var link = TestUtils.findRenderedDOMComponentWithTag(treenode, 'a');
+        var links = TestUtils.scryRenderedDOMComponentsWithTag(treenode, 'a');
+        var link = links[links.length-1];
         for(var i=0;i<clicks;i++){
             TestUtils.Simulate.click(link);
         }
