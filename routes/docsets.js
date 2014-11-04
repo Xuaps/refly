@@ -56,7 +56,13 @@ exports.breadcrumbs = function(req, res) {
             res.send([]);
         } else {
             slash.breadcrumbs(id).then(function(references){
-				res.send(references);
+				list = []
+				for(key in references){
+					item = references[key]
+					list.push(
+					{docset: item.docset, reference: item.reference, type: item.type, uri: item.uri});
+				}
+				res.send(list);
 			});
         }
     });

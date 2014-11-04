@@ -84,23 +84,25 @@ var branch = function(id){
 	});
 }
 
-var breadcrumbs = function(id){
-	var promises = [];
-	firstitem = get_by_id(id);
-	promises.push(firstitem);
-	return firstitem.then(function(ref){
-			promises.push((ref.parent_id!=null) ? breadcrumbs(ref.parent_id): ref);
-			return q.all(promises);
+var breadcrumbs = function(id, breadcrumb_collection){
+	var breadcrumb = breadcrumb_collection || [];
+	
+	return get_by_id(id).then(function(ref){
+		breadcrumb.push(ref);
+		if(ref.parent_id != null)
+			return breadcrumbs(ref.parent_id, breadcrumb);
+		return breadcrumb;
 	});
 }
+
 
 var get_by_id = function(id){
 	docsets = new Docsets();
 	return docsets
         .filter('id', filters.operators.EQUALS, id)
-        .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_id'])
+        .select(['docset', 'reference', 'type', 'uri', 'parent_id'])
         .execute().then(function(references) {
-            return (references.length > 0) ? references[0].id : null;
+            return (references.length > 0) ? references[0] : null;
         });
 }
 

@@ -4,6 +4,7 @@ var Search = require('./search.jsx');
 var TreeView = require('./treeview.jsx');
 var Outline = require('./outline.jsx');
 var Resultview = require('./resultview.jsx');
+var Breadcrumbs = require('./breadcrumbs.jsx');
 
 
 var currentdisposition = {search: 'show', treeview: 'hide',outline: 'hide'};
@@ -58,6 +59,7 @@ module.exports = React.createClass({
         return(
             <div id="content">
                 <header>
+<Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                 </header>
                 <div id="left-pane">
 					{rows}

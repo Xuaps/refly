@@ -723,3 +723,10 @@ footer .copyright {
     filter: alpha(opacity=85);
     z-index: 999999999;
 }
+
+/* Breadcrumbs */
+
+.breadcrumbsul li{
+	float: left;
+	margin-right: 20px;
+}
