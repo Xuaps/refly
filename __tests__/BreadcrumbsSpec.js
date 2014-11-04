@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/breadcrumbs.jsx');
-var Resultview;
+var Breadcrumbs;
 var TestUtils;
 var routes;
 var React;
