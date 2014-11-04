@@ -27,6 +27,8 @@ function get (resource, filters) {
                 data = callback(_references[0]);
             }else if(resource==='branch'){
                 data = callback(_formattedreferences);
+            }else if(resource==='breadcrumbs'){
+                data = callback(_formattedreferences);
             }else{
                 data = callback(_references);
 
