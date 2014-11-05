@@ -90,8 +90,8 @@ module.exports = React.createClass({
                     <div className="center-content span4">
                         <h2>Working to make your job easier</h2>
                         <img src="/img/big-fly.png" className="floated"/>
-                        <span>Refly es la biblioteca de referencias en la que el programador podrá encontrar toda la información de los lenguajes más populares de la manera más rápida y fluida.</span>
-                        <span>Los refly bots recorren cientos de referencias para que puedas buscar y navegar por todas ellas desde Refly. Siempre actualizado, integrado con tu editor favorito y también offline.</span>
+                        <span>Refly is the reference library where programmers can find all the information of the most popular languages in the fastest and fluid way.</span>
+                        <span>Our bots travel hundreds of references for you to search and browse all from Refly. Always updated, integrated with your favorite editor, even offline.</span>
                     </div>
                 </div>
                 <div className="contact">

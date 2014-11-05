@@ -27,8 +27,9 @@ module.exports = React.createClass({
         if(this.state.initilized &&!this.state.reference){
             content = <div className="warning">
                         <h2>Referencia no encontrada</h2>
-                        <h3>{ String.fromCharCode(161) + 'Vaya! Alguien ha aplastado "sin querer" una de nuestras moscas y a' + String.fromCharCode(250) + 'n no hemos recopilado esa informaci' + String.fromCharCode(243) + 'n.'}</h3>
-                        <p>{'Haz una nueva b'+ String.fromCharCode(250) +'squeda o haz click '}<a href={'https://www.google.es/search?q=' + this.props.params.uri.split('/').pop() } target="_blank">{'aqu'+ String.fromCharCode(237) }</a>{' para ver los resultados de tu buscador favorito.'}</p>
+                        <h3>{'Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.'}</h3>
+                        <p>{'You can '}<a href={'/'+this.props.params.uri}>{'make a new search'}</a></p>
+                        <p>{'or click '}<a href={'javascript:history.back()'} target="_blank">{'here'}</a>{' to go back.'}</p>
                       </div>;
         }else if(this.state.initilized && this.state.reference){
             content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
