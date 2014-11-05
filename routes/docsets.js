@@ -49,3 +49,21 @@ exports.branch = function(req, res) {
         }
     });
 };
+
+exports.breadcrumbs = function(req, res) {
+    slash.get_id(req.params.uri).then(function(id) {
+        if (id == null) {
+            res.send([]);
+        } else {
+            slash.breadcrumbs(id).then(function(references){
+				list = []
+				for(key in references){
+					item = references[key]
+					list.push(
+					{docset: item.docset, reference: item.reference, type: item.type, uri: item.uri});
+				}
+				res.send(list);
+			});
+        }
+    });
+};

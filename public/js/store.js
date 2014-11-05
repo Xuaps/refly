@@ -7,6 +7,7 @@ function Api(){
     this._url_parent='/api/reference/';
     this._url_reference='/api/reference/';
     this._url_branch='/api/referencesbranch';
+	this._url_breadcrumbs = '/api/referencesbreadcrumbs';
 }
 
 Api.prototype._addUris = function(ref){
@@ -55,6 +56,14 @@ Api.prototype.get = function (resource, filters){
 			uri = '/' + filters.uri;
         return jQuery.ajax({
             url: this._url_branch + uri,
+            method: 'GET'
+        }).then(this._addUrisToReferences.bind(this));
+    }else if(resource==='breadcrumbs'){
+		uri = filters.uri;
+		if(uri.indexOf('/')>0)
+			uri = '/' + filters.uri;
+        return jQuery.ajax({
+            url: this._url_breadcrumbs + uri,
             method: 'GET'
         }).then(this._addUrisToReferences.bind(this));
     }else if(resource==='search'){

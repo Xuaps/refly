@@ -112,6 +112,15 @@ describe('Slash', function() {
 
    });
 
+   describe('Breadcrumbs', function(){
+       it("return the complete path of a given docsets", function(done){
+           var docsets = slash.breadcrumbs(24791).then(function(response){
+               expect(response.length).toEqual(2);
+           }).fin(done);           
+       });
+
+   });
+
    describe('Branch', function(){
 
        xit("return all reference from the same branch of a specific reference", function(done){
