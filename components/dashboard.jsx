@@ -67,7 +67,9 @@ module.exports = React.createClass({
                         <img src="/img/white-logo.png"/>
                     </a>
                 </div>
-                <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
+                <div className="right-pane">
+                    <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
+                </div>
             </div>
         );
     }
