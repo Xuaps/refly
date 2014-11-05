@@ -31,13 +31,13 @@ var Outline = React.createClass({
 		}
         if(item.uri==this.selecteduri){
 		symbols[item.type].push(
-        <li className="selected-item">
+        <li key="selecteditem" className="selected-item">
 			{item.reference}
         </li>
 		);
 		}else{
 		symbols[item.type].push(
-        <li>
+        <li key={'OLi' + item.ref_uri}>
 			<Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
         </li>
 							   );
@@ -45,7 +45,7 @@ var Outline = React.createClass({
 	}
 	for(var symbol in symbols){
 		items = symbols[symbol];
-        rows.push(<li><div className="outline-header"><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}</div><ul>{items}</ul></li>);
+        rows.push(<li key={symbol}><div className="outline-header"><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}</div><ul>{items}</ul></li>);
 	};
 	return(
       <div id="outline-view" key="OLC1" className={cssclass}>

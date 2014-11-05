@@ -11,7 +11,7 @@ var nodes = {
         return store.get('docset').then(function(response){
             var docs = [];
             response.forEach(function(doc){
-                docs.push(<TreeNode key={doc} type='docset' name={doc} config={config} parents={[doc]}/>);
+                docs.push(<TreeNode key={doc.path} path={doc.path} type='docset' name={doc.name} config={config} parents={[doc]}/>);
             });
             return docs;
         });
@@ -19,11 +19,11 @@ var nodes = {
 
     innerLevel: {
         loadData: function(config, parents){
-            return store.get('type', {'docset': parents[0]}).then(function(types){
+            return store.get('type', {'docset': parents[0].name}).then(function(types){
                 var treenodes = [];
                 types.forEach(function(type){
-                    var parents_path=parents.concat(type);
-                    treenodes.push(<TreeNode key={type} type={type} name={type} 
+                    var parents_path = parents.concat(type);
+                    treenodes.push(<TreeNode key={type.path} path={type.path} type={type.name} name={type.name} 
                         config={config} parents={parents_path}/>);
                 });
                 return treenodes;
@@ -32,12 +32,12 @@ var nodes = {
 
         innerLevel: {
             loadData: function(config, parents){
-                return store.get('treeviewreference', {'docset': parents[0], 'type': parents[1]})
+                return store.get('treeviewreference', {'docset': parents[0].name, 'type': parents[1].name})
                 .then(function(references){
                     var treenodes = [];
                     //TODO
                     references.forEach(function(ref){
-                        treenodes.push(<TreeNode key={'TVT' + ref.reference} type={ref.type} name={ref.reference} 
+                        treenodes.push(<TreeNode key={'TVT' + ref.reference} type={ref.type} name={ref.reference} path={ref.reference.toLowerCase()}
                             uri={ref.ref_uri} docset={ref.docset}/>);
                     });
                     return treenodes;

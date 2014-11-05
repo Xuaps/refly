@@ -4,7 +4,6 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
-var store = require('../public/js/store.js');
 var TreeNode = React.createClass({
     HIDE_CLASS: 'hide',
     SHOW_CLASS:'show',
@@ -28,7 +27,7 @@ var TreeNode = React.createClass({
         return (
             <li className={this.state.show?this.CHECKED_CLASS:''}>
                {item.uri?'':<a onClick={this.show}><div className='list-arrow'></div></a>}
-               {item.type==='docset'?<a onClick={this.show}><img src={'/img/languages/' + item.name + '-logo.png'} title={item.name} className="ry-language-source"/></a>:''}
+               {item.type==='docset'?<a onClick={this.show}><img src={'/img/languages/' + item.path + '-logo.png'} title={item.name} className="ry-language-source"/></a>:''}
                {link}
                <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
                <ul className={this.state.show?this.SHOW_CLASS:this.HIDE_CLASS}>

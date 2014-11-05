@@ -24,7 +24,7 @@ var Breadcrumbs = React.createClass({
 	for(index in this.state.data){
 		item=this.state.data[index];
 		rows.push(
-        <li>
+        <li key={'BCLi' + item.uri}>
 			<Link to='result' key={'BCL' + item.uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
         </li>);
 		}
