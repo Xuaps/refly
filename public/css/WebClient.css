@@ -160,8 +160,8 @@ header {
     background-position: 0px 8px;
     background-repeat: no-repeat;
 	float: left;
-    margin-right: 10px;
-    padding-left: 15px;
+    margin-right: 12px;
+    padding-left: 20px;
 }
 ul.breadcrumbsul li a {
     color: #39f;
@@ -171,6 +171,10 @@ ul.breadcrumbsul li a:hover {
 }
 ul.breadcrumbsul li:last-child a {
     color: #fff;
+    border-right: 3px solid #fdb436;
+    border-left: 3px solid #fdb436;
+    border-radius: 5px;
+    padding: 0 5px;
 }
 ul.breadcrumbsul li:last-child a:hover {
     color: #fdb436;

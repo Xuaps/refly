@@ -30,11 +30,9 @@ var Breadcrumbs = React.createClass({
 		}
 	return(
       <div id="breadcrumbs-view">
-          <div className="component-content">
-              <ul className="breadcrumbs-list" className="breadcrumbsul">
-                  {rows}
-              </ul>
-          </div>
+          <ul className="breadcrumbs-list" className="breadcrumbsul">
+              {rows}
+          </ul>
       </div>);
   },
 
