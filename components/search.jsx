@@ -33,11 +33,16 @@ module.exports = React.createClass({
 		event.persist();
 		if(event.target.value==''){
 			this.emptySearch(event);
-		}else{
-		    this.debouncedKeyUp(event.target.value).then(function (result) {
-		        this.loadData(result);
+		}else if(event.target.value.length>2){
+			if(event.keyCode==13){
+				this.loadData(event.target.value);
 				this.props.onKeyUpEvent(event);
-		    }.bind(this));
+			}else{
+				this.debouncedKeyUp(event.target.value).then(function (result) {
+				    this.loadData(result);
+					this.props.onKeyUpEvent(event);
+				}.bind(this));
+			}
 		}
     },
 
@@ -52,7 +57,7 @@ module.exports = React.createClass({
                 return function () {
                     deferred.resolve(innerValue);
                 }
-            })(value), 1000);
+            })(value), 800);
         this.timerId = timerId;
         
         return deferred.promise;

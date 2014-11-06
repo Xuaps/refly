@@ -88,7 +88,7 @@ var breadcrumbs = function(id, breadcrumb_collection){
 	var breadcrumb = breadcrumb_collection || [];
 	
 	return get_by_id(id).then(function(ref){
-		breadcrumb.push(ref);
+		breadcrumb.unshift(ref);
 		if(ref.parent_id != null)
 			return breadcrumbs(ref.parent_id, breadcrumb);
 		return breadcrumb;

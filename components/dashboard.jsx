@@ -50,7 +50,7 @@ module.exports = React.createClass({
 			if(component=='search'){
 				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(component=='treeview'){
-					rows.push(<TreeView key="treeviewcomp" visibility={action} onSetDisposition={this.handleDisposition} />);
+					rows.push(<TreeView key="treeviewcomp" visibility={action} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
 			}else if(component=='outline'){
 					rows.push(<Outline key="outlinecomp" visibility={action} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
