@@ -38,7 +38,7 @@ var nodes = {
                     //TODO
                     references.forEach(function(ref){
                         treenodes.push(<TreeNode key={'TVT' + ref.reference} type={ref.type} name={ref.reference} path={ref.reference.toLowerCase()}
-                            uri={ref.ref_uri} docset={ref.docset}/>);
+                            uri={ref.ref_uri} docset={ref.docset} />);
                     });
                     return treenodes;
                 });
@@ -50,10 +50,16 @@ var nodes = {
 var TreeView = React.createClass({
     getInitialState: function() {
         return {
-            data: []
+            data: [],
+			selected: undefined
         };
     },
-    
+
+	componentWillReceiveProps:  function(newProps) {
+		if(newProps.params)
+		this.setState({selected: {uri: newProps.params.uri, docset:newProps.params.docset}});
+	},
+
     componentWillMount: function(){
         nodes.loadData(nodes.innerLevel).then(function(docs){
             this.setState({data: docs});
@@ -66,11 +72,16 @@ var TreeView = React.createClass({
 		}else{
 			cssclass = "half-height";
 		}
+		
+		var data = this.state.data.map(function(d){			
+			d.props.selected = this.state.selected;	
+			return d;	
+		}.bind(this));
         return (
             <div id="tree-view" className={cssclass}>
                 <div className="component-content">
                     <ul>
-                        {this.state.data}
+                        {data}
                     </ul>
                </div>
             </div>
