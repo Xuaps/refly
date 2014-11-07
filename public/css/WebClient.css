@@ -282,6 +282,7 @@ ul.breadcrumbsul li:last-child a:hover {
 #outline-view {
     padding: 0;
     position: relative;
+    overflow: auto;
 }
 #outline-view .outline-header {
     background-color: #d2e4f7;
