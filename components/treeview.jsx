@@ -56,8 +56,8 @@ var TreeView = React.createClass({
     },
 
 	componentWillReceiveProps:  function(newProps) {
-		if(newProps.params)
-		this.setState({selected: {uri: newProps.params.uri, docset:newProps.params.docset}});
+		if(newProps.params && newProps.params.docset)
+			this.setState({selected: {uri: newProps.params.uri, docset:newProps.params.docset}});
 	},
 
     componentWillMount: function(){
@@ -77,6 +77,7 @@ var TreeView = React.createClass({
 			d.props.selected = this.state.selected;	
 			return d;	
 		}.bind(this));
+
         return (
             <div id="tree-view" className={cssclass}>
                 <div className="component-content">
