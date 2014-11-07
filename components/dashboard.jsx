@@ -59,13 +59,13 @@ module.exports = React.createClass({
         return(
             <div id="content">
                 <header>
-<Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
-                </header>
-                <div id="left-pane">
-					{rows}
                     <a className="logo" href="/">
                         <img src="/img/white-logo.png"/>
                     </a>
+                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
+                </header>
+                <div id="left-pane">
+					{rows}
                 </div>
                 <div className="right-pane">
                     <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>

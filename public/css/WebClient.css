@@ -190,14 +190,10 @@ ul.breadcrumbsul li:last-child a:hover {
     padding-top: 70px;
     position: relative;
 }
-#left-pane .logo {
-    position: absolute;
-    top: 0;
-    height: 70px;
-}
-#left-pane .logo img {
-    padding: 10px 0px 8px 20px;
+.logo img {
+    padding: 5px 10px 5px 15px;
     height: 100%;
+    float: left;
 }
 #left-pane .ry-input-text {
     width: 100%;
@@ -210,7 +206,7 @@ ul.breadcrumbsul li:last-child a:hover {
     height: 70px;
     position: absolute;
     top: 0;
-    padding-left: 90px;
+    padding-left: 17px;
     border-bottom: 2px solid #d2e4f7;
     padding-right: 17px;
     padding-top: 17px;
