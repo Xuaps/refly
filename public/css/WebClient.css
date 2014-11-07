@@ -759,3 +759,6 @@ footer .copyright {
     z-index: 999999999;
 }
 
+.selected{
+	font-weight: bold;
+}
