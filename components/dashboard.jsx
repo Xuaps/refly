@@ -17,7 +17,7 @@ module.exports = React.createClass({
 	},
 
 	componentWillMount: function(){
-		if(this.props.params && this.props.params.uri!=''){
+		if(this.props.params && this.props.params.splat){
 			this.handleDisposition({component: 'outline', action: 'show'});
 		}else{
 			this.handleDisposition({component: 'outline', action: 'hide'});
@@ -25,37 +25,47 @@ module.exports = React.createClass({
 	},
 
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.params && newProps.params.uri!=''){
+		if(newProps.params && newProps.params.splat){
 			this.handleDisposition({component: 'outline', action: 'show'});
 		}else{
-			this.handleDisposition({component: 'outline', action: 'hide'});
+			if(this.state.currentdisposition.outline.action!='show')
+				this.handleDisposition({component: 'outline', action: 'hide'});
 		}
 	},
 
+	checkOutline: function(disposition){
+		if(disposition.outline.action == 'show'){
+			disposition.treeview.state= 'half';
+			disposition.search.state= 'half';
+		}else{
+			disposition.treeview.state= 'full';
+			disposition.search.state= 'full';
+		}
+		return disposition;
+	},
+
 	handleDisposition: function(_disposition){
-		var newdisposition = currentdisposition;
-		for(key in currentdisposition){
-			current=currentdisposition[key];
+		var newdisposition = this.state.currentdisposition;
+		for(key in this.state.currentdisposition){
+			current = this.state.currentdisposition[key];
 			if(key ==_disposition.component){
 				if(current.action!=_disposition.action){
+					newdisposition[key].action = _disposition.action;
 					if(_disposition.component=='search'){
-						newdisposition[key].action = _disposition.action;
 						newdisposition.treeview.action = inversevalues[_disposition.action];
-						this.setState({currentdisposition: newdisposition});
-					}else{
-						newdisposition[key].action = _disposition.action;
-						this.setState({currentdisposition: newdisposition});
 					}
+					newdisposition = this.checkOutline(newdisposition);
+					this.setState({currentdisposition: newdisposition});
+					
 				}
 			}
-		}
-		currentdisposition = newdisposition;		
+		}	
 	},
 
     render: function(){
 		rows = [];
-		for(componentkey in currentdisposition){
-			current = currentdisposition[componentkey];
+		for(componentkey in this.state.currentdisposition){
+			current = this.state.currentdisposition[componentkey];
 			if(componentkey=='search'){
 				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={current} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(componentkey=='treeview'){

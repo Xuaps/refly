@@ -71,6 +71,8 @@ var TreeView = React.createClass({
 			cssclass = "half-height hide";
 		}else{
 			cssclass = "half-height";
+			if(this.props.visibility.state=='full')
+			cssclass = "full-height";
 		}
 		
 		var data = this.state.data.map(function(d){			
