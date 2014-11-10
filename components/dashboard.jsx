@@ -7,7 +7,7 @@ var Resultview = require('./resultview.jsx');
 var Breadcrumbs = require('./breadcrumbs.jsx');
 
 
-var currentdisposition = {search: 'show', treeview: 'hide',outline: 'hide'};
+var currentdisposition = {search: {action:'show', state: 'full'}, treeview: {action: 'hide', state: 'full'}, outline: {action: 'hide', state: 'half'}};
 var inversevalues = {show: 'hide',hide: 'show'};
 
 module.exports = React.createClass({
@@ -34,16 +34,16 @@ module.exports = React.createClass({
 
 	handleDisposition: function(_disposition){
 		var newdisposition = currentdisposition;
-		for(component in currentdisposition){
-			action=currentdisposition[component];
-			if(component==_disposition.component){
-				if(action!=_disposition.action){
+		for(key in currentdisposition){
+			current=currentdisposition[key];
+			if(key ==_disposition.component){
+				if(current.action!=_disposition.action){
 					if(_disposition.component=='search'){
-						newdisposition.search = _disposition.action;
-						newdisposition.treeview = inversevalues[_disposition.action];
+						newdisposition[key].action = _disposition.action;
+						newdisposition.treeview.action = inversevalues[_disposition.action];
 						this.setState({currentdisposition: newdisposition});
 					}else{
-						newdisposition[component] = _disposition.action;
+						newdisposition[key].action = _disposition.action;
 						this.setState({currentdisposition: newdisposition});
 					}
 				}
@@ -54,14 +54,14 @@ module.exports = React.createClass({
 
     render: function(){
 		rows = [];
-		for(component in currentdisposition){
-			action = currentdisposition[component];
-			if(component=='search'){
-				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={action} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
-			}else if(component=='treeview'){
-					rows.push(<TreeView key="treeviewcomp" visibility={action} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
-			}else if(component=='outline'){
-					rows.push(<Outline key="outlinecomp" visibility={action} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
+		for(componentkey in currentdisposition){
+			current = currentdisposition[componentkey];
+			if(componentkey=='search'){
+				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={current} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
+			}else if(componentkey=='treeview'){
+					rows.push(<TreeView key="treeviewcomp" visibility={current} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
+			}else if(componentkey=='outline'){
+					rows.push(<Outline key="outlinecomp" visibility={current} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		

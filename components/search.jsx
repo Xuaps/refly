@@ -94,7 +94,7 @@ module.exports = React.createClass({
     },
 
     render: function(){
-		if(this.props.visibility=='hide'){
+		if(this.props.visibility.action=='hide'){
 			cssclass = "half-height collapse";
 		}else{
 			cssclass = "half-height";
