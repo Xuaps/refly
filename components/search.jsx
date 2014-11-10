@@ -118,9 +118,9 @@ module.exports = React.createClass({
         	);
 		}else{
 			if(this.props.search!='' && this.props.message!=''){
-				this.props.message = "Reference not found!"
+				this.props.message = <div className="search-message">Reference not found!</div>
 			}else{
-				this.props.message = "Loading results..."
+				this.props.message = <div className="search-message">Loading results...</div>
 			}
         	return(
             <div id="search-view" className={cssclass}>
