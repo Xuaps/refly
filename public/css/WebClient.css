@@ -567,6 +567,7 @@ footer {
     position: absolute;
     bottom: 0;
     height: 60px;
+    background-color: #fff;
 }
 footer .center-block {
     margin: 0 auto;
