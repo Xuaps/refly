@@ -2,6 +2,13 @@
 var React = require('react')
 
 module.exports = React.createClass({
+
+    onKeyUp: function(event){
+		if(event.target.value!=''){
+			this.props.onKeyUpEvent(event);
+		}
+    },
+
     render: function(){
         return(
             <div>
@@ -12,7 +19,7 @@ module.exports = React.createClass({
                     <img src="/img/refly.png"/>
                     <fieldset>
                         <div id='ry-homesearch'>
-                            <input id="txtreference" onKeyUp={this.props.onKeyUpEvent} type="text" name="reference" placeholder="Reference" className="ry-input-text" autoFocus />
+                            <input id="txtreference" onKeyUp={this.onKeyUp} type="text" name="reference" placeholder="Reference" className="ry-input-text" autoFocus />
                             <button className='ry-icon fa-search' type='submit'></button>
                         </div>
                     </fieldset>
