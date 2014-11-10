@@ -762,6 +762,12 @@ footer .copyright {
     z-index: 999999999;
 }
 
-.selected{
-	font-weight: bold;
+#tree-view .selected a {
+    font-weight: bold;
+    border-left: 3px solid #fdb436;
+    color: #333;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 3px 0 3px 5px;
 }
