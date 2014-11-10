@@ -36,3 +36,17 @@ h1, h2 {
     padding: 10px;
     white-space: pre-line;
 }
+.team-block {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.team-member {
+    width: 33%;
+    padding: 20px 20px 0;
+    float: left;
+    text-align: center;
+}
+.team-member img {
+    width: 100%;
+}
