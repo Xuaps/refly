@@ -15,8 +15,17 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		return {currentdisposition: currentdisposition};
 	},
+
+	componentWillMount: function(){
+		if(this.props.params && this.props.params.uri!=''){
+			this.handleDisposition({component: 'outline', action: 'show'});
+		}else{
+			this.handleDisposition({component: 'outline', action: 'hide'});
+		}
+	},
+
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.params.splat!=undefined && newProps.params.splat!=''){
+		if(newProps.params && newProps.params.uri!=''){
 			this.handleDisposition({component: 'outline', action: 'show'});
 		}else{
 			this.handleDisposition({component: 'outline', action: 'hide'});
