@@ -9,6 +9,7 @@
     "URIjs": "^1.14.1",
     "config": "^0.4.36",
     "express": "~3.3.4",
+    "express-hal": "0.0.1",
     "jquery-browserify": "^1.8.1",
     "knex": "^0.6.16",
     "pg": "^3.3.0",
