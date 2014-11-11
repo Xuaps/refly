@@ -16,12 +16,11 @@ var Outline = React.createClass({
   },
 
   render: function() {
-	if(this.props.visibility=='hide'){
+	if(this.props.visibility.action=='hide'){
 		cssclass = "half-height hide";
 	}else{
 		cssclass = "half-height";
 	}
-	var visibility = this.props.visibility;
 	var rows = [];
 	var symbols = {};
 	for(index in this.state.data){
