@@ -5,7 +5,7 @@ html {
     background-color: #333;
 }
 p {
-    margin: 20px 0;
+    margin: 10px 0;
 }
 h1, h2 {
     border-left: 3px solid #fdb436;
@@ -16,13 +16,14 @@ h1, h2 {
     line-height: normal;
     height: initial;
     padding-left: 10px;
+    margin: 30px 0 20px;
 }
 #main {
     background-color: #f5f7f7;
     width: 800px;
     min-height: 100%;
     margin: 0 auto;
-    padding: 60px 40px;
+    padding: 50px 40px;
     text-align: justify;
     border-left: 2px solid #d2e4f7;
     border-right: 2px solid #d2e4f7;
@@ -34,12 +35,10 @@ h1, h2 {
     -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 10px;
-    white-space: pre-line;
 }
 .team-block {
     width: 100%;
     display: inline-block;
-    margin-bottom: 20px;
 }
 .team-member {
     width: 33%;
@@ -49,4 +48,8 @@ h1, h2 {
 }
 .team-member img {
     width: 100%;
+    border-left: 3px solid #fdb436;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
