@@ -34,11 +34,18 @@ app.get('/api', function(req, res){
     res.set('Content-Type', 'application/hal+json');
     res.hal(api.entry());
 });
+app.get('/api/references/:docset/:uri(*)', function(req, res){
+    api.get_reference(req.params.docset, req.params.uri)
+        .then(function(hal){
+            res.set('Content-Type', 'application/hal+json');
+            res.hal(hal);
+        });
+});
 app.get('/api/references?', docsets.search);
 app.get('/api/docsets?', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
-app.get('/api/reference/:uri(*)', docsets.get);
-app.get('/api/references/:uri(*)', docsets.children);
+//app.get('/api/reference/:uri(*)', docsets.get);
+//app.get('/api/references/:uri(*)', docsets.children);
 app.get('/api/referencesbranch/:uri(*)', docsets.branch);
 app.get('/api/referencesbreadcrumbs/:uri(*)', docsets.breadcrumbs);
 
