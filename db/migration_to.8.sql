@@ -8,4 +8,5 @@ UPDATE refs SET parent_uri = (SELECT uri FROM refs a WHERE CAST(a.id as text)= p
 ALTER TABLE refs
   ADD CONSTRAINT refs_parent_uri_fkey FOREIGN KEY (parent_uri)
       REFERENCES refs (uri) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+      DEFERRABLE;

@@ -14,7 +14,8 @@ CREATE TABLE refs
   CONSTRAINT refs_pkey PRIMARY KEY (id),
   CONSTRAINT refs_parent_uri_fkey FOREIGN KEY (parent_uri)
       REFERENCES refs (uri) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+      DEFERRABLE,
   CONSTRAINT unique_refrence UNIQUE (reference, docset, parent_uri),
   CONSTRAINT unique_uri UNIQUE (uri)
 )
