@@ -12,11 +12,14 @@ var search = function(options) {
         .execute();
 };
 
-var get = function(identity){
+var get = function(uri){
+	if(uri[0]!='/'){
+		uri = '/' + uri;
+	}
 	docsets = new Docsets();
 	return docsets
-        .filter('uri', filters.operators.EQUALS, '/' + identity)
-        .select(['docset', 'reference', 'type', 'content', 'uri'])
+        .filter('uri', filters.operators.EQUALS, uri)
+        .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_uri'])
         .execute().then(function(references) {
             return references[0];
         });
@@ -62,35 +65,34 @@ var get_id = function(identity){
         });
 }
 
-var children = function(id){
+var children = function(uri){
 	docsets = new Docsets();
 	return docsets
-        .filter('parent_id', filters.operators.EQUALS, id)
+        .filter('parent_uri', filters.operators.EQUALS, uri)
         .select(['docset', 'reference', 'type', 'uri'])
         .execute();
 }
 
-var branch = function(id){
-	var promises = [];
-	firstchildren = children(id);
-	promises.push(firstchildren);
+var branch = function(uri, branch_collection){
+	var branchlist = branch_collection || [];
+	firstchildren = children(uri);
 	return firstchildren.then(function(references){
-		
-		references.forEach(function(child){
-			promises.push(get_id(child.uri).then(function(id){
-			return (id!=null) ? branch(id) : [{reference: child.reference, uri: child.uri}];}));
+		branchlist.push(references);
+		references.forEach(function(ref){
+			if(ref.parent_uri!=null)
+				branch(ref.uri,branchlist);
 		});
-		return q.all(promises);
+		return branchlist;
 	});
 }
 
-var breadcrumbs = function(id, breadcrumb_collection){
+var breadcrumbs = function(uri, breadcrumb_collection){
 	var breadcrumb = breadcrumb_collection || [];
 	
-	return get_by_id(id).then(function(ref){
+	return get(uri).then(function(ref){
 		breadcrumb.unshift(ref);
-		if(ref.parent_id != null)
-			return breadcrumbs(ref.parent_id, breadcrumb);
+		if(ref.parent_uri != null)
+			return breadcrumbs(ref.parent_uri, breadcrumb);
 		return breadcrumb;
 	});
 }
@@ -99,8 +101,8 @@ var breadcrumbs = function(id, breadcrumb_collection){
 var get_by_id = function(id){
 	docsets = new Docsets();
 	return docsets
-        .filter('id', filters.operators.EQUALS, id)
-        .select(['docset', 'reference', 'type', 'uri', 'parent_id'])
+        .filter('id', filters.operators.EQUALS, uri)
+        .select(['docset', 'reference', 'type', 'uri', 'parent_uri'])
         .execute().then(function(references) {
             return (references.length > 0) ? references[0] : null;
         });
