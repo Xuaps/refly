@@ -48,32 +48,35 @@ exports.children = function(req, res) {
 };
 
 exports.branch = function(req, res) {
-    slash.get_id(req.params.uri).then(function(id) {
-        if (id == null) {
-            res.send([]);
-        } else {
-            slash.branch(id).then(function(references){
-				list = JSON.Flatten(references);
-				res.send(list);
-			});
-        }
-    });
+	if(req.params.uri[0]!='/'){
+		uri = '/' + req.params.uri;
+	}
+    if (uri == null) {
+        res.send([]);
+    } else {
+        slash.branch(uri).then(function(references){
+			list = JSON.Flatten(references);
+			res.send(list);
+		});
+    }
 };
 
 exports.breadcrumbs = function(req, res) {
-    slash.get_id(req.params.uri).then(function(id) {
-        if (id == null) {
-            res.send([]);
-        } else {
-            slash.breadcrumbs(id).then(function(references){
-				list = []
-				for(key in references){
-					item = references[key]
-					list.push(
-					{docset: item.docset, reference: item.reference, type: item.type, uri: item.uri});
-				}
-				res.send(list);
-			});
-        }
-    });
+	if(req.params.uri[0]!='/'){
+		uri = '/' + req.params.uri;
+	}
+
+    if (uri == null) {
+        res.send([]);
+    } else {
+        slash.breadcrumbs(uri).then(function(references){
+			list = []
+			for(key in references){
+				item = references[key]
+				list.push(
+				{docset: item.docset, reference: item.reference, type: item.type, uri: item.uri});
+			}
+			res.send(list);
+		});
+    }
 };
