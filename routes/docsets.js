@@ -36,14 +36,8 @@ exports.get_types = function(req, res) {
 };
 
 exports.children = function(req, res) {
-    slash.get_id(req.params.uri).then(function(id) {
-        if (id == null) {
-            res.send([]);
-        } else {
-            slash.children(id).then(function(references) {
-                res.send(references);
-            });
-        }
+    slash.children('/' + req.params.uri).then(function(references) {
+        res.send(references);
     });
 };
 
