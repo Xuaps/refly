@@ -55,6 +55,15 @@ var TreeView = React.createClass({
         };
     },
 
+    getDefaultProps: function() {
+      return {
+        visibility: {
+            action: 'show',
+            state: 'half'
+        }
+      };
+    },
+
 	componentWillReceiveProps:  function(newProps) {
 		if(newProps.params && newProps.params.docset)
 			this.setState({selected: {uri: newProps.params.uri, docset:newProps.params.docset}});

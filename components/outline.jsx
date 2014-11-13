@@ -6,9 +6,19 @@ var store = require('../public/js/store.js');
 
 var Outline = React.createClass({
   getInitialState: function() {
-	return {data: []};
+	return {
+        data: []
+    };
   },
 
+  getDefaultProps: function() {
+    return {
+      visibility: {
+          action: 'show',
+          state: 'half'
+      }
+    };
+  },
 
   componentWillReceiveProps: function (newProps) {
 	if(newProps.params && newProps.params.uri!=undefined)
