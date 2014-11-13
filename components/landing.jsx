@@ -12,6 +12,9 @@ module.exports = React.createClass({
     render: function(){
         return(
             <div>
+                <div className="beta">
+                    <span>BETA</span>
+                </div>
                 <div className="trazo">
                     <img src="/img/trazo.png" />
                 </div>
