@@ -107,13 +107,15 @@ module.exports = React.createClass({
                 <div className="contact">
                     <div className="center-content span3">
                         <h2>What can we do for you?</h2>
-                        <input placeholder="name" type="text" name="name" className="ry-input-text"/>
-                        <input placeholder="email" type="text" name="email" className="ry-input-text"/>
-                        <textarea placeholder="message" name="message" className="ry-input-text"></textarea>
-                        <input type="submit" value="Send" className="ry-btn floated-right"/>
+                        <form action="http://getsimpleform.com/messages?form_api_token=6b30dc7d52fdeb7892dab94c7fe955b7" method="post">
+                            <input placeholder="name" type="text" name="name" className="ry-input-text"/>
+                            <input placeholder="email" type="text" name="email" className="ry-input-text"/>
+                            <textarea placeholder="message" name="message" className="ry-input-text"></textarea>
+                            <input type="submit" value="Send" className="ry-btn floated-right"/>
+                        </form>
                     </div>
                 </div>
             </div>
-        )    
+        );    
     }
 });
