@@ -367,6 +367,7 @@ ul.breadcrumbsul li:last-child a:hover {
     padding: 20px;
     height: 100%;
     overflow: auto;
+    font-size: 1em;
 }
 .result h3 {
     margin-top: 1.5em;
@@ -400,6 +401,7 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 .result table td {
     padding: 10px;
+    font-family: initial;
 }
 .result table code {
     background-color: inherit;
