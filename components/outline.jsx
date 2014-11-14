@@ -68,20 +68,11 @@ var Outline = React.createClass({
 
   loadData: function(params){
     var refuri = params.docset+'/'+params.uri;
-	return store.get('parent', {'uri': refuri})
-    .then(function(parent){
-		if(parent.uri==undefined){
-			this.setState({data: []});
-			this.props.onSetDisposition({component: 'outline', action: 'hide'});
-		}else{
-			store.get('branch', {'uri': parent.uri})
+	return store.get('branch', {'uri': refuri})
 			.then(function(data){
-				data.unshift(parent);
 				this.selecteduri = '/' + refuri;
 				this.setState({data: data});
 			}.bind(this));
-		}
-	}.bind(this));
   }
 });
 
