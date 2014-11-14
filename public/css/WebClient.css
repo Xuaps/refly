@@ -159,16 +159,24 @@ header {
 
 /* Breadcrumbs */
 
+#breadcrumbs-view {
+    display: block;
+    overflow: auto;
+    margin: 17px 20px 0 0;
+}
 .breadcrumbsul {
     list-style: none;
-    margin: 16px 0;
-    font-size: 1.2em;
+    line-height: 1.4em;
+    margin: 0 10px 0 0;
+    overflow: visible;
+    padding: 0;
+    white-space: nowrap;
 }
 .breadcrumbsul li{
     background-image: url("../img/breadcrumb-list.png");
-    background-position: 0px 8px;
+    background-position: 0px 7px;
     background-repeat: no-repeat;
-	float: left;
+	display: inline-block;
     margin-right: 12px;
     padding-left: 20px;
 }
@@ -184,6 +192,8 @@ ul.breadcrumbsul li:last-child a {
     border-left: 3px solid #fdb436;
     border-radius: 5px;
     padding: 0 5px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 ul.breadcrumbsul li:last-child a:hover {
     color: #fdb436;
