@@ -680,68 +680,79 @@ footer .copyright {
     margin-left: -50px;
     top: 0;
 }
+
+/* docsets */
+.docsets {
+    background-color: white;
+    color: #3399FF;
+    background-color: #efefef;
+    padding: 25px 0 75px;
+    margin-top: 218px;
+}
 .docsets h2 {
     display: inline-block;
     padding: 0 10px;
 }
-.docsets {
-    background-color: white;
-    color: #3399FF;
-    background-color: #eeefef;
-    padding: 25px 0 75px;
-    margin-top: 218px;
-}
-.docsets .ry-table {
-    color: #3399FF;
+.docsets .docsets-container {
+    width: 100%;
     text-align: center;
-    margin-top: 60px;
-    width: 100%;
-    border-collapse: collapse;
 }
-.docsets .ry-table-header {
-    color: #FDB231;
-    padding: 5px;
-}
-.docsets .ry-table-row {
-    float: left;
-    width: 100%;
+.docsets .item {
     background-color: #fff;
-    border: 1px solid #ccc;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin: 10px;
+    width: 250px;
+    display: inline-block;
+    position: relative;
+    opacity: 0.8;
+}
+.docsets .item:hover {
+    opacity: 1;
+}
+.docsets .docset-logo {
     padding: 10px;
 }
-.docsets .ry-table-row:hover {
-    background-color: #FFF;
-    border: 1px solid #fdb436;
-}
-.docsets .ry-table-row div {
-    float: left;
-    width: 20%;
-}
-.docsets .ry-table-row span {
-    margin-top: 8px;
-    float: left;
+.docsets .docset-robot {
+    padding: 10px;
+    background-color: #ececec;
     width: 100%;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
-.docsets table td {
-    margin: 0;
-    padding: 5px;
+.docsets .docset-robot img {
+    width: 30px;
 }
-.docsets table tbody tr {
+.docsets .docset-date {
+    font-family: initial;
+    padding: 3px;
+    color: #fff;
+    width: 100%;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
-.docsets table td.docset-logo {
-    text-align: right;
-}
-.docsets table td.docset-name {
+.docsets .docset-state {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 .ok-state {
-    color: green;
+    background-color: green;
+}
+.next-state {
+    background-color: blue;
 }
 .off-state {
-    color: red;
+    background-color: red;
 }
 .description {
     background-color: #333;

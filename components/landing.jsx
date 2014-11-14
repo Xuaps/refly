@@ -30,69 +30,25 @@ module.exports = React.createClass({
                 <div className="docsets">
                     <div className="center-content centered-text span3">
                         <h2>Our flies are searching all day for you</h2>
-                        <div className="ry-table">
-                            <div className="ry-table-body">
-                                <div className="ry-table-row">
+                        <div className="docsets-container">
+                            <a href="/javascript/javascript_reference" title="javascript">
+                                <div className="item">
+                                    <img className="docset-state" src="/img/new-stick.png"/>
                                     <div className="docset-logo">
-                                        <img src="/img/languages/java-logo.png" title="java"/>
+                                        <img src="/img/languages/javascript-biglogo.jpg"/>
                                     </div>
-                                    <div className="docset-name"><a><span>java</span></a>
-                                    </div>
-                                    <div className="docset-robot">
-                                        <img src="/img/red-robot.png" title="redfly"/>
-                                    </div>
-                                    <div className="docset-state ok-state"><span>ready</span></div>
-                                    <div><span>17/11/2012</span></div>
+                                    <div className="docset-date ok-state">Nov-13-2014</div>
                                 </div>
-                                <div className="ry-table-row">
+                            </a>
+                            <a href="" title="nodejs">
+                                <div className="item">
+                                    <img className="docset-state" src="/img/soon-stick.png"/>
                                     <div className="docset-logo">
-                                        <img src="/img/languages/javascript-logo.png" title="js"/>
+                                        <img src="/img/languages/node-biglogo.jpg" title="nodejs"/>
                                     </div>
-                                    <div className="docset-name"><a><span>javascript</span></a>
-                                    </div>
-                                    <div className="docset-robot">
-                                        <img src="/img/blue-robot.png" title="bluefly"/>
-                                    </div>
-                                    <div className="docset-state off-state"><span>resting</span></div>
-                                    <div><span>07/05/2013</span></div>
+                                    <div className="docset-date off-state">Nov-xx-2014</div>
                                 </div>
-                                <div className="ry-table-row">
-                                    <div className="docset-logo">
-                                        <img src="/img/languages/php-logo.png" title="php"/>
-                                    </div>
-                                    <div className="docset-name"><a><span>php</span></a>
-                                    </div>
-                                    <div className="docset-robot">
-                                        <img src="/img/yellow-robot.png" title="yellowfly"/>
-                                    </div>
-                                    <div className="docset-state ok-state"><span>flying</span></div>
-                                    <div><span>15/09/2014</span></div>
-                                </div>
-                                <div className="ry-table-row">
-                                    <div className="docset-logo">
-                                        <img src="/img/languages/haskell-logo.png" title="haskell"/>
-                                    </div>
-                                    <div className="docset-name"><a><span>haskell</span></a>
-                                    </div>
-                                    <div className="docset-robot">
-                                        <img src="/img/blue-robot.png" title="bluefly"/>
-                                    </div>
-                                    <div className="docset-state ok-state"><span>ready</span></div>
-                                    <div><span>07/01/2013</span></div>
-                                </div>
-                                <div className="ry-table-row">
-                                    <div className="docset-logo">
-                                        <img src="/img/languages/ruby-logo.png" title="ruby"/>
-                                    </div>
-                                    <div className="docset-name"><a><span>ruby</span></a>
-                                    </div>
-                                    <div className="docset-robot">
-                                        <img src="/img/green-robot.png" title="greenfly"/>
-                                    </div>
-                                    <div className="docset-state off-state"><span>resting</span></div>
-                                    <div><span>24/02/2013</span></div>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
