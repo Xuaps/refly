@@ -58,6 +58,15 @@ h1 {
     line-height: 100px;
     height: 100px;
 }
+h2 {
+    margin-top: 1.5em;
+    border-left: 3px solid #fdb436;
+    color: #333;
+    padding-left: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 p {
     margin-top: 5px;
 }
@@ -66,7 +75,7 @@ code {
 }
 pre {
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -343,20 +352,11 @@ ul.breadcrumbsul li:last-child a:hover {
     padding-top: 70px;  
 }
 .result {
-    background-color: #f5f7f7;
+    background-color: #ececec;
     width: 70%;
     padding: 20px;
     height: 100%;
     overflow: auto;
-}
-.result h2 {
-    margin-top: 2em;
-    border-left: 3px solid #fdb436;
-    color: #333;
-    padding-left: 10px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
 }
 .result h3 {
     margin-top: 1.5em;
@@ -479,8 +479,8 @@ td.separator {
 }
 .ry-input-text {
     color: #333;
-    background-color: #f5f7f7;
-    border: 2px solid #ffffff;
+    background-color: #fff;
+    border: 2px solid #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -542,8 +542,9 @@ textarea.ry-input-text {
     font-weight: bold;
     font-size: 1em;
 }
-.ry-btn:hover {
+.ry-btn:hover, .ry-btn:focus {
     background-color: #fdb436;
+    outline: 0 none;
 }
 #center {
     position: absolute;
@@ -624,11 +625,11 @@ footer .copyright {
 
 .beta {
     position: absolute;
-    top: 187px;
+    top: 180px;
     left: 50%;
     z-index: 100;
     font-size: 10px;
-    background-color: red;
+    background-color: #f00;
     padding: 2px 5px;
     color: white;
     font-weight: bold;
@@ -638,31 +639,28 @@ footer .copyright {
 }
 .trazo {
     position: absolute;
-    top: 45px;
+    top: 36px;
     left: 50%;
     z-index: 100;
 }
 .bg-flywing {
-    background-image: url('../img/fly_texture.png');
+    /* background-image: url('../img/fly_texture.png'); */
     background-position: bottom;
     background-size: 330px;
     background-repeat: repeat-x;
-    -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 3px 10px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 3px 10px 0px rgba(50, 50, 50, 0.75);
 }
 .searchbox {
-    background-color: #eeefef;
-    text-align: center;
-    padding: 60px 0 60px;
-    margin-bottom: 30px;
+    background-color: #333;
+    padding: 40px 0;
     position: absolute;
-    width: 100%;
+    text-align: center;
     top: 0;
+    width: 100%;
+    height: 290px;
 }
 .searchbox img {
     height: 120px;
-    margin: 10px;
+    margin: 20px;
 }
 .header-fly {
     position: absolute;
@@ -670,11 +668,16 @@ footer .copyright {
     margin-left: -50px;
     top: 0;
 }
+.docsets h2 {
+    display: inline-block;
+    padding: 0 10px;
+}
 .docsets {
     background-color: white;
     color: #3399FF;
-    padding: 60px 0 80px;
-    margin-top: 212px;
+    background-color: #eeefef;
+    padding: 25px 0 75px;
+    margin-top: 218px;
 }
 .docsets .ry-table {
     color: #3399FF;
@@ -690,14 +693,11 @@ footer .copyright {
 .docsets .ry-table-row {
     float: left;
     width: 100%;
-    background-color: #ececec;
-    border: 1px solid #39F;
+    background-color: #fff;
+    border: 1px solid #ccc;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 3px 10px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 3px 10px 0px rgba(50, 50, 50, 0.75);
     margin-bottom: 10px;
     padding: 10px;
 }
@@ -732,15 +732,15 @@ footer .copyright {
     color: red;
 }
 .description {
-    background-color: #3399FF;
-    padding: 60px 0;
+    background-color: #333;
+    padding: 25px 0 60px;
     background-size: cover;
     text-align: justify;
     color: white;
     font-size: 1.2em;
-    -webkit-box-shadow: 0px -3px 10px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px -3px 10px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px -3px 10px 0px rgba(50, 50, 50, 0.75);
+}
+.description h2 {
+    color: white;
 }
 .description span {
     width: 520px;
@@ -750,15 +750,21 @@ footer .copyright {
 .contact {
     font-size: 1.2em;
     background-color: #ececec;
-    padding: 60px 0;
-    background-image: url("../img/big-bluefly.png");
+    padding: 25px 0 55px;
+    background-image: url("../img/big-whitefly.png");
     background-repeat: no-repeat;
     background-position: center top;
-    color: #3399FF;
 }
 .contact input.ry-input-text {
     width: 100%;
     margin-bottom: 15px;
+}
+.contact .ry-input-text {
+    border: 2px solid #ccc;
+    margin: 0 0 15px 0;
+}
+.contact .ry-input-text:focus {
+    border: 2px solid #fdb436;
 }
 
 /* Cookies */

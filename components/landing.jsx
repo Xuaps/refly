@@ -28,8 +28,8 @@ module.exports = React.createClass({
                     </fieldset>
                 </div>
                 <div className="docsets">
-                    <div className="center-content span3">
-                        <h2 className="centered-text">Our flies are searching all day for you</h2>
+                    <div className="center-content centered-text span3">
+                        <h2>Our flies are searching all day for you</h2>
                         <div className="ry-table">
                             <div className="ry-table-body">
                                 <div className="ry-table-row">
