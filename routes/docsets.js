@@ -48,7 +48,7 @@ exports.branch = function(req, res) {
     if (uri == null) {
         res.send([]);
     } else {
-        slash.branch(uri).then(function(references){
+        slash.branch(uri,1).then(function(references){
 			list = JSON.Flatten(references);
 			res.send(list);
 		});

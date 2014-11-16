@@ -73,16 +73,20 @@ var children = function(uri){
         .execute();
 }
 
-var branch = function(uri, branch_collection){
+var branch = function(uri, level,branch_collection){
 	var branchlist = branch_collection || [];
-	firstchildren = children(uri);
-	return firstchildren.then(function(references){
-		branchlist.push(references);
-		references.forEach(function(ref){
-			if(ref.parent_uri!=null)
-				branch(ref.uri,branchlist);
+	var currentlevel = level || 1;
+	return get(uri).then(function(ref){
+		branchchildren = children(ref.uri)
+		return branchchildren.then(function(references){
+			branchlist.push(references);
+			if(ref.parent_uri != null && currentlevel>0){
+				return branch(ref.parent_uri, currentlevel-1,branchlist);
+			}else{
+				return branchlist;
+			}
+
 		});
-		return branchlist;
 	});
 }
 
