@@ -75,7 +75,7 @@ var children = function(uri){
 
 var branch = function(uri, level,branch_collection){
 	var branchlist = branch_collection || [];
-	var currentlevel = level || 1;
+	var currentlevel = level;
 	return get(uri).then(function(ref){
 		branchchildren = children(ref.uri)
 		return branchchildren.then(function(references){

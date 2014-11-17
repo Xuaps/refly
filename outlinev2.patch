@@ -1,0 +1,98 @@
+From 442162935b893d4c46f50a2af8db6a8f51d49d40 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Alvaro=20Verdi=C3=B3n?= <averdion@gmail.com>
+Date: Fri, 14 Nov 2014 16:46:24 +0100
+Subject: [PATCH 1/2] Outline load parents
+
+---
+ components/outline.jsx | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
+
+diff --git a/components/outline.jsx b/components/outline.jsx
+index ac4811f..a2117b8 100644
+--- a/components/outline.jsx
++++ b/components/outline.jsx
+@@ -68,20 +68,11 @@ var Outline = React.createClass({
+ 
+   loadData: function(params){
+     var refuri = params.docset+'/'+params.uri;
+-	return store.get('parent', {'uri': refuri})
+-    .then(function(parent){
+-		if(parent.uri==undefined){
+-			this.setState({data: []});
+-			this.props.onSetDisposition({component: 'outline', action: 'hide'});
+-		}else{
+-			store.get('branch', {'uri': parent.uri})
++	return store.get('branch', {'uri': refuri})
+ 			.then(function(data){
+-				data.unshift(parent);
+ 				this.selecteduri = '/' + refuri;
+ 				this.setState({data: data});
+ 			}.bind(this));
+-		}
+-	}.bind(this));
+   }
+ });
+ 
+-- 
+1.9.1
+
+
+From af731552d6145a1eda0616150feeada9f9960ce8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Alvaro=20Verdi=C3=B3n?= <averdion@gmail.com>
+Date: Sun, 16 Nov 2014 18:19:06 +0100
+Subject: [PATCH 2/2] adjusting outline V1
+
+---
+ app/slash.js      | 20 ++++++++++++--------
+ routes/docsets.js |  2 +-
+ 2 files changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/app/slash.js b/app/slash.js
+index 1342fa0..1d4192f 100644
+--- a/app/slash.js
++++ b/app/slash.js
+@@ -73,16 +73,20 @@ var children = function(uri){
+         .execute();
+ }
+ 
+-var branch = function(uri, branch_collection){
++var branch = function(uri, level,branch_collection){
+ 	var branchlist = branch_collection || [];
+-	firstchildren = children(uri);
+-	return firstchildren.then(function(references){
+-		branchlist.push(references);
+-		references.forEach(function(ref){
+-			if(ref.parent_uri!=null)
+-				branch(ref.uri,branchlist);
++	var currentlevel = level || 1;
++	return get(uri).then(function(ref){
++		branchchildren = children(ref.uri)
++		return branchchildren.then(function(references){
++			branchlist.push(references);
++			if(ref.parent_uri != null && currentlevel>0){
++				return branch(ref.parent_uri, currentlevel-1,branchlist);
++			}else{
++				return branchlist;
++			}
++
+ 		});
+-		return branchlist;
+ 	});
+ }
+ 
+diff --git a/routes/docsets.js b/routes/docsets.js
+index 635d1cc..e13c598 100644
+--- a/routes/docsets.js
++++ b/routes/docsets.js
+@@ -48,7 +48,7 @@ exports.branch = function(req, res) {
+     if (uri == null) {
+         res.send([]);
+     } else {
+-        slash.branch(uri).then(function(references){
++        slash.branch(uri,1).then(function(references){
+ 			list = JSON.Flatten(references);
+ 			res.send(list);
+ 		});
+-- 
+1.9.1
+
