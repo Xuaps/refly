@@ -14,6 +14,10 @@ $(document).on('click', 'div.result a', function(event) {
         return;
 
     event.preventDefault();
-    Router.transitionTo('result',{docset:uri.segment(0), splat:uri.segment(0,'').path().slice(1)});
+	if(uri.segment(0)=="searchfor"){
+		Router.transitionTo('search', null ,{ref: uri.segment(0,'').path().slice(1)});
+	}else{
+    	Router.transitionTo('result',{docset:uri.segment(0), splat:uri.segment(0,'').path().slice(1)});
+	}
 });
 window.React = React;

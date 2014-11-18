@@ -24,11 +24,13 @@ module.exports = React.createClass({
     render: function() {
         var content;
         if(this.state.initilized &&!this.state.reference){
-			var urlsearch = "/search?ref=" + this.props.params.uri
+			(this.props.params.uri)? searchtext = this.props.params.uri.split('/').pop() : searchtext = this.props.params.uri;
+			Rollbar.error("Reference " + this.props.params.uri + " not found");
+			var urlsearch = "/searchfor/" + searchtext;
             content = <div className="warning">
                         <h2>Referencia no encontrada</h2>
                         <h3>Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.</h3>
-                        <p>You can <a href={"javascript:window.location.href='" + urlsearch + "'"}>make a new search</a></p>
+                        <p>You can <a href={urlsearch}>make a new search</a></p>
                         <p>or click <a href='javascript:history.back()' target="_blank">{'here'}</a> to go back.</p>
                       </div>;
         }else if(this.state.initilized && this.state.reference){
