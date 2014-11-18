@@ -16,6 +16,7 @@
     "react": "^0.11.2",
     "react-router": "^0.7.0",
     "reactify": "^0.14.0",
+    "rollbar": "^0.4.0",
     "serve-favicon": "^2.0.1"
   },
   "devDependencies": {
