@@ -64,7 +64,7 @@ module.exports = React.createClass({
                 <div className="contact">
                     <div className="center-content span3">
                         <h2>What can we do for you?</h2>
-						<SimpleMail key="mailer" messages={{done: "Message sent correctly", fail: "message sent fail"}}apikey="6b30dc7d52fdeb7892dab94c7fe955b7"/>
+						<SimpleMail key="mailer" messages={{done: "Message sent correctly", fail: "message sent fail"}} apikey="6b30dc7d52fdeb7892dab94c7fe955b7"/>
                     </div>
                 </div>
             </div>

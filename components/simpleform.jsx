@@ -39,11 +39,14 @@ var SimpleMail = React.createClass({
 
   render: function() {
 	var message = '';
+	var cssClass = 'mail-message';
 	if(this.state.sent){
 		if(this.state.succeed){
 			message = this.props.messages.done;
+			cssClass+=" sent";
 		}else{
 			message = this.props.messages.fail;
+			cssClass+=" fail";
 		}
 	}
 	return(
@@ -54,7 +57,7 @@ var SimpleMail = React.createClass({
                             <textarea placeholder="message" id="message" ref="message" className="ry-input-text"></textarea>
                             <input type="button" value="Send" className="ry-btn floated-right" onClick={this.handleClick} />
                         </form>
-<div id="mailmessage">{message}</div>
+<span className={cssClass}>{message}</span>
 </div>
 );
   }
