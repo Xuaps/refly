@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react')
-var SimpleMail = require('react-simpleform');
+var SimpleMail = require('./simpleform.jsx');
 
 module.exports = React.createClass({
 
