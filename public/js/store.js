@@ -13,6 +13,9 @@ function Api(){
 Api.prototype._addUris = function(ref){
 	if(!ref)
 		return ref;
+	if(ref.uri==undefined){
+		return undefined;
+	}
     var pos = ref.uri.indexOf('/', 1);
     ref.docset = ref.uri.substring(1,pos);
     ref.ref_uri = ref.uri.substring(pos+1,ref.uri.length);
