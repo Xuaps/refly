@@ -28,7 +28,11 @@ app.configure('development', function(){
 });
 
 app.get('/api/references?', docsets.search);
+<<<<<<< HEAD
 //app.get('/api/getdocsetsbydate', docsets.get_docsetsbydate);
+=======
+app.get('/api/getdocsetsbydate', docsets.get_docsetsbydate);
+>>>>>>> first stable version of Docset API
 app.get('/api/docsets', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
 app.get('/api/reference/:uri(*)', docsets.get);
