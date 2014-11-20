@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 DROP TABLE docsets;
 DROP SEQUENCE IF EXISTS Did_seq;
 CREATE  sequence Did_seq start 1;
