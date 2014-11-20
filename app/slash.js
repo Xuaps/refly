@@ -115,10 +115,10 @@ var get_by_id = function(id){
 
 //Docsets
 
-var getdocsetsbydate = function(){
+var get_docsetsbydate = function(){
 	docsets = new Docsets();
 	return docsets
-        .select(['docset', 'date_update', 'state'])
+        .select(['docset', 'update_date', 'state']).order('update_date', 'DESC')
         .execute();
 }
 
@@ -128,5 +128,6 @@ module.exports.breadcrumbs = breadcrumbs;
 module.exports.get_id = get_id;
 module.exports.get_types = get_types;
 module.exports.get_docsets = get_docsets;
+module.exports.get_docsetsbydate = get_docsetsbydate;
 module.exports.get = get;
 module.exports.search = search;

@@ -1,6 +1,8 @@
+create sequence Did_seq start 1;
 CREATE TABLE docsets (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY default nextval('Did_seq'),
     docset TEXT,
-    date_update DATE,
-    active BOOLEAN
+    pub_date DATE default CURRENT_DATE,
+    update_date DATE,
+    state TEXT
 );

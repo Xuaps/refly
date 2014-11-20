@@ -24,8 +24,8 @@ Docsets.prototype.select = function(columns){
     return this;
 }
 
-Docsets.prototype.order = function(column){
-    this._query = this._query.orderBy(column, 'desc');
+Docsets.prototype.order = function(column, direction){
+    this._query = this._query.orderBy(column, direction);
     return this;
 }
 

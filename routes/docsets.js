@@ -76,8 +76,8 @@ exports.breadcrumbs = function(req, res) {
 
 //Will replace get_docsets soon.
 
-exports.getdocsetsbydate = function(req, res) {
-    slash.getdocsetsbydate().then(function(docsets) {
+exports.get_docsetsbydate = function(req, res) {
+    slash.get_docsetsbydate().then(function(docsets) {
         res.send(docsets);
     });
 };
