@@ -2,11 +2,11 @@ var filters = require('../app/filters');
 var util = require('util');
 var db = require('./db');
 
-function Docsets(){
-    this._query = db('docsets');
+function References(){
+    this._query = db('refs');
 } 
 
-Docsets.prototype.filter = function(field, operator, value) {
+References.prototype.filter = function(field, operator, value) {
     if (operator == filters.operators.EQUALS) {
         this._query = this._query.where(field, value);
     }
@@ -19,20 +19,20 @@ Docsets.prototype.filter = function(field, operator, value) {
     return this;
 };
 
-Docsets.prototype.select = function(columns){
+References.prototype.select = function(columns){
     this._query = this._query.select(columns);
     return this;
 }
 
-Docsets.prototype.order = function(column){
-    this._query = this._query.orderBy(column, 'desc');
+References.prototype.distinct = function(column){
+    this._query = this._query.distinct(column);
     return this;
 }
 
-Docsets.prototype.execute = function() {
+References.prototype.execute = function() {
     return this._query.then(
         function(rows){
-            this._query = db('docsets');
+            this._query = db('refs');
             return rows;
         }.bind(this), 
         function(err){
@@ -40,4 +40,4 @@ Docsets.prototype.execute = function() {
         });
 };
 
-module.exports = Docsets; 
+module.exports = References; 

@@ -1,18 +1,18 @@
 var sinon = require('sinon');
-var Docsets = require('../app/docsets');
+var References = require('../app/references');
 var filters = require('../app/filters');
 var randomstring = require('randomstring');
 
 describe('Docset', function() {
-    var docsets;
+    var references;
 
     beforeEach(function(){
-        docsets=new Docsets();
+        references=new References();
     });
 
-    it('should be a different instance of docsets', function(){
-        var docsets2=new Docsets();
-        expect(docsets).not.toBe(docsets2);
+    it('should be a different instance of references', function(){
+        var references2=new References();
+        expect(references).not.toBe(references2);
     })
     
     describe('filter', function() {
@@ -25,7 +25,7 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets.filter('reference', filters.operators.EQUALS, aReference).execute().then(function(rows) {
+            references.filter('reference', filters.operators.EQUALS, aReference).execute().then(function(rows) {
                 results = rows;
             });
 
@@ -45,7 +45,7 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets.filter('type', filters.operators.IN, [ aType ]).execute().then(function(rows) {
+            references.filter('type', filters.operators.IN, [ aType ]).execute().then(function(rows) {
                 results = rows;
             });
 
@@ -58,7 +58,7 @@ describe('Docset', function() {
         });
 
         it('should filter with op CONTAINS', function(done){
-            docsets.filter('reference', filters.operators.CONTAINS, 'EaRc')
+            references.filter('reference', filters.operators.CONTAINS, 'EaRc')
                 .filter('docset', filters.operators.EQUALS, 'slash')
                 .execute()
                 .then(function(rows){
@@ -74,7 +74,7 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets.filter('reference', filters.operators.EQUALS, 'search').filter('type', filters.operators.IN, [ 'function' ]).execute().then(function(rows) {
+            references.filter('reference', filters.operators.EQUALS, 'search').filter('type', filters.operators.IN, [ 'function' ]).execute().then(function(rows) {
                 results = rows;
             });
 
@@ -101,11 +101,11 @@ describe('Docset', function() {
                 return results != null;
             });
 
-            docsets
+            references
                 .filter('docset', filters.operators.EQUALS, 'java')
                 .execute()
                 .then(function(rows){
-                    docsets.filter('reference', filters.operators.EQUALS, 'search')
+                    references.filter('reference', filters.operators.EQUALS, 'search')
                         .execute()
                         .then(function(rows){
                             results=rows;

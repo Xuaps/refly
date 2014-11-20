@@ -54,7 +54,6 @@ exports.branch = function(req, res) {
 		});
     }
 };
-
 exports.breadcrumbs = function(req, res) {
 	if(req.params.uri[0]!='/'){
 		uri = '/' + req.params.uri;
@@ -74,3 +73,13 @@ exports.breadcrumbs = function(req, res) {
 		});
     }
 };
+
+//Will replace get_docsets soon.
+
+exports.getdocsetsbydate = function(req, res) {
+    slash.getdocsetsbydate().then(function(docsets) {
+        res.send(docsets);
+    });
+};
+
+

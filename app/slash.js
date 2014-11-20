@@ -1,10 +1,11 @@
+var References = require('./references');
 var Docsets = require('./docsets');
 var filters = require('./filters');
 var q = require('q');
 
 var search = function(options) {
-    docsets = new Docsets();
-    return docsets
+    references = new References();
+    return references
         .filter('docset', filters.operators.IN, options.docsets)
         .filter('reference', filters.operators.CONTAINS, options.reference)
         .filter('type', filters.operators.IN, options.types)
@@ -16,8 +17,8 @@ var get = function(uri){
 	if(uri[0]!='/'){
 		uri = '/' + uri;
 	}
-	docsets = new Docsets();
-	return docsets
+	references = new References();
+	return references
         .filter('uri', filters.operators.EQUALS, uri)
         .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_uri'])
         .execute().then(function(references) {
@@ -26,8 +27,8 @@ var get = function(uri){
 }
 
 var get_docsets = function(identity){
-    docsets = new Docsets();
-    return docsets.select(['docset']).execute().then(function(references){
+    references = new References();
+    return references.select(['docset']).execute().then(function(references){
         var unique_references = [];
         references.reduce(function(previousValue, currentValue, index, array) {
 			if(unique_references.indexOf(currentValue.docset)==-1){
@@ -39,8 +40,8 @@ var get_docsets = function(identity){
 };
 
 var get_types = function(docset){
-    docsets = new Docsets();
-    return docsets.filter('docset', filters.operators.IN, docset)
+    references = new References();
+    return references.filter('docset', filters.operators.IN, docset)
 		.select(['type']).execute().then(function(references){
         var unique_references = [];
         references.reduce(function(previousValue, currentValue, index, array) {
@@ -53,11 +54,11 @@ var get_types = function(docset){
 }
 
 var get_id = function(identity){
-	docsets = new Docsets();
+	references = new References();
 	if(identity[0]!='/'){
 		identity = '/' + identity;
 	}
-	return docsets
+	return references
         .filter('uri', filters.operators.EQUALS, identity)
         .select(['id'])
         .execute().then(function(references) {
@@ -66,8 +67,8 @@ var get_id = function(identity){
 }
 
 var children = function(uri){
-	docsets = new Docsets();
-	return docsets
+	references = new References();
+	return references
         .filter('parent_uri', filters.operators.EQUALS, uri)
         .select(['docset', 'reference', 'type', 'uri'])
         .execute();
@@ -103,13 +104,22 @@ var breadcrumbs = function(uri, breadcrumb_collection){
 
 
 var get_by_id = function(id){
-	docsets = new Docsets();
-	return docsets
+	references = new References();
+	return references
         .filter('id', filters.operators.EQUALS, uri)
         .select(['docset', 'reference', 'type', 'uri', 'parent_uri'])
         .execute().then(function(references) {
             return (references.length > 0) ? references[0] : null;
         });
+}
+
+//Docsets
+
+var getdocsetsbydate = function(){
+	docsets = new Docsets();
+	return docsets
+        .select(['docset', 'date_update', 'state'])
+        .execute();
 }
 
 module.exports.children = children;
