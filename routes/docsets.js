@@ -76,7 +76,6 @@ exports.breadcrumbs = function(req, res) {
 
 //Will replace get_docsets soon.
 
-<<<<<<< HEAD
 exports.get_docsets = function(req, res) {
     slash.get_docsetsbydate().then(function(docsets) {
 		list = []
@@ -86,11 +85,6 @@ exports.get_docsets = function(req, res) {
 , defaulturi: docset.default_uri, path: docset.docset.toLowerCase(), date: docset.update_date, state: docset.state});
 		}
         res.send(list);
-=======
-exports.get_docsetsbydate = function(req, res) {
-    slash.get_docsetsbydate().then(function(docsets) {
-        res.send(docsets);
->>>>>>> first stable version of Docset API
     });
 };
 
