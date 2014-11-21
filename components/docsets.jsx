@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react')
+<<<<<<< HEAD
 var store = require('./store.js');
 
 module.exports = React.createClass({
