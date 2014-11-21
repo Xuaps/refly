@@ -1,8 +1,10 @@
 /** @jsx React.DOM */
 var React = require('react')
 var SimpleMail = require('./simpleform.jsx');
+var Docsets = require('./docsets.jsx');
 
 module.exports = React.createClass({
+
 
     onKeyUp: function(event){
 		if(event.target.value!=''){
@@ -31,26 +33,7 @@ module.exports = React.createClass({
                 <div className="docsets">
                     <div className="center-content centered-text span3">
                         <h2>Our flies are searching all day for you</h2>
-                        <div className="docsets-container">
-                            <a href="/javascript/javascript_reference" title="javascript">
-                                <div className="item">
-                                    <img className="docset-state" src="/img/new-stick.png"/>
-                                    <div className="docset-logo">
-                                        <img src="/img/languages/javascript-biglogo.jpg"/>
-                                    </div>
-                                    <div className="docset-date ok-state">Nov-13-2014</div>
-                                </div>
-                            </a>
-                            <a href="" title="nodejs">
-                                <div className="item">
-                                    <img className="docset-state" src="/img/soon-stick.png"/>
-                                    <div className="docset-logo">
-                                        <img src="/img/languages/node-biglogo.jpg" title="nodejs"/>
-                                    </div>
-                                    <div className="docset-date off-state">Nov-xx-2014</div>
-                                </div>
-                            </a>
-                        </div>
+						<Docsets key="docsetsc" />
                     </div>
                 </div>
                 <div className="description">

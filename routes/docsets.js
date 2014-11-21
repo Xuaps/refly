@@ -12,7 +12,7 @@ exports.get = function(req, res) {
         res.send(references);
     });
 };
-
+/*
 exports.get_docsets = function(req, res) {
     slash.get_docsets(req.params.uri).then(function(docsets) {
 		list = []
@@ -22,7 +22,7 @@ exports.get_docsets = function(req, res) {
 		}
         res.send(list);
     });
-};
+};*/
 
 exports.get_types = function(req, res) {
     slash.get_types(req.params.uri).then(function(types) {
@@ -76,9 +76,14 @@ exports.breadcrumbs = function(req, res) {
 
 //Will replace get_docsets soon.
 
-exports.get_docsetsbydate = function(req, res) {
+exports.get_docsets = function(req, res) {
     slash.get_docsetsbydate().then(function(docsets) {
-        res.send(docsets);
+		list = []
+		for(var i=0;i<docsets.length;i++){
+			docset = docsets[i];
+			list.push({name: docset.docset, path: docset.docset.toLowerCase(), date: docset.update_date, state: docset.state});
+		}
+        res.send(list);
     });
 };
 
