@@ -210,7 +210,7 @@ ul.breadcrumbsul li:last-child a:hover {
     position: relative;
 }
 .logo img {
-    padding: 5px 10px 5px 15px;
+    padding: 0 10px;
     height: 100%;
     float: left;
 }
@@ -637,7 +637,7 @@ footer .copyright {
 
 .beta {
     position: absolute;
-    top: 180px;
+    top: 170px;
     left: 50%;
     z-index: 100;
     font-size: 10px;
@@ -646,12 +646,12 @@ footer .copyright {
     color: white;
     font-weight: bold;
     border-radius: 5px;
-    margin-left: -21px;
+    margin-left: -20px;
     font-family: initial;
 }
 .trazo {
     position: absolute;
-    top: 36px;
+    top: 45px;
     left: 50%;
     z-index: 100;
 }
@@ -774,9 +774,6 @@ footer .copyright {
     font-size: 1.2em;
     background-color: #ececec;
     padding: 25px 0 55px;
-    background-image: url("../img/big-whitefly.png");
-    background-repeat: no-repeat;
-    background-position: center top;
 }
 .contact input.ry-input-text {
     width: 100%;

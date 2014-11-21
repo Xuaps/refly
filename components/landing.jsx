@@ -20,7 +20,7 @@ module.exports = React.createClass({
                     <img src="/img/trazo.png" />
                 </div>
                 <div className="searchbox bg-flywing">
-                    <img src="/img/refly.png"/>
+                    <img src="/img/refly.jpg"/>
                     <fieldset>
                         <div id='ry-homesearch'>
                             <input id="txtreference" onKeyUp={this.onKeyUp} type="text" name="reference" placeholder="Reference" className="ry-input-text" autoFocus />
@@ -56,7 +56,7 @@ module.exports = React.createClass({
                 <div className="description">
                     <div className="center-content span4">
                         <h2>Working to make your job easier</h2>
-                        <img src="/img/big-fly.png" className="floated"/>
+                        <img src="/img/refly-big.jpg" className="floated"/>
                         <span>Refly is the reference library where programmers can find all the information of the most popular languages in the fastest and fluid way.</span>
                         <span>Our bots travel hundreds of references for you to search and browse all from Refly. Always updated, integrated with your favorite editor, even offline.</span>
                     </div>
