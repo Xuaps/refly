@@ -22,7 +22,7 @@ describe('Simpleform Component', function(){
     describe('Simpleform references', function(){
         it('should send an email and return state <sent> and <succeed>', function(){
             React.renderComponent(routes, document.createElement('div'));
-            var simpleformc = TestUtils.renderIntoDocument(<Search/>);
+            var simpleformc = TestUtils.renderIntoDocument(<Simpleform messages={{done: "Message sent correctly", fail: "message sent fail"}}/>);
 			simpleformc.setProps({apikey: '6b30dc7d52fdeb7892dab94c7fe955b7'});
 			simpleformc.sendMail({mail: 'mail', name: 'name', message: 'message'});
 			expect(simpleformc.state.sent).toEqual(true);

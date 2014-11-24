@@ -23,7 +23,7 @@ describe('Outline Component', function(){
             React.renderComponent(routes, document.createElement('div'));
             var outline = TestUtils.renderIntoDocument(<Outline/>);
 			outline.setProps({params: {docset:'node.js v0.10.29', uri: 'buffer/buffer'}});
-			expect(outline.state.data.length).toEqual(3);
+			expect(outline.state.data.length).toEqual(2);
         });
     });
 

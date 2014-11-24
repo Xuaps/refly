@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
-var jQuery = require('jquery-browserify');
+var SimpleForm = require('../public/js/simpleform.js');
+
 var SimpleMail = React.createClass({
 
   getInitialState: function(){
@@ -18,17 +19,15 @@ var SimpleMail = React.createClass({
 
 
   sendMail: function(data){
-    return jQuery.ajax({
-	  dataType: 'jsonp',
-	  url: "http://getsimpleform.com/messages/ajax?form_api_token=" + this.props.apikey,
-	  data: data
-	}).done(function() {
+    new SimpleForm(this.props.apikey).sendMail(data.mail, data.name, data.message)
+    .then(function(){
 		this.resetForm();
 		this.setState({sent: true, succeed: true});
-	}.bind(this)).error(function(xhr, ajaxOptions, thrownErro){
+	    }.bind(this))
+    .fail(function(){
 		this.setState({sent: true, succeed: false});
-
-	}.bind(this));
+	    }.bind(this)
+    );
   },
 
   resetForm: function(){
