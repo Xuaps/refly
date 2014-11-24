@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Link = require('react-router').Link;
-var Reference = require('../public/js/WebClient/Reference.js');
 var store = require('../public/js/store.js');
 
 var Outline = React.createClass({
