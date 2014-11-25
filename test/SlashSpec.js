@@ -10,18 +10,24 @@ describe('Slash', function() {
       Docsets.prototype._collection = [
                 {
                     reference: 'search',
+                    uri: 'search',
+                    parent_uri: null,
                     type: 'function',
                     docset: 'slash',
                     content: 'blablabla'
                 },
                 {
                     reference: 'search',
+                    uri: 'searchconstant',
+                    parent_uri: 'search',
                     type: 'constant',
                     docset: 'slash',
                     content: 'blablabla'
                 },
                 {
                     reference: 'search',
+                    uri: 'searchfunction',
+                    parent_uri: 'searchconstant',
                     type: 'function',
                     docset: 'java',
                     content: 'blablabla'
@@ -50,7 +56,8 @@ describe('Slash', function() {
                 expect(results).toEqual([{
                     reference: 'search',
                     type: 'function',
-                    docset: 'slash'
+                    docset: 'slash',
+					uri: '/test.html'
                 }]);
             });
 
@@ -87,8 +94,10 @@ describe('Slash', function() {
                 expect(reference).toEqual({
                     reference: 'search',
                     type: 'function',
+					uri: 'searchfunction2',
                     docset: 'slash',
-                    content: 'blablabla'
+                    content: 'blablabla',
+                    parent_uri: 'searchconstant'
                 });
             });
         });
@@ -97,7 +106,7 @@ describe('Slash', function() {
    describe('GetDocset', function(){
        it("return all the docsets", function(done){
            var docsets = slash.get_docsets().then(function(response){
-               expect(response).toEqual([ 'slash', 'java' ]);
+               expect(response).toEqual([ 'slash', 'java', 'test' ]);
            }).fin(done);
  
        });
@@ -114,9 +123,9 @@ describe('Slash', function() {
 
    describe('Breadcrumbs', function(){
        it("return the complete path of a given docsets", function(done){
-           var docsets = slash.breadcrumbs(24791).then(function(response){
-               expect(response.length).toEqual(2);
-           }).fin(done);           
+           var docsets = slash.breadcrumbs('searchconstant').then(function(response){
+               expect(response.length).toEqual(3);
+           }).fin(done);
        });
 
    });

@@ -14,7 +14,7 @@ describe('Docset Component', function(){
     describe('Initial State', function(){
         xit('should be empty', function(){
             React.renderComponent(routes, document.createElement('div'));
-            var Docsetc = TestUtils.renderIntoDocument(<Docsets/>);
+            var Docsetc = TestUtils.renderIntoDocument(<Docset/>);
 			expect(Docsetc.state.data.length).toEqual(0);
         });
     });
@@ -22,9 +22,9 @@ describe('Docset Component', function(){
     describe('Docsets', function(){
         it('should load all the docset', function(){
             React.renderComponent(routes, document.createElement('div'));
-            var docsetc = TestUtils.renderIntoDocument(<Docsets/>);
+            var docsetc = TestUtils.renderIntoDocument(<Docset/>);
 			docsetc.loadData();
-			expect(docsetc.state.length).toEqual(2);
+			expect(docsetc.state.data.length).toEqual(2);
         });
     });
 
