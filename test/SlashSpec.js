@@ -1,13 +1,13 @@
 var proxyquire = require('proxyquire');
 var sinon = require('sinon');
-var Docsets = require('./stubs/docsets');
+var References = require('./stubs/references');
 
-var slash = proxyquire('../app/slash', { './docsets' : Docsets });
+var slash = proxyquire('../app/slash', { './references' : References });
 
 describe('Slash', function() {
     
     beforeEach(function() {
-      Docsets.prototype._collection = [
+      References.prototype._collection = [
                 {
                     reference: 'search',
                     uri: 'search',
@@ -57,7 +57,7 @@ describe('Slash', function() {
                     reference: 'search',
                     type: 'function',
                     docset: 'slash',
-					uri: '/test.html'
+					uri: 'search'
                 }]);
             });
 
@@ -106,7 +106,7 @@ describe('Slash', function() {
    describe('GetDocset', function(){
        it("return all the docsets", function(done){
            var docsets = slash.get_docsets().then(function(response){
-               expect(response).toEqual([ 'slash', 'java', 'test' ]);
+               expect(response).toEqual([ 'slash', 'java' ]);
            }).fin(done);
  
        });
