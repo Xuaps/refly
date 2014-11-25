@@ -1,4 +1,3 @@
-var sinon = require('sinon');
 var References = require('../app/references');
 var filters = require('../app/filters');
 var randomstring = require('randomstring');
