@@ -78,6 +78,8 @@ var branch = function(uri, level,branch_collection){
 	var branchlist = branch_collection || [];
 	var currentlevel = level;
 	return get(uri).then(function(ref){
+		if(ref==undefined)
+			return [];
 		branchchildren = children(ref.uri)
 		return branchchildren.then(function(references){
 			branchlist.push(references);
@@ -95,6 +97,8 @@ var breadcrumbs = function(uri, breadcrumb_collection){
 	var breadcrumb = breadcrumb_collection || [];
 	
 	return get(uri).then(function(ref){
+		if(ref==undefined)
+			return [];
 		breadcrumb.unshift(ref);
 		if(ref.parent_uri != null)
 			return breadcrumbs(ref.parent_uri, breadcrumb);
