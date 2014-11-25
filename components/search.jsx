@@ -2,7 +2,7 @@
 var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
-var store = require('../public/js/store.js');
+var store = require('./store.js');
 var Q = require('q');
 
 module.exports = React.createClass({

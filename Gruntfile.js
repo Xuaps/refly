@@ -72,7 +72,7 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'package.json', '!public/js/**'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'package.json'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
         ]
       },
@@ -96,7 +96,7 @@ module.exports = function (grunt) {
       },
       app:          {
         src:        'components/*.jsx',
-        dest:       'public/bundle.js'
+        dest:       'public/js/bundle.js'
       }
     },
     uglify: {
@@ -105,7 +105,7 @@ module.exports = function (grunt) {
             report: 'gzip'
           },
           files: {
-            'build/release/public/bundle.js': ['build/release/public/bundle.js']
+            'build/release/public/js/bundle.js': ['build/release/public/js/bundle.js']
           }
         }
     }

@@ -7,7 +7,7 @@ var TestUtils = React.addons.TestUtils;
 var TreeView = require('../components/treeview.jsx'); 
 var TreeNode = require('../components/treenode.jsx');
 var Link = require('react-router').Link;
-var storeMock = require('../public/js/store.js');
+var storeMock = require('../components/store.js');
 
 describe('TreeView Component', function(){
     describe('Initial State', function(){

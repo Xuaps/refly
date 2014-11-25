@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
-var SimpleForm = require('../public/js/simpleform.js');
+var SimpleForm = require('./simpleform.js');
 
 var SimpleMail = React.createClass({
 

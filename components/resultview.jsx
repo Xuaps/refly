@@ -1,10 +1,10 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var Showdown = require('../public/js/showdown.js');
+var Showdown = require('./showdown.js');
 
 var converter = new Showdown.converter();
-var store = require('../public/js/store.js');
+var store = require('./store.js');
 
 module.exports = React.createClass({
 

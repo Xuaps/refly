@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Link = require('react-router').Link;
-var store = require('../public/js/store.js');
+var store = require('./store.js');
 
 var Outline = React.createClass({
   getInitialState: function() {
