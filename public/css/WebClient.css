@@ -635,6 +635,21 @@ footer .copyright {
 
 /* Landing Page */
 
+.mail-message:empty {
+    display: none;
+}
+.mail-message {
+    background-color: #fdb436;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    max-width: 70%;
+    color: white;
+    padding: 4px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    display: inline-block;
+}
 .beta {
     position: absolute;
     top: 170px;
