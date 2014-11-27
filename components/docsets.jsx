@@ -24,15 +24,20 @@ module.exports = React.createClass({
 			}else{
 				sticker = '';
 			}
-			var itemdate = new Date(item.date);
+			if(item.date!=null){
+				var itemdate = new Date(item.date);
+				var infodate = <div className="docset-date ok-state">{String(itemdate.getDate()+100).substr(1) + '-' + String(itemdate.getMonth()+100).substr(1) + '-' + itemdate.getFullYear()}</div>
+			}else{
+				var infodate = <div className="docset-date off-state"> - </div>
+			}
 			docsetitems.push(
-                <a key={'DCa' + i} href="/javascript/javascript_reference" title="javascript">
+                <a key={'DCa' + i} href={item.defaulturi} title={item.name}>
                     <div className="item" key={'DCa' + i}>
 						{sticker}
                         <div className="docset-logo">
                             <img src={'/img/languages/' + item.path + '-biglogo.jpg'}/>
                         </div>
-                        <div className="docset-date ok-state">{String(itemdate.getDate()+100).substr(1) + '-' + String(itemdate.getMonth()+100).substr(1) + '-' + itemdate.getFullYear()}</div>
+						{infodate}
                     </div>
                 </a>
 			);
