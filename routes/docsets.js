@@ -81,7 +81,7 @@ exports.get_docsets = function(req, res) {
 		list = []
 		for(var i=0;i<docsets.length;i++){
 			docset = docsets[i];
-			list.push({name: docset.docset, path: docset.docset.toLowerCase(), date: docset.update_date, state: docset.state});
+			list.push({name: docset.docset, defaulturi: docset.defaulturi, path: docset.docset.toLowerCase(), date: docset.update_date, state: docset.state});
 		}
         res.send(list);
     });

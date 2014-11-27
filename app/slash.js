@@ -25,7 +25,7 @@ var get = function(uri){
             return references[0];
         });
 }
-
+// DEPRECATED
 var get_docsets = function(identity){
     references = new References();
     return references.select(['docset']).execute().then(function(references){
@@ -118,7 +118,7 @@ var get_by_id = function(id){
 var get_docsetsbydate = function(){
 	docsets = new Docsets();
 	return docsets
-        .select(['docset', 'update_date', 'state']).order('update_date', 'DESC')
+        .select(['docset','defaulturi', 'update_date', 'state']).order('update_date', 'DESC')
         .execute();
 }
 
