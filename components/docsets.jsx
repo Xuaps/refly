@@ -30,17 +30,29 @@ module.exports = React.createClass({
 			}else{
 				var infodate = <div className="docset-date off-state"> - </div>
 			}
-			docsetitems.push(
-                <a key={'DCa' + i} href={item.defaulturi} title={item.name}>
-                    <div className="item" key={'DCa' + i}>
-						{sticker}
-                        <div className="docset-logo">
-                            <img src={'/img/languages/' + item.path + '-biglogo.jpg'}/>
-                        </div>
-						{infodate}
-                    </div>
-                </a>
-			);
+			if(item.state!='soon' && item.state!=''){
+				docsetitems.push(
+		            <a key={'DCa' + i} href={item.default_uri} title={item.name}>
+		                <div className="item" key={'DCa' + i}>
+							{sticker}
+		                    <div className="docset-logo">
+		                        <img src={'/img/languages/' + item.path + '-biglogo.jpg'}/>
+		                    </div>
+							{infodate}
+		                </div>
+		            </a>
+				);
+			}else{
+				docsetitems.push(
+		                <div className="item" key={'DCa' + i}>
+							{sticker}
+		                    <div className="docset-logo">
+		                        <img src={'/img/languages/' + item.path + '-biglogo.jpg'}/>
+		                    </div>
+							{infodate}
+		                </div>
+				);
+			}
 		}
         return(
             <div className="docsets-container">

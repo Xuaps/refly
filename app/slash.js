@@ -118,7 +118,7 @@ var get_by_id = function(id){
 var get_docsetsbydate = function(){
 	docsets = new Docsets();
 	return docsets
-        .select(['docset','defaulturi', 'update_date', 'state']).order('update_date', 'DESC')
+        .select(['docset','default_uri', 'update_date', 'state']).order('update_date', 'ASC')
         .execute();
 }
 
