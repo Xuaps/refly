@@ -122,7 +122,7 @@ describe('Slash', function() {
    });
 
    describe('Breadcrumbs', function(){
-       it("return the complete path of a given docsets", function(done){
+       xit("return the complete path of a given docsets", function(done){
            var docsets = slash.breadcrumbs('searchconstant').then(function(response){
                expect(response.length).toEqual(3);
            }).fin(done);
@@ -133,7 +133,7 @@ describe('Slash', function() {
    describe('Branch', function(){
 
        xit("return all reference from the same branch of a specific reference", function(done){
-           var docsets = slash.branch().then(function(response){
+           var docsets = slash.branch('searchconstant').then(function(response){
                expect(response.length).toEqual(3);
            }).fin(done); 
        });       

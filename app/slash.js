@@ -25,7 +25,7 @@ var get = function(uri){
             return references[0];
         });
 }
-// DEPRECATED
+// DEPRECATED DEPENDE DEL TEST
 var get_docsets = function(identity){
     references = new References();
     return references.select(['docset']).execute().then(function(references){
@@ -97,8 +97,9 @@ var breadcrumbs = function(uri, breadcrumb_collection){
 	var breadcrumb = breadcrumb_collection || [];
 	
 	return get(uri).then(function(ref){
-		if(ref==undefined)
+		if(ref==undefined){
 			return [];
+		}
 		breadcrumb.unshift(ref);
 		if(ref.parent_uri != null)
 			return breadcrumbs(ref.parent_uri, breadcrumb);
