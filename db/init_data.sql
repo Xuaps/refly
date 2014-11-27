@@ -36,4 +36,4 @@ example.foo(bar)
 INSERT INTO refs(id, docset, reference, type, content, uri, parent_uri) VALUES (4, 'test', 'update', 'function', 'some value', '/test_4.html', '/test_2.html');
 -- DOCSETS
 INSERT INTO docsets (docset, update_date, state) VALUES ('Javascript', CURRENT_DATE, 'new');
-INSERT INTO docsets (docset, update_date, state) VALUES ('node', CURRENT_DATE, 'soon');
+INSERT INTO docsets (docset, state) VALUES ('node', 'soon');
