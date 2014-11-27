@@ -25,6 +25,20 @@ WITH (
 ALTER TABLE refs
   OWNER TO postgres;
 
+create sequence Did_seq start 1;
+CREATE TABLE docsets (
+    id INTEGER PRIMARY KEY default nextval('Did_seq'),
+    docset TEXT,
+    pub_date TIMESTAMP default CURRENT_DATE,
+    update_date TIMESTAMP,
+    state TEXT
+);
+
+CREATE TABLE meta
+(
+  version integer NOT NULL
+);
+
 -- Index: anchor
 
 -- DROP INDEX anchor;
