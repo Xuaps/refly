@@ -44,8 +44,6 @@ app.get('/api/references/:docset/:uri(*)', function(req, res){
 app.get('/api/references?', docsets.search);
 app.get('/api/docsets?', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
-//app.get('/api/reference/:uri(*)', docsets.get);
-//app.get('/api/references/:uri(*)', docsets.children);
 app.get('/api/referencesbranch/:uri(*)', docsets.branch);
 app.get('/api/referencesbreadcrumbs/:uri(*)', docsets.breadcrumbs);
 
