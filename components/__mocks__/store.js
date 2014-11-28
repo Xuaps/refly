@@ -1,7 +1,7 @@
 
   	var _docsets=[
-            {name: "Node", url: "node/", type: "docset"},
-            {name: "JavaScript", url: "javascript/", type: "docset"}
+            {name: "Node", default_uri: "node/", path: "node", date: "2014-11-22T23:00:00.000Z", state : 'soon'},
+            {name: "JavaScript", default_uri: "javascript/", path: "node", date: null, state : 'new'}
         ];
    	var _types=['method','class', 'function'];
    	var _references=[

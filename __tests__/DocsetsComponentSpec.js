@@ -11,15 +11,8 @@ Docset = require('../components/docsets.jsx');
 
 describe('Docset Component', function(){
 
-    describe('Initial State', function(){
-        xit('should be empty', function(){
-            React.renderComponent(routes, document.createElement('div'));
-            var Docsetc = TestUtils.renderIntoDocument(<Docset/>);
-			expect(Docsetc.state.data.length).toEqual(0);
-        });
-    });
 
-    describe('Docsets', function(){
+    describe('General state', function(){
         it('should load all the docset', function(){
             React.renderComponent(routes, document.createElement('div'));
             var docsetc = TestUtils.renderIntoDocument(<Docset/>);
@@ -27,5 +20,21 @@ describe('Docset Component', function(){
 			expect(docsetc.state.data.length).toEqual(2);
         });
     });
+    describe('Item', function(){
+        it('change href', function(){
+            React.renderComponent(routes, document.createElement('div'));
+            var docsetc = TestUtils.renderIntoDocument(<Docset/>);
+            docsetc.loadData();
+            var link = TestUtils.scryRenderedDOMComponentsWithTag(docsetc, 'a')[0];
+            expect(link.props.href).toEqual('javascript/')
+        });
 
+        it('date box state', function(){
+            React.renderComponent(routes, document.createElement('div'));
+            var docsetc = TestUtils.renderIntoDocument(<Docset/>);
+            docsetc.loadData();
+            var divs = TestUtils.scryRenderedDOMComponentsWithTag(docsetc, 'div');
+            expect(divs[3].props.className).not.toEqual(divs[6].props.className);
+        });
+    });
 });
