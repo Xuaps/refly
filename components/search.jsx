@@ -25,7 +25,7 @@ module.exports = React.createClass({
 	},
 
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.search != undefined){
+		if(newProps.search!=undefined && newProps.search!=this.props.search){
 			this.setFocus('#txtreference', newProps.search);
 			this.loadData(newProps.search);
 		}
