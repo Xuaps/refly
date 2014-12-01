@@ -73,12 +73,14 @@ module.exports = function (grunt) {
       app: {
         files: [
           { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'package.json'], dest: 'build/release/'},
-          { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
+          { expand:true, flatten:true, src:['build/tmp/config/*.json'], dest: 'build/release/config/'},
+          { expand:true, flatten:true, src:['build/tmp/config/*.js'], dest: 'build/release/public/js/'}
         ]
       },
       config:{
         files: [
           { expand: true, flatten:true, src: ['build/release/config/production.json'], dest: 'build/tmp/config/', filter: 'isFile'},
+          { expand: true, flatten:true, src: ['build/release/public/js/config.js'], dest: 'build/tmp/config/', filter: 'isFile'},
         ]
       }
     },
