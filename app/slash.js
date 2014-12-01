@@ -120,8 +120,12 @@ var get_by_id = function(id){
 
 //Docsets
 
-var get_docsetsbydate = function(){
+var get_docsetsbydate = function(options){
 	docsets = new Docsets();
+	if(options.state=='active'){
+		var states = ['new','active']
+		docsets.filter('state', filters.operators.IN, states)
+	}
 	return docsets
         .select(['docset','default_uri', 'update_date', 'state']).order('update_date', 'ASC')
         .execute();

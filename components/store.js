@@ -1,7 +1,8 @@
 var jQuery = require('jquery-browserify');
 
 function Api(){
-    this._url_docset='/api/docsets';
+    this._url_docset_active='/api/docsets?state=active';
+    this._url_docset_all='/api/docsets';
     this._url_types='/api/types';
     this._url_references='/api/references';
     this._url_parent='/api/reference/';
@@ -31,9 +32,14 @@ Api.prototype._addUrisToReferences= function(references){
 };
 
 Api.prototype.get = function (resource, filters){
-	if(resource==='docset'){
+	if(resource==='docset_active'){
 	    return jQuery.ajax({
-	        url: this._url_docset,
+	        url: this._url_docset_active,
+	        method: 'GET'
+	    });
+	}if(resource==='docset_all'){
+	    return jQuery.ajax({
+	        url: this._url_docset_all,
 	        method: 'GET'
 	    });
 	}else if(resource==='type'){

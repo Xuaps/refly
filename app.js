@@ -28,7 +28,7 @@ app.configure('development', function(){
 });
 
 app.get('/api/references?', docsets.search);
-app.get('/api/docsets', docsets.get_docsets);
+app.get('/api/docsets?', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
 app.get('/api/reference/:uri(*)', docsets.get);
 app.get('/api/references/:uri(*)', docsets.children);

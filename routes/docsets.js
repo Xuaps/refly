@@ -66,7 +66,7 @@ exports.breadcrumbs = function(req, res) {
 //Will replace get_docsets soon.
 
 exports.get_docsets = function(req, res) {
-    slash.get_docsetsbydate().then(function(docsets) {
+    slash.get_docsetsbydate(req.query).then(function(docsets) {
 		list = []
 		for(var i=0;i<docsets.length;i++){
 			docset = docsets[i];
