@@ -27,15 +27,12 @@ function get (resource, filters) {
                 data = callback(_docsets_active);
             }else if(resource==='docset_all'){
                 data = callback(_docsets_all);
-            }else if(resource==='parent'){
-                data = callback(_references[0]);
             }else if(resource==='branch'){
                 data = callback(_formattedreferences);
             }else if(resource==='breadcrumbs'){
                 data = callback(_formattedreferences);
-            }else{
+            }else if(resource==='reference' || resource==='treeviewreference'){
                 data = callback(_references);
-
             }
             return {then: function(callback){callback(data);}};
         }

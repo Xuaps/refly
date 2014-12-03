@@ -45,16 +45,9 @@ Api.prototype.get = function (resource, filters){
 	        url:this._url_types +'?docset='+filters.docset,
 	        method: 'GET'
 	    });
-	}else if(resource==='parent'){
-		var uri_parts = filters.uri.split('/').slice(0, -1);
-		var uri = uri_parts.join('/');
-	    return jQuery.ajax({
-	        url: this._url_references + uri,
-	        method: 'GET'
-	    }).then(this._addUris);
 	}else if(resource==='reference'){
 	    return jQuery.ajax({
-	        url: this._url_references + filters.docset + '/' + filters.uri,
+	        url: this._url_references + '/' + filters.docset + '/' + filters.uri,
 	        method: 'GET'
 	    }).then(this._addUris);
 	}else if(resource==='branch'){
