@@ -8,7 +8,7 @@ var TreeNode = require('./treenode.jsx');
 
 var nodes = {
     loadData: function(config, parents){
-        return store.get('docset').then(function(response){
+        return store.get('docset_active').then(function(response){
             var docs = [];
             response.forEach(function(doc){
                 docs.push(<TreeNode key={doc.path} path={doc.path} type='docset' name={doc.name} config={config} parents={[doc]}/>);
@@ -19,7 +19,7 @@ var nodes = {
 
     innerLevel: {
         loadData: function(config, parents){
-            return store.get('type', {'docset': parents[0].name}).then(function(types){
+            return store.get('type', {'activedocset': parents[0].name}).then(function(types){
                 var treenodes = [];
                 types.forEach(function(type){
                     var parents_path = parents.concat(type);

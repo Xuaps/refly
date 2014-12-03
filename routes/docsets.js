@@ -7,12 +7,6 @@ exports.search = function(req, res) {
     });
 };
 
-exports.get = function(req, res) {
-    slash.get(req.params.uri).then(function(references) {
-        res.send(references);
-    });
-};
-
 exports.get_types = function(req, res) {
     slash.get_types(req.params.uri).then(function(types) {
 		list = []
@@ -21,12 +15,6 @@ exports.get_types = function(req, res) {
 			list.push({name: type, path: type.toLowerCase()});
 		}
         res.send(list);
-    });
-};
-
-exports.children = function(req, res) {
-    slash.children('/' + req.params.uri).then(function(references) {
-        res.send(references);
     });
 };
 
@@ -66,7 +54,7 @@ exports.breadcrumbs = function(req, res) {
 //Will replace get_docsets soon.
 
 exports.get_docsets = function(req, res) {
-    slash.get_docsetsbydate().then(function(docsets) {
+    slash.get_docsetsbydate(req.query).then(function(docsets) {
 		list = []
 		for(var i=0;i<docsets.length;i++){
 			docset = docsets[i];

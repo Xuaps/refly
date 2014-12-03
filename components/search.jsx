@@ -9,7 +9,7 @@ module.exports = React.createClass({
 	
     getInitialState: function() {
 		this.props.message = "";
-        return {results: []};
+        return {results: [], currentstate: 'stopped'};
     },
 
 	componentDidMount: function(){
@@ -21,6 +21,13 @@ module.exports = React.createClass({
 		}else{
 			this.ToggleSearch(true);
 			this.loadData(search);
+		}
+	},
+
+	componentWillReceiveProps: function (newProps) {
+		if(newProps.search!=undefined && newProps.search!=this.props.search){
+			this.setFocus('#txtreference', newProps.search);
+			this.loadData(newProps.search);
 		}
 	},
 
@@ -64,6 +71,7 @@ module.exports = React.createClass({
     },
 
 	loadData: function(searchtext){
+		this.setState({currentstate: 'loading'});
 		store.get('search', {'searchtext': searchtext})
     	.then(function(results){
 			references = [];
@@ -71,7 +79,11 @@ module.exports = React.createClass({
 	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} 
 	                reference={r.reference} type={r.type} docset={r.docset} uri={r.ref_uri}/>)
 	        });
-			this.setState({results:references});
+			if(references.length>0){
+				this.setState({results:references, currentstate: 'loaded'});
+			}else{
+				this.setState({results:references, currentstate: 'notfound'});
+			}
 			this.ToggleSearch(true);
 		}.bind(this));
 
@@ -119,10 +131,11 @@ module.exports = React.createClass({
             </div>
         	);
 		}else{
-			if(this.props.search!='' && this.props.message!=''){
-				this.props.message = <div className="search-message">Reference not found!</div>
-			}else{
-				this.props.message = <div className="search-message">Loading results...</div>
+			var message = '';
+			if(this.state.currentstate=='notfound'){
+				message = <div id="results"><div className="search-message">Reference not found!</div></div>
+			}else if(this.state.currentstate=='loading'){
+				message = <div className="search-message">Loading results...</div>
 			}
         	return(
             <div id="search-view" className={cssclass}>
@@ -133,9 +146,7 @@ module.exports = React.createClass({
                         <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                     </fieldset>
                 </div>
-					<div id="results">
-						{this.props.message}
-		            </div>
+				{message}
             </div>
         	);
 		}

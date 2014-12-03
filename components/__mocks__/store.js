@@ -1,7 +1,9 @@
 
-  	var _docsets=[
-            {name: "Node", url: "node/", type: "docset"},
-            {name: "JavaScript", url: "javascript/", type: "docset"}
+  	var _docsets_all=[
+            {name: "Node", default_uri: "node/", path: "node", date: null, state : 'soon'},
+            {name: "JavaScript", default_uri: "javascript/", path: "node", date: "2014-11-22T23:00:00.000Z", state : 'new'}];
+  	var _docsets_active=[
+            {name: "JavaScript", default_uri: "javascript/", path: "node", date: "2014-11-22T23:00:00.000Z", state : 'new'}
         ];
    	var _types=['method','class', 'function'];
    	var _references=[
@@ -21,17 +23,16 @@ function get (resource, filters) {
             var data;
             if(resource==='type'){
                 data = callback(_types);
-            }else if(resource==='docset'){
-                data = callback(_docsets);
-            }else if(resource==='parent'){
-                data = callback(_references[0]);
+            }else if(resource==='docset_active'){
+                data = callback(_docsets_active);
+            }else if(resource==='docset_all'){
+                data = callback(_docsets_all);
             }else if(resource==='branch'){
                 data = callback(_formattedreferences);
             }else if(resource==='breadcrumbs'){
                 data = callback(_formattedreferences);
-            }else{
+            }else if(resource==='reference' || resource==='treeviewreference'){
                 data = callback(_references);
-
             }
             return {then: function(callback){callback(data);}};
         }

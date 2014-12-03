@@ -14,7 +14,7 @@ describe('TreeView Component', function(){
         it('should have all docsets', function(){
             var treeview = render_treeview();
 
-            expect(treeview.state.data.length).toEqual(2);
+            expect(treeview.state.data.length).toEqual(1);
         });
     });
 

@@ -1,11 +1,10 @@
 var jQuery = require('jquery-browserify');
 
 function Api(){
-    this._url_docset='/api/docsets';
+    this._url_docset_active='/api/docsets?state=active';
+    this._url_docset_all='/api/docsets';
     this._url_types='/api/types';
     this._url_references='/api/references';
-    this._url_parent='/api/reference/';
-    this._url_reference='/api/reference/';
     this._url_branch='/api/referencesbranch';
 	this._url_breadcrumbs = '/api/referencesbreadcrumbs';
 }
@@ -31,9 +30,14 @@ Api.prototype._addUrisToReferences= function(references){
 };
 
 Api.prototype.get = function (resource, filters){
-	if(resource==='docset'){
+	if(resource==='docset_active'){
 	    return jQuery.ajax({
-	        url: this._url_docset,
+	        url: this._url_docset_active,
+	        method: 'GET'
+	    });
+	}if(resource==='docset_all'){
+	    return jQuery.ajax({
+	        url: this._url_docset_all,
 	        method: 'GET'
 	    });
 	}else if(resource==='type'){
@@ -41,16 +45,9 @@ Api.prototype.get = function (resource, filters){
 	        url:this._url_types +'?docset='+filters.docset,
 	        method: 'GET'
 	    });
-	}else if(resource==='parent'){
-		var uri_parts = filters.uri.split('/').slice(0, -1);
-		var uri = uri_parts.join('/');
-	    return jQuery.ajax({
-	        url: this._url_parent + uri,
-	        method: 'GET'
-	    }).then(this._addUris);
 	}else if(resource==='reference'){
 	    return jQuery.ajax({
-	        url: this._url_reference + filters.docset + '/' + filters.uri,
+	        url: this._url_references + '/' + filters.docset + '/' + filters.uri,
 	        method: 'GET'
 	    }).then(this._addUris);
 	}else if(resource==='branch'){

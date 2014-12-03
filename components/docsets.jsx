@@ -62,7 +62,7 @@ module.exports = React.createClass({
     },
 
 	loadData: function(params){
-		return store.get('docset')
+		return store.get('docset_all')
 			.then(function(docsets){
 				this.setState({data: docsets});
 			}.bind(this));
