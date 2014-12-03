@@ -22,7 +22,8 @@ Api.prototype._addUris = function(ref){
     return ref;
 };
 
-Api.prototype._addUrisToReferences= function(references){
+Api.prototype._addUrisToReferences= function(res){
+    var references = res['_embedded']?res['_embedded'].references:res;
     if(!references)
         return references;
 
@@ -68,10 +69,10 @@ Api.prototype.get = function (resource, filters){
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='search'){
 	    return jQuery.ajax({
-	        url: this._url_references + '?reference=' + filters.searchtext,
+	        url: this._url_references +'?' + filters.searchtext,
 	        method: 'GET'
 	    }).then(this._addUrisToReferences.bind(this));
-	}else{
+	}else if(resource==='treeviewreference'){
 	     return jQuery.ajax({
 	        url:this._url_references +'?docsets='+filters.docset+'&types='+filters.type,
 	        method: 'GET'

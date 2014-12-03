@@ -10,7 +10,9 @@ module.exports.entry = function(){
                     templated: true
                 }
             ],
-            "rl:references": "/api/references"
+            "rl:references": "/api/references",
+            "rl:get-reference": "/api/references/{docset}/{uri}",
+            "rl:search-references": "/api/references{?name}"
         }
     };
 };
@@ -47,4 +49,30 @@ module.exports.get_reference = function(docset, uri){
             data: reference
         };
     });
+};
+var PAGE_SIZE = 20;
+
+module.exports.get_references = function(pattern){
+   return slash.search({reference: pattern})
+       .then(function(references){
+           return {
+                links: {
+                    self: '/api/references'
+                },
+                embeds: {
+                   "references": references.slice(0,PAGE_SIZE).map(function(ref){
+                       ref.docset_name = ref.docset;
+                       ref.name = ref.reference;
+                       delete ref.docset;
+                       delete ref.reference;
+                       return {
+                            links: {
+                                self: '/api/reference' + ref.uri 
+                            },
+                            data: ref
+                       };           
+                    })
+               }
+           }; 
+       });
 };

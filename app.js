@@ -41,7 +41,18 @@ app.get('/api/references/:docset/:uri(*)', function(req, res){
             res.hal(hal);
         });
 });
-app.get('/api/references?', docsets.search);
+app.get('/api/references?:pattern', function(req, res){
+    //TODO: types
+    if(req.query.docsets){
+        docsets.search(req,res);
+    }else{
+        api.get_references(req.params.pattern)
+            .then(function(hal){
+                res.set('Content-Type', 'application/hal+json');
+                res.hal(hal);
+            });
+    }
+});
 app.get('/api/docsets?', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
 app.get('/api/referencesbranch/:uri(*)', docsets.branch);
