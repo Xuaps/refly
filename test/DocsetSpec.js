@@ -61,7 +61,7 @@ describe('Docset', function() {
                 .filter('docset', filters.operators.EQUALS, 'slash')
                 .execute()
                 .then(function(rows){
-                    expect(rows.length).toEqual(2);
+                    expect(rows.length).toEqual(3);
                     done();
                 });
         });
@@ -112,7 +112,7 @@ describe('Docset', function() {
                 })
 
             runs(function() {
-                expect(results.length).toEqual(3);
+                expect(results.length).toEqual(2);
             });
 
         });
