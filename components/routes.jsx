@@ -16,10 +16,10 @@ var routes = (
     <Route handler={Shell} path='/'>
             <Route name='search' path='/search' handler={Dashboard}/>
             <Route name="result" path=':docset/*' handler={Dashboard}/>
-            <Route name="notfound" path='*' handler={Dashboard}/>
+            <Route name="notfound" path=':splat' handler={Dashboard}/>
             <DefaultRoute handler={Landing}/>
-    </Route>                     
-  </Routes>                      
+    </Route>
+  </Routes> 
 );
 
 module.exports = routes;
