@@ -42,8 +42,8 @@ The Reference resource has the following attributes:
 - content
 
 + Parameters
-   + docset (string, `javascript`) ... Docset of the reference.
-   + uri (string, `javascript_reference`) ... URI indentifier for a reference in a docset.
+   + docset (string, `slash`) ... Docset of the reference.
+   + uri (string, `test.html`) ... URI indentifier for a reference in a docset.
 
 + Model (application/hal+json)
 
@@ -53,7 +53,7 @@ The Reference resource has the following attributes:
 
             {
                "_links": {
-                   "self": { "href": "/api/references/javascript/javascript_reference" },
+                   "self": { "href": "/api/slash/test.html" },
                     "curies": [
                         { 
                             "name": "rl",
@@ -61,12 +61,12 @@ The Reference resource has the following attributes:
                             "templated": true
                         }
                     ],
-                   "rl:docset": { "href": "/api/docsets/javascript" },
-                   "rl:ascendants": { "href": "/api/references/ascendants/javascript/javascript_reference" },
-                   "rl:relatives": { "href": "/api/references/relatives/javascript/javascript_reference" }
+                   "rl:docset": { "href": "/api/docsets/slash" },
+                   "rl:ascendants": { "href": "/api/references/ascendants/slash/test.html" },
+                   "rl:relatives": { "href": "/api/references/relatives/slash/test.html"}
                },
-               "uri": "/javascript/javascript_reference",
-               "name": "JavaScript reference",
+               "uri": "/slash/test.html",
+               "name": "Slash reference",
                "type": "others",
                "content": "The content of the Reference's documentation"
             }
