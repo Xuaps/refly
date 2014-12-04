@@ -24,9 +24,9 @@ describe('ResultView Component', function(){
             React.renderComponent(routes, document.createElement('div'));
             var resultviewc = TestUtils.renderIntoDocument(<Resultview/>);
 			resultviewc.setProps({params: 
-			{docset: 'node', uri: 'aaaaa'}});
-			expect(resultviewc.state.reference[0].uri)
-			.toEqual('/node/aaaaa');
+			{docset: 'slash', uri: 'test.html'}});
+			expect(resultviewc.state.reference.uri)
+			.toEqual('/slash/test.html');
         });
     });
 
