@@ -41,12 +41,13 @@ app.get('/api/references/:docset/:uri(*)', function(req, res){
             res.hal(hal);
         });
 });
-app.get('/api/references?:pattern', function(req, res){
+app.get('/api/references?', function(req, res){
     //TODO: types
     if(req.query.docsets){
+console.log('doc');
         docsets.search(req,res);
     }else{
-        api.get_references(req.params.pattern)
+        api.get_references(Object.keys(req.query)[0])
             .then(function(hal){
                 res.set('Content-Type', 'application/hal+json');
                 res.hal(hal);
