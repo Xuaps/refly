@@ -172,6 +172,9 @@ header {
     padding: 0;
     white-space: nowrap;
 }
+.breadcrumbsul li:first-child {
+    background-image: none;
+}
 .breadcrumbsul li{
     background-image: url("../img/breadcrumb-list.png");
     background-position: 0px 7px;
