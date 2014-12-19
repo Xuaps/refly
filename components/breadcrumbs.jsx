@@ -23,10 +23,22 @@ var Breadcrumbs = React.createClass({
 	var rows = [];
 	for(index in this.state.data){
 		item=this.state.data[index];
-		rows.push(
-        <li key={'BCLi' + item.uri}>
-			<Link to='result' key={'BCL' + item.uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
-        </li>);
+        if(index==this.state.data.length-1){
+ 		    rows.push(
+            <li key={'BCLi' + item.uri}>
+			    {item.reference}<br/>
+            </li>);         
+        }else if(index==0){
+		    rows.push(
+            <li key={'BCLi' + item.uri}>
+			    <Link to='result' key={'BCL' + item.uri} params={{docset: item.docset, splat: item.ref_uri}}>. . .</Link><br/>
+            </li>);
+            }else{
+		    rows.push(
+            <li key={'BCLi' + item.uri}>
+			    <Link to='result' key={'BCL' + item.uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
+            </li>); 
+            }
 		}
 	return(
       <div id="breadcrumbs-view">
