@@ -31,7 +31,7 @@ module.exports = React.createClass({
                     </fieldset>
                 </div>
                 <div className="docsets">
-                    <div className="center-content centered-text span3">
+                    <div className="center-content centered-text">
                         <h2>Our flies are searching all day for you</h2>
 						<Docsets key="docsetsc" />
                     </div>
