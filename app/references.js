@@ -3,7 +3,7 @@ var util = require('util');
 var db = require('./db');
 
 function References(){
-    this._query = db('refs');
+    this._query = db('refs').debug();
 } 
 
 References.prototype.filter = function(field, operator, value) {
@@ -19,9 +19,9 @@ References.prototype.filter = function(field, operator, value) {
     return this;
 };
 
-References.prototype.docsetfilter = function(columns){
-    this._query = this._query.innerJoin('docsets', 'refs.docset', filters.operators.EQUALS , 'docsets.docset');
-    this._query = this._query.where('docsets.state', filters.operators.EQUALS , 'active')
+References.prototype.docsetfilter = function(column){
+    this._query = this._query.innerJoin('docsets', 'refs.docset', 'docsets.docset');
+    this._query = this._query.where('docsets.state', filters.operators.EQUALS , column)
     return this;
 }
 
