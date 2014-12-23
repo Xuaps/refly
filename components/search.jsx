@@ -4,11 +4,13 @@ var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('./store.js');
 var Q = require('q');
+var default_disp = {action:'show', state: 'full'};
 
 module.exports = React.createClass({
 	
     getInitialState: function() {
 		this.props.message = "";
+        this.props.visibility = this.props.visibility || default_disp; 
         return {results: [], currentstate: 'stopped'};
     },
 

@@ -12,10 +12,10 @@ Search = require('../components/search.jsx');
 describe('Search Component', function(){
 
     describe('Initial State', function(){
-        xit('should be empty', function(){
+        it('should be empty', function(){
             React.renderComponent(routes, document.createElement('div'));
             var searchc = TestUtils.renderIntoDocument(<Search/>);
-			expect(searchc.state.data.length).toEqual(0);
+			expect(searchc.state.results.length).toEqual(0);
         });
     });
 
