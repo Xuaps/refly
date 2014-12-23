@@ -189,7 +189,7 @@ ul.breadcrumbsul li a {
 ul.breadcrumbsul li a:hover {
     color: #fdb436;
 }
-ul.breadcrumbsul li:last-child {
+ul.breadcrumbsul li:last-child a, ul.breadcrumbsul li:last-child span {
     color: #fff;
     border-right: 3px solid #fdb436;
     border-left: 3px solid #fdb436;
@@ -197,6 +197,9 @@ ul.breadcrumbsul li:last-child {
     padding: 0 5px;
     font-size: 1.1em;
     font-weight: bold;
+}
+ul.breadcrumbsul li:last-child a:hover {
+    color: #fdb436;
 }
 
 /* Left panel */
