@@ -19,6 +19,13 @@ References.prototype.filter = function(field, operator, value) {
     return this;
 };
 
+References.prototype.docsetfilter = function(columns){
+    this._query = this._query.innerJoin('docsets', 'refs.docset', filters.operators.EQUALS , 'docsets.docset');
+    this._query = this._query.where('docsets.state', filters.operators.EQUALS , 'active')
+    return this;
+}
+
+
 References.prototype.select = function(columns){
     this._query = this._query.select(columns);
     return this;
@@ -34,10 +41,10 @@ References.prototype.execute = function() {
         function(rows){
             this._query = db('refs');
             return rows;
-        }.bind(this), 
+        }.bind(this),
         function(err){
             return err;
         });
 };
 
-module.exports = References; 
+module.exports = References;

@@ -13,7 +13,7 @@ describe('Slash', function() {
                     uri: 'search',
                     parent_uri: null,
                     type: 'function',
-                    docset: 'slash',
+                    docset: {name: 'slash',state: 'active'},
                     content: 'blablabla'
                 },
                 {
@@ -21,7 +21,7 @@ describe('Slash', function() {
                     uri: 'searchconstant',
                     parent_uri: 'search',
                     type: 'constant',
-                    docset: 'slash',
+                    docset: {name: 'slash',state: 'active'},
                     content: 'blablabla'
                 },
                 {
@@ -29,7 +29,15 @@ describe('Slash', function() {
                     uri: 'searchfunction',
                     parent_uri: 'searchconstant',
                     type: 'function',
-                    docset: 'java',
+                    docset: {name: 'java',state: 'active'},
+                    content: 'blablabla'
+                },
+                {
+                    reference: 'json',
+                    uri: 'json.parse',
+                    parent_uri: 'JSON',
+                    type: 'function',
+                    docset: {name: 'javascript',state: 'active'},
                     content: 'blablabla'
                 }
             ];
@@ -56,11 +64,18 @@ describe('Slash', function() {
                 expect(results).toEqual([{
                     reference: 'search',
                     type: 'function',
-                    docset: 'slash',
+                    docset: {name: 'slash', state:'active'},
 					uri: 'search'
                 }]);
             });
+        });
 
+        it('should return only active`s docset references', function(done){
+            slash.search({
+                    reference: 'json'
+            }).then(function(response){
+                expect(response.length).toEqual(1);
+            }).fin(done);
         });
 
         it('should return the docsets collection filtered with all references that contains the pattern searched', function(done) {
@@ -102,11 +117,11 @@ describe('Slash', function() {
             });
         });
     });
-
+ 
    describe('GetDocset', function(){
        it("return all the docsets", function(done){
            var docsets = slash.get_docsets().then(function(response){
-               expect(response).toEqual([ 'slash', 'java' ]);
+               expect(response).toEqual([ { name: 'slash', state: 'active'}, { name: 'java', state: 'active'},{ name : 'javascript', state : 'active' } ]);
            }).fin(done);
  
        });

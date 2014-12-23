@@ -7,10 +7,14 @@ function Docsets(){
 
 Docsets.prototype.filter = function(field, operator, value) {
     Docsets.prototype._collection = Docsets.prototype._collection.filter(function(reference) {
-        if (operator == filters.operators.EQUALS) {
-            return reference[field] == value;
+        if (operator == filters.operators.EQUALS) {  
+                return reference[field] == value;
         } else if (operator == filters.operators.IN && value) {
-            return value.indexOf(reference[field]) != -1;
+            if(field=='docset'){
+                return value.indexOf(reference.docset.name) != -1;
+            }else{
+                return value.indexOf(reference[field]) != -1;
+            }
         } else if(operator == filters.operators.CONTAINS){
             return reference[field].toLowerCase().indexOf(value.toLowerCase())!= -1;
         }
@@ -19,8 +23,15 @@ Docsets.prototype.filter = function(field, operator, value) {
     return this;
 };
 
+Docsets.prototype.docsetfilter = function(value){
+    Docsets.prototype._collection = Docsets.prototype._collection.filter(function(reference) {
+        return reference.docset.state==value;
+    });
+    return this;
+
+}
 Docsets.prototype.select = function(columns){
-	Docsets.prototype._collection =Docsets.prototype._collection.map(function(reference){
+	Docsets.prototype._collection = Docsets.prototype._collection.map(function(reference){
 		var projection={};
 		columns.map(function(column){
 			projection[column]=reference[column];

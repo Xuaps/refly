@@ -11,7 +11,7 @@ describe('Refly API', function(){
                     uri: 'search',
                     parent_uri: null,
                     type: 'function',
-                    docset: 'slash',
+                    docset: {name: 'slash', state: 'active'},
                     content: 'blablabla'
                 },
                 {
@@ -19,7 +19,7 @@ describe('Refly API', function(){
                     uri: 'searchconstant',
                     parent_uri: 'search',
                     type: 'constant',
-                    docset: 'slash',
+                    docset: {name: 'slash', state: 'active'},
                     content: 'blablabla'
                 },
                 {
@@ -27,7 +27,7 @@ describe('Refly API', function(){
                     uri: 'searchfunction',
                     parent_uri: 'searchconstant',
                     type: 'function',
-                    docset: 'java',
+                    docset: {name: 'java', state: 'active'},
                     content: 'blablabla'
                 }
             ];
@@ -38,7 +38,7 @@ describe('Refly API', function(){
                 uri: 'test',
                 parent_uri: 'test',
                 type: 'test',
-                docset: 'test',
+                docset: {name:'test', state: 'active'},
                 content: 'test'
             });
         }
