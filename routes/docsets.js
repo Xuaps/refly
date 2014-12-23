@@ -59,7 +59,7 @@ exports.get_docsets = function(req, res) {
 		for(var i=0;i<docsets.length;i++){
 			docset = docsets[i];
 			list.push({name: docset.docset
-, default_uri: docset.default_uri, path: docset.docset.toLowerCase(), date: docset.update_date, state: docset.state});
+, default_uri: docset.default_uri, path: docset.docset.toLowerCase(), date: docset.update_date, label: docset.label, state: docset.state, visible: docset.visible});
 		}
         res.send(list);
     });

@@ -7,6 +7,7 @@ function References(){
 } 
 
 References.prototype.filter = function(field, operator, value) {
+    field = 'refs.' + field;
     if (operator == filters.operators.EQUALS) {
         this._query = this._query.where(field, value);
     }

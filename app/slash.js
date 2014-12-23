@@ -130,12 +130,13 @@ var get_by_id = function(id){
 
 var get_docsetsbydate = function(options){
 	docsets = new Docsets();
-	if(options.state=='active'){
-		var states = ['new','active']
-		docsets.filter('state', filters.operators.IN, states)
-	}
+	if(options.kind=='active'){
+		docsets.filter('state', filters.operators.EQUALS, 'active');
+	}else if(options.kind=='overview'){
+        docsets.filter('visible', filters.operators.EQUALS, true);
+    }
 	return docsets
-        .select(['docset','default_uri', 'update_date', 'state']).order('update_date', 'ASC')
+        .select(['docset','default_uri', 'update_date', 'label', 'state', 'visible']).order('update_date', 'ASC')
         .execute();
 }
 

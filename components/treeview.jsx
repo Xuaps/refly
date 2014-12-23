@@ -7,7 +7,7 @@ var store = require('./store.js');
 var TreeNode = require('./treenode.jsx');
 
 var nodes = {
-    loadData: function(config, parents){
+        loadData: function(config, parents){
         return store.get('docset_active').then(function(response){
             var docs = [];
             response.forEach(function(doc){

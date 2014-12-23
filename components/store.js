@@ -1,8 +1,8 @@
 var jQuery = require('jquery-browserify');
 
 function Api(){
-    this._url_docset_active='/api/docsets?state=active';
-    this._url_docset_all='/api/docsets';
+    this._url_docset_active='/api/docsets?kind=active';
+    this._url_docset_all='/api/docsets?kind=overview';
     this._url_types='/api/types';
     this._url_references='/api/references';
     this._url_branch='/api/referencesbranch';
@@ -43,7 +43,7 @@ Api.prototype.get = function (resource, filters){
 	    });
 	}else if(resource==='type'){
 	    return jQuery.ajax({
-	        url:this._url_types +'?docset='+filters.docset,
+	        url:this._url_types +'?docset='+filters.activedocset,
 	        method: 'GET'
 	    });
 	}else if(resource==='reference'){

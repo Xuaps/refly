@@ -17,9 +17,9 @@ module.exports = React.createClass({
 		var sticker = '';
 		for(i in this.state.data){
 			item = this.state.data[i];
-			if(item.state == 'soon'){
+			if(item.label == 'soon'){
 				sticker = (<img className="docset-state" src="/img/soon-stick.png"/>);
-			}else if(item.state == 'new'){
+			}else if(item.label == 'new'){
 				sticker = (<img className="docset-state" src="/img/new-stick.png"/>);
 			}else{
 				sticker = '';
@@ -30,7 +30,7 @@ module.exports = React.createClass({
 			}else{
 				var infodate = <div className="docset-date off-state"> - </div>
 			}
-			if(item.state!='soon' && item.state!=''){
+			if(item.state == 'active'){
 				docsetitems.push(
 		            <a key={'DCa' + i} href={item.default_uri} title={item.name}>
 		                <div className="item" key={'DCa' + i}>
