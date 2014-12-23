@@ -14,10 +14,9 @@ module.exports = React.createClass({
         return {results: [], currentstate: 'stopped'};
     },
 
-	componentDidMount: function(){
+	componentWillMount: function(){
 		var search = this.props.search || '';
 
-        this.setFocus('#txtreference', search);
 		if(search==''){
 			this.ToggleSearch(false);
 		}else{
@@ -25,6 +24,12 @@ module.exports = React.createClass({
 			this.loadData(search);
 		}
 	},
+
+    componentDidMount: function(){
+		var search = this.props.search || '';
+
+        this.setFocus('#txtreference', search);
+    },
 
 	componentWillReceiveProps: function (newProps) {
 		if(newProps.search!=undefined && newProps.search!=this.props.search){
@@ -74,7 +79,7 @@ module.exports = React.createClass({
 
 	loadData: function(searchtext){
 		this.setState({currentstate: 'loading'});
-		store.get('search', {'searchtext': searchtext})
+        store.get('search', {'searchtext': searchtext})
     	.then(function(results){
 			references = [];
 	        results.forEach(function(r){

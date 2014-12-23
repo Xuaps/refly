@@ -1,30 +1,27 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/search.jsx');
-var Search;
-var TestUtils;
-var routes;
-var React;
-React = require('react/addons');
-routes = require('../components/routes.jsx');
-TestUtils = React.addons.TestUtils;
-Search = require('../components/search.jsx');
+var React = require('react/addons');
+var routes = require('../components/routes.jsx');
+var TestUtils = React.addons.TestUtils;
+var Search = require('../components/search.jsx');
 
 describe('Search Component', function(){
 
     describe('Initial State', function(){
         it('should be empty', function(){
-            React.renderComponent(routes, document.createElement('div'));
+            TestUtils.renderIntoDocument(routes);
             var searchc = TestUtils.renderIntoDocument(<Search/>);
 			expect(searchc.state.results.length).toEqual(0);
+            searchc.refs.searchbox.getDOMNode().blur(); //Workaround for this bug: bit.ly/1t63vqC 
         });
     });
 
     describe('Search references', function(){
-        xit('should have all reference that contains "about"', function(){
-            React.renderComponent(routes, document.createElement('div'));
-            var searchc = TestUtils.renderIntoDocument(<Search/>);
-			searchc.setProps({search: 'about'});
-			expect(searchc.state.data.length).toEqual(2);
+        it('should find refrences', function(){
+            TestUtils.renderIntoDocument(routes);
+            var searchc = TestUtils.renderIntoDocument(<Search search={'about'}/>);
+			expect(searchc.state.results.length).toBeGreaterThan(0);
+            searchc.refs.searchbox.getDOMNode().blur(); //Workaround for this bug: bit.ly/1t63vqC 
         });
     });
 
