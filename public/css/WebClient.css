@@ -84,6 +84,9 @@ pre {
 
 /* Custom clases */
 
+.bold {
+    font-weight: bold;
+}
 .cursive {
     font-style: italic;
 }
