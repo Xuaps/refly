@@ -32,7 +32,7 @@ module.exports = React.createClass({
     },
 
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.search!=undefined && newProps.search!=this.props.search){
+		if(newProps.search && newProps.search!=this.props.search){
 			this.setFocus('#txtreference', newProps.search);
 			this.loadData(newProps.search);
 		}
@@ -45,40 +45,38 @@ module.exports = React.createClass({
 
     onKeyUp: function(event){
 		event.persist();
-		if(event.target.value==''){
-			this.emptySearch(event);
-		}else if(event.keyCode!=73){
-			if(event.keyCode==13){
-				this.loadData(event.target.value);
-				this.props.onKeyUpEvent(event);
-			}else{
-				this.debouncedKeyUp(event.target.value).then(function (result) {
-				    this.loadData(result);
-					this.props.onKeyUpEvent(event);
-				}.bind(this));
-			}
-		}
+        this.debouncedKeyUp().then(function () {
+            this.processInput();
+            this.props.onKeyUpEvent(event);
+        }.bind(this));
     },
 
-	debouncedKeyUp: function (value) {
+	debouncedKeyUp: function () {
         var deferred = Q.defer();
         var timerId = this.timerId;
         var self = this;
         if (timerId) {
             clearTimeout(timerId);
         }
-        timerId = setTimeout((function (innerValue) {
-                return function () {
-                    deferred.resolve(innerValue);
-                }
-            })(value), 800);
+        timerId = setTimeout(function () {
+                    deferred.resolve();
+                }, 800);
         this.timerId = timerId;
         
         return deferred.promise;
     },
 
+    processInput: function(){
+        var data = this.refs.searchbox.getDOMNode('#txtreference').value;
+		if(!data){
+			this.emptySearch();
+		}else{
+            this.loadData(data);
+        }
+    },
+
 	loadData: function(searchtext){
-		this.setState({currentstate: 'loading'});
+        this.setState({currentstate: 'loading'});
         store.get('search', {'searchtext': searchtext})
     	.then(function(results){
 			references = [];
@@ -106,7 +104,7 @@ module.exports = React.createClass({
 		}
 	},
 
-    emptySearch: function(event){
+    emptySearch: function(){
         this.refs.searchbox.getDOMNode('#txtreference').value='';
         this.setState({results:[]});
 		this.ToggleSearch(false);
