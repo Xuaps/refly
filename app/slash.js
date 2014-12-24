@@ -108,7 +108,7 @@ var breadcrumbs = function(uri, breadcrumb_collection){
 			return [];
 		}
 		breadcrumb.unshift(ref);
-		if(ref.parent_uri != null && breadcrumb.length<=2)
+		if(ref.parent_uri != null && breadcrumb.length<3)
 			return breadcrumbs(ref.parent_uri, breadcrumb);
 		return breadcrumb;
 	});

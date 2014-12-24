@@ -27,11 +27,11 @@ var Breadcrumbs = React.createClass({
  		    rows.push(
             <li key={'BCLi' + item.uri}>
 			    {item.reference}<br/>
-            </li>);         
-        }else if(index==0){
+            </li>);
+        }else if(index==0 && this.state.data.length>2){
 		    rows.push(
             <li key={'BCLi' + item.uri}>
-			    <Link to='result' key={'BCL' + item.uri} params={{docset: item.docset, splat: item.ref_uri}}>. . .</Link><br/>
+			    <Link to='result' key={'BCL' + item.uri} className="bold" params={{docset: item.docset, splat: item.ref_uri}}>. . .</Link><br/>
             </li>);
             }else{
 		    rows.push(
