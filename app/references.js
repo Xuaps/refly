@@ -3,7 +3,7 @@ var util = require('util');
 var db = require('./db');
 
 function References(){
-    this._query = db('refs').debug();
+    this._query = db('refs');
 } 
 
 References.prototype.filter = function(field, operator, value) {
