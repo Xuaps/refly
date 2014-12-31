@@ -1,3 +1,2 @@
-ALTER TABLE docsets
-   ALTER COLUMN state TYPE character varying(50);
-ALTER TABLE docsets ADD COLUMN label text;
+ALTER TABLE docsets DROP COLUMN state;
+ALTER TABLE docsets ADD COLUMN active boolean;

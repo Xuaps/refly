@@ -12,7 +12,7 @@ var search = function(options) {
             .filter('reference', filters.operators.CONTAINS, options.reference)
             .filter('type', filters.operators.IN, options.types)
             .select(['docset', 'reference', 'type', 'uri'])
-            .docsetstatefilter('active')            
+            .docsetstatefilter(true)            
             .execute();
     }else{
         return references
@@ -29,7 +29,7 @@ var get = function(uri){
 	return references
         .filter('uri', filters.operators.EQUALS, uri)
         .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_uri'])
-        .docsetstatefilter('active')
+        .docsetstatefilter(true)
         .execute().then(function(references) {
             return references[0];
         });
@@ -132,10 +132,10 @@ var get_by_id = function(id){
 var get_docsetsbydate = function(options){
 	docsets = new Docsets();
 	if(options.kind=='active'){
-		docsets.filter('state', filters.operators.EQUALS, 'active');
+		docsets.filter('active', filters.operators.EQUALS, true);
 	}
     return docsets
-        .select(['docset','default_uri', 'update_date', 'label', 'state']).order('update_date', 'ASC')
+        .select(['docset','default_uri', 'update_date', 'label', 'active']).order('update_date', 'ASC')
         .execute();
 }
 

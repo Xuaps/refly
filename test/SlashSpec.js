@@ -13,7 +13,7 @@ describe('Slash', function() {
                     uri: 'search',
                     parent_uri: null,
                     type: 'function',
-                    docset: {name: 'slash',state: 'active'},
+                    docset: {name: 'slash',active: true},
                     content: 'blablabla'
                 },
                 {
@@ -21,7 +21,7 @@ describe('Slash', function() {
                     uri: 'searchconstant',
                     parent_uri: 'search',
                     type: 'constant',
-                    docset: {name: 'slash',state: 'active'},
+                    docset: {name: 'slash',active: true},
                     content: 'blablabla'
                 },
                 {
@@ -29,7 +29,7 @@ describe('Slash', function() {
                     uri: 'searchfunction',
                     parent_uri: 'searchconstant',
                     type: 'function',
-                    docset: {name: 'java',state: 'inactive'},
+                    docset: {name: 'java',active: false},
                     content: 'blablabla'
                 },
                 {
@@ -37,7 +37,7 @@ describe('Slash', function() {
                     uri: 'json.parse',
                     parent_uri: 'JSON',
                     type: 'function',
-                    docset: {name: 'javascript',state: 'active'},
+                    docset: {name: 'javascript',active: true},
                     content: 'blablabla'
                 }
             ];
@@ -64,7 +64,7 @@ describe('Slash', function() {
                 expect(results).toEqual([{
                     reference: 'search',
                     type: 'function',
-                    docset: {name: 'slash', state:'active'},
+                    docset: {name: 'slash', active: true},
 					uri: 'search'
                 }]);
             });
@@ -121,7 +121,7 @@ describe('Slash', function() {
    describe('GetDocset', function(){
        it("return all the docsets", function(done){
            var docsets = slash.get_docsets({kind: 'all'}).then(function(response){
-               expect(response).toEqual([ { name: 'slash', state: 'active'}, { name: 'java', state: 'inactive'},{ name : 'javascript', state : 'active' } ]);
+               expect(response).toEqual([ { name: 'slash', active: true}, { name: 'java', active: false},{ name : 'javascript', active : true } ]);
            }).fin(done);
  
        });

@@ -24,13 +24,13 @@ module.exports = React.createClass({
 			}else{
 				sticker = '';
 			}
-			if(item.date!=null && new Date(item.date)<new Date() && item.state=='active'){
+			if(item.date!=null && new Date(item.date)<new Date() && item.active==true){
 				var itemdate = new Date(item.date);
 				var infodate = <div className="docset-date ok-state">{String(itemdate.getDate()+100).substr(1) + '-' + String(itemdate.getMonth()+100).substr(1) + '-' + itemdate.getFullYear()}</div>
 			}else{
 				var infodate = <div className="docset-date off-state"> - </div>
 			}
-			if(item.state == 'active'){
+			if(item.active == true){
 				docsetitems.push(
 		            <a key={'DCa' + i} href={item.default_uri} title={item.name}>
 		                <div className="item" key={'DCa' + i}>

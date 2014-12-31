@@ -25,7 +25,7 @@ Docsets.prototype.filter = function(field, operator, value) {
 
 Docsets.prototype.docsetstatefilter = function(value){
     Docsets.prototype._collection = Docsets.prototype._collection.filter(function(reference) {
-        return reference.docset.state==value;
+        return reference.docset.active==value;
     });
     return this;
 
