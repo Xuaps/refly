@@ -39,8 +39,8 @@ module.exports = React.createClass({
 	},
 
 	setFocus: function(input, searchtext){
-		this.refs.searchbox.getDOMNode(input).value = searchtext;
 		this.refs.searchbox.getDOMNode(input).focus();
+		this.refs.searchbox.getDOMNode(input).value = searchtext;
 	},
 
     onKeyUp: function(event){
@@ -147,7 +147,7 @@ module.exports = React.createClass({
                 <div className="search-header">
                     <fieldset>
                         <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
-                        placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
+                        placeholder="Reference" onKeyUp={this.onKeyUp} />
                         <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                     </fieldset>
                 </div>
