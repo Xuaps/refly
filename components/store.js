@@ -2,7 +2,7 @@ var jQuery = require('jquery-browserify');
 
 function Api(){
     this._url_docset_active='/api/docsets?kind=active';
-    this._url_docset_all='/api/docsets?kind=overview';
+    this._url_docset_all='/api/docsets?kind=all';
     this._url_types='/api/types';
     this._url_references='/api/references';
     this._url_branch='/api/referencesbranch';
