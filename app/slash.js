@@ -29,6 +29,7 @@ var get = function(uri){
 	return references
         .filter('uri', filters.operators.EQUALS, uri)
         .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_uri'])
+        .docsetstatefilter('active')
         .execute().then(function(references) {
             return references[0];
         });
