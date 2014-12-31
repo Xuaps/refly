@@ -55,6 +55,8 @@ function get (resource, filters) {
                 data = callback(_newReference);
             }else if(resource==='treeviewreference'){
                 data = callback(_references);
+            }else if(resource==='search'){
+                data = callback(_formattedreferences);
             }
             return {then: function(callback){callback(data);}};
         }

@@ -4,18 +4,19 @@ var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('./store.js');
 var Q = require('q');
+var default_disp = {action:'show', state: 'full'};
 
 module.exports = React.createClass({
 	
     getInitialState: function() {
 		this.props.message = "";
+        this.props.visibility = this.props.visibility || default_disp; 
         return {results: [], currentstate: 'stopped'};
     },
 
-	componentDidMount: function(){
+	componentWillMount: function(){
 		var search = this.props.search || '';
 
-        this.setFocus('#txtreference', search);
 		if(search==''){
 			this.ToggleSearch(false);
 		}else{
@@ -24,8 +25,14 @@ module.exports = React.createClass({
 		}
 	},
 
+    componentDidMount: function(){
+		var search = this.props.search || '';
+
+        this.setFocus('#txtreference', search);
+    },
+
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.search!=undefined && newProps.search!=this.props.search){
+		if(newProps.search && newProps.search!=this.props.search){
 			this.setFocus('#txtreference', newProps.search);
 			this.loadData(newProps.search);
 		}
@@ -38,41 +45,39 @@ module.exports = React.createClass({
 
     onKeyUp: function(event){
 		event.persist();
-		if(event.target.value==''){
-			this.emptySearch(event);
-		}else if(event.keyCode!=73){
-			if(event.keyCode==13){
-				this.loadData(event.target.value);
-				this.props.onKeyUpEvent(event);
-			}else{
-				this.debouncedKeyUp(event.target.value).then(function (result) {
-				    this.loadData(result);
-					this.props.onKeyUpEvent(event);
-				}.bind(this));
-			}
-		}
+        this.debouncedKeyUp().then(function () {
+            this.processInput();
+            this.props.onKeyUpEvent(event);
+        }.bind(this));
     },
 
-	debouncedKeyUp: function (value) {
+	debouncedKeyUp: function () {
         var deferred = Q.defer();
         var timerId = this.timerId;
         var self = this;
         if (timerId) {
             clearTimeout(timerId);
         }
-        timerId = setTimeout((function (innerValue) {
-                return function () {
-                    deferred.resolve(innerValue);
-                }
-            })(value), 800);
+        timerId = setTimeout(function () {
+                    deferred.resolve();
+                }, 800);
         this.timerId = timerId;
         
         return deferred.promise;
     },
 
+    processInput: function(){
+        var data = this.refs.searchbox.getDOMNode('#txtreference').value;
+		if(!data){
+			this.emptySearch();
+		}else{
+            this.loadData(data);
+        }
+    },
+
 	loadData: function(searchtext){
-		this.setState({currentstate: 'loading'});
-		store.get('search', {'searchtext': searchtext})
+        this.setState({currentstate: 'loading'});
+        store.get('search', {'searchtext': searchtext})
     	.then(function(results){
 			references = [];
 	        results.forEach(function(r){
@@ -99,7 +104,7 @@ module.exports = React.createClass({
 		}
 	},
 
-    emptySearch: function(event){
+    emptySearch: function(){
         this.refs.searchbox.getDOMNode('#txtreference').value='';
         this.setState({results:[]});
 		this.ToggleSearch(false);
