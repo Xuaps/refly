@@ -24,7 +24,7 @@ module.exports = React.createClass({
 			}else{
 				sticker = '';
 			}
-			if(item.date!=null && new Date(item.date)<new Date()){
+			if(item.date!=null && new Date(item.date)<new Date() && item.state=='active'){
 				var itemdate = new Date(item.date);
 				var infodate = <div className="docset-date ok-state">{String(itemdate.getDate()+100).substr(1) + '-' + String(itemdate.getMonth()+100).substr(1) + '-' + itemdate.getFullYear()}</div>
 			}else{
