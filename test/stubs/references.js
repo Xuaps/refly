@@ -23,7 +23,7 @@ Docsets.prototype.filter = function(field, operator, value) {
     return this;
 };
 
-Docsets.prototype.docsetfilter = function(value){
+Docsets.prototype.docsetstatefilter = function(value){
     Docsets.prototype._collection = Docsets.prototype._collection.filter(function(reference) {
         return reference.docset.state==value;
     });

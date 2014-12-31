@@ -20,7 +20,7 @@ References.prototype.filter = function(field, operator, value) {
     return this;
 };
 
-References.prototype.docsetfilter = function(value){
+References.prototype.docsetstatefilter = function(value){
     this._query = this._query.innerJoin('docsets', 'refs.docset', 'docsets.docset');
     this._query = this._query.where('docsets.state', filters.operators.IN , value)
     return this;

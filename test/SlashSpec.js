@@ -29,7 +29,7 @@ describe('Slash', function() {
                     uri: 'searchfunction',
                     parent_uri: 'searchconstant',
                     type: 'function',
-                    docset: {name: 'java',state: 'active'},
+                    docset: {name: 'java',state: 'inactive'},
                     content: 'blablabla'
                 },
                 {
@@ -82,7 +82,7 @@ describe('Slash', function() {
             slash.search({
                 reference: 'aRc'
             }).then(function(response) {
-                expect(response.length).toEqual(3);
+                expect(response.length).toEqual(2);
             }).fin(done);
         });
     
@@ -120,8 +120,8 @@ describe('Slash', function() {
  
    describe('GetDocset', function(){
        it("return all the docsets", function(done){
-           var docsets = slash.get_docsets().then(function(response){
-               expect(response).toEqual([ { name: 'slash', state: 'active'}, { name: 'java', state: 'active'},{ name : 'javascript', state : 'active' } ]);
+           var docsets = slash.get_docsets({kind: 'all'}).then(function(response){
+               expect(response).toEqual([ { name: 'slash', state: 'active'}, { name: 'java', state: 'inactive'},{ name : 'javascript', state : 'active' } ]);
            }).fin(done);
  
        });

@@ -12,7 +12,7 @@ var search = function(options) {
             .filter('reference', filters.operators.CONTAINS, options.reference)
             .filter('type', filters.operators.IN, options.types)
             .select(['docset', 'reference', 'type', 'uri'])
-            .docsetfilter('active')            
+            .docsetstatefilter('active')            
             .execute();
     }else{
         return references
