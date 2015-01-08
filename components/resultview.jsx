@@ -28,10 +28,19 @@ module.exports = React.createClass({
 			Rollbar.error("Reference " + this.props.params.uri + " not found");
 			var urlsearch = "/searchfor/" + searchtext;
             content = <div className="warning">
-                        <h2>Referencia no encontrada</h2>
-                        <h3>Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.</h3>
-                        <p>You can <a href={urlsearch}>make a new search</a></p>
-                        <p>or click <a href='javascript:history.back()'>here</a> to go back.</p>
+                        <div className="">
+                            <h2>Referencia no encontrada</h2>
+                            <h3>Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.</h3>
+                            <div className="centered-text">
+                                <p>You can make a new search</p>
+                                <a className="ry-btn" href={urlsearch} title="Search"><i className="fa fa-search fa-2x"></i></a>
+                            </div>
+                            <div className="centered-text">
+                                <p>or click here to go back</p>
+                                <a className="ry-btn" href='javascript:history.back()' title="Back"><i className="fa fa-undo fa-2x"></i></a>
+                            </div>
+                        </div>
+                        <img className="bad-reference" src="/img/bad-reference.png"/>
                       </div>;
         }else if(this.state.initilized && this.state.reference){
             content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;

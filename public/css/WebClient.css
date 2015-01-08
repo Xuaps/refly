@@ -346,16 +346,34 @@ ul.breadcrumbsul li:last-child a:hover {
 
 /* Warningpage */
 
+.result .bad-reference {
+    width: 50%;
+    float: left;
+    padding: 0 60px 0 20px;
+}
+.result .warning>div {
+    width: 50%;
+    float: left;
+}
+.result .warning>div>div {
+    margin-top: 50px;
+}
+.result .warning .ry-btn {
+    margin-left: 20px;
+    height: initial;
+}
+.result .warning .ry-btn i {
+    padding: 7px 42px;
+}
 .result .warning h2 {
-    font-size: 2.6em;
+    font-size: 2.0em;
     padding-left: 20px;
     margin: 0.5em 0;
 }
 .result .warning h3 {
-    font-size: 1.6em;
+    font-size: 1.2em;
     font-weight: normal;
     margin-top: 1em;
-    color: #f00;
 }
 .result .warning p {
     font-size: 1.2em;
