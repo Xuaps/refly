@@ -34,6 +34,13 @@ app.get('/api', function(req, res){
     res.set('Content-Type', 'application/hal+json');
     res.hal(api.entry());
 });
+app.get('/api/references/:docset/:uri(*)/hierarchy', function(req, res){
+    api.get_ascendants(req.params.docset, req.params.uri)
+        .then(function(hal){
+            res.set('Content-Type', 'application/hal+json');
+            res.hal(hal);
+        });
+});
 app.get('/api/references/:docset/:uri(*)', function(req, res){
     api.get_reference(req.params.docset, req.params.uri)
         .then(function(hal){
@@ -44,7 +51,6 @@ app.get('/api/references/:docset/:uri(*)', function(req, res){
 app.get('/api/references?', function(req, res){
     //TODO: types
     if(req.query.docsets){
-console.log('doc');
         docsets.search(req,res);
     }else{
         api.get_references(Object.keys(req.query)[0])
@@ -57,7 +63,6 @@ console.log('doc');
 app.get('/api/docsets?', docsets.get_docsets);
 app.get('/api/types', docsets.get_types);
 app.get('/api/referencesbranch/:uri(*)', docsets.branch);
-app.get('/api/referencesbreadcrumbs/:uri(*)', docsets.breadcrumbs);
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
   console.log("Express server listening on port " + app.get('port'));

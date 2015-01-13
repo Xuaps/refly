@@ -118,6 +118,40 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
 
     [References collection][]
 
+##Hierarchy collection [/api/references/{docset}/{uri}/hierarchy]
+A collection of Reference's hierarchy.
 
++ Parameters
+   + docset (string, `slash`) ... Docset of the reference.
+   + uri (string, `test_4.html`) ... URI indentifier for a reference in a docset.
 
++ Model (application/hal+json)
 
+    HAL+JSON representation of Reference's hierarchy collection Resource. References in hierarchy are embedded. Note embedded References resources are incomplete reprensentation of the Reference in question. Use the respective Reference link to retrieve its full reprensentation.
+
+    + Body
+
+            {
+                "_links": {
+                   "self": { "href": "/api/references/slash/test.html/hierarchy" }
+                },
+                "_embedded": {
+                    "hierarchy": [
+                        {
+                            "_links": {
+                               "self": { "href": "/api/reference/slash/test.html"}
+                            },
+                            "uri": "/slash/test.html",
+                            "name": "search",
+                            "type": "others",
+                            "docset_name": "slash"
+                        }    
+                    ]
+                 }
+             }
+
+### Retrive Reference's hierarchy [GET]
+
++ Response 200
+
+    [Hierarchy collection][]

@@ -67,7 +67,7 @@ module.exports.get_references = function(pattern){
                        delete ref.reference;
                        return {
                             links: {
-                                self: '/api/reference' + ref.uri 
+                                self: '/api/references' + ref.uri 
                             },
                             data: ref
                        };           
@@ -75,4 +75,29 @@ module.exports.get_references = function(pattern){
                }
            }; 
        });
+};
+
+module.exports.get_ascendants = function(docset, uri){
+    return slash.breadcrumbs('/'+docset+'/'+uri).then(function(references){
+       return {
+            links: {
+                self: '/api/references/' + docset + '/' + uri + '/hierarchy'
+            },
+            embeds: {
+               "hierarchy": references.map(function(ref){
+                   ref.docset_name = ref.docset;
+                   ref.name = ref.reference;
+                   delete ref.docset;
+                   delete ref.reference;
+                   delete ref.content;
+                   return {
+                        links: {
+                            self: '/api/references' + ref.uri 
+                        },
+                        data: ref
+                   };           
+                })
+           }
+       };
+    });
 };

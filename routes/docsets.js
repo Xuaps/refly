@@ -31,25 +31,6 @@ exports.branch = function(req, res) {
 		});
     }
 };
-exports.breadcrumbs = function(req, res) {
-	if(req.params.uri[0]!='/'){
-		uri = '/' + req.params.uri;
-	}
-
-    if (uri == null) {
-        res.send([]);
-    } else {
-        slash.breadcrumbs(uri).then(function(references){
-			list = []
-			for(key in references){
-				item = references[key]
-				list.push(
-				{docset: item.docset, reference: item.reference, type: item.type, uri: item.uri});
-			}
-			res.send(list);
-		});
-    }
-};
 
 //Will replace get_docsets soon.
 
