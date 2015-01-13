@@ -56,7 +56,7 @@ The Reference resource has the following attributes:
 
             {
                "_links": {
-                   "self": { "href": "/api/slash/test.html" },
+                   "self": { "href": "/api/references/slash/test.html" },
                     "curies": [
                         { 
                             "name": "rl",
