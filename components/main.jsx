@@ -20,4 +20,17 @@ $(document).on('click', 'div.result a', function(event) {
     	Router.transitionTo('result',{docset:uri.segment(0), splat:uri.segment(0,'').path().slice(1)});
 	}
 });
+// string format
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
+// react extension
 window.React = React;
