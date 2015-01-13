@@ -3,6 +3,8 @@ var React = require('react')
 var SimpleMail = require('./simpleform.jsx');
 var Docsets = require('./docsets.jsx');
 
+
+
 module.exports = React.createClass({
 
 
@@ -31,7 +33,7 @@ module.exports = React.createClass({
                     </fieldset>
                 </div>
                 <div className="docsets">
-                    <div className="center-content centered-text">
+                    <div className="center-content centered-text show">
                         <h2>Our flies are searching all day for you</h2>
 						<Docsets key="docsetsc" />
                     </div>

@@ -731,10 +731,22 @@ footer .copyright {
 .docsets h2 {
     display: inline-block;
     padding: 0 10px;
+    border: 0 none;
 }
 .docsets .docsets-container {
-    width: 100%;
-    text-align: center;
+    margin: 0 auto;
+    max-width: 816px;
+    width: 90%;
+    overflow-x: hidden;
+    border-left: 3px solid #fdb436;
+    border-right: 3px solid #fdb436;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.docsets .docsets-thumbs {
+    float: left;
+    white-space: nowrap;
 }
 .docsets .item {
     background-color: #fff;

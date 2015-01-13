@@ -56,7 +56,9 @@ module.exports = React.createClass({
 		}
         return(
             <div className="docsets-container">
-				{docsetitems}
+                <div className="docsets-thumbs">
+                    {docsetitems}
+                </div>
             </div>
         );    
     },
