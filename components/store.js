@@ -6,7 +6,7 @@ function Api(){
     this._url_types='/api/types';
     this._url_references='/api/references';
     this._url_branch='/api/referencesbranch';
-	this._url_breadcrumbs = '/api/referencesbreadcrumbs';
+	this._url_breadcrumbs = '/api/references/{0}/hierarchy';
 }
 
 Api.prototype._addUris = function(ref){
@@ -23,7 +23,7 @@ Api.prototype._addUris = function(ref){
 };
 
 Api.prototype._addUrisToReferences= function(res){
-    var references = res['_embedded']?res['_embedded'].references:res;
+    var references = res['_embedded']?(res['_embedded'].references?res['_embedded'].references:res['_embedded'].hierarchy):res;
     if(!references)
         return references;
 
@@ -60,11 +60,9 @@ Api.prototype.get = function (resource, filters){
 	        method: 'GET'
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='breadcrumbs'){
-		uri = filters.uri;
-		if(uri.indexOf('/')>0)
-			uri = '/' + filters.uri;
-	    return jQuery.ajax({
-	        url: this._url_breadcrumbs + uri,
+        return jQuery.ajax({
+            context: this,
+	        url: this._url_breadcrumbs.format(filters.uri),
 	        method: 'GET'
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='search'){
