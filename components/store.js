@@ -45,7 +45,7 @@ Api.prototype.get = function (resource, filters){
 	    return jQuery.ajax({
 	        url:this._url_types +'?docset='+filters.activedocset,
 	        method: 'GET'
-	    });
+	    }).then(function(response){ return response['_embedded'].types; });
 	}else if(resource==='reference'){
 	    return jQuery.ajax({
 	        url: this._url_references + '/' + filters.docset + '/' + filters.uri,

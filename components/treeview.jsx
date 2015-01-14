@@ -23,7 +23,7 @@ var nodes = {
                 var treenodes = [];
                 types.forEach(function(type){
                     var parents_path = parents.concat(type);
-                    treenodes.push(<TreeNode key={type.path} path={type.path} type={type.name} name={type.name} 
+                    treenodes.push(<TreeNode key={type.name} path={type.image} type={type.name} name={type.name} 
                         config={config} parents={parents_path}/>);
                 });
                 return treenodes;
