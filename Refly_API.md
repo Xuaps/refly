@@ -155,3 +155,40 @@ A collection of Reference's hierarchy.
 + Response 200
 
     [Hierarchy collection][]
+
+##Children & Brothers collection [/api/references/{docset}/{uri}/c&b]
+A collection of Reference's children and brothers.
+
++ Parameters
+   + docset (string, `slash`) ... Docset of the reference.
+   + uri (string, `test_4.html`) ... URI indentifier for a reference in a docset.
+
++ Model (application/hal+json)
+
+    HAL+JSON representation of Reference's children and brothers collection Resource. References in hierarchy are embedded. Note embedded References resources are incomplete reprensentation of the Reference in question. Use the respective Reference link to retrieve its full reprensentation. This collection also contain searched Reference.
+
+    + Body
+
+            {
+                "_links": {
+                   "self": { "href": "/api/references/slash/test.html/c&b" }
+                },
+                "_embedded": {
+                    "references": [
+                        {
+                            "_links": {
+                               "self": { "href": "/api/reference/slash/test.html"}
+                            },
+                            "uri": "/slash/test.html",
+                            "name": "search",
+                            "type": "others",
+                            "docset_name": "slash"
+                        }    
+                    ]
+                 }
+             }
+
+### Retrieve Reference's children and brothers [GET]
++ Response 200
+
+    [Children & Brothers collection][]

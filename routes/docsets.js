@@ -18,20 +18,6 @@ exports.get_types = function(req, res) {
     });
 };
 
-exports.branch = function(req, res) {
-	if(req.params.uri[0]!='/'){
-		uri = '/' + req.params.uri;
-	}
-    if (uri == null) {
-        res.send([]);
-    } else {
-        slash.branch(uri,1).then(function(references){
-			list = JSON.Flatten(references);
-			res.send(list);
-		});
-    }
-};
-
 //Will replace get_docsets soon.
 
 exports.get_docsets = function(req, res) {

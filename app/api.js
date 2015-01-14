@@ -1,4 +1,5 @@
 var slash = require('./slash.js');
+var JSON = require('../app/JSON');
 module.exports.entry = function(){
     return {
         links: {
@@ -77,6 +78,31 @@ module.exports.get_references = function(pattern){
        });
 };
 
+module.exports.get_children_and_brothers = function(docset, uri){
+    return slash.branch('/'+docset+'/'+uri, 1).then(function(references){
+       list = JSON.Flatten(references);
+       return {
+            links: {
+                self: '/api/references/' + docset + '/' + uri + '/c&b'
+            },
+            embeds: {
+               "references": list.map(function(ref){
+                   ref.docset_name = ref.docset;
+                   ref.name = ref.reference;
+                   delete ref.docset;
+                   delete ref.reference;
+                   delete ref.content;
+                   return {
+                        links: {
+                            self: '/api/references' + ref.uri 
+                        },
+                        data: ref
+                   };           
+                })
+           }
+       };
+    });
+};
 module.exports.get_ascendants = function(docset, uri){
     return slash.breadcrumbs('/'+docset+'/'+uri).then(function(references){
        return {
