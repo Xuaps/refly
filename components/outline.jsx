@@ -40,13 +40,13 @@ var Outline = React.createClass({
         if(item.uri==this.selecteduri){
 		symbols[item.type].push(
         <li key="selecteditem" className="selected-item">
-			{item.reference}
+			{item.name}
         </li>
 		);
 		}else{
 		symbols[item.type].push(
         <li key={'OLi' + item.ref_uri}>
-			<Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.reference}</Link><br/>
+			<Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.name}</Link><br/>
         </li>
 							   );
 		}

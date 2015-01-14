@@ -5,7 +5,7 @@ function Api(){
     this._url_docset_all='/api/docsets?kind=all';
     this._url_types='/api/types';
     this._url_references='/api/references';
-    this._url_branch='/api/referencesbranch';
+    this._url_branch='/api/references/{0}/c&b';
 	this._url_breadcrumbs = '/api/references/{0}/hierarchy';
 }
 
@@ -52,11 +52,8 @@ Api.prototype.get = function (resource, filters){
 	        method: 'GET'
 	    }).then(this._addUris);
 	}else if(resource==='branch'){
-		uri = filters.uri;
-		if(uri.indexOf('/')>0)
-			uri = '/' + filters.uri;
 	    return jQuery.ajax({
-	        url: this._url_branch + uri,
+	        url: this._url_branch.format(filters.uri),
 	        method: 'GET'
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='breadcrumbs'){
