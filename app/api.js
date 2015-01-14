@@ -127,3 +127,21 @@ module.exports.get_ascendants = function(docset, uri){
        };
     });
 };
+
+module.exports.get_types = function(main_url, docset){
+    return slash.get_types(docset).then(function(types) {
+       return {
+            links: {
+                self: '/api/types' + (docset?'?docset=' + docset:'') 
+            },
+            embeds: {
+               "types": types.map(function(type){
+                   return {
+                        name: type,
+                        image: main_url + '/img/type-' + type.toLowerCase() + '.png'
+                   };           
+                })
+           }
+       };
+    });
+}

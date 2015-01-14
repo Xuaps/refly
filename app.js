@@ -68,7 +68,13 @@ app.get('/api/references?', function(req, res){
     }
 });
 app.get('/api/docsets?', docsets.get_docsets);
-app.get('/api/types', docsets.get_types);
+app.get('/api/types?', function(req, res){
+    api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
+        .then(function(hal){
+            res.set('Content-Type', 'application/hal+json');
+            res.hal(hal);
+        });
+});
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
   console.log("Express server listening on port " + app.get('port'));

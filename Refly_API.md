@@ -192,3 +192,41 @@ A collection of Reference's children and brothers.
 + Response 200
 
     [Children & Brothers collection][]
+
+#Group Type
+A Type resource in *Refly API*
+
+##Type collection [/api/types{?docset}]
+A collection of Type resources.
+
+The Type Collection resource  **embeds* *Types* in the Refly API.
+
++ Model (application/hal+json)
+
+    + Body
+
+            {
+                "_links": {
+                   "self": { "href": "/api/types" }
+                },
+                "_embedded": {
+                    "types": [
+                        {
+                            "name": "method",
+                            "image": "http://myserver/images/method.jpg"
+                        }    
+                    ]
+                 }
+             }
+
+### List All Types [GET]
+
++ Parameters
+    + docset (optional, string) ... Docset resource name. Only types in this docset are returned.
+
++ Response 200
+
+    [Type collection][]
+
+#Group Docset
+A Docset resource in *Refly API*

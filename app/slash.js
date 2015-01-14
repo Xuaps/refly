@@ -53,11 +53,13 @@ var get_types = function(docset){
     return references.filter('docset', filters.operators.IN, docset)
 		.select(['type']).execute().then(function(references){
         var unique_references = [];
-        references.reduce(function(previousValue, currentValue, index, array) {
-			if(unique_references.indexOf(currentValue.type)==-1){
-            	unique_references.push(currentValue.type);
-			}
-		});
+        if(references.length>0){
+            references.reduce(function(previousValue, currentValue, index, array) {
+                if(unique_references.indexOf(currentValue.type)==-1){
+                    unique_references.push(currentValue.type);
+                }
+            });
+        }
 		return unique_references;
 	});
 }

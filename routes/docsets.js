@@ -7,17 +7,6 @@ exports.search = function(req, res) {
     });
 };
 
-exports.get_types = function(req, res) {
-    slash.get_types(req.params.uri).then(function(types) {
-		list = []
-		for(var i=0;i<types.length;i++){
-			type = types[i];
-			list.push({name: type, path: type.toLowerCase()});
-		}
-        res.send(list);
-    });
-};
-
 //Will replace get_docsets soon.
 
 exports.get_docsets = function(req, res) {
