@@ -145,3 +145,49 @@ module.exports.get_types = function(main_url, docset){
        };
     });
 }
+module.exports.get_docset = function(main_url, name){
+    return slash.get_docset(name)
+        .then(function(docset) {
+            return { 
+                links: {
+                    self: '/api/docsets/' + docset.docset 
+                },
+                data: {
+                    name: docset.docset,
+                    start_uri: docset.default_uri,
+                    latest_version_date: docset.update_date,
+                    publication_date: docset.pub_date,
+                    is_active: docset.active,
+                    description: docset.label,
+                    image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png'
+                }
+             };        
+        });
+};
+
+//tood change name get_docsetbydate
+module.exports.get_docsets = function(main_url, active){
+    return slash.get_docsetsbydate(active).then(function(docsets) {
+       return {
+            links: {
+                self: '/api/docsets' + (active?'?active=' + active:'') 
+            },
+            embeds: {
+               "docsets": docsets.map(function(docset){
+                   return {
+                        links: {
+                            self: '/api/docsets/' + docset.docset 
+                        },
+                        name: docset.docset,
+                        start_uri: docset.default_uri,
+                        latest_version_date: docset.update_date,
+                        description: docset.label,
+                        is_active: docset.active,
+                        image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png',
+                        bigimage: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-biglogo.jpg'
+                   };           
+                })
+           }
+       };
+    });
+};

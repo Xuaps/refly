@@ -34,8 +34,7 @@ This resource offers the initial API affordances in the form of HAL links.
 Reference resource of *Refly API*
 
 ## Reference [/api/references/{docset}/{uri}]
-A single Reference object. The Reference resource is the central resource in the Refly API. It represents a single documentation node.
-
+A single Reference object. The Reference resource is the central resource in the Refly API. It represents a single documentation node.  
 The Reference resource has the following attributes:
 
 - docset
@@ -230,3 +229,85 @@ The Type Collection resource  **embeds* *Types* in the Refly API.
 
 #Group Docset
 A Docset resource in *Refly API*
+
+## Docset [/api/docsets/{name}]
+A single Docset object. It represents a set of references.  
+The Docset resource has the following attributes:
+
+- name
+- start_uri
+- publication_date
+- latest_version_date
+- description
+- is_active
+
++ Parameters
+   + name (string, `slash`) ... Docset's name.
+
++ Model (application/hal+json)
+
+   HAL+JSON representation of Docset Resource.
+
+   + Body
+
+            {
+               "_links": {
+                   "self": { "href": "/api/docsets/slash" }
+               },
+               "name": "slash",
+               "start_uri": "/slash/test.html",
+               "publication_date": "2014-12-30T23:00:00.000Z",
+               "latest_version_date": "2014-12-30T23:00:00.000Z",
+               "description": "new",
+               "is_active": true,
+               "image": "http://myserver.com/img/docset.png"
+            }
+
+### Retrieve a Single Docset [GET]
+
++ Response 200
+
+    [Docset][]
+
+##Docsets collection [/api/docsets{?active}]
+A collection of Docset.
+
+The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
+
++ Model (application/hal+json)
+    
+    HAL+JSON representation of Docsets Collection Resource. The Docset resource in collections are embedded. Note the embedded Docsets resource are incomplete representation of the Docset in question. Use the respective Docset link  to retrive its full representation.
+
+    + Body
+
+            {
+                "_links": {
+                   "self": { "href": "/api/docsets" }
+                },
+                "_embedded": {
+                    "docsets": [
+                        {
+                            "_links": {
+                               "self": { "href": "/api/docsets/slash"}
+                            },
+                           "name": "slash",
+                           "start_uri": "/slash/test.html",
+                           "latest_version_date": "2014-12-30T23:00:00.000Z",
+                           "description": "new",
+                           "is_active": true,
+                           "image": "http://myserver.com/img/docset.png",
+                           "bigimage": "http://myserver.com/img/bigdocset.png"
+                        }    
+                    ]
+                 }
+             }
+
+### Retrive Docsets [GET]
++ Parameters
+    + active (optional, bool) ... If you dont set any value all docset will be returned. In other case active o non active docsets returned.
+
++ Response 200
+
+    [Docsets collection][]
+
+

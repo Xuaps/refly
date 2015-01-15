@@ -131,10 +131,19 @@ var get_by_id = function(id){
 
 //Docsets
 
-var get_docsetsbydate = function(options){
+var get_docset = function(name){
 	docsets = new Docsets();
-	if(options.kind=='active'){
-		docsets.filter('active', filters.operators.EQUALS, true);
+    return docsets
+        .filter('docset', filters.operators.EQUALS, name) 
+        .execute().then(function(docsets){
+            return (docsets.length > 0) ? docsets[0] : null;   
+        });
+};
+
+var get_docsetsbydate = function(active){
+	docsets = new Docsets();
+	if(active){
+		docsets.filter('active', filters.operators.EQUALS, active);
 	}
     return docsets
         .select(['docset','default_uri', 'update_date', 'label', 'active']).order('update_date', 'ASC')
@@ -147,6 +156,7 @@ module.exports.breadcrumbs = breadcrumbs;
 module.exports.get_id = get_id;
 module.exports.get_types = get_types;
 module.exports.get_docsets = get_docsets;
+module.exports.get_docset = get_docset;
 module.exports.get_docsetsbydate = get_docsetsbydate;
 module.exports.get = get;
 module.exports.search = search;

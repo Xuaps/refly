@@ -17,26 +17,26 @@ module.exports = React.createClass({
 		var sticker = '';
 		for(i in this.state.data){
 			item = this.state.data[i];
-			if(item.label == 'soon'){
+			if(item.description == 'soon'){
 				sticker = (<img className="docset-state" src="/img/soon-stick.png"/>);
-			}else if(item.label == 'new'){
+			}else if(item.description == 'new'){
 				sticker = (<img className="docset-state" src="/img/new-stick.png"/>);
 			}else{
 				sticker = '';
 			}
-			if(item.date!=null && new Date(item.date)<new Date() && item.active==true){
-				var itemdate = new Date(item.date);
+			if(item.latest_version_date!=null && new Date(item.latest_version_date)<new Date() && item.is_active==true){
+				var itemdate = new Date(item.latest_version_date);
 				var infodate = <div className="docset-date ok-state">{String(itemdate.getDate()+100).substr(1) + '-' + String(itemdate.getMonth()+100).substr(1) + '-' + itemdate.getFullYear()}</div>
 			}else{
 				var infodate = <div className="docset-date off-state"> - </div>
 			}
-			if(item.active == true){
+			if(item.is_active == true){
 				docsetitems.push(
-		            <a key={'DCa' + i} href={item.default_uri} title={item.name}>
+		            <a key={'DCa' + i} href={item.start_uri} title={item.name}>
 		                <div className="item" key={'DCa' + i}>
 							{sticker}
 		                    <div className="docset-logo">
-		                        <img src={'/img/languages/' + item.path + '-biglogo.jpg'}/>
+		                        <img src={item.bigimage}/>
 		                    </div>
 							{infodate}
 		                </div>
@@ -47,7 +47,7 @@ module.exports = React.createClass({
 		                <div className="item" key={'DCa' + i}>
 							{sticker}
 		                    <div className="docset-logo">
-		                        <img src={'/img/languages/' + item.path + '-biglogo.jpg'}/>
+		                        <img src={item.bigimage}/>
 		                    </div>
 							{infodate}
 		                </div>

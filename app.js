@@ -67,7 +67,20 @@ app.get('/api/references?', function(req, res){
             });
     }
 });
-app.get('/api/docsets?', docsets.get_docsets);
+app.get('/api/docsets/:name', function(req, res){
+    api.get_docset(req.protocol +'://' + req.get('host'), req.params.name)
+        .then(function(hal){
+            res.set('Content-Type', 'application/hal+json');
+            res.hal(hal);
+    });
+});
+app.get('/api/docsets?', function(req, res){
+    api.get_docsets(req.protocol +'://' + req.get('host'), req.query.active)
+        .then(function(hal){
+            res.set('Content-Type', 'application/hal+json');
+            res.hal(hal);
+    });
+});
 app.get('/api/types?', function(req, res){
     api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
         .then(function(hal){

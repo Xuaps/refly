@@ -1,8 +1,8 @@
 var jQuery = require('jquery-browserify');
 
 function Api(){
-    this._url_docset_active='/api/docsets?kind=active';
-    this._url_docset_all='/api/docsets?kind=all';
+    this._url_docset_active='/api/docsets?active=true';
+    this._url_docset_all='/api/docsets';
     this._url_types='/api/types';
     this._url_references='/api/references';
     this._url_branch='/api/references/{0}/c&b';
@@ -35,12 +35,16 @@ Api.prototype.get = function (resource, filters){
 	    return jQuery.ajax({
 	        url: this._url_docset_active,
 	        method: 'GET'
-	    });
+	    }).then(function(res){
+            return res['_embedded'].docsets;   
+        });
 	}if(resource==='docset_all'){
 	    return jQuery.ajax({
 	        url: this._url_docset_all,
 	        method: 'GET'
-	    });
+	    }).then(function(res){
+            return res['_embedded'].docsets;   
+        });
 	}else if(resource==='type'){
 	    return jQuery.ajax({
 	        url:this._url_types +'?docset='+filters.activedocset,

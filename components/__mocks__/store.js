@@ -1,8 +1,8 @@
 var _docsets_all=[
-        {name: "Node", default_uri: "node/", path: "node", date: null, label:'soon', active : false},
-        {name: "JavaScript", default_uri: "javascript/", path: "node", date: "2014-11-22T23:00:00.000Z", label : 'new', active: true}];
+        {name: "Node", start_uri: "node/", image: "node", latest_version_date: null, description:'soon', is_active : false},
+        {name: "JavaScript", start_uri: "javascript/", image: "node", latest_version_date: "2014-11-22T23:00:00.000Z", description : 'new', is_active: true}];
 var _docsets_active=[
-        {name: "JavaScript", default_uri: "javascript/", path: "node", date: "2014-11-22T23:00:00.000Z", label : 'new', active: true}
+        {name: "JavaScript", start_uri: "javascript/", image: "node", latest_version_date: "2014-11-22T23:00:00.000Z", description : 'new', is_active: true}
     ];
 var _types=['method','class', 'function'];
 var _references=[
