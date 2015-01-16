@@ -39,7 +39,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
                 <div className="description">
-                    <div className="center-content span4">
+                    <div className="center-content">
                         <h2>Working to make your job easier</h2>
                         <img src="/img/refly-big.jpg" className="floated"/>
                         <span>Refly is the reference library where programmers can find all the information of the most popular languages in the fastest and fluid way.</span>
