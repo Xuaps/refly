@@ -9,12 +9,16 @@ var store = require('./store.js');
 module.exports = React.createClass({
 
     getInitialState: function() {
-        return {initilized: false};
+        return {initilized: false, searchfor: false};
     },
     componentWillReceiveProps: function (newProps) {
 		if(newProps.params && newProps.params.uri){
+            this.setState({searchfor: false});
 			this.loadRef(newProps.params);
-		}
+		}else{
+            this.setState({searchfor: true});
+            console.log('searchfor');
+        }
     },
 
 	componentDidUpdate: function(){
@@ -23,19 +27,24 @@ module.exports = React.createClass({
 
     render: function() {
         var content;
-        if(this.state.initilized &&!this.state.reference){
+        if(this.state.initilized && this.state.searchfor){
+            content = "";
+        }else if(this.state.initilized && !this.state.reference){
 			(this.props.params.uri)? searchtext = this.props.params.uri.split('/').pop() : searchtext = this.props.params.uri;
-			Rollbar.error("Reference " + this.props.params.uri + " not found");
+            Rollbar.error("Reference " + this.props.params.uri + " not found");
 			var urlsearch = "/searchfor/" + searchtext;
             content = <div className="warning">
-                        <div className="">
-                            <h2>Referencia no encontrada</h2>
+                        <div>
+                            <h2>Page not found</h2>
                             <h3>Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.</h3>
-                            <div className="centered-text">
-                                <p>You can make a new search</p>
+                            <div className="centered-text white-box">
+                                <p>
+                                    <span>You can make a new search with the term </span>
+                                    <span className="bold"> {searchtext}</span>
+                                </p>
                                 <a className="ry-btn" href={urlsearch} title="Search"><i className="fa fa-search fa-2x"></i></a>
                             </div>
-                            <div className="centered-text">
+                            <div className="centered-text white-box">
                                 <p>or click here to go back</p>
                                 <a className="ry-btn" href='javascript:history.back()' title="Back"><i className="fa fa-undo fa-2x"></i></a>
                             </div>
@@ -45,7 +54,7 @@ module.exports = React.createClass({
         }else if(this.state.initilized && this.state.reference){
             content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
         }else{
-			content = '';
+	        content = '';
 		}
         return (<div ref="resultcontent" className="result">{content}</div>);
     },

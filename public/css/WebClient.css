@@ -81,6 +81,15 @@ pre {
     border-radius: 5px;
     padding: 10px;
 }
+.white-box {
+    background-color: #fff;
+    border-left: 3px solid #fdb436;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px 10px 20px;
+    margin: 30px 20px;
+}
 
 /* Custom clases */
 
@@ -355,9 +364,6 @@ ul.breadcrumbsul li:last-child a:hover {
     width: 50%;
     float: left;
 }
-.result .warning>div>div {
-    margin-top: 50px;
-}
 .result .warning .ry-btn {
     margin-left: 20px;
     height: initial;
@@ -377,7 +383,7 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 .result .warning p {
     font-size: 1.2em;
-    margin-left: 20px;
+    margin: 10px 10px 20px;
 }
 
 /* Main content */
@@ -581,6 +587,7 @@ textarea.ry-input-text {
 .ry-btn:hover, .ry-btn:focus {
     background-color: #fdb436;
     outline: 0 none;
+    color: white;
 }
 #center {
     position: absolute;
