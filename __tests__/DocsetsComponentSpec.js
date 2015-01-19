@@ -29,12 +29,12 @@ describe('Docset Component', function(){
             expect(link.props.href).toEqual('javascript/')
         });
 
-        it('date box state', function(){
+        it('check the dates of the docsets', function(){
             React.renderComponent(routes, document.createElement('div'));
             var docsetc = TestUtils.renderIntoDocument(<Docset/>);
             docsetc.loadData();
-            var divs = TestUtils.scryRenderedDOMComponentsWithTag(docsetc, 'div');
-            expect(divs[3].props.className).not.toEqual(divs[6].props.className);
+            expect(docsetc.state.data[0].latest_version_date).toEqual(null);
+            expect(new Date()).toBeGreaterThan(new Date(docsetc.state.data[1].latest_version_date));
         });
     });
 });
