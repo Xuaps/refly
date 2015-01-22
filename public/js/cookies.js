@@ -1,5 +1,5 @@
 if (localStorage.controlcookie>0){
-        document.getElementById('cookie1').style.bottom = '-60px';
+        document.getElementById('cookie1').style.bottom = '-100px';
 }
 function controlcookies() {
     localStorage.controlcookie = (localStorage.controlcookie || 0);
