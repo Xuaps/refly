@@ -36,7 +36,7 @@ body, fieldset, p {
 body {
     box-sizing: border-box;
     padding-top: 72px;
-    padding-bottom: 60px;
+    padding-bottom: 38px;
     min-height: 100%;
     position: relative;
 }
@@ -151,7 +151,7 @@ pre {
     position: absolute;
     height: 100%;
     width: 100%;
-    padding: 0 0 60px;
+    padding: 0 0 38px;
     top: 0;
 }
 
@@ -610,12 +610,13 @@ footer {
     float: left;
     position: absolute;
     bottom: 0;
-    height: 60px;
+    height: 38px;
     background-color: #fff;
+    font-size: 0.9em;
 }
 footer .center-block {
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 0;
     width: 80%;
 }
 footer .footer-links {
