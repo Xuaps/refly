@@ -23,7 +23,13 @@ var TreeNode = React.createClass({
         var link;
 		var classname = '';
         if(item.uri){
-           link = <Link to="result" key={'TL' + item.uri} params={{docset:item.docset, splat: item.uri}}><img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>{item.name}</Link>;
+           if(item.type=='docset'){
+               docset = item.uri.substr(1,item.uri.lastIndexOf('/')-1);
+               uri = item.uri.substr(item.uri.lastIndexOf('/')+1);
+               link = <Link onClick={this.show} to="result" key={'TL' + item.uri} params={{docset: docset, splat: uri}}><img src={item.type==='docset'?'/img/type-docset.png':item.path} title={item.type} className="ry-type-source"/>{item.name}</Link>;
+           }else{
+               link = <Link to="result" key={'TL' + item.uri} params={{docset:item.docset, splat: item.uri}}><img src={'/img/type-' + item.type + '.png'} title={item.type} className="ry-type-source"/>{item.name}</Link>;
+           }
         }else{
            link = <a onClick={this.show}><img src={item.type==='docset'?'/img/type-docset.png':item.path} title={item.type} className="ry-type-source"/>{item.name}</a>;
         }

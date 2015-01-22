@@ -11,7 +11,7 @@ var nodes = {
         return store.get('docset_active').then(function(response){
             var docs = [];
             response.forEach(function(doc){
-                docs.push(<TreeNode key={doc.name} path={doc.image} type='docset' name={doc.name} config={config} parents={[doc]}/>);
+                docs.push(<TreeNode key={doc.name} path={doc.image} uri={doc.start_uri} type='docset' name={doc.name} config={config} parents={[doc]}/>);
             });
             return docs;
         });

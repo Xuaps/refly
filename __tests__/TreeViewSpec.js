@@ -20,6 +20,12 @@ describe('TreeView Component', function(){
 
     describe('TreeNode Component', function(){
         describe('Click in one docset', function() {
+            it('should nav to the start uri', function() {
+                var treeview = render_treeview();
+                var treenode = emulate_click_docset(treeview,0)[0]; 
+
+                expect(treenode.props.uri).toBeDefined();
+            });
             it('should load all docset types', function() {
                 var treeview = render_treeview();
                 var treenode = emulate_click_docset(treeview,0)[0]; 
