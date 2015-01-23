@@ -1,9 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var Showdown = require('./showdown.js');
-
-var converter = new Showdown.converter();
+var converter = require('marked');
 var store = require('./store.js');
 
 module.exports = React.createClass({
@@ -52,7 +50,7 @@ module.exports = React.createClass({
                         <img className="bad-reference" src="/img/bad-reference.png"/>
                       </div>;
         }else if(this.state.initilized && this.state.reference){
-            content = <div dangerouslySetInnerHTML={{__html: converter.makeHtml(this.state.reference.content)}}/>;
+            content = <div dangerouslySetInnerHTML={{__html: converter(this.state.reference.content)}}/>;
         }else{
 	        content = '';
 		}
