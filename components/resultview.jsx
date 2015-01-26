@@ -7,15 +7,14 @@ var store = require('./store.js');
 module.exports = React.createClass({
 
     getInitialState: function() {
-        return {initilized: false, searchfor: false};
+        return {initilized: false, notvalidcontent: false};
     },
     componentWillReceiveProps: function (newProps) {
 		if(newProps.params && newProps.params.uri){
-            this.setState({searchfor: false});
+            this.setState({notvalidcontent: false});
 			this.loadRef(newProps.params);
-		}else{
-            this.setState({searchfor: true});
-            console.log('searchfor');
+		}else if(!this.state.reference){
+            this.setState({notvalidcontent: true});
         }
     },
 
@@ -25,7 +24,7 @@ module.exports = React.createClass({
 
     render: function() {
         var content;
-        if(this.state.initilized && this.state.searchfor){
+        if(this.state.initilized && this.state.notvalidcontent){
             content = "";
         }else if(this.state.initilized && !this.state.reference){
 			(this.props.params.uri)? searchtext = this.props.params.uri.split('/').pop() : searchtext = this.props.params.uri;

@@ -19,6 +19,18 @@ describe('ResultView Component', function(){
         });
     });
 
+    describe('search when reference is not found', function(){
+        it('should check the search comes from a reference not found search', function(){
+            React.renderComponent(routes, document.createElement('div'));
+            var resultviewc = TestUtils.renderIntoDocument(<Resultview/>);
+
+            resultviewc.setProps({params: 
+			{docset: undefined, uri: undefined}});
+			expect(resultviewc.state.notvalidcontent)
+			.toEqual(true);
+        });
+    });
+
     describe('Load reference', function(){
         it('should have loaded the selected reference', function(){
             React.renderComponent(routes, document.createElement('div'));
