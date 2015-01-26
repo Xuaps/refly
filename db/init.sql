@@ -31,14 +31,22 @@ ALTER TABLE refs
   OWNER TO postgres;
 
 create sequence Did_seq start 1;
-CREATE TABLE docsets (
-    id INTEGER PRIMARY KEY default nextval('Did_seq'),
-    docset TEXT,
-    default_uri TEXT,
-    pub_date TIMESTAMP default CURRENT_DATE,
-    update_date TIMESTAMP,
-    state TEXT
+CREATE TABLE docsets
+(
+  id integer NOT NULL DEFAULT nextval('did_seq'::regclass),
+  docset text,
+  default_uri text,
+  pub_date timestamp without time zone DEFAULT ('now'::text)::date,
+  update_date timestamp without time zone,
+  active boolean,
+  label text,
+  CONSTRAINT docsets_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
 );
+ALTER TABLE docsets
+  OWNER TO postgres;
 
 CREATE TABLE meta
 (
