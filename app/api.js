@@ -11,9 +11,9 @@ module.exports.entry = function(){
                     templated: true
                 }
             ],
-            "rl:references": "/api/references",
-            "rl:get-reference": "/api/references/{docset}/{uri}",
-            "rl:search-references": "/api/references{?name}"
+            "rl:references": { href: "/api/references?{name}", templated: true },
+            "rl:types": { href: "/api/types?{docset}", templated: true},
+            "rl:docsets": { href: "/api/docsets?{name}", templated: true}
         }
     };
 };
@@ -44,8 +44,8 @@ module.exports.get_reference = function(docset, uri){
                     }
                 ],
                 "rl:docset": "/api/docsets/" + docset,
-                "rl:ascendants": "/api/references/ascendants/" + old_identifier,
-                "rl:relatives": "/api/references/relatives/" + old_identifier
+                "rl:hierarchy": "/api/references/" + old_identifier + "/hierarchy",
+                "rl:c&b": "/api/references/" + old_identifier + "/c&b"
             },
             data: reference
         };
@@ -58,10 +58,17 @@ module.exports.get_references = function(pattern){
        .then(function(references){
            return {
                 links: {
-                    self: '/api/references'
+                    self: '/api/references',
+                    curies: [
+                        {
+                            name: "rl",
+                            href: "http://refly.co/rels/{rel}",
+                            templated: true
+                        }
+                    ]
                 },
                 embeds: {
-                   "references": references.slice(0,PAGE_SIZE).map(function(ref){
+                   "rl:references": references.slice(0,PAGE_SIZE).map(function(ref){
                        ref.docset_name = ref.docset;
                        ref.name = ref.reference;
                        delete ref.docset;
@@ -83,10 +90,17 @@ module.exports.get_children_and_brothers = function(docset, uri){
        list = JSON.Flatten(references);
        return {
             links: {
-                self: '/api/references/' + docset + '/' + uri + '/c&b'
+                self: '/api/references/' + docset + '/' + uri + '/c&b',
+                curies: [
+                    {
+                        name: "rl",
+                        href: "http://refly.co/rels/{rel}",
+                        templated: true
+                    }
+                ]
             },
             embeds: {
-               "references": list.map(function(ref){
+               "rl:references": list.map(function(ref){
                    ref.docset_name = ref.docset;
                    ref.name = ref.reference;
                    delete ref.docset;
@@ -103,14 +117,22 @@ module.exports.get_children_and_brothers = function(docset, uri){
        };
     });
 };
+
 module.exports.get_ascendants = function(docset, uri){
     return slash.breadcrumbs('/'+docset+'/'+uri).then(function(references){
        return {
             links: {
-                self: '/api/references/' + docset + '/' + uri + '/hierarchy'
+                self: '/api/references/' + docset + '/' + uri + '/hierarchy',
+                curies: [
+                    {
+                        name: "rl",
+                        href: "http://refly.co/rels/{rel}",
+                        templated: true
+                    }
+                ]
             },
             embeds: {
-               "hierarchy": references.map(function(ref){
+               "rl:hierarchy": references.map(function(ref){
                    ref.docset_name = ref.docset;
                    ref.name = ref.reference;
                    delete ref.docset;
@@ -132,10 +154,17 @@ module.exports.get_types = function(main_url, docset){
     return slash.get_types(docset).then(function(types) {
        return {
             links: {
-                self: '/api/types' + (docset?'?docset=' + docset:'') 
+                self: '/api/types' + (docset?'?docset=' + docset:''),
+                curies: [
+                    {
+                        name: "rl",
+                        href: "http://refly.co/rels/{rel}",
+                        templated: true
+                    }
+                ],
             },
             embeds: {
-               "types": types.map(function(type){
+               "rl:types": types.map(function(type){
                    return {
                         name: type,
                         image: main_url + '/img/type-' + type.toLowerCase() + '.png'
@@ -159,7 +188,9 @@ module.exports.get_docset = function(main_url, name){
                     publication_date: docset.pub_date,
                     is_active: docset.active,
                     description: docset.label,
-                    image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png'
+                    image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png',
+                    bigimage: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-biglogo.jpg'
+
                 }
              };        
         });
@@ -170,10 +201,17 @@ module.exports.get_docsets = function(main_url, active){
     return slash.get_docsetsbydate(active).then(function(docsets) {
        return {
             links: {
-                self: '/api/docsets' + (active?'?active=' + active:'') 
-            },
+                self: '/api/docsets' + (active?'?active=' + active:''), 
+                curies: [
+                    {
+                        name: "rl",
+                        href: "http://refly.co/rels/{rel}",
+                        templated: true
+                    }
+                ],
+            }, 
             embeds: {
-               "docsets": docsets.map(function(docset){
+               "rl:docsets": docsets.map(function(docset){
                    return {
                         links: {
                             self: '/api/docsets/' + docset.docset 
