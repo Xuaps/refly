@@ -24,9 +24,9 @@ This resource offers the initial API affordances in the form of HAL links.
                             "templated": true
                         }
                     ],
-                    "rl:references": { "href": "/api/references"},
-                    "rl:get-reference": { "href": "/api/references/{docset}/{uri}"},
-                    "rl:search-references": { "href": "/api/references{?name}"}
+                    "rl:references": { "href": "/api/references?{name}", "templated": true},
+                    "rl:types": { "href": "/api/types?{docset}", "templated": true},
+                    "rl:docsets": { "href": "/api/docsets?{name}", "templated": true}
                 }
             }
 
@@ -64,8 +64,8 @@ The Reference resource has the following attributes:
                         }
                     ],
                    "rl:docset": { "href": "/api/docsets/slash" },
-                   "rl:ascendants": { "href": "/api/references/ascendants/slash/test.html" },
-                   "rl:relatives": { "href": "/api/references/relatives/slash/test.html"}
+                   "rl:hierarchy": { "href": "/api/references/slash/test.html/hierarchy" },
+                   "rl:c&b": { "href": "/api/references/slash/test.html/c&b" }
                },
                "uri": "/slash/test.html",
                "name": "Slash reference",
@@ -92,13 +92,20 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
 
             {
                 "_links": {
-                   "self": { "href": "/api/references" }
+                   "self": { "href": "/api/references" },
+                    "curies": [
+                        { 
+                            "name": "rl",
+                            "href": "http://refly.co/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
                 },
                 "_embedded": {
-                    "references": [
+                    "rl:references": [
                         {
                             "_links": {
-                               "self": { "href": "/api/reference/slash/test.html"}
+                               "self": { "href": "/api/references/slash/test.html"}
                             },
                             "uri": "/slash/test.html",
                             "name": "search",
@@ -109,7 +116,7 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
                  }
              }
 
-### Search References [GET]
+### Retrieve References [GET]
 + Parameters
     + name (optional, string) ... Pattern to find matching references. Only References whose names contain this pattern are returned. Only 20 first coincidences are returned.
 
@@ -132,13 +139,20 @@ A collection of Reference's hierarchy.
 
             {
                 "_links": {
-                   "self": { "href": "/api/references/slash/test.html/hierarchy" }
+                   "self": { "href": "/api/references/slash/test.html/hierarchy" },
+                    "curies": [
+                        { 
+                            "name": "rl",
+                            "href": "http://refly.co/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
                 },
                 "_embedded": {
-                    "hierarchy": [
+                    "rl:hierarchy": [
                         {
                             "_links": {
-                               "self": { "href": "/api/reference/slash/test.html"}
+                               "self": { "href": "/api/references/slash/test.html"}
                             },
                             "uri": "/slash/test.html",
                             "name": "search",
@@ -170,13 +184,20 @@ A collection of Reference's children and brothers.
 
             {
                 "_links": {
-                   "self": { "href": "/api/references/slash/test.html/c&b" }
+                   "self": { "href": "/api/references/slash/test.html/c&b" },
+                    "curies": [
+                        { 
+                            "name": "rl",
+                            "href": "http://refly.co/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
                 },
                 "_embedded": {
-                    "references": [
+                    "rl:references": [
                         {
                             "_links": {
-                               "self": { "href": "/api/reference/slash/test.html"}
+                               "self": { "href": "/api/references/slash/test.html"}
                             },
                             "uri": "/slash/test.html",
                             "name": "search",
@@ -206,10 +227,17 @@ The Type Collection resource  **embeds* *Types* in the Refly API.
 
             {
                 "_links": {
-                   "self": { "href": "/api/types" }
+                   "self": { "href": "/api/types" },
+                    "curies": [
+                        { 
+                            "name": "rl",
+                            "href": "http://refly.co/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
                 },
                 "_embedded": {
-                    "types": [
+                    "rl:types": [
                         {
                             "name": "method",
                             "image": "http://myserver/images/method.jpg"
@@ -260,7 +288,8 @@ The Docset resource has the following attributes:
                "latest_version_date": "2014-12-30T23:00:00.000Z",
                "description": "new",
                "is_active": true,
-               "image": "http://myserver.com/img/docset.png"
+               "image": "http://myserver.com/img/docset.png",
+               "bigimage": "http://myserver.com/img/bigdocset.png"
             }
 
 ### Retrieve a Single Docset [GET]
@@ -282,10 +311,17 @@ The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
 
             {
                 "_links": {
-                   "self": { "href": "/api/docsets" }
+                   "self": { "href": "/api/docsets" },
+                    "curies": [
+                        { 
+                            "name": "rl",
+                            "href": "http://refly.co/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
                 },
                 "_embedded": {
-                    "docsets": [
+                    "rl:docsets": [
                         {
                             "_links": {
                                "self": { "href": "/api/docsets/slash"}

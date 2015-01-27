@@ -23,7 +23,7 @@ Api.prototype._addUris = function(ref){
 };
 
 Api.prototype._addUrisToReferences= function(res){
-    var references = res['_embedded']?(res['_embedded'].references?res['_embedded'].references:res['_embedded'].hierarchy):res;
+    var references = res['_embedded']?(res['_embedded']['rl:references']?res['_embedded']['rl:references']:res['_embedded']['rl:hierarchy']):res;
     if(!references)
         return references;
 
@@ -36,20 +36,20 @@ Api.prototype.get = function (resource, filters){
 	        url: this._url_docset_active,
 	        method: 'GET'
 	    }).then(function(res){
-            return res['_embedded'].docsets;   
+            return res['_embedded']['rl:docsets'];   
         });
 	}if(resource==='docset_all'){
 	    return jQuery.ajax({
 	        url: this._url_docset_all,
 	        method: 'GET'
 	    }).then(function(res){
-            return res['_embedded'].docsets;   
+            return res['_embedded']['rl:docsets'];   
         });
 	}else if(resource==='type'){
 	    return jQuery.ajax({
 	        url:this._url_types +'?docset='+filters.activedocset,
 	        method: 'GET'
-	    }).then(function(response){ return response['_embedded'].types; });
+	    }).then(function(response){ return response['_embedded']['rl:types']; });
 	}else if(resource==='reference'){
 	    return jQuery.ajax({
 	        url: this._url_references + '/' + filters.docset + '/' + filters.uri,
