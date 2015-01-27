@@ -60,7 +60,7 @@ describe('Refly API', function(){
             var pattern = '';
             api.get_references(pattern)
                 .then(function(references){
-                    expect(references.embeds.references.length).toBeLessThan(21);
+                    expect(references.embeds['rl:references'].length).toBeLessThan(21);
                     done();
                 });
         });
@@ -70,8 +70,8 @@ describe('Refly API', function(){
             expect(referencesMock.prototype._collection.length).toBe(23);
             api.get_references(pattern)
                 .then(function(references){
-                    expect(references.embeds.references.length).toBe(3);
-                    references.embeds.references.forEach(function(ref){
+                    expect(references.embeds['rl:references'].length).toBe(3);
+                    references.embeds['rl:references'].forEach(function(ref){
                         expect(ref.data.name.toLowerCase()).toContain(pattern.toLowerCase());
                     });
                     done();
