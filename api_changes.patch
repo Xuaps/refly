@@ -1,0 +1,358 @@
+From e40df8efbc59550211f338f0d14bec321656d2be Mon Sep 17 00:00:00 2001
+From: David Vilchez <dvilchez@xuaps.com>
+Date: Tue, 27 Jan 2015 07:37:17 +0100
+Subject: [PATCH] Modified Blueprint API definition
+
+added documentation rel to all collections
+adapted api according to this definition
+adapted api-client according to api changes
+---
+ Refly_API.md        | 76 +++++++++++++++++++++++++++++++++++++++--------------
+ app/api.js          | 72 ++++++++++++++++++++++++++++++++++++++------------
+ components/store.js |  8 +++---
+ 3 files changed, 115 insertions(+), 41 deletions(-)
+
+diff --git a/Refly_API.md b/Refly_API.md
+index 76ea879..238f8cb 100644
+--- a/Refly_API.md
++++ b/Refly_API.md
+@@ -24,9 +24,9 @@ This resource offers the initial API affordances in the form of HAL links.
+                             "templated": true
+                         }
+                     ],
+-                    "rl:references": { "href": "/api/references"},
+-                    "rl:get-reference": { "href": "/api/references/{docset}/{uri}"},
+-                    "rl:search-references": { "href": "/api/references{?name}"}
++                    "rl:references": { "href": "/api/references?{name}", "templated": true},
++                    "rl:types": { "href": "/api/types?{docset}", "templated": true},
++                    "rl:docsets": { "href": "/api/docsets?{name}", "templated": true}
+                 }
+             }
+ 
+@@ -64,8 +64,8 @@ The Reference resource has the following attributes:
+                         }
+                     ],
+                    "rl:docset": { "href": "/api/docsets/slash" },
+-                   "rl:ascendants": { "href": "/api/references/ascendants/slash/test.html" },
+-                   "rl:relatives": { "href": "/api/references/relatives/slash/test.html"}
++                   "rl:hierarchy": { "href": "/api/references/slash/test.html/hierarchy" },
++                   "rl:c&b": { "href": "/api/references/slash/test.html/c&b" }
+                },
+                "uri": "/slash/test.html",
+                "name": "Slash reference",
+@@ -92,13 +92,20 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
+ 
+             {
+                 "_links": {
+-                   "self": { "href": "/api/references" }
++                   "self": { "href": "/api/references" },
++                    "curies": [
++                        { 
++                            "name": "rl",
++                            "href": "http://refly.co/rels/{rel}",
++                            "templated": true
++                        }
++                    ]
+                 },
+                 "_embedded": {
+-                    "references": [
++                    "rl:references": [
+                         {
+                             "_links": {
+-                               "self": { "href": "/api/reference/slash/test.html"}
++                               "self": { "href": "/api/references/slash/test.html"}
+                             },
+                             "uri": "/slash/test.html",
+                             "name": "search",
+@@ -109,7 +116,7 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
+                  }
+              }
+ 
+-### Search References [GET]
++### Retrieve References [GET]
+ + Parameters
+     + name (optional, string) ... Pattern to find matching references. Only References whose names contain this pattern are returned. Only 20 first coincidences are returned.
+ 
+@@ -132,13 +139,20 @@ A collection of Reference's hierarchy.
+ 
+             {
+                 "_links": {
+-                   "self": { "href": "/api/references/slash/test.html/hierarchy" }
++                   "self": { "href": "/api/references/slash/test.html/hierarchy" },
++                    "curies": [
++                        { 
++                            "name": "rl",
++                            "href": "http://refly.co/rels/{rel}",
++                            "templated": true
++                        }
++                    ]
+                 },
+                 "_embedded": {
+-                    "hierarchy": [
++                    "rl:hierarchy": [
+                         {
+                             "_links": {
+-                               "self": { "href": "/api/reference/slash/test.html"}
++                               "self": { "href": "/api/references/slash/test.html"}
+                             },
+                             "uri": "/slash/test.html",
+                             "name": "search",
+@@ -170,13 +184,20 @@ A collection of Reference's children and brothers.
+ 
+             {
+                 "_links": {
+-                   "self": { "href": "/api/references/slash/test.html/c&b" }
++                   "self": { "href": "/api/references/slash/test.html/c&b" },
++                    "curies": [
++                        { 
++                            "name": "rl",
++                            "href": "http://refly.co/rels/{rel}",
++                            "templated": true
++                        }
++                    ]
+                 },
+                 "_embedded": {
+-                    "references": [
++                    "rl:references": [
+                         {
+                             "_links": {
+-                               "self": { "href": "/api/reference/slash/test.html"}
++                               "self": { "href": "/api/references/slash/test.html"}
+                             },
+                             "uri": "/slash/test.html",
+                             "name": "search",
+@@ -206,10 +227,17 @@ The Type Collection resource  **embeds* *Types* in the Refly API.
+ 
+             {
+                 "_links": {
+-                   "self": { "href": "/api/types" }
++                   "self": { "href": "/api/types" },
++                    "curies": [
++                        { 
++                            "name": "rl",
++                            "href": "http://refly.co/rels/{rel}",
++                            "templated": true
++                        }
++                    ]
+                 },
+                 "_embedded": {
+-                    "types": [
++                    "rl:types": [
+                         {
+                             "name": "method",
+                             "image": "http://myserver/images/method.jpg"
+@@ -260,7 +288,8 @@ The Docset resource has the following attributes:
+                "latest_version_date": "2014-12-30T23:00:00.000Z",
+                "description": "new",
+                "is_active": true,
+-               "image": "http://myserver.com/img/docset.png"
++               "image": "http://myserver.com/img/docset.png",
++               "bigimage": "http://myserver.com/img/bigdocset.png"
+             }
+ 
+ ### Retrieve a Single Docset [GET]
+@@ -282,10 +311,17 @@ The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
+ 
+             {
+                 "_links": {
+-                   "self": { "href": "/api/docsets" }
++                   "self": { "href": "/api/docsets" },
++                    "curies": [
++                        { 
++                            "name": "rl",
++                            "href": "http://refly.co/rels/{rel}",
++                            "templated": true
++                        }
++                    ]
+                 },
+                 "_embedded": {
+-                    "docsets": [
++                    "rl:docsets": [
+                         {
+                             "_links": {
+                                "self": { "href": "/api/docsets/slash"}
+diff --git a/app/api.js b/app/api.js
+index bbb126e..2cd8999 100644
+--- a/app/api.js
++++ b/app/api.js
+@@ -11,9 +11,9 @@ module.exports.entry = function(){
+                     templated: true
+                 }
+             ],
+-            "rl:references": "/api/references",
+-            "rl:get-reference": "/api/references/{docset}/{uri}",
+-            "rl:search-references": "/api/references{?name}"
++            "rl:references": { href: "/api/references?{name}", templated: true },
++            "rl:types": { href: "/api/types?{docset}", templated: true},
++            "rl:docsets": { href: "/api/docsets?{name}", templated: true}
+         }
+     };
+ };
+@@ -44,8 +44,8 @@ module.exports.get_reference = function(docset, uri){
+                     }
+                 ],
+                 "rl:docset": "/api/docsets/" + docset,
+-                "rl:ascendants": "/api/references/ascendants/" + old_identifier,
+-                "rl:relatives": "/api/references/relatives/" + old_identifier
++                "rl:hierarchy": "/api/references/" + old_identifier + "/hierarchy",
++                "rl:c&b": "/api/references/" + old_identifier + "/c&b"
+             },
+             data: reference
+         };
+@@ -58,10 +58,17 @@ module.exports.get_references = function(pattern){
+        .then(function(references){
+            return {
+                 links: {
+-                    self: '/api/references'
++                    self: '/api/references',
++                    curies: [
++                        {
++                            name: "rl",
++                            href: "http://refly.co/rels/{rel}",
++                            templated: true
++                        }
++                    ]
+                 },
+                 embeds: {
+-                   "references": references.slice(0,PAGE_SIZE).map(function(ref){
++                   "rl:references": references.slice(0,PAGE_SIZE).map(function(ref){
+                        ref.docset_name = ref.docset;
+                        ref.name = ref.reference;
+                        delete ref.docset;
+@@ -83,10 +90,17 @@ module.exports.get_children_and_brothers = function(docset, uri){
+        list = JSON.Flatten(references);
+        return {
+             links: {
+-                self: '/api/references/' + docset + '/' + uri + '/c&b'
++                self: '/api/references/' + docset + '/' + uri + '/c&b',
++                curies: [
++                    {
++                        name: "rl",
++                        href: "http://refly.co/rels/{rel}",
++                        templated: true
++                    }
++                ]
+             },
+             embeds: {
+-               "references": list.map(function(ref){
++               "rl:references": list.map(function(ref){
+                    ref.docset_name = ref.docset;
+                    ref.name = ref.reference;
+                    delete ref.docset;
+@@ -103,14 +117,22 @@ module.exports.get_children_and_brothers = function(docset, uri){
+        };
+     });
+ };
++
+ module.exports.get_ascendants = function(docset, uri){
+     return slash.breadcrumbs('/'+docset+'/'+uri).then(function(references){
+        return {
+             links: {
+-                self: '/api/references/' + docset + '/' + uri + '/hierarchy'
++                self: '/api/references/' + docset + '/' + uri + '/hierarchy',
++                curies: [
++                    {
++                        name: "rl",
++                        href: "http://refly.co/rels/{rel}",
++                        templated: true
++                    }
++                ]
+             },
+             embeds: {
+-               "hierarchy": references.map(function(ref){
++               "rl:hierarchy": references.map(function(ref){
+                    ref.docset_name = ref.docset;
+                    ref.name = ref.reference;
+                    delete ref.docset;
+@@ -132,10 +154,17 @@ module.exports.get_types = function(main_url, docset){
+     return slash.get_types(docset).then(function(types) {
+        return {
+             links: {
+-                self: '/api/types' + (docset?'?docset=' + docset:'') 
++                self: '/api/types' + (docset?'?docset=' + docset:''),
++                curies: [
++                    {
++                        name: "rl",
++                        href: "http://refly.co/rels/{rel}",
++                        templated: true
++                    }
++                ],
+             },
+             embeds: {
+-               "types": types.map(function(type){
++               "rl:types": types.map(function(type){
+                    return {
+                         name: type,
+                         image: main_url + '/img/type-' + type.toLowerCase() + '.png'
+@@ -159,7 +188,9 @@ module.exports.get_docset = function(main_url, name){
+                     publication_date: docset.pub_date,
+                     is_active: docset.active,
+                     description: docset.label,
+-                    image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png'
++                    image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png',
++                    bigimage: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-biglogo.jpg'
++
+                 }
+              };        
+         });
+@@ -170,10 +201,17 @@ module.exports.get_docsets = function(main_url, active){
+     return slash.get_docsetsbydate(active).then(function(docsets) {
+        return {
+             links: {
+-                self: '/api/docsets' + (active?'?active=' + active:'') 
+-            },
++                self: '/api/docsets' + (active?'?active=' + active:''), 
++                curies: [
++                    {
++                        name: "rl",
++                        href: "http://refly.co/rels/{rel}",
++                        templated: true
++                    }
++                ],
++            }, 
+             embeds: {
+-               "docsets": docsets.map(function(docset){
++               "rl:docsets": docsets.map(function(docset){
+                    return {
+                         links: {
+                             self: '/api/docsets/' + docset.docset 
+diff --git a/components/store.js b/components/store.js
+index 5adad2f..6db2f49 100644
+--- a/components/store.js
++++ b/components/store.js
+@@ -23,7 +23,7 @@ Api.prototype._addUris = function(ref){
+ };
+ 
+ Api.prototype._addUrisToReferences= function(res){
+-    var references = res['_embedded']?(res['_embedded'].references?res['_embedded'].references:res['_embedded'].hierarchy):res;
++    var references = res['_embedded']?(res['_embedded']['rl:references']?res['_embedded']['rl:references']:res['_embedded']['rl:hierarchy']):res;
+     if(!references)
+         return references;
+ 
+@@ -36,20 +36,20 @@ Api.prototype.get = function (resource, filters){
+ 	        url: this._url_docset_active,
+ 	        method: 'GET'
+ 	    }).then(function(res){
+-            return res['_embedded'].docsets;   
++            return res['_embedded']['rl:docsets'];   
+         });
+ 	}if(resource==='docset_all'){
+ 	    return jQuery.ajax({
+ 	        url: this._url_docset_all,
+ 	        method: 'GET'
+ 	    }).then(function(res){
+-            return res['_embedded'].docsets;   
++            return res['_embedded']['rl:docsets'];   
+         });
+ 	}else if(resource==='type'){
+ 	    return jQuery.ajax({
+ 	        url:this._url_types +'?docset='+filters.activedocset,
+ 	        method: 'GET'
+-	    }).then(function(response){ return response['_embedded'].types; });
++	    }).then(function(response){ return response['_embedded']['rl:types']; });
+ 	}else if(resource==='reference'){
+ 	    return jQuery.ajax({
+ 	        url: this._url_references + '/' + filters.docset + '/' + filters.uri,
+-- 
+2.2.1
+
