@@ -58,7 +58,7 @@ describe('Refly API', function(){
     describe('References collection', function(){
         it('should return a max of 20 references found', function(done){
             var pattern = '';
-            api.get_references(pattern)
+            api.get_references({name: pattern})
                 .then(function(references){
                     expect(references.embeds['rl:references'].length).toBeLessThan(21);
                     done();
@@ -68,7 +68,7 @@ describe('Refly API', function(){
         it('should return only references that contains the given pattern', function(done){
             var pattern = 'eAr';
             expect(referencesMock.prototype._collection.length).toBe(23);
-            api.get_references(pattern)
+            api.get_references({name: pattern})
                 .then(function(references){
                     expect(references.embeds['rl:references'].length).toBe(3);
                     references.embeds['rl:references'].forEach(function(ref){

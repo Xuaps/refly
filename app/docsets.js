@@ -22,12 +22,12 @@ Docsets.prototype.filter = function(field, operator, value) {
 Docsets.prototype.select = function(columns){
     this._query = this._query.select(columns);
     return this;
-}
+};
 
 Docsets.prototype.order = function(column, direction){
     this._query = this._query.orderBy(column, direction);
     return this;
-}
+};
 
 Docsets.prototype.execute = function() {
     return this._query.then(

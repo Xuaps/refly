@@ -1,12 +1,12 @@
 var filters = require('../../app/filters');
 var q = require('q');
 
-function Docsets(){
+function References(){
 
 }
 
-Docsets.prototype.filter = function(field, operator, value) {
-    Docsets.prototype._collection = Docsets.prototype._collection.filter(function(reference) {
+References.prototype.filter = function(field, operator, value) {
+    References.prototype._collection = References.prototype._collection.filter(function(reference) {
         if (operator == filters.operators.EQUALS) {  
                 return reference[field] == value;
         } else if (operator == filters.operators.IN && value) {
@@ -23,15 +23,15 @@ Docsets.prototype.filter = function(field, operator, value) {
     return this;
 };
 
-Docsets.prototype.docsetstatefilter = function(value){
-    Docsets.prototype._collection = Docsets.prototype._collection.filter(function(reference) {
+References.prototype.docsetstatefilter = function(value){
+    References.prototype._collection = References.prototype._collection.filter(function(reference) {
         return reference.docset.active==value;
     });
     return this;
 
 }
-Docsets.prototype.select = function(columns){
-	Docsets.prototype._collection = Docsets.prototype._collection.map(function(reference){
+References.prototype.select = function(columns){
+	References.prototype._collection = References.prototype._collection.map(function(reference){
 		var projection={};
 		columns.map(function(column){
 			projection[column]=reference[column];
@@ -41,13 +41,13 @@ Docsets.prototype.select = function(columns){
 	return this;
 };
 
-Docsets.prototype.execute = function() {
-    return q.fcall(function(){return Docsets.prototype._collection;});
+References.prototype.execute = function() {
+    return q.fcall(function(){return References.prototype._collection;});
 };
 
-Docsets.prototype.addRefsRange = function(refs){
-    Docsets.prototype._collection=Docsets.prototype._collection.concat(refs);
+References.prototype.addRefsRange = function(refs){
+    References.prototype._collection=References.prototype._collection.concat(refs);
     return this;
 };
 
-module.exports=Docsets;
+module.exports=References;

@@ -1,8 +1,9 @@
 var proxyquire = require('proxyquire');
 var sinon = require('sinon');
 var References = require('./stubs/references');
+var Docsets = require('./stubs/docsets');
 
-var slash = proxyquire('../app/slash', { './references' : References });
+var slash = proxyquire('../app/slash', { './references' : References, './docsets': Docsets });
 
 describe('Slash', function() {
     
@@ -41,6 +42,9 @@ describe('Slash', function() {
                     content: 'blablabla'
                 }
             ];
+        Docsets.prototype._collection = [
+            {},{},{}
+        ];
     });
 
     describe('Search', function(){
@@ -53,7 +57,7 @@ describe('Slash', function() {
             });
             
             slash.search({
-                reference: 'search',
+                name: 'search',
                 types: [ 'function' ],
                 docsets: [ 'slash' ]
             }).then(function(response) {
@@ -72,7 +76,7 @@ describe('Slash', function() {
 
         it('should return only active`s docset references', function(done){
             slash.search({
-                    reference: 'json'
+                    name: 'json'
             }).then(function(response){
                 expect(response.length).toEqual(1);
             }).fin(done);
@@ -80,7 +84,7 @@ describe('Slash', function() {
 
         it('should return the docsets collection filtered with all references that contains the pattern searched', function(done) {
             slash.search({
-                reference: 'aRc'
+                name: 'aRc'
             }).then(function(response) {
                 expect(response.length).toEqual(2);
             }).fin(done);
@@ -120,17 +124,18 @@ describe('Slash', function() {
  
    describe('GetDocset', function(){
        it("return all the docsets", function(done){
-           var docsets = slash.get_docsets({kind: 'all'}).then(function(response){
-               expect(response).toEqual([ { name: 'slash', active: true}, { name: 'java', active: false},{ name : 'javascript', active : true } ]);
+           var docsets = slash.get_docsets().then(function(response){
+               expect(response.length).toEqual(3);
            }).fin(done);
- 
        });
    });
 
    describe('GetTypes', function(){
        it("return all the types of a given docsets", function(done){
-           var docsets = slash.get_types().then(function(response){
-               expect(response).toEqual(['constant','function']);
+           var docsets = slash.get_types(['slash']).then(function(response){
+               expect(response.length).toEqual(2);
+               expect(response).toContain('function');
+               expect(response).toContain('constant');
            }).fin(done);           
        });
 
