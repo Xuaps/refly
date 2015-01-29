@@ -5,9 +5,6 @@ var _docsets_active=[
         {name: "JavaScript", start_uri: "javascript/", image: "node", latest_version_date: "2014-11-22T23:00:00.000Z", description : 'new', is_active: true}
     ];
 var _types=['method','class', 'function'];
-var _references=[
-        {reference: "aaaa", docset:'node', ref_uri:'aaaaa', uri: "/node/aaaaa", type: "method"} 
-    ];
 var _formattedreferences=[
 {"docset":"node.js v0.10.29","reference":"Buffer","type":"module","uri":"/node.js v0.10.29/buffer", 
 "ref_uri": "buffer"},
@@ -35,6 +32,28 @@ var _newReference={
         "rl:relatives": { href: "/api/references/relatives/slash/test.html" }
     }
 };
+var _references=[ {
+    type: "function",
+    content: "This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}",
+    uri: "/slash/test.html",
+    ref_uri: "/test.html",
+    docset: "slash",
+    parent_uri: null,
+    name: "search",
+    _links: {
+        self: { "href": "/api/references/slash/test.html" },
+        curies: [
+            {
+                name: "rl",
+                href: "http://refly.co/rels/{rel}",
+                templated: true
+            }
+        ],
+        "rl:docset": { href: "/api/docsets/slash" },
+        "rl:ascendants": { href: "/api/references/ascendants/slash/test.html" },
+        "rl:relatives": { href: "/api/references/relatives/slash/test.html" }
+    }
+} ];
 
 function get (resource, filters) {
     var _filters = filters || {};
@@ -56,7 +75,7 @@ function get (resource, filters) {
             }else if(resource==='treeviewreference'){
                 data = callback(_references);
             }else if(resource==='search'){
-                data = callback(_formattedreferences);
+                data = callback(_references);
             }
             return {then: function(callback){callback(data);}};
         }

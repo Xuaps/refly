@@ -34,13 +34,8 @@ router.get('/api/references/:docset/:uri(*)', function(req, res){
         .then(send.bind(null,res));
 });
 router.get('/api/references?', function(req, res){
-    //TODO: types
-    if(req.query.docsets){
-        docsets.search(req,res);
-    }else{ 
-        api.get_references(Object.keys(req.query)[0])
-            .then(send.bind(null,res));
-    }
+    api.get_references(req.query)
+        .then(send.bind(null,res));
 });
 router.get('/api/docsets/:name', function(req, res){
     api.get_docset(req.protocol +'://' + req.get('host'), req.params.name)

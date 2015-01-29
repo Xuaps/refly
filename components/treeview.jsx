@@ -37,7 +37,7 @@ var nodes = {
                     var treenodes = [];
                     //TODO
                     references.forEach(function(ref){
-                        treenodes.push(<TreeNode key={'TVT' + ref.reference} type={ref.type} name={ref.reference} path={ref.reference.toLowerCase()}
+                        treenodes.push(<TreeNode key={'TVT' + ref.name} type={ref.type} name={ref.name} path={ref.name.toLowerCase()}
                             uri={ref.ref_uri} docset={ref.docset} />);
                     });
                     return treenodes;

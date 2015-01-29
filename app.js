@@ -14,9 +14,6 @@ app.set('ipaddr', config.serverConfig.ip);
 app.set('view engine', 'jade');
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 app.use(morgan('dev'));
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
-//app.use(express.methodOverride());
 app.use(refly_router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res){

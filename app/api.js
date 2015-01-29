@@ -53,8 +53,8 @@ module.exports.get_reference = function(docset, uri){
 };
 var PAGE_SIZE = 20;
 
-module.exports.get_references = function(pattern){
-   return slash.search({reference: pattern})
+module.exports.get_references = function(query){
+   return slash.search(query)
        .then(function(references){
            return {
                 links: {

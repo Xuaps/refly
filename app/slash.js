@@ -5,20 +5,14 @@ var q = require('q');
 
 var search = function(options) {
     references = new References();
-    //TODO: remove if when types are implemented
-    if(typeof(options) != 'string'){
-        return references
-            .filter('docset', filters.operators.IN, options.docsets)
-            .filter('reference', filters.operators.CONTAINS, options.reference)
-            .filter('type', filters.operators.IN, options.types)
-            .select(['docset', 'reference', 'type', 'uri'])
-            .docsetstatefilter(true)            
-            .execute();
-    }else{
-        return references
-            .filter('reference', filters.operators.CONTAINS, options)
-            .execute();
-    }
+    console.log(options);
+    return references
+        .filter('docset', filters.operators.IN, options.docsets)
+        .filter('reference', filters.operators.CONTAINS, options.name)
+        .filter('type', filters.operators.IN, options.types)
+        .select(['docset', 'reference', 'type', 'uri'])
+        .docsetstatefilter(true)            
+        .execute();
 };
 
 var get = function(uri){
