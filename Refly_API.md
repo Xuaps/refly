@@ -10,7 +10,7 @@ This resource offers the initial API affordances in the form of HAL links.
 
 ## Retrive Entry Point [GET]
 
-+ Response 200 (application/hal+json)
++ Response 200 (application/hal+json; charset=utf-8)
     + Body
     
             {
@@ -47,7 +47,7 @@ The Reference resource has the following attributes:
    + docset (string, `slash`) ... Docset of the reference.
    + uri (string, `test.html`) ... URI indentifier for a reference in a docset.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
 
    HAL+JSON representation of Reference Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HAL links.
 
@@ -84,7 +84,7 @@ A collection of References.
 
 The References Collection resource  **embeds* *Reference Resources* in the Refly API.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
     
     HAL+JSON representation of References Collection Resource. The Reference resource in collections are embedded. Note the embedded References resource are incomplete representation of the Reference in question. Use the respective Reference link  to retrive its full representation.
 
@@ -131,7 +131,7 @@ A collection of Reference's hierarchy.
    + docset (string, `slash`) ... Docset of the reference.
    + uri (string, `test_4.html`) ... URI indentifier for a reference in a docset.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
 
     HAL+JSON representation of Reference's hierarchy collection Resource. References in hierarchy are embedded. Note embedded References resources are incomplete reprensentation of the Reference in question. Use the respective Reference link to retrieve its full reprensentation.
 
@@ -176,7 +176,7 @@ A collection of Reference's children and brothers.
    + docset (string, `slash`) ... Docset of the reference.
    + uri (string, `test_4.html`) ... URI indentifier for a reference in a docset.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
 
     HAL+JSON representation of Reference's children and brothers collection Resource. References in hierarchy are embedded. Note embedded References resources are incomplete reprensentation of the Reference in question. Use the respective Reference link to retrieve its full reprensentation. This collection also contain searched Reference.
 
@@ -221,7 +221,7 @@ A collection of Type resources.
 
 The Type Collection resource  **embeds* *Types* in the Refly API.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
 
     + Body
 
@@ -272,7 +272,7 @@ The Docset resource has the following attributes:
 + Parameters
    + name (string, `slash`) ... Docset's name.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
 
    HAL+JSON representation of Docset Resource.
 
@@ -303,7 +303,7 @@ A collection of Docset.
 
 The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
 
-+ Model (application/hal+json)
++ Model (application/hal+json; charset=utf-8)
     
     HAL+JSON representation of Docsets Collection Resource. The Docset resource in collections are embedded. Note the embedded Docsets resource are incomplete representation of the Docset in question. Use the respective Docset link  to retrive its full representation.
 

@@ -27,7 +27,7 @@ var get = function(uri){
         .execute().then(function(references) {
             return references[0];
         });
-}
+};
 // DEPRECATED DEPENDE DEL TEST
 var get_docsets = function(identity){
     references = new References();
@@ -151,6 +151,6 @@ module.exports.get_id = get_id;
 module.exports.get_types = get_types;
 module.exports.get_docsets = get_docsets;
 module.exports.get_docset = get_docset;
-module.exports.get_docsetsbydate = get_docsetsbydate;
+module.exports.get_docsets = get_docsetsbydate;
 module.exports.get = get;
 module.exports.search = search;
