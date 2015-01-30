@@ -160,10 +160,10 @@ header {
     background-color: #333;
     border-bottom: 2px solid #d2e4f7;
     float: left;
-    height: 70px;
+    height: 45px;
     width: 65%;
     position: absolute;
-    padding: 5px 0;
+    padding: 3px 0;
     top: 0px;
     right: 0;
 }
@@ -173,7 +173,7 @@ header {
 #breadcrumbs-view {
     display: block;
     overflow: auto;
-    margin: 17px 20px 0 0;
+    margin: 8px 15px 0 0;
 }
 .breadcrumbsul {
     list-style: none;
@@ -191,8 +191,8 @@ header {
     background-position: 0px 7px;
     background-repeat: no-repeat;
 	display: inline-block;
-    margin-right: 12px;
-    padding-left: 20px;
+    margin-right: 10px;
+    padding-left: 18px;
 }
 ul.breadcrumbsul li a {
     color: #39f;
@@ -206,7 +206,6 @@ ul.breadcrumbsul li:last-child a, ul.breadcrumbsul li:last-child span {
     border-left: 3px solid #fdb436;
     border-radius: 5px;
     padding: 0 5px;
-    font-size: 1.1em;
     font-weight: bold;
 }
 ul.breadcrumbsul li:last-child a:hover {
@@ -220,11 +219,11 @@ ul.breadcrumbsul li:last-child a:hover {
     width: 35%;
     height: 100%;
     overflow: hidden;
-    padding-top: 70px;
+    padding-top: 45px;
     position: relative;
 }
 .logo img {
-    padding: 0 10px;
+    margin-left: 12px;
     height: 100%;
     float: left;
 }
@@ -236,13 +235,13 @@ ul.breadcrumbsul li:last-child a:hover {
 #search-view .search-header {
     width: 100%;
     background-color: #39F;
-    height: 70px;
+    height: 45px;
     position: absolute;
     top: 0;
-    padding-left: 17px;
+    padding-left: 8px;
     border-bottom: 2px solid #d2e4f7;
-    padding-right: 17px;
-    padding-top: 17px;
+    padding-right: 8px;
+    padding-top: 5px;
 }
 #search-view fieldset {
     position: relative;
@@ -391,7 +390,7 @@ ul.breadcrumbsul li:last-child a:hover {
 /* Main content */
 .right-pane {
     height: 100%;
-    padding-top: 70px;  
+    padding-top: 45px;  
 }
 .result {
     background-color: #ececec;
@@ -488,7 +487,7 @@ td.separator {
     font-size: 1.5em;
     position: absolute;
     right: 8px;
-    top: 4px;
+    top: 3px;
     color: #C8DDF2;
     margin: 0;
     padding: 0;
@@ -529,7 +528,7 @@ td.separator {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    height: 35px;
+    height: 32px;
     min-width: 30%;
     padding: 0 5px;
     margin-right: 10px;
