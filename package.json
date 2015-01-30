@@ -12,6 +12,7 @@
     "express": "^4.11.1",
     "express-cache-response-directive": "^0.2.0",
     "express-hal": "0.0.1",
+    "jade": "^1.9.1",
     "jquery-browserify": "^1.8.1",
     "knex": "^0.6.16",
     "marked": "^0.3.2",

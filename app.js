@@ -11,14 +11,14 @@ var app = express();
 
 app.set('port', config.serverConfig.port);
 app.set('ipaddr', config.serverConfig.ip);
+app.set('views', './views');
 app.set('view engine', 'jade');
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 app.use(morgan('dev'));
 app.use(refly_router);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res){
-    res.set('Content-Type', 'text/html');
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.use('/', function(req, res){
+    res.render('index');
 });   
 
 var env = process.env.NODE_ENV || 'development';
