@@ -125,7 +125,7 @@ module.exports = React.createClass({
                     <fieldset>
                         <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
                         placeholder="Reference" onKeyUp={this.onKeyUp} defaultValue={this.props.search} />
-                        <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
+                        <button className="ry-icon fa-close" onClick={this.emptySearch}></button>
                     </fieldset>
                 </div>
                 <div id="results">
