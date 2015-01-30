@@ -161,11 +161,11 @@ header {
     border-bottom: 2px solid #d2e4f7;
     float: left;
     height: 45px;
-    width: 65%;
     position: absolute;
     padding: 3px 0;
     top: 0px;
     right: 0;
+    left: 350px;
 }
 
 /* Breadcrumbs */
@@ -216,7 +216,7 @@ ul.breadcrumbsul li:last-child a:hover {
 
 #left-pane {
     float: left;
-    width: 35%;
+    width: 350px;
     height: 100%;
     overflow: hidden;
     padding-top: 45px;
@@ -394,11 +394,11 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 .result {
     background-color: #ececec;
-    width: 65%;
     padding: 20px;
     height: 100%;
     overflow: auto;
     font-size: 1em;
+    margin-left: 350px;
 }
 .result h3 {
     margin-top: 1.5em;
