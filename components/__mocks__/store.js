@@ -4,7 +4,7 @@ var _docsets_all=[
 var _docsets_active=[
         {name: "JavaScript", start_uri: "javascript/", image: "node", latest_version_date: "2014-11-22T23:00:00.000Z", description : 'new', is_active: true}
     ];
-var _types=['method','class', 'function'];
+var _types=[{name:'class'}, {name: 'function'}, {name: 'module'}];
 var _formattedreferences=[
 {"docset":"node.js v0.10.29","reference":"Buffer","type":"module","uri":"/node.js v0.10.29/buffer", 
 "ref_uri": "buffer"},

@@ -25,36 +25,15 @@ var Outline = React.createClass({
   },
 
   render: function() {
+    var rows = [];
+      
 	if(this.props.visibility.action=='hide'){
 		cssclass = "half-height hide";
 	}else{
 		cssclass = "half-height";
+        if(this.state.types)
+            rows = this.prepareDataCollection();
 	}
-	var rows = [];
-	var symbols = {};
-	for(index in this.state.data){
-		item=this.state.data[index];
-		if (!symbols[item.type]) {
-			symbols[item.type] = [];
-		}
-        if(item.uri==this.selecteduri){
-		symbols[item.type].push(
-        <li key="selecteditem" className="selected-item">
-			{item.name}
-        </li>
-		);
-		}else{
-		symbols[item.type].push(
-        <li key={'OLi' + item.ref_uri}>
-			<Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.name}</Link><br/>
-        </li>
-							   );
-		}
-	}
-	for(var symbol in symbols){
-		items = symbols[symbol];
-        rows.push(<li key={symbol}><div className="outline-header"><img src={'/img/type-' + symbol + '.png'} title={symbol} className="ry-type-source"/>{symbol}</div><ul>{items}</ul></li>);
-	};
 	return(
       <div id="outline-view" key="OLC1" className={cssclass}>
           <div className="component-content">
@@ -64,14 +43,47 @@ var Outline = React.createClass({
           </div>
       </div>);
   },
+  
+  prepareDataCollection: function(){
+	var rows = [];
+	var types = this.state.types.map(function(t){ return { name: t.name, image: t.image, references: [] }; });
+	for(var index in this.state.data){
+		var item=this.state.data[index];
+        var type = types.filter(function(t){
+            return t.name===item.type;
+        })[0];
+	    	
+        if(item.uri==this.selecteduri){
+		    type.references.push(
+                <li key="selecteditem" className="selected-item">
+                    {item.name}
+                </li>
+            );
+		}else{
+            type.references.push(
+                <li key={'OLi' + item.ref_uri}>
+                    <Link to='result' key={'OL' + item.ref_uri} params={{docset: item.docset, splat: item.ref_uri}}>{item.name}</Link><br/>
+                </li>
+            );
+		}
+	}
+	types.forEach(function(t){
+        rows.push(<li key={t.name}><div className="outline-header"><img src={t.image} title={t.name} className="ry-type-source"/>{t.name}</div><ul>{t.references}</ul></li>);
+	});
+
+    return rows;
+  },
 
   loadData: function(params){
     var refuri = params.docset+'/'+params.uri;
 	return store.get('branch', {'uri': refuri})
-			.then(function(data){
-				this.selecteduri = '/' + refuri;
-				this.setState({data: data});
-			}.bind(this));
+            .then(function(references){
+                return store.get('type', {'activedocset': params.docset})
+                    .then(function(types){
+                        this.setState({data: references, 'types': types});
+                        this.selecteduri = '/' + refuri;
+                    }.bind(this));
+            }.bind(this));
   }
 });
 
