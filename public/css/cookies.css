@@ -53,6 +53,7 @@ h1, h2 {
     padding: 20px 20px 0;
     float: left;
     text-align: center;
+    box-sizing: border-box;
 }
 .team-member img {
     width: 100%;
