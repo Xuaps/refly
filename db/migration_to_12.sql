@@ -16,4 +16,19 @@ CREATE TABLE source_refs
   docset text,
   alias text,
   type text
-)
+);
+
+
+CREATE TABLE temp_refs
+(
+  id serial NOT NULL,
+  reference text,
+  content text,
+  parent text,
+  type character varying(255),
+  docset character varying(255),
+  uri text,
+  CONSTRAINT temp_refs_pkey PRIMARY KEY (id)
+);
+
+UPDATE meta SET version='12';
