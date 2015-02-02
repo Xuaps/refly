@@ -273,6 +273,7 @@ ul.breadcrumbsul li:last-child a:hover {
 #left-pane>#tree-view {
     overflow: auto;
 }
+
 .list-arrow {
     background-image: url('../img/closed-list.png');
     background-repeat: no-repeat;
@@ -293,6 +294,8 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 #tree-view ul.show li ul.show {
     padding: 5px 0 5px 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Outline */
@@ -324,7 +327,7 @@ ul.breadcrumbsul li:last-child a:hover {
     padding: 0;
     position: relative;
     overflow: auto;
-    border-top: 2px solid #39f;
+    border-top: 2px solid #d2e4f7;
 }
 #outline-view .outline-header {
     background-color: #d2e4f7;
@@ -333,11 +336,13 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 #outline-view ul.outline-list li ul {
     margin: 0;
-    padding: 5px 10px 10px 50px;
+    padding: 5px 10px 10px 22px;
     background-color: #fff;
 }
 #outline-view ul.outline-list li ul li {
     padding: 3px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 #outline-view ul.outline-list li ul li.selected-item {
     font-weight: bold;
