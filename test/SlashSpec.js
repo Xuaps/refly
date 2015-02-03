@@ -27,6 +27,22 @@ describe('Slash', function() {
                 },
                 {
                     reference: 'search',
+                    uri: 'searchconstant',
+                    parent_uri: 'search',
+                    type: 'constant',
+                    docset: {name: 'slash',active: true},
+                    content: 'blablabla'
+                },
+                {
+                    reference: 'search',
+                    uri: 'searchconstant',
+                    parent_uri: 'search',
+                    type: 'method',
+                    docset: {name: 'slash',active: true},
+                    content: 'blablabla'
+                },
+                {
+                    reference: 'search',
                     uri: 'searchfunction',
                     parent_uri: 'searchconstant',
                     type: 'function',
@@ -86,7 +102,7 @@ describe('Slash', function() {
             slash.search({
                 name: 'aRc'
             }).then(function(response) {
-                expect(response.length).toEqual(2);
+                expect(response.length).toEqual(4);
             }).fin(done);
         });
     
@@ -133,10 +149,11 @@ describe('Slash', function() {
    describe('GetTypes', function(){
        it("return all the types of a given docsets", function(done){
            var docsets = slash.get_types(['slash']).then(function(response){
-               expect(response.length).toEqual(2);
+               expect(response.length).toEqual(3);
                expect(response).toContain('function');
                expect(response).toContain('constant');
-           }).fin(done);           
+               done();
+           }).fail(function(err){ console.log(err);});     
        });
 
    });
