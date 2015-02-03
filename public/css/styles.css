@@ -297,6 +297,121 @@ ul.breadcrumbsul li:last-child a:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+#tree-view ul.show li ul.show .ry-type-source {
+    margin: 2px 8px 8px 6px;
+}
+
+.docset-icon:before {
+    background-image: url('../img/docsets.png');
+    height: 24px;
+    width: 24px;
+    display: block;
+    content: '';
+    float: left;
+    margin: -2px 5px 0 0;
+}
+.docsets-JavaScript:before {
+    background-position: -24px -24px;
+}
+.docsets-slash:before {
+    background-position: -24px -48px;
+}
+.docsets-php:before {
+    background-position: -24px -24px;
+}
+.docsets-dotnet:before {
+    background-position: 0px 0px;
+}
+.docsets-java:before {
+    background-position: 0px -24px;
+}
+.docsets-node:before {
+    background-position: -48px 0px;
+}
+.type-icon:before {
+    background-image: url('../img/types.png');
+    height: 16px;
+    width: 16px;
+    display: block;
+    content: '';
+    float: left;
+    margin: 2px 8px 0px 6px;
+}
+.type-class:before {
+    background-position: 0 0;
+}
+.type-constant:before {
+    background-position: -16px 0;
+}
+.type-context:before {
+    background-position: -32px 0;
+}
+.type-control:before {
+    background-position: -48px 0;
+}
+.type-docset:before {
+    background-position: -64px 0;
+}
+.type-event:before {
+    background-position: 0 -16px;
+}
+.type-exception:before {
+    background-position: -16px -16px;
+}
+.type-expression:before {
+    background-position: -32px -16px;
+}
+.type-function:before {
+    background-position: -48px -16px;
+}
+.type-generator:before {
+    background-position: -64px -16px;
+}
+.type-guide:before {
+    background-position: 0 -32px;
+}
+.type-interface:before {
+    background-position: -16px -32px;
+}
+.type-method:before {
+    background-position: -32px -32px;
+}
+.type-wrapper:before {
+    background-position: -48px -32px;
+}
+.type-module:before {
+    background-position: -64px -32px;
+}
+.type-namespace:before {
+    background-position: 0 -48px;
+}
+.type-object:before {
+    background-position: -16px -48px;
+}
+.type-operator:before {
+    background-position: -32px -48px;
+}
+.type-others:before {
+    background-position: -48px -48px;
+}
+.type-predefinedvariable:before {
+    background-position: -64px -48px;
+}
+.type-property:before {
+    background-position: 0 -64px;
+}
+.type-reference:before {
+    background-position: -16px -64px;
+}
+.type-statement:before {
+    background-position: -32px -64px;
+}
+.type-type:before {
+    background-position: -48px -64px;
+}
+.type-variable:before {
+    background-position: -64px -64px;
+}
 
 /* Outline */
 
@@ -474,17 +589,17 @@ td.separator {
 }
 /*#search-view li, #tree-view li, #outline-view ul.outline-list>li {*/
 #search-view li, #tree-view li {
-    padding: 5px 20px;
+    padding: 7px 20px;
 }
 .ry-language-source {
     width: 24px;
     vertical-align: bottom;
     margin-top: -2px;
-    margin-right: 7px;
+    margin-right: 5px;
     float: left;
 }
 .ry-type-source {
-    margin: 2px 8px 6px 6px;
+    margin: 2px 8px 0px 6px;
     float: left;
 }
 .ry-icon {

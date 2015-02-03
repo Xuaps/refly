@@ -7,11 +7,8 @@ module.exports = React.createClass({
     render: function(){
         return (
             <li>
-                <img src={'/img/languages/' + this.props.docset + '-logo.png'} title={this.props.docset} className="ry-language-source"/>
-                <img src={"/img/type-" + this.props.type + ".png"} title={this.props.type} className="ry-type-source"/>
-                <Link to="result" key={'RRL' + this.props.uri} className="resultlistitem" params={{'docset': this.props.docset, splat: this.props.uri}}>{this.props.reference}</Link>
-                <br/>
-                <span className="cursive">{this.props.docset}</span>
+                <span className={"docset-icon docsets-" + this.props.docset}></span>
+                <Link to="result" key={'RRL' + this.props.uri} className={"resultlistitem type-icon type-"+ this.props.type} params={{'docset': this.props.docset, splat: this.props.uri}}>{this.props.reference}</Link>
             </li>
         );
     }

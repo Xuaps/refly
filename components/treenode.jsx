@@ -28,10 +28,10 @@ var TreeNode = React.createClass({
                uri = item.uri.substr(item.uri.lastIndexOf('/')+1);
                link = <Link onClick={this.show} to="result" key={'TL' + item.uri} params={{docset: docset, splat: uri}}>{item.name}</Link>;
            }else{
-               link = <Link to="result" key={'TL' + item.uri} params={{docset:item.docset, splat: item.uri}}><img src={item.type_image} title={item.type} className="ry-type-source"/>{item.name}</Link>;
+               link = <Link to="result" className={'type-icon type-'+item.type} key={'TL' + item.uri} params={{docset:item.docset, splat: item.uri}}>{item.name}</Link>;
            }
         }else{
-           link = <a onClick={this.show}><img src={item.image} title={item.type} className="ry-type-source"/>{item.name}</a>;
+           link = <a onClick={this.show} className={'type-icon type-'+item.type}>{item.name}</a>;
         }
 		if(this.state.show)
 			classname = this.CHECKED_CLASS;
@@ -44,9 +44,9 @@ var TreeNode = React.createClass({
 			return d;	
 		}.bind(this));
         return (
-            <li className={classname}>
+            <li className={classname} >
                {item.uri?'':<a onClick={this.show}><div className='list-arrow'></div></a>}
-               {item.type==='docset'?<a onClick={this.show}><img src={item.image} title={item.name} className="ry-language-source"/></a>:''}
+               {item.type==='docset'?<span onClick={this.show} className={"docset-icon docsets-"+item.name}></span>:''}
                {link}
                <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
                <ul className={this.state.show?this.SHOW_CLASS:this.HIDE_CLASS}>
