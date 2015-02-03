@@ -17,20 +17,20 @@ module.exports = React.createClass({
 	},
 
 	componentWillMount: function(){
-		if(this.props.params && this.props.params.splat){
-			this.handleDisposition({component: 'outline', action: 'show'});
-		}else{
-			this.handleDisposition({component: 'outline', action: 'hide'});
-		}
+//		if(this.props.params && this.props.params.splat){
+//			this.handleDisposition({component: 'outline', action: 'show'});
+//		}else{
+//			this.handleDisposition({component: 'outline', action: 'hide'});
+//		}
 	},
 
 	componentWillReceiveProps: function (newProps) {
-		if(newProps.params && newProps.params.splat){
-			this.handleDisposition({component: 'outline', action: 'show'});
-		}else{
-			if(this.state.currentdisposition.outline.action!='show')
-				this.handleDisposition({component: 'outline', action: 'hide'});
-		}
+//		if(newProps.params && newProps.params.splat){
+//			this.handleDisposition({component: 'outline', action: 'show'});
+//		}else{
+//			if(this.state.currentdisposition.outline.action!='show')
+//				this.handleDisposition({component: 'outline', action: 'hide'});
+//		}
 	},
 
 	checkOutline: function(disposition){
@@ -70,8 +70,8 @@ module.exports = React.createClass({
 				rows.push(<Search key="searchcomp" onKeyUpEvent={this.props.onKeyUpEvent} visibility={current} onSetDisposition={this.handleDisposition} search={this.props.query.ref}/>);
 			}else if(componentkey=='treeview'){
 					rows.push(<TreeView key="treeviewcomp" visibility={current} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
-			}else if(componentkey=='outline'){
-					rows.push(<Outline key="outlinecomp" visibility={current} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
+//			}else if(componentkey=='outline'){
+//					rows.push(<Outline key="outlinecomp" visibility={current} onSetDisposition={this.handleDisposition} params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
 			}
 		}
 		
