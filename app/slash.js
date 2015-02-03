@@ -35,10 +35,10 @@ var get_types = function(docset){
         var unique_references = [];
         if(references.length>0){
             references.reduce(function(previousValue, currentValue, index, array) {
-                if(unique_references.indexOf(currentValue.type)===-1){
+                if(previousValue.indexOf(currentValue.type)===-1){
                     previousValue.push(currentValue.type);
-                    return previousValue;
                 }
+                return previousValue;
             }, unique_references);
         }
 		return unique_references;
