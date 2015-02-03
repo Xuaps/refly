@@ -82,7 +82,7 @@ module.exports = React.createClass({
 			references = [];
 	        results.forEach(function(r){
 	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} 
-	                reference={r.name} type={r.type} docset={r.docset} uri={r.ref_uri}/>)
+	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.ref_uri}/>)
 	        });
 			if(references.length>0){
 				this.setState({results:references, currentstate: 'loaded'});

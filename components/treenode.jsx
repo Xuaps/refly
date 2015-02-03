@@ -46,7 +46,7 @@ var TreeNode = React.createClass({
         return (
             <li className={classname} >
                {item.uri?'':<a onClick={this.show}><div className='list-arrow'></div></a>}
-               {item.type==='docset'?<span onClick={this.show} className={"docset-icon docsets-"+item.name}></span>:''}
+               {item.type==='docset'?<span onClick={this.show} className={"docset-icon docsets-" + item.name }></span>:''}
                {link}
                <span className='cursive'>{item.len>0?'('+item.len+')':''}</span>
                <ul className={this.state.show?this.SHOW_CLASS:this.HIDE_CLASS}>
