@@ -56,11 +56,12 @@ describe('Refly API', function(){
     });
 
     describe('References collection', function(){
-        it('should return a max of 20 references found', function(done){
+        it('should return a max of `pagesize` references found', function(done){
             var pattern = '';
-            api.get_references({name: pattern})
+            var pagesize = 15;
+            api.get_references({name: pattern, 'pagesize': pagesize})
                 .then(function(references){
-                    expect(references.embeds['rl:references'].length).toBeLessThan(21);
+                    expect(references.embeds['rl:references'].length).toBeLessThan(pagesize+1);
                     done();
                 });
         });

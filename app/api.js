@@ -1,6 +1,7 @@
 var slash = require('./slash.js');
 var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
+var util = require('util');
 
 module.exports.entry = function(){
     return {
@@ -13,9 +14,9 @@ module.exports.entry = function(){
                     templated: true
                 }
             ],
-            "rl:references": { href: "/api/references?{name}", templated: true },
+            "rl:references": { href: "/api/references?{name,docset,type,pagesize,page}", templated: true },
             "rl:types": { href: "/api/types?{docset}", templated: true},
-            "rl:docsets": { href: "/api/docsets?{name}", templated: true}
+            "rl:docsets": { href: "/api/docsets?{active}", templated: true}
         }
     };
 };
@@ -44,18 +45,21 @@ module.exports.get_reference = function(docset, uri){
         };
     });
 };
-var PAGE_SIZE = 20;
+var DEFAULT_PAGE_SIZE = 20;
+var DEFAULT_PAGE = 1;
 
 module.exports.get_references = function(query){
+   query.pagesize = query.pagesize || DEFAULT_PAGE_SIZE;
+   query.page = query.page || DEFAULT_PAGE;
    return slash.search(query)
        .then(function(references){
-           return {
+           var response = {
                 links: {
                     self: '/api/references',
                     curies: getCuries()
                 },
                 embeds: {
-                   "rl:references": references.slice(0,PAGE_SIZE).map(function(ref){
+                   "rl:references": references.items.map(function(ref){
                        return {
                             links: {
                                 self: '/api/references' + ref.uri 
@@ -65,6 +69,12 @@ module.exports.get_references = function(query){
                     })
                }
            }; 
+           if(query.page>1)
+                response.links['prev'] = util.format('/api/references?page=%d&pagesize%d', parseInt(query.page)-1, query.pagesize);
+           if(query.page<(references.total/query.pagesize))
+                response.links['next'] = util.format('/api/references?page=%d&pagesize%d', parseInt(query.page)+1, query.pagesize);
+
+           return response;
        });
 };
 
