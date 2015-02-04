@@ -38,6 +38,7 @@ var _references=[ {
     uri: "/slash/test.html",
     ref_uri: "/test.html",
     docset: "slash",
+    docset_name: "slash",
     parent_uri: null,
     name: "search",
     _links: {
