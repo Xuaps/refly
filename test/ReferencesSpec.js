@@ -2,7 +2,7 @@ var References = require('../app/references');
 var filters = require('../app/filters');
 var randomstring = require('randomstring');
 
-describe('Docset', function() {
+describe('References', function() {
     var references;
 
     beforeEach(function(){
@@ -90,8 +90,28 @@ describe('Docset', function() {
 
     describe('distinct', function(){
         
-    })
+    });
+
+    describe('page', function(){
+        it('should return a page of results', function(done){
+            references.filter('docset', filters.operators.EQUALS, 'slash').page(2,3).execute()
+                .then(function(references){
+                    expect(references.length).toBe(1);     
+                    done();     
+                });
+        });
+    });
     
+    describe('count', function(){
+        it('should return the count of elements in the collection', function(done){
+            references.filter('docset', filters.operators.EQUALS, 'slash').count()
+                .then(function(res){
+                    expect(res).toBe(4);
+                    done();
+                });
+        });
+    });
+
     describe('execute', function(){
         it('should execute the select and clean the query', function(){
             var results = null;

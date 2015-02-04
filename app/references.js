@@ -21,24 +21,39 @@ References.prototype.filter = function(field, operator, value) {
 };
 
 References.prototype.docsetstatefilter = function(value){
-    this._query = this._query.innerJoin('docsets', 'refs.docset', 'docsets.docset');
-    this._query = this._query.where('docsets.active', filters.operators.IN , value)
+    this._query = this._query.innerJoin('docsets', 'refs.docset', 'docsets.docset')
+        .where('docsets.active', filters.operators.IN , value);
     return this;
-}
+};
 
 
 References.prototype.select = function(columns){
-    var columns = columns.map(function(column) {
+    var ren_columns = columns.map(function(column) {
         return 'refs.' + column;
     });
-    this._query = this._query.select(columns);
+    this._query = this._query.select(ren_columns);
     return this;
-}
+};
 
 References.prototype.distinct = function(column){
     this._query = this._query.distinct(column);
     return this;
-}
+};
+
+References.prototype.page = function(number, pagesize){
+    this._query = this._query.limit(pagesize).offset((number-1)*pagesize);
+    return this;
+};
+
+References.prototype.count = function(){
+    return this._query.count('refs.id')
+        .then(function(res){
+            this.query = db('refs');
+            return parseInt(res[0].count);
+        }.bind(this),function(err){
+            return err;
+        });
+};
 
 References.prototype.execute = function() {
     return this._query.then(
