@@ -4,14 +4,32 @@ var filters = require('./filters');
 var q = require('q');
 
 var search = function(options) {
-    references = new References();
-    return references
+    if((options.page && !options.pagesize) || (options.pagesize && !options.page))
+       throw Error('page and pagesize must be given');
+
+    var base = _build_base_query(options); 
+    var query = _build_base_query(options);
+
+    if(options.page)
+        query = query.page(options.page, options.pagesize);
+    
+    return q.all([
+           base.count(),
+           query.select(['docset', 'reference', 'type', 'uri']).execute()
+          ]).then(function(results){
+            return {
+                total: results[0],
+                items: results[1]
+            };
+          });
+};
+
+var _build_base_query = function(options){
+    return new References()
         .filter('docset', filters.operators.IN, options.docsets)
         .filter('reference', filters.operators.CONTAINS, options.name)
         .filter('type', filters.operators.IN, options.types)
-        .select(['docset', 'reference', 'type', 'uri'])
-        .docsetstatefilter(true)            
-        .execute();
+        .docsetstatefilter(true);
 };
 
 var get = function(uri){

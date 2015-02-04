@@ -81,7 +81,7 @@ describe('Slash', function() {
             });
 
             runs(function() {
-                expect(results).toEqual([{
+                expect(results.items).toEqual([{
                     reference: 'search',
                     type: 'function',
                     docset: {name: 'slash', active: true},
@@ -94,7 +94,7 @@ describe('Slash', function() {
             slash.search({
                     name: 'json'
             }).then(function(response){
-                expect(response.length).toEqual(1);
+                expect(response.items.length).toEqual(1);
             }).fin(done);
         });
 
@@ -102,10 +102,27 @@ describe('Slash', function() {
             slash.search({
                 name: 'aRc'
             }).then(function(response) {
-                expect(response.length).toEqual(4);
+                expect(response.items.length).toEqual(4);
             }).fin(done);
         });
-    
+        
+        it('should return page x of size y if page and pagesize are indicated', function(done){
+            slash.search({
+                page: 2,
+                name: 'aRc',
+                pagesize: 3}).then(function(response){
+                    expect(response.items.length).toEqual(1);
+                    done();
+                });
+        });     
+
+        it('should return total of references that meet the conditions', function(done){
+            slash.search({
+                name:'aRc'}).then(function(response){
+                    expect(response.total).toEqual(4);
+                    done();
+                });
+        });
     });
 
     describe('Get', function(){
