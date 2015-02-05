@@ -68,7 +68,9 @@ Api.prototype.get = function (resource, filters){
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='search'){
 	    return jQuery.ajax({
-	        url: this._url_references +'?name=' + filters.searchtext,
+	        url: this._url_references 
+                +'?name=' + filters.searchtext
+                +'&page=' + filters.page,
 	        method: 'GET'
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='treeviewreference'){

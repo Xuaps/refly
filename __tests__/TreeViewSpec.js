@@ -62,7 +62,7 @@ describe('TreeView Component', function(){
                 var treenode_type = emulate_click_docset(treenode_docset, 1)[0];
 
                 expect(treenode_type.props.parents.length).toEqual(2);
-                expect(treenode_type.state.data.length).toEqual(1);     
+                expect(treenode_type.state.data.length).toEqual(25);     
             });
 
             xit('should not load all refrences types those have already been loaded', function(){

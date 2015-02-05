@@ -16,26 +16,6 @@ var _newReference={
     type: "function",
     content: "This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}",
     uri: "/slash/test.html",
-    parent_uri: null,
-    name: "search",
-    _links: {
-        self: { "href": "/api/references/slash/test.html" },
-        curies: [
-            {
-                name: "rl",
-                href: "http://refly.co/rels/{rel}",
-                templated: true
-            }
-        ],
-        "rl:docset": { href: "/api/docsets/slash" },
-        "rl:ascendants": { href: "/api/references/ascendants/slash/test.html" },
-        "rl:relatives": { href: "/api/references/relatives/slash/test.html" }
-    }
-};
-var _references=[ {
-    type: "function",
-    content: "This is an example\n-----\n\nexample.foo(bar)\n\n**some** descriptive *text*\n\n\t\t\t\tfunction example.foo(bar){\n\t\t\t\t\treturn bar;\n\t\t\t\t}",
-    uri: "/slash/test.html",
     ref_uri: "/test.html",
     docset: "slash",
     docset_name: "slash",
@@ -54,7 +34,12 @@ var _references=[ {
         "rl:ascendants": { href: "/api/references/ascendants/slash/test.html" },
         "rl:relatives": { href: "/api/references/relatives/slash/test.html" }
     }
-} ];
+};
+var _references=[];
+
+for (var i =0; i<25;i++){
+    _references.push(_newReference);
+}
 
 function get (resource, filters) {
     var _filters = filters || {};
@@ -76,7 +61,8 @@ function get (resource, filters) {
             }else if(resource==='treeviewreference'){
                 data = callback(_references);
             }else if(resource==='search'){
-                data = callback(_references);
+                var page = filters.page;
+                data = callback(_references.slice((page-1)*20, page*20));
             }
             return {then: function(callback){callback(data);}};
         }

@@ -44,6 +44,22 @@ describe('Search Component', function(){
 		    blur(searchc);
             expect(searchc.state.results.length).toBeGreaterThan(0);
         });
+
+        it('should try fill all the spaces in the results panel', function(){
+            TestUtils.renderIntoDocument(routes);
+            var searchc = TestUtils.renderIntoDocument(<Search search={'about'}/>);
+            var wrap = searchc.refs.wrap_panel.getDOMNode();
+            var scroll = searchc.refs.scroll_panel.getDOMNode();
+            blur(searchc);
+
+            wrap.scrollHeight = 100;
+            scroll.clientHeight = 10; 
+            //workaround
+            searchc.componentDidUpdate();
+
+            scroll.clientHeight = 100;
+            expect(searchc.state.results.length).toBe(25);
+        });
     });
     
     describe('Type in box', function(){
@@ -65,6 +81,23 @@ describe('Search Component', function(){
                 expect(searchc.state.results.length).toBe(0);
                 expect(visible).toBe('hide');
             });
+        });
+    });
+
+    describe('Scroll down', function(){
+        it('should be load next reesult batch', function(){
+            TestUtils.renderIntoDocument(routes);
+            var searchc = TestUtils.renderIntoDocument(<Search search={'about'}/>);
+            blur(searchc);
+            expect(searchc.state.results.length).toBe(20);
+            
+            var wrap = searchc.refs.wrap_panel.getDOMNode();
+            wrap.scrollTop = 100;
+            wrap.clientHeight = 100;
+            wrap.scrollHeight = 50;
+            TestUtils.Simulate.scroll(wrap);
+
+            expect(searchc.state.results.length).toBe(25);
         });
     });
 
