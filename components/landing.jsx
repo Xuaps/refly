@@ -52,6 +52,22 @@ module.exports = React.createClass({
 						<SimpleMail key="mailer" messages={{done: "Message sent correctly", fail: "message sent fail"}} apikey="6b30dc7d52fdeb7892dab94c7fe955b7"/>
                     </div>
                 </div>
+                <footer>
+                    <div className="center-block">
+                        <div className="footer-links">
+                            <a href="/privacy-policy.html" target="_blank">Legal</a>
+                            <a href="" target="_blank">Team</a>
+                        </div>
+                        <div className="copyright">
+                            <span>Copyright 2014 Refly</span>
+                        </div>
+                        <div className="footer-logos">
+                            <a href="http://xuaps.com" title="Xuaps" target="_blank">
+                                <img src="/img/logo-xuaps.jpg"/>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
             </div>
         );    
     }
