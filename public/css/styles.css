@@ -254,6 +254,23 @@ ul.breadcrumbsul li:last-child a:hover {
 #search-view {
     overflow: auto;
 }
+#left-pane div::-webkit-scrollbar {
+-webkit-appearance: none;
+}
+#left-pane div::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+#left-pane div::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+#left-pane div::-webkit-scrollbar-thumb {
+    min-height: 40px;
+    min-width: 40px;
+    background: #39f;
+    background-clip: padding-box;
+    border: 3px solid #fff;
+    border-radius: 5px;
+}
 #results {
     margin: 0;
 }
