@@ -27,6 +27,7 @@
 html {
     height: 100%;
     font-family: 'Raleway', sans-serif;
+    font-size: 0.9em;
 }
 body, fieldset, p {
     margin: 0;
@@ -221,6 +222,7 @@ ul.breadcrumbsul li:last-child a:hover {
     overflow: hidden;
     padding-top: 45px;
     position: relative;
+    font-size: 1em;
 }
 .logo img {
     margin-left: 12px;
