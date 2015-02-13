@@ -7,7 +7,7 @@ var Breadcrumbs = require('./breadcrumbs.jsx');
 
 module.exports = React.createClass({
     getInitialState: function(){
-        return {last_search: ''};
+        return {last_search: this.props.query.ref || ''};
     },
 
     render: function(){
