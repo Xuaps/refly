@@ -62,28 +62,6 @@ describe('Search Component', function(){
         });
     });
     
-    describe('Type in box', function(){
-        describe('delete all search characters', function(){
-            it('should be hidden', function(){
-                TestUtils.renderIntoDocument(routes);
-                visible = '';
-                var searchc = TestUtils.renderIntoDocument(<Search 
-                    onSetDisposition={disposition}/>);
-                var searchbox = searchc.refs.searchbox.getDOMNode('#txtreference');
-                blur(searchc);
-                
-                searchbox.value='is';
-                searchc.processInput(); //workaround for debounce function and jest behaviour
-                expect(searchc.state.results.length).toBeGreaterThan(0);
-                    
-                searchbox.value='';
-                searchc.processInput();
-                expect(searchc.state.results.length).toBe(0);
-                expect(visible).toBe('hide');
-            });
-        });
-    });
-
     describe('Scroll down', function(){
         it('should be load next reesult batch', function(){
             TestUtils.renderIntoDocument(routes);

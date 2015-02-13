@@ -7,26 +7,24 @@ var store = require('./store.js');
 module.exports = React.createClass({
 
     getInitialState: function() {
-        return {initilized: false, notvalidcontent: false};
-    },
-    componentWillReceiveProps: function (newProps) {
-		if(newProps.params && newProps.params.uri){
-            this.setState({notvalidcontent: false});
-			this.loadRef(newProps.params);
-		}else if(!this.state.reference){
-            this.setState({notvalidcontent: true});
-        }
+        return {initilized: false};
     },
 
+    componentWillReceiveProps: function (newProps) {
+		this.loadRef(newProps.params);
+    },
+    
+    componentWillMount: function(){
+        this.loadRef(this.props.params);
+    },
+    
 	componentDidUpdate: function(){
 		this.resetScroll();
 	},
 
     render: function() {
         var content;
-        if(this.state.initilized && this.state.notvalidcontent){
-            content = "";
-        }else if(this.state.initilized && !this.state.reference){
+        if(this.state.initilized && !this.state.reference){
 			(this.props.params.uri)? searchtext = this.props.params.uri.split('/').pop() : searchtext = this.props.params.uri;
             Rollbar.error("Reference " + this.props.params.uri + " not found");
 			var urlsearch = "/searchfor/" + searchtext;
@@ -57,7 +55,9 @@ module.exports = React.createClass({
     },
 
     loadRef: function(params){
-        //TODO:
+		if(!params || !params.uri)
+            return;
+
 		return store.get('reference', {docset: params.docset, uri: params.uri})
     		.then(function(ref){
 				this.setState({reference: ref, initilized: true});

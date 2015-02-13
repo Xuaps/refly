@@ -26,8 +26,8 @@ describe('ResultView Component', function(){
 
             resultviewc.setProps({params: 
 			{docset: undefined, uri: undefined}});
-			expect(resultviewc.state.notvalidcontent)
-			.toEqual(true);
+			expect(resultviewc.state.initilized).toBe(false);
+            expect(resultviewc.state.reference).toBe(undefined);
         });
     });
 

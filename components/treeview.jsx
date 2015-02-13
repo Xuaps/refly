@@ -55,15 +55,6 @@ var TreeView = React.createClass({
         };
     },
 
-    getDefaultProps: function() {
-      return {
-        visibility: {
-            action: 'show',
-            state: 'half'
-        }
-      };
-    },
-
 	componentWillReceiveProps:  function(newProps) {
 		if(newProps.params && newProps.params.docset)
 			this.setState({selected: {uri: newProps.params.uri, docset:newProps.params.docset}});
@@ -76,21 +67,13 @@ var TreeView = React.createClass({
     },
 
    render: function() {
-		if(this.props.visibility.action=='hide'){
-			cssclass = "half-height hide";
-		}else{
-			cssclass = "half-height";
-			if(this.props.visibility.state=='full')
-			cssclass = "full-height";
-		}
-		
 		var data = this.state.data.map(function(d){			
 			d.props.selected = this.state.selected;	
 			return d;	
 		}.bind(this));
 
         return (
-            <div id="tree-view" className={cssclass}>
+            <div id="tree-view" className="full-height">
                 <div className="component-content">
                     <ul className="docsetstree">
                         {data}
