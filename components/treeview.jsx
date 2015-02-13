@@ -92,7 +92,7 @@ var TreeView = React.createClass({
         return (
             <div id="tree-view" className={cssclass}>
                 <div className="component-content">
-                    <ul>
+                    <ul className="docsetstree">
                         {data}
                     </ul>
                </div>

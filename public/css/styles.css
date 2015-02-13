@@ -283,6 +283,23 @@ ul.breadcrumbsul li:last-child a:hover {
 #resultlist li:hover,  #outline-view ul.outline-list>li:hover {
     background-color: #f5f7f7;
 }
+.resultlistitem {
+    color: #333;
+    width: 100%;
+    padding: 5px 10px 3px;
+    float: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.resultlistitem:hover {
+    background: #d2e4f7;
+    color: #333;
+}
+.resultlistitem:focus {
+    background: #333;
+    color: #FFF;
+}
 
 /* Treeview */
 
@@ -291,6 +308,9 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 #left-pane>#tree-view {
     overflow: auto;
+}
+#tree-view a {
+    color: #333;
 }
 
 .list-arrow {
@@ -304,15 +324,31 @@ ul.breadcrumbsul li:last-child a:hover {
     box-sizing: initial;
     background-position: 2px 2px;
 }
+.list-arrow:hover {
+    background-image: url('../img/closed-list-hover.png');
+}
 #left-pane>#tree-view li.checked>a>div.list-arrow{
     background-image: url('../img/opened-list.png');
-    margin-top: 4px;
+    margin: 4px 3px 0 5px;
+}
+#left-pane>#tree-view li.checked>a>div.list-arrow:hover {
+    background-image: url('../img/opened-list-hover.png');
+}
+#tree-view>ul.show {
+    margin-top: 5px;
 }
 #tree-view ul.show li {
-    padding: 5px 0 5px 25px;
+    padding: 6px 0;
+}
+#left-pane>#tree-view li:hover {
+    background: #d2e4f7;
+    color: #FFF;
+}
+#left-pane>#tree-view li.checked:hover {
+    background: #fff;
 }
 #tree-view ul.show li ul.show {
-    padding: 5px 0 5px 17px;
+    padding: 6px 0 0 21px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -327,7 +363,7 @@ ul.breadcrumbsul li:last-child a:hover {
     display: block;
     content: '';
     float: left;
-    margin: -2px 5px 0 0;
+    margin: -2px 3px 0 0;
 }
 .docsets-JavaScript:before {
     background-position: -24px -24px;
@@ -354,7 +390,7 @@ ul.breadcrumbsul li:last-child a:hover {
     display: block;
     content: '';
     float: left;
-    margin: 2px 8px 0px 6px;
+    margin: 2px 7px 0px 3px;
 }
 .type-class:before {
     background-position: 0 0;
@@ -601,14 +637,22 @@ ul.breadcrumbsul li:last-child a:hover {
 td.separator {
     width: 5px;
 }
-#search-view ul, #tree-view ul, #outline-view ul {
+#search-view>div>div#resultlist, #tree-view>div>.docsetstree {
+    padding-top: 5px;
+}
+#search-view div#resultlist, #tree-view ul, #outline-view ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    float: left;
+    width: 100%;
 }
 /*#search-view li, #tree-view li, #outline-view ul.outline-list>li {*/
 #search-view li, #tree-view li {
-    padding: 7px 20px;
+    padding: 5px 10px 3px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .ry-language-source {
     width: 24px;

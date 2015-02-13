@@ -134,9 +134,9 @@ module.exports = React.createClass({
                     </fieldset>
                 </div>
                 <div id="results" ref='scroll_panel'>
-                    <ul id="resultlist">
+                    <div id="resultlist">
                         {this.state.results}
-                    </ul>
+                    </div>
                 </div>
             </div>
         	);
