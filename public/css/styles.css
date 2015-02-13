@@ -1047,6 +1047,7 @@ footer .copyright {
     filter: alpha(opacity=85);
     text-align: justify;
     z-index: 999999999;
+    font-size: 1rem;
 }
 .cookiesms p {
     margin-right: 100px;
