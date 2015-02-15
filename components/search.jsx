@@ -133,7 +133,7 @@ module.exports = React.createClass({
 
     askNext: function(e){
        var wrap = this.refs.wrap_panel.getDOMNode();
-	   if(wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight){
+	   if(wrap.scrollTop + wrap.clientHeight + 5 >= wrap.scrollHeight){
 			this.loadNext();
        }
     }
