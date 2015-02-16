@@ -8,7 +8,7 @@ var Q = require('q');
 module.exports = React.createClass({
 	
     getInitialState: function() {
-        return {results: [], currentstate: 'stopped'};
+        return {results: [], total: 0};
     },
     
     getDefaultProps: function() {
@@ -41,11 +41,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
         }else{
-            if(this.state.currentstate=='loading'){
-                message = <div className="search-message">Loading results...</div>;
-            }else{
-                message = <div id="results"><div className="search-message">Reference not found!</div></div>;
-            }
+            message = <div id="results"><div className="search-message">Reference not found!</div></div>;
         }
         return(
             <div id="search-view" className='full-height' ref='wrap_panel' onScroll={this.askNext}>
@@ -65,11 +61,9 @@ module.exports = React.createClass({
         if(!this.refs.wrap_panel || !this.refs.scroll_panel)
            return;
         var wrap = this.refs.wrap_panel.getDOMNode();
-        var scroll = this.refs.scroll_panel.getDOMNode();
-        var free_space = wrap.scrollHeight - scroll.clientHeight;
+        var scroll = (wrap.scrollHeight - wrap.clientHeight)!==0;
 
-        if(free_space>0 && this.state.currentstate==='loaded' && this.state.page === 1){
-            scroll.clientHeight = wrap.scrollHeight;
+        if(!scroll && !(this.state.page>prevState.page && this.state.total===prevState.total)){
             this.loadNext();
         }
     },
@@ -108,7 +102,6 @@ module.exports = React.createClass({
     },
 
 	loadData: function(searchtext, page){
-        this.setState({currentstate: 'loading'});
 
         var page = page || 1;
         store.get('search', {'searchtext': searchtext, 'page': page})
@@ -119,9 +112,9 @@ module.exports = React.createClass({
 	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.ref_uri}/>)
 	        });
 			if(references.length>0){
-				this.setState({results:references, currentstate: 'loaded', 'page': page, lastsearch: searchtext});
+				this.setState({results:references, total: references.length, 'page': page, lastsearch: searchtext});
 			}else{
-				this.setState({results:references, currentstate: 'notfound', 'page': page, lastsearh: searchtext});
+				this.setState({results:references, 'page': page, lastsearh: searchtext});
 			}
 		}.bind(this));
 
