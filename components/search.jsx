@@ -71,6 +71,11 @@ module.exports = React.createClass({
     emptySearch: function(){
         this.refs.searchbox.getDOMNode('#txtreference').value='';
         this.props.onKeyUpEvent({target:{value: ''}});
+        this.cleanResults();
+    },
+
+    cleanResults: function(){
+        this.setState({results:[]});
     },
 
     setFocus: function(input, searchtext){
@@ -82,7 +87,11 @@ module.exports = React.createClass({
 		event.persist();
         this.debouncedKeyUp().then(function () {
             this.props.onKeyUpEvent(event);
-            this.loadData(event.target.value);
+            if(!event.target.value){
+                this.cleanResults();
+            }else{
+                this.loadData(event.target.value);
+            }
         }.bind(this));
     },
 
