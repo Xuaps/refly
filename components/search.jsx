@@ -4,17 +4,18 @@ var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('./store.js');
 var Q = require('q');
+var TEXT_LOAD_MESSAGE='Loading...';
+var TEXT_REFERENCE_NOT_FOUND_MESSAGE='Reference not found!';
 
 module.exports = React.createClass({
 	
     getInitialState: function() {
-        return {results: [], total: 0};
+        return {results: [], lastResultsPage: 0, message:''};
     },
     
     getDefaultProps: function() {
         return {
-            search: '',
-            message: ""
+            search: ''
         };
       },
 	
@@ -41,7 +42,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
         }else{
-            message = <div id="results"><div className="search-message">Reference not found!</div></div>;
+            message = <div id="results"><div className="search-message">{this.state.message}</div></div>;
         }
         return(
             <div id="search-view" className='full-height' ref='wrap_panel' onScroll={this.askNext}>
@@ -61,9 +62,9 @@ module.exports = React.createClass({
         if(!this.refs.wrap_panel || !this.refs.scroll_panel)
            return;
         var wrap = this.refs.wrap_panel.getDOMNode();
-        var scroll = (wrap.scrollHeight - wrap.clientHeight)!==0;
+        var scroll = (wrap.scrollHeight) > wrap.clientHeight;
 
-        if(!scroll && !(this.state.page>prevState.page && this.state.total===prevState.total)){
+        if(!scroll && this.state.lastResultsPage===this.state.page){
             this.loadNext();
         }
     },
@@ -111,8 +112,8 @@ module.exports = React.createClass({
     },
 
 	loadData: function(searchtext, page){
-
         var page = page || 1;
+        this.setState({message: TEXT_LOAD_MESSAGE, 'page': page});
         store.get('search', {'searchtext': searchtext, 'page': page})
     	.then(function(results){
 			references = page===1?[]:this.state.results;
@@ -120,11 +121,12 @@ module.exports = React.createClass({
 	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} 
 	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.ref_uri}/>)
 	        });
-			if(references.length>0){
-				this.setState({results:references, total: references.length, 'page': page, lastsearch: searchtext});
+			if(results.length>0){
+				this.setState({results:references, lastResultsPage: page, lastsearch: searchtext});
 			}else{
-				this.setState({results:references, 'page': page, lastsearh: searchtext});
+				this.setState({results:references, lastsearh: searchtext});
 			}
+            this.setState({message:results.length>0?'':TEXT_REFERENCE_NOT_FOUND_MESSAGE});
 		}.bind(this));
 
 	},
@@ -135,7 +137,9 @@ module.exports = React.createClass({
 
     askNext: function(e){
        var wrap = this.refs.wrap_panel.getDOMNode();
-	   if(wrap.scrollTop + wrap.clientHeight + 5 >= wrap.scrollHeight){
+	   var scroll = wrap.scrollTop + wrap.clientHeight + 5 >= wrap.scrollHeight;
+       if(scroll && this.state.lastResultsPage===this.state.page){
+           console.log(this.state.lastResultsPage +' '+this.state.page);
 			this.loadNext();
        }
     }
