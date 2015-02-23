@@ -383,6 +383,9 @@ ul.breadcrumbsul li:last-child a:hover {
 .docsets-node:before {
     background-position: -48px 0px;
 }
+.docsets-HTML:before {
+    background-position: -48px -48px;
+}
 .type-icon:before {
     background-image: url('../img/types.png');
     height: 16px;
