@@ -929,24 +929,24 @@ footer .copyright {
     margin: 0 auto;
     max-width: 816px;
     width: 90%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;
     border-left: 3px solid #fdb436;
     border-right: 3px solid #fdb436;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 5px;*/
 }
 .docsets .docsets-thumbs {
-    float: left;
-    white-space: nowrap;
+    /*float: left;
+    white-space: nowrap;*/
 }
 .docsets .item {
     background-color: #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    margin: 10px;
-    width: 250px;
+    margin: 1%;
+    width: 23%;
     display: inline-block;
     position: relative;
     opacity: 0.8;
@@ -955,7 +955,10 @@ footer .copyright {
     opacity: 1;
 }
 .docsets .docset-logo {
-    padding: 10px;
+    padding: 5px 15px;
+}
+.docsets .docset-logo img {
+    width: 100%;
 }
 .docsets .docset-robot {
     padding: 10px;
@@ -987,6 +990,7 @@ footer .copyright {
     position: absolute;
     right: 0;
     top: 0;
+    width: 50%;
 }
 .ok-state {
     background-color: green;
