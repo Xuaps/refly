@@ -44,7 +44,7 @@ module.exports = function (grunt) {
         }
       },
       react: {
-        files: ['components/*.jsx'],
+        files: ['react/components/*.jsx'],
         tasks: ['browserify'],
         options: {
           livereload: reloadPort
@@ -93,13 +93,12 @@ module.exports = function (grunt) {
         }
     },
     browserify: {
-      options: {
-        transform:  [ 'reactify' ]
-      },
-      app:          {
-        src:        'components/*.jsx',
-        dest:       'public/js/bundle.js'
-      }
+      dist: {
+          options: {
+            transform:  [ 'reactify' ]
+          },
+          files: { 'public/js/bundle.js': ['react/components/*.jsx'] }
+        }
     },
     uglify: {
         bundle: {
