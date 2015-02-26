@@ -814,14 +814,39 @@ textarea.ry-input-text {
 /* Footer */
 
 footer {
+    background-color: #fff;
+    font-size: 0.9em;
+}
+footer, .dashboard-footer {
     border-top: 2px solid #d2e4f7;
     width: 100%;
     float: left;
     position: absolute;
     bottom: 0;
     height: 35px;
-    background-color: #fff;
-    font-size: 0.9em;
+}
+.dashboard-footer {
+    box-sizing: content-box;
+    background-color: #333;
+}
+.dashboard-footer .settings {
+    width: 350px;
+    background-color: #39F;
+    height: 100%;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+.dashboard-footer .settings .ry-icon {
+    color: #d2e4f7;
+    position: relative;
+    right: 0;
+}
+.dashboard-footer .settings .ry-icon:before {
+    margin-right: 10px;
+}
+.dashboard-footer .settings .ry-icon:hover {
+    color: #FFF;
 }
 footer .center-block {
     margin: 0 auto;

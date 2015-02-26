@@ -32,6 +32,13 @@ module.exports = React.createClass({
                 <div className="right-pane">
                     <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                 </div>
+                <div className="dashboard-footer">
+                    <div className="settings">
+                        <button className="ry-icon fa-cog">settings</button>
+                    </div>
+                    <div>
+                    </div>
+                </div>
             </div>
         );
     },
