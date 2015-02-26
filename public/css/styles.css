@@ -338,7 +338,7 @@ ul.breadcrumbsul li:last-child a:hover {
     margin-top: 5px;
 }
 #tree-view ul.show li {
-    padding: 6px 0;
+    padding: 4px 0 6px;
 }
 #left-pane>#tree-view li:hover {
     background: #d2e4f7;
@@ -365,26 +365,47 @@ ul.breadcrumbsul li:last-child a:hover {
     float: left;
     margin: -2px 3px 0 0;
 }
-.docsets-JavaScript:before {
-    background-position: -24px -24px;
-}
-.docsets-slash:before {
-    background-position: -24px -48px;
-}
-.docsets-php:before {
-    background-position: -24px -24px;
-}
 .docsets-dotnet:before {
     background-position: 0px 0px;
 }
-.docsets-java:before {
-    background-position: 0px -24px;
+.docsets-haskel:before {
+    background-position: -24px 0px;
 }
 .docsets-node:before {
     background-position: -48px 0px;
 }
+.docsets-java:before {
+    background-position: 0px -24px;
+}
+.docsets-JavaScript:before {
+    background-position: -24px -24px;
+}
+.docsets-php:before {
+    background-position: -48px -24px;
+}
+.docsets-ruby:before {
+    background-position: 0px -48px;
+}
+.docsets-slash:before {
+    background-position: -24px -48px;
+}
 .docsets-HTML:before {
     background-position: -48px -48px;
+}
+.docsets-XPath:before {
+    background-position: 0px -72px;
+}
+.docsets-dom:before {
+    background-position: -24px -72px;
+}
+.docsets-CSS:before {
+    background-position: -48px -72px;
+}
+.docsets-React:before {
+    background-position: 0px -96px;
+}
+.docsets-SVG:before {
+    background-position: -24px -96px;
 }
 .type-icon:before {
     background-image: url('../img/types.png');
