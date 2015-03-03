@@ -74,8 +74,9 @@ code {
     white-space: pre-line;
 }
 pre {
-    background-color: #fff;
-    border: 2px solid #ccc;
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #FFF;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -159,7 +160,7 @@ pre {
 
 header {
     background-color: #333;
-    border-bottom: 2px solid #d2e4f7;
+    border-bottom: 2px solid #FFF;
     float: left;
     height: 45px;
     position: absolute;
@@ -241,7 +242,7 @@ ul.breadcrumbsul li:last-child a:hover {
     position: absolute;
     top: 0;
     padding-left: 8px;
-    border-bottom: 2px solid #d2e4f7;
+    border-bottom: 2px solid #FFF;
     padding-right: 8px;
     padding-top: 5px;
 }
@@ -255,7 +256,7 @@ ul.breadcrumbsul li:last-child a:hover {
     overflow: auto;
 }
 #left-pane div::-webkit-scrollbar {
--webkit-appearance: none;
+    -webkit-appearance: none;
 }
 #left-pane div::-webkit-scrollbar:horizontal {
     height: 10px;
@@ -692,12 +693,29 @@ ul.breadcrumbsul li:last-child a:hover {
     padding-top: 45px;  
 }
 .result {
-    background-color: #ececec;
+    background-color: #eaeaea;
     padding: 20px;
     height: 100%;
     overflow: auto;
     font-size: 1em;
     margin-left: 350px;
+}
+.result::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+.result::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+.result::-webkit-scrollbar:vertical {
+    width: 10px;
+}
+.result::-webkit-scrollbar-thumb {
+    min-height: 40px;
+    min-width: 40px;
+    background: #39f;
+    background-clip: padding-box;
+    border: 3px solid #eaeaea;
+    border-radius: 5px;
 }
 .result h3 {
     margin-top: 1.5em;
@@ -825,7 +843,6 @@ td.separator {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border: 2px solid #fdb436;
     background-color: #ffffff;
 }
 .ry-input-text {
@@ -918,7 +935,7 @@ footer {
     font-size: 0.9em;
 }
 footer, .dashboard-footer {
-    border-top: 2px solid #d2e4f7;
+    border-top: 2px solid #FFF;
     width: 100%;
     float: left;
     position: absolute;
