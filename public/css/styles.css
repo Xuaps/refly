@@ -169,6 +169,26 @@ header {
     right: 0;
     left: 350px;
 }
+.menu {
+    list-style: none;
+    line-height: 1.4em;
+    margin: 4px 10px 0 0;
+    overflow: visible;
+    padding: 0;
+    white-space: nowrap;
+    font-weight: bold;
+}
+.menu li {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 4px 0 5px 18px;
+}
+.menu li a {
+    color: #39F;
+}
+.menu li a:hover {
+    color: #FFF;
+}
 
 /* Breadcrumbs */
 
