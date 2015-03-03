@@ -175,7 +175,7 @@ header {
 #breadcrumbs-view {
     display: block;
     overflow: auto;
-    margin: 8px 15px 0 0;
+    background-color: #FFF;
 }
 .breadcrumbsul {
     list-style: none;
@@ -190,11 +190,11 @@ header {
 }
 .breadcrumbsul li{
     background-image: url("../img/breadcrumb-list.png");
-    background-position: 0px 7px;
+    background-position: 0px 10px;
     background-repeat: no-repeat;
 	display: inline-block;
     margin-right: 10px;
-    padding-left: 18px;
+    padding: 4px 0 5px 18px;
 }
 ul.breadcrumbsul li a {
     color: #39f;
@@ -203,7 +203,7 @@ ul.breadcrumbsul li a:hover {
     color: #fdb436;
 }
 ul.breadcrumbsul li:last-child a, ul.breadcrumbsul li:last-child span {
-    color: #fff;
+    color: #333;
     border-right: 3px solid #fdb436;
     border-left: 3px solid #fdb436;
     border-radius: 5px;

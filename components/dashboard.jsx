@@ -24,12 +24,12 @@ module.exports = React.createClass({
                     <a className="logo" href="/">
                         <img src="/img/refly-big.jpg"/>
                     </a>
-                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                 </header>
                 <div id="left-pane">
 					{rows}
                 </div>
                 <div className="right-pane">
+                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                     <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                 </div>
                 <div className="dashboard-footer">
