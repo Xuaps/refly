@@ -1256,3 +1256,16 @@ footer .copyright {
     border-radius: 5px;
     padding: 3px 0 3px 5px;
 }
+
+/* feedback button */
+span .ue-tab-container{
+    top: 43px;
+    right: 30px;
+}
+span .ue-tab-container .ue-button {
+    box-shadow: none;
+    border: 2px solid #fff;
+}
+body.widget {
+    padding-top: 50px;
+}
