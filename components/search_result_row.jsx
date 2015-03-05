@@ -1,15 +1,17 @@
 /** @jsx React.DOM */
 var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
 
 module.exports = React.createClass({
+    onClickHandler: function(){
+        this.props.onClickHandler({'docset': this.props.docset.toLowerCase(), splat: this.props.uri});
+    },
+
     render: function(){
         return (
-                <Link to="result" key={'RRL' + this.props.uri} className={"resultlistitem type-icon type-"+ this.props.type} params={{'docset': this.props.docset.toLowerCase(), splat: this.props.uri}}>
+                <a onClick={this.onClickHandler} className={"resultlistitem type-icon type-"+ this.props.type} >
                     <span className={"docset-icon docsets-" + this.props.docset}></span>
                     {this.props.reference}
-                </Link>
+                </a>
                );
     }
 });

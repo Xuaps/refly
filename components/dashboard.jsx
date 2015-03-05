@@ -4,19 +4,21 @@ var Search = require('./search.jsx');
 var TreeView = require('./treeview.jsx');
 var Resultview = require('./resultview.jsx');
 var Breadcrumbs = require('./breadcrumbs.jsx');
+var Router = require('react-router');
 
 module.exports = React.createClass({
+    mixins: [ Router.State, Router.Navigation ],
     getInitialState: function(){
-        return {last_search: this.props.query.ref || ''};
+        return {last_search: this.getQuery().ref || ''};
     },
 
     render: function(){
 		rows = [];
         
         if(!this.searchVisible()){
-            rows.push(<TreeView key="treeviewcomp" params={{docset: this.props.params.docset, uri: this.props.params.splat}}/>);
+            rows.push(<TreeView key="treeviewcomp" onClickHandler={this.onNavigation} params={{docset: this.getParams().docset, uri: this.getParams().splat}}/>);
         }
-        rows.push(<Search key="searchcomp" onKeyUpEvent={this.onSearch} search={this.props.query.ref}/>);
+        rows.push(<Search key="searchcomp" onKeyUpEvent={this.onSearch} onClickHandler={this.onNavigation} search={this.getQuery().ref}/>);
 		
         return(
             <div id="content">
@@ -34,8 +36,8 @@ module.exports = React.createClass({
 					{rows}
                 </div>
                 <div className="right-pane">
-                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
-                    <Resultview key="resultviewcomp" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
+                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                    <Resultview key="resultviewcomp" onNavigationHandler={this.onNavigation} onSearchHandler={this.onSearchNavigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                 </div>
                 <div className="dashboard-footer">
                     <div className="settings">
@@ -47,13 +49,20 @@ module.exports = React.createClass({
             </div>
         );
     },
-
+    onNavigation: function(params){
+        this.transitionTo('result', params);
+    },
+    
+    onSearchNavigation: function(query){
+        this.transitionTo('search', null, query);
+    },
+    
     onSearch: function(event){
         this.setState({last_search: event.target.value});
         this.props.onKeyUpEvent(event);
     },
     
     searchVisible: function(){
-        return this.state.last_search;
+        return this.state.last_search || this.getQuery().ref;
     }
 });

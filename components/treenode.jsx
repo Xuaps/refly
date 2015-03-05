@@ -4,7 +4,6 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Link = require('react-router').Link;
 var TreeNode = React.createClass({
     HIDE_CLASS: 'hide',
     SHOW_CLASS:'show',
@@ -18,17 +17,22 @@ var TreeNode = React.createClass({
         };
     },
 
+    onClickHandler: function(){
+        var item = this.props;
+       docset = (item.type==='docset')?item.uri.substr(1,item.uri.lastIndexOf('/')-1):item.docset;
+       uri = (item.type==='docset')?item.uri.substr(item.uri.lastIndexOf('/')+1):item.uri;
+       this.props.onClickHandler({docset: docset, splat: uri});
+    },
+
     render: function() {
         var item = this.props;
         var link;
 		var classname = '';
         if(item.uri){
            if(item.type=='docset'){
-               docset = item.uri.substr(1,item.uri.lastIndexOf('/')-1);
-               uri = item.uri.substr(item.uri.lastIndexOf('/')+1);
-               link = <Link onClick={this.show} to="result" key={'TL' + item.uri} params={{docset: docset, splat: uri}}>{item.name}</Link>;
+               link = <a onClick={function(){this.show(); this.onClickHandler()}.bind(this)}>{item.name}</a>;
            }else{
-               link = <Link to="result" className={'type-icon type-'+item.type} key={'TL' + item.uri} params={{docset:item.docset, splat: item.uri}}>{item.name}</Link>;
+               link = <a onClick={this.onClickHandler} className={'type-icon type-'+item.type}>{item.name}</a>;
            }
         }else{
            link = <a onClick={this.show} className={'type-icon type-'+item.type}>{item.name}</a>;
@@ -61,7 +65,7 @@ var TreeNode = React.createClass({
             this.setState({show: !this.state.show});
         }else{
             this.props.config
-                .loadData(this.props.config.innerLevel, this.props.parents)
+                .loadData(this.props.config.innerLevel, this.props.parents, this.props.onClickHandler)
                 .then(function(treenodes){
                         this.setState({data: treenodes, show: !this.state.show});
                     }.bind(this));

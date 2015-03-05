@@ -8,7 +8,6 @@ var TEXT_LOAD_MESSAGE='Loading...';
 var TEXT_REFERENCE_NOT_FOUND_MESSAGE='Reference not found!';
 
 module.exports = React.createClass({
-	
     getInitialState: function() {
         return {results: [], lastResultsPage: 0, message:''};
     },
@@ -58,6 +57,13 @@ module.exports = React.createClass({
         );
     },
     
+    componentWillReceiveProps: function (newProps) {
+		if(newProps.search && newProps.search!=this.props.search){
+			this.setFocus('#txtreference', newProps.search);
+			this.loadData(newProps.search);
+		}
+    },
+
     componentDidUpdate: function(prevProps, prevState){
         if(!this.refs.wrap_panel || !this.refs.scroll_panel)
            return;
@@ -118,9 +124,9 @@ module.exports = React.createClass({
     	.then(function(results){
 			references = page===1?[]:this.state.results;
 	        results.forEach(function(r){
-	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} 
+	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} onClickHandler={this.props.onClickHandler}
 	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.ref_uri}/>)
-	        });
+	        }.bind(this));
 			if(results.length>0){
 				this.setState({results:references, lastResultsPage: page, lastsearch: searchtext});
 			}else{

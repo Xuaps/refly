@@ -7,23 +7,23 @@ var store = require('./store.js');
 var TreeNode = require('./treenode.jsx');
 
 var nodes = {
-        loadData: function(config, parents){
+        loadData: function(config, parents, onClickHandler){
         return store.get('docset_active').then(function(response){
             var docs = [];
             response.forEach(function(doc){
-                docs.push(<TreeNode key={doc.name} image={doc.image} uri={doc.start_uri} type='docset' name={doc.name} config={config} parents={[doc]}/>);
+                docs.push(<TreeNode onClickHandler={onClickHandler} key={doc.name} image={doc.image} uri={doc.start_uri} type='docset' name={doc.name} config={config} parents={[doc]}/>);
             });
             return docs;
         });
     },
 
     innerLevel: {
-        loadData: function(config, parents){
+        loadData: function(config, parents, onClickHandler){
             return store.get('type', {'activedocset': parents[0].name}).then(function(types){
                 var treenodes = [];
                 types.forEach(function(type){
                     var parents_path = parents.concat(type);
-                    treenodes.push(<TreeNode key={type.name} image={type.image} type={type.name} name={type.name} 
+                    treenodes.push(<TreeNode onClickHandler={onClickHandler} key={type.name} image={type.image} type={type.name} name={type.name} 
                         config={config} parents={parents_path}/>);
                 });
                 return treenodes;
@@ -31,13 +31,13 @@ var nodes = {
         },
 
         innerLevel: {
-            loadData: function(config, parents){
+            loadData: function(config, parents, onClickHandler){
                 return store.get('treeviewreference', {'docset': parents[0].name, 'type': parents[1].name})
                 .then(function(references){
                     var treenodes = [];
                     //TODO
                     references.forEach(function(ref){
-                        treenodes.push(<TreeNode key={'TVT' + ref.name} type={ref.type} name={ref.name} 
+                        treenodes.push(<TreeNode key={'TVT' + ref.name} type={ref.type} onClickHandler={onClickHandler} name={ref.name} 
                             uri={ref.ref_uri} docset={ref.docset} type_image={ parents[1].image} />);
                     });
                     return treenodes;
@@ -61,7 +61,7 @@ var TreeView = React.createClass({
 	},
 
     componentWillMount: function(){
-        nodes.loadData(nodes.innerLevel).then(function(docs){
+        nodes.loadData(nodes.innerLevel, undefined, this.props.onClickHandler).then(function(docs){
             this.setState({data: docs});
         }.bind(this));
     },
