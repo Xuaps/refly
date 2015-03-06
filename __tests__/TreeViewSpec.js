@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/treeview.jsx');
 jest.dontMock('../components/treenode.jsx');
+jest.dontMock('./stubRouterContext.jsx');
+var stubRouterContext = require('./stubRouterContext.jsx');
 var React = require('react/addons');
 var routes = require('../components/routes.jsx');
 var TestUtils = React.addons.TestUtils;
@@ -8,8 +10,9 @@ var TreeView = require('../components/treeview.jsx');
 var TreeNode = require('../components/treenode.jsx');
 var Link = require('react-router').Link;
 var storeMock = require('../components/store.js');
+var Subject = stubRouterContext(TreeView,{onClickHandler: function(){}});
 
-describe('TreeView Component', function(){
+describe('References TreeView Component', function(){
     describe('Initial State', function(){
         it('should have all docsets', function(){
             var treeview = render_treeview();
@@ -89,8 +92,9 @@ describe('TreeView Component', function(){
     });
 
     var render_treeview = function(){
-        React.renderComponent(routes, document.createElement('div'));
-        return TestUtils.renderIntoDocument(<TreeView/>);
+        var subject = TestUtils.renderIntoDocument(<Subject/>);
+
+        return subject._renderedComponent;
     };   
 
     var emulate_click_docset = function(parent,index, clicks){

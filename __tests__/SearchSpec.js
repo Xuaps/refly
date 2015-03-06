@@ -1,10 +1,12 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/search.jsx');
 jest.dontMock('q');
+jest.dontMock('./stubRouterContext.jsx');
+var stubRouterContext = require('./stubRouterContext.jsx');
 var React = require('react/addons');
-var routes = require('../components/routes.jsx');
 var TestUtils = React.addons.TestUtils;
 var Search = require('../components/search.jsx');
+var Subject = stubRouterContext(Search);
 
 describe('Search Component', function(){
     var visible;
@@ -12,8 +14,7 @@ describe('Search Component', function(){
     
     describe('Initial State', function(){
         it('should be empty', function(){
-            TestUtils.renderIntoDocument(routes);
-            var searchc = TestUtils.renderIntoDocument(<Search/>);
+            var searchc = TestUtils.renderIntoDocument(<Subject/>)._renderedComponent;
             blur(searchc);
 			expect(searchc.state.results.length).toEqual(0);
         });
@@ -39,15 +40,13 @@ describe('Search Component', function(){
 
     describe('Search references', function(){
         it('should find refrences', function(){
-            TestUtils.renderIntoDocument(routes);
-            var searchc = TestUtils.renderIntoDocument(<Search search={'about'}/>);
+            var searchc = TestUtils.renderIntoDocument(<Subject search={'about'}/>)._renderedComponent;
 		    blur(searchc);
             expect(searchc.state.results.length).toBeGreaterThan(0);
         });
 
         it('should try fill all the spaces in the results panel', function(){
-            TestUtils.renderIntoDocument(routes);
-            var searchc = TestUtils.renderIntoDocument(<Search search={'about'}/>);
+            var searchc = TestUtils.renderIntoDocument(<Subject search={'about'}/>)._renderedComponent;
             var wrap = searchc.refs.wrap_panel.getDOMNode();
             var scroll = searchc.refs.scroll_panel.getDOMNode();
             blur(searchc);
@@ -64,8 +63,7 @@ describe('Search Component', function(){
     
     describe('Scroll down', function(){
         it('should be load next reesult batch', function(){
-            TestUtils.renderIntoDocument(routes);
-            var searchc = TestUtils.renderIntoDocument(<Search search={'about'}/>);
+            var searchc = TestUtils.renderIntoDocument(<Subject search={'about'}/>)._renderedComponent;
             blur(searchc);
             expect(searchc.state.results.length).toBe(20);
             

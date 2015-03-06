@@ -1,13 +1,13 @@
 /** @jsx React.DOM */
 jest.dontMock('../components/outline.jsx');
-var Outline;
-var TestUtils;
-var routes;
-var React;
-React = require('react/addons');
-routes = require('../components/routes.jsx');
-TestUtils = React.addons.TestUtils;
-Outline = require('../components/outline.jsx');
+jest.dontMock('./stubRouterContext.jsx');
+var stubRouterContext = require('./stubRouterContext.jsx');
+var React = require('react/addons');
+var routes = require('../components/routes.jsx');
+var TestUtils = React.addons.TestUtils;
+var Outline = require('../components/outline.jsx');
+var Subject = stubRouterContext(Outline);
+
 describe('Outline Component', function(){
 
     describe('Initial State', function(){
@@ -20,10 +20,9 @@ describe('Outline Component', function(){
 
     describe('Select a reference', function(){
         it('should have all children of the reference', function(){
-            React.renderComponent(routes, document.createElement('div'));
-            var outline = TestUtils.renderIntoDocument(<Outline/>);
+            var outline = TestUtils.renderIntoDocument(<Subject/>);
 			outline.setProps({params: {docset:'node.js v0.10.29', uri: 'buffer/buffer'}});
-			expect(outline.state.data.length).toEqual(2);
+			expect(outline._renderedComponent.state.data.length).toEqual(2);
         });
     });
 
