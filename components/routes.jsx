@@ -16,7 +16,7 @@ var routes = (
         <Route name='search' path='search' handler={Dashboard}/>
         <Route name="result" path=':docset/*' handler={Dashboard}/>
         <Route name="notfound" path=':splat' handler={Dashboard}/>
-        <DefaultRoute handler={Landing}/>
+        <DefaultRoute handler={Dashboard}/>
     </Route>
 );
 

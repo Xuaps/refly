@@ -16,57 +16,25 @@ module.exports = React.createClass({
 
     render: function(){
         return(
-            <div>
-                <div className="beta">
-                    <span>BETA</span>
-                </div>
-                <div className="trazo">
-                    <img src="/img/trazo.png" />
-                </div>
-                <div className="searchbox bg-flywing">
-                    <img src="/img/refly.jpg"/>
-                    <fieldset>
-                        <div id='ry-homesearch'>
-                            <input id="txtreference" onKeyUp={this.onKeyUp} type="text" name="reference" placeholder="Reference" className="ry-input-text" autoFocus />
-                            <button className='ry-icon fa-search' type='submit'></button>
-                        </div>
-                    </fieldset>
-                </div>
-                <div className="docsets">
-                    <div className="center-content centered-text show">
-                        <h2>Our flies are searching all day for you</h2>
-						<Docsets key="docsetsc" />
-                    </div>
-                </div>
-                <div className="description">
-                    <div className="center-content">
-                        <h2>Working to make your job easier</h2>
-                        <img src="/img/refly-big.jpg" className="floated"/>
-                        <span>PINGOLON is the reference library where programmers can find all the information of the most popular languages in the fastest and fluid way.</span>
-                        <span>Our bots travel hundreds of references for you to search and browse all from Refly. Always updated, integrated with your favorite editor, even offline.</span>
-                    </div>
-                </div>
-                <div className="contact">
-                    <div className="center-content span3">
-                        <h2>What can we do for you?</h2>
-                    </div>
-                </div>
-                <footer>
-                    <div className="center-block">
-                        <div className="footer-links">
-                            <a href="/privacy-policy.html" target="_blank">Legal</a>
-                            <a href="" target="_blank">Team</a>
-                        </div>
-                        <div className="copyright">
-                            <span>Copyright 2014 Refly</span>
-                        </div>
-                        <div className="footer-logos">
-                            <a href="http://xuaps.com" title="Xuaps" target="_blank">
-                                <img src="/img/logo-xuaps.jpg"/>
-                            </a>
+            <div id="content" className="docsetpage">
+                <header>
+                    <a className="logo" href="/">
+                        <img src="/img/refly-big.jpg"/>
+                    </a>
+                        <ul className="menu">
+                            <li><a href="/Docsets">Docsets</a></li>
+                            <li><a href="/team.html">About</a></li>
+                            <li><a href="/privacy-policy.html">Legal</a></li>
+                        </ul>
+                </header>
+                <div className="right-pane">
+                    <div className="docsetlist">
+                        <div className="center-content centered-text show">
+                            <h2>Our flies are searching all day for you</h2>
+                            <Docsets key="docsetsc" />
                         </div>
                     </div>
-                </footer>
+                </div>
             </div>
         );    
     }

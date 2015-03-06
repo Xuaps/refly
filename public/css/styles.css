@@ -1099,19 +1099,27 @@ footer .copyright {
 }
 
 /* docsets */
-.docsets {
+#container .docsetpage {
+    padding: 0;
+}
+#container .docsetpage header {
+    left: 0;
+    padding: 3px 0 3px 15%;
+}
+.docsetlist {
     background-color: white;
     color: #3399FF;
     background-color: #efefef;
-    padding: 25px 0 75px;
-    margin-top: 218px;
+    padding: 25px 0;
+    height: 100%;
+    overflow: auto;
 }
-.docsets h2 {
+.docsetlist h2 {
     display: inline-block;
     padding: 0 10px;
     border: 0 none;
 }
-.docsets .docsets-container {
+.docsetlist .docsets-container {
     margin: 0 auto;
     max-width: 816px;
     width: 90%;
@@ -1122,31 +1130,36 @@ footer .copyright {
     -moz-border-radius: 5px;
     border-radius: 5px;*/
 }
-.docsets .docsets-thumbs {
+.docsetlist .docsets-thumbs {
     /*float: left;
     white-space: nowrap;*/
 }
-.docsets .item {
+.docsetlist .item {
     background-color: #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    margin: 1%;
-    width: 23%;
+    margin: 2px 0;
+    width: 100%;
     display: inline-block;
     position: relative;
-    opacity: 0.8;
+    height: 50px;
+    border: 2px solid #fff;
 }
-.docsets .item:hover {
-    opacity: 1;
+.docsetlist .item:hover {
+    border: 0 none;
 }
-.docsets .docset-logo {
-    padding: 5px 15px;
+.docsetlist .docset-logo {
+    padding: 0;
+    width: 20%;
+    float: left;
+    height: 100%;
+    position: relative;
 }
-.docsets .docset-logo img {
-    width: 100%;
+.docsetlist .docset-logo img {
+    height: 100%;
 }
-.docsets .docset-robot {
+.docsetlist .docset-robot {
     padding: 10px;
     background-color: #ececec;
     width: 100%;
@@ -1157,22 +1170,54 @@ footer .copyright {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.docsets .docset-robot img {
+.docsetlist .docset-robot img {
     width: 30px;
 }
-.docsets .docset-date {
-    font-family: initial;
-    padding: 3px;
-    color: #fff;
-    width: 100%;
-    -webkit-border-bottom-right-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+.docsetlist .docset-info {
+    width: 80%;
+    float: right;
+    height: 100%;
 }
-.docsets .docset-state {
+.docsetlist .docset-info div {
+    color: #fff;
+    height: 50%;
+    font-family: initial;
+    float: left;
+    padding: 3px 0;
+}
+.docsetlist .docset-name {
+    width: 70%;
+    background-color: #333;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    border-top-left-radius: 5px;
+    border-right: 1px solid #666;
+    border-bottom: 1px solid #666;
+    font-weight: bold;
+}
+.docsetlist .docset-copyright {
+    width: 70%;
+    background-color: #333;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 1px solid #666;
+}
+.docsetlist .docset-license {
+    width: 30%;
+    background-color: #333;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-bottom-right-radius: 5px;
+}
+.docsetlist .docset-date {
+    width: 30%;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #666;
+}
+.docsetlist .docset-state {
     position: absolute;
     right: 0;
     top: 0;

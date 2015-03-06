@@ -28,7 +28,18 @@ module.exports = React.createClass({
 		                    <div className="docset-logo">
 		                        <img src={item.bigimage}/>
 		                    </div>
-							{infodate}
+                            <div className="docset-info">
+                                <div className="docset-name">
+                                    {item.name}
+                                </div>
+                                    {infodate}
+                                <div className="docset-copyright">
+                                    {item.copyright}
+                                </div>
+                                <div className="docset-license">
+                                    {item.license}
+                                </div>
+		                    </div>
 		                </div>
 		            </a>
 				);

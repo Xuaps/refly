@@ -27,7 +27,7 @@ module.exports = React.createClass({
                         <img src="/img/refly-big.jpg"/>
                     </a>
                         <ul className="menu">
-                            <li><a href="/docsets.html">Docsets</a></li>
+                            <li><a href="/Docsets">Docsets</a></li>
                             <li><a href="/team.html">About</a></li>
                             <li><a href="/privacy-policy.html">Legal</a></li>
                         </ul>
