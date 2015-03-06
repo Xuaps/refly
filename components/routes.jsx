@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
+var Link = Router.Link;
+var Routes = Router.Routes;
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
 
@@ -11,6 +13,7 @@ var Landing = require('./landing.jsx');
 var Docsets = require('./docsetlist.jsx');
 
 var routes = (
+  <Routes location="history">
     <Route handler={Shell} path='/'>
         <Route name='docsets' path='docsets' handler={Docsets}/>
         <Route name='search' path='search' handler={Dashboard}/>
@@ -18,6 +21,7 @@ var routes = (
         <Route name="notfound" path=':splat' handler={Dashboard}/>
         <DefaultRoute handler={Landing}/>
     </Route>
+  </Routes> 
 );
 
 module.exports = routes;
