@@ -33,16 +33,21 @@ var docsetsStore = Reflux.createStore({
         }.bind(this)).fail(this.onFail);
     },
 
-    onSearchReferences: function(docset, type_name){
+    onSearchReferences: function(docset, type_name, page){
+        page = page || 1;
 	    jQuery.ajax({
-	        url:'/api/references?docsets='+docset+'&types='+type_name,
+	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type_name, page),
 	        method: 'GET'
 	    }).then(function (response){
-            this.docsets
+            var node = this.docsets
                 .filter(function(doc){ return doc.name === docset;})[0]
-                .types.filter(function(type){ return type.name === type_name; })[0]
-                .references = response['_embedded']['rl:references'];
+                .types.filter(function(type){ return type.name === type_name; })[0];
+            
+            node.references = node.references || [];
+            node.references = node.references.concat(response['_embedded']['rl:references']);
             this.trigger(this.docsets);    
+
+            return response['_links'].next?this.onSearchReferences(docset, type_name, page+1):undefined;
         }.bind(this)).fail(this.onFail);
     },
 
