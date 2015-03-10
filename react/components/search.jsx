@@ -124,8 +124,8 @@ module.exports = React.createClass({
     	.then(function(results){
 			references = page===1?[]:this.state.results;
 	        results.forEach(function(r){
-	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} onClickHandler={this.props.onClickHandler}
-	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.ref_uri}/>)
+	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} onClick={this.props.onClick}
+	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>)
 	        }.bind(this));
 			if(results.length>0){
 				this.setState({results:references, lastResultsPage: page, lastsearch: searchtext});

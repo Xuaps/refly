@@ -29,9 +29,9 @@ module.exports = React.createClass({
 
             event.preventDefault();
             if(uri.segment(0)=="searchfor"){
-                this.props.onSearchHandler({ref: uri.segment(0,'').path().slice(1)});
+                this.props.onSearch({ref: uri.segment(0,'').path().slice(1)});
             }else{
-                this.props.onNavigationHandler({docset:uri.segment(0), splat:uri.segment(0,'').path().slice(1)});
+                this.props.onNavigation(uri.pathname());
             }
         }.bind(this));
     },

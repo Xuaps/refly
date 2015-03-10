@@ -3,7 +3,7 @@ var React = require('react');
 
 module.exports = React.createClass({
     onClickHandler: function(){
-        this.props.onClickHandler({'docset': this.props.docset.toLowerCase(), splat: this.props.uri});
+        this.props.onClick(this.props.uri);
     },
 
     render: function(){

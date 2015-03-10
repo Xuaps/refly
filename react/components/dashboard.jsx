@@ -17,9 +17,9 @@ module.exports = React.createClass({
 		rows = [];
         
         if(!this.searchVisible()){
-            rows.push(<TreeView key="treeviewcomp" onNodeClick={this.Navigation} params={{docset: this.getParams().docset, uri: this.getParams().splat}}/>);
+            rows.push(<TreeView key="treeviewcomp" onNodeClick={this.navigation} params={{docset: this.getParams().docset, uri: this.getParams().splat}}/>);
         }
-        rows.push(<Search key="searchcomp" onKeyUpEvent={this.onSearch} onClickHandler={this.onNavigation} search={this.getQuery().ref}/>);
+        rows.push(<Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>);
 		
         return(
             <div id="content">
@@ -38,7 +38,7 @@ module.exports = React.createClass({
                 </div>
                 <div className="right-pane">
                     <Breadcrumbs key="breadcrumbscomp" params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
-                    <Resultview key="resultviewcomp" onNavigationHandler={this.onNavigation} onSearchHandler={this.onSearchNavigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                    <Resultview key="resultviewcomp" onNavigation={this.navigation} onSearch={this.searchNavigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                 </div>
                 <div className="dashboard-footer">
                     <div className="settings">
@@ -51,15 +51,15 @@ module.exports = React.createClass({
         );
     },
    
-    Navigation: function(ref){
-        this.transitionTo( ref.uri);
+    navigation: function(uri){
+        this.transitionTo(uri);
     },
     
-    onSearchNavigation: function(query){
+    searchNavigation: function(query){
         this.transitionTo('search', null, query);
     },
     
-    onSearch: function(event){
+    search: function(event){
         this.setState({last_search: event.target.value});
         this.props.onKeyUpEvent(event);
     },
