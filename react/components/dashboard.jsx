@@ -4,6 +4,7 @@ var Search = require('./search.jsx');
 var TreeView = require('./treeview.jsx');
 var Resultview = require('./resultview.jsx');
 var Breadcrumbs = require('./breadcrumbs.jsx');
+var URI = require ('URIjs');
 var Router = require('react-router');
 
 module.exports = React.createClass({
@@ -16,7 +17,7 @@ module.exports = React.createClass({
 		rows = [];
         
         if(!this.searchVisible()){
-            rows.push(<TreeView key="treeviewcomp" onClickHandler={this.onNavigation} params={{docset: this.getParams().docset, uri: this.getParams().splat}}/>);
+            rows.push(<TreeView key="treeviewcomp" onNodeClick={this.Navigation} params={{docset: this.getParams().docset, uri: this.getParams().splat}}/>);
         }
         rows.push(<Search key="searchcomp" onKeyUpEvent={this.onSearch} onClickHandler={this.onNavigation} search={this.getQuery().ref}/>);
 		
@@ -49,8 +50,9 @@ module.exports = React.createClass({
             </div>
         );
     },
-    onNavigation: function(params){
-        this.transitionTo('result', params);
+   
+    Navigation: function(ref){
+        this.transitionTo( ref.uri);
     },
     
     onSearchNavigation: function(query){

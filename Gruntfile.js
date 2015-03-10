@@ -44,7 +44,7 @@ module.exports = function (grunt) {
         }
       },
       react: {
-        files: ['react/components/*.jsx'],
+        files: ['react/components/*.jsx', 'react/actions/*.js', 'react/stores/*.js'],
         tasks: ['browserify'],
         options: {
           livereload: reloadPort

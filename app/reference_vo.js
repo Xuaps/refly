@@ -1,4 +1,14 @@
-module.exports.fromRef = function (reference) {
+function ReferenceVO (obj){
+    if(!obj.uri)
+        throw new Error('Uri required to build a ReferenceVO object');
+    
+    this.uri = obj.uri;
+    this.name = obj.name;
+    this.type = obj.type;
+    this.docset_name = obj.docset_name;
+};
+
+ReferenceVO.fromRef = function (reference) {
     return {
         uri: reference.uri,
         name: reference.reference,
@@ -7,3 +17,4 @@ module.exports.fromRef = function (reference) {
     };
 };
 
+module.exports = ReferenceVO;
