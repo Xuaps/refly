@@ -3,7 +3,8 @@
  */
 
 var React = require('react');
-var store = require('./store.js');
+var store = require('../stores/docsetsStore.js');
+var DocsetsActions = require('../actions/docsetsActions.js');
 var TreeView = require('react-treeview');
 var DocsetNode = require('./docset-node.jsx');
 var TypeNode = require('./type-node.jsx');
@@ -23,53 +24,45 @@ var ReferencesTreeView = React.createClass({
 	},
 
     componentWillMount: function(){
-        store.get('docset_active').then(function(response){
-            var docs = [];
-            response.forEach(function(doc){
-               docs.push(<DocsetNode key={doc.name} onClick={this.onDocsetClick} {...doc} />);
-            }.bind(this));
-            this.setState({data:docs});
+        this.unsubscribe = store.listen(this.onDocsetsChange);
+        DocsetsActions.getActiveDocsets();       
+    },
+
+    componentWillUnmount: function(){
+        this.unsubscribe();
+    },
+
+    onDocsetsChange: function(state){
+        var components = [];
+        state.forEach(function(docset){
+           components.push(<DocsetNode key={docset.name} onClick={this.onDocsetClick} {...docset} />);
+           if(docset.types) {
+                   var doc_comp = components[components.length-1];
+                   doc_comp.props.children = [];
+                   docset.types.forEach(function(type){
+                       var node = <TypeNode key={docset.name+'.'+type.name} onClick={this.onTypeClick} {...type} />;
+                       doc_comp.props.children.push(node);
+                       if(type.references) {
+                           var type_comp = node;
+                           type_comp.props.children = [];
+                           type.references.forEach(function(ref){
+                               var item = <ReferenceNode key={ref.name} onClick={this.onReferenceClick} {...ref} />;
+                               type_comp.props.children.push(item);
+                           }.bind(this));
+                       };
+               }.bind(this));
+           };
         }.bind(this));
+        this.setState({data: components});
     },
     
     onDocsetClick: function(key, ref){
         this.props.onNodeClick(ref);
-        var component = this.state.data.filter(function(doc){
-            return doc.props.name === ref.docset_name;
-        })[0];
-
-        if(!component.props.children) {
-            store.get('type',{activedocset: ref.docset_name}).then(function(types){
-                var children = [];
-                types.forEach(function(type){
-                    var item = <TypeNode key={ref.docset_name+'.'+type.name} onClick={this.onTypeClick} {...type} />;
-                    children.push(item);
-                }.bind(this));
-                component.props.children = children;
-                this.forceUpdate();
-            }.bind(this));
-        };
+        DocsetsActions.getTypes(ref.docset_name);
     },
 
     onTypeClick: function(key, type_name){
-        var docset_name = key.split('.')[0];
-        var component = this.state.data.filter(function(doc){
-            return doc.props.name === docset_name;
-        })[0].props.children.filter(function(type){
-            return type.props.name === type_name;
-        })[0];
-        
-        if(!component.props.children) {
-            store.get('treeviewreference',{docset: docset_name, type: type_name}).then(function(references){
-                var children = [];
-                references.forEach(function(ref){
-                    var item = <ReferenceNode key={ref.name} onClick={this.onReferenceClick} {...ref} />;
-                    children.push(item);
-                }.bind(this));
-                component.props.children = children;
-                this.forceUpdate();
-            }.bind(this));
-        };
+        DocsetsActions.searchReferences(key.split('.')[0], type_name);
     },
     
     onReferenceClick: function(key, ref){

@@ -21,6 +21,7 @@
     "q": "^1.0.1",
     "react": "^0.12.2",
     "react-router": "^0.12.4",
+    "reflux": "^0.2.6",
     "rollbar": "^0.4.0",
     "serve-favicon": "^2.0.1"
   },
