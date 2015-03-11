@@ -12,6 +12,9 @@ var docsetsStore = Reflux.createStore({
     },
 
     onGetActiveDocsets: function(){
+        if(this.docsets.length>0)
+            return;
+
 	    jQuery.ajax({
 	        url:'/api/docsets?active=true',  
 	        method: 'GET'
@@ -22,26 +25,32 @@ var docsetsStore = Reflux.createStore({
     },
 
     onGetTypes: function(docset){
-	    jQuery.ajax({
+        var active_docset = this.docsets
+            .filter(function(doc){ return doc.name === docset; })[0];
+        if(active_docset.types)
+            return;
+
+        jQuery.ajax({
 	        url:'/api/types?docset='+docset,
 	        method: 'GET'
 	    }).then(function(response){ 
-           this.docsets
-            .filter(function(doc){ return doc.name === docset; })[0]
-            .types = response['_embedded']['rl:types']; 
+            active_docset.types = response['_embedded']['rl:types']; 
            this.trigger(this.docsets);
         }.bind(this)).fail(this.onFail);
     },
 
     onSearchReferences: function(docset, type_name, page){
+        var node = this.docsets
+            .filter(function(doc){ return doc.name === docset;})[0]
+            .types.filter(function(type){ return type.name === type_name; })[0];
+        if(node.references && !page)
+            return;
+
         page = page || 1;
 	    jQuery.ajax({
 	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type_name, page),
 	        method: 'GET'
 	    }).then(function (response){
-            var node = this.docsets
-                .filter(function(doc){ return doc.name === docset;})[0]
-                .types.filter(function(type){ return type.name === type_name; })[0];
             
             node.references = node.references || [];
             node.references = node.references.concat(response['_embedded']['rl:references']);
