@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var converter = require('marked');
 var store = require('./store.js');
 var URI = require('URIjs');
 var $ = require('jquery-browserify');
@@ -31,7 +30,7 @@ module.exports = React.createClass({
             if(uri.segment(0)=="searchfor"){
                 this.props.onSearch({ref: uri.segment(0,'').path().slice(1)});
             }else{
-                this.props.onNavigation(uri.pathname());
+                this.props.onNavigation(uri.resource());
             }
         }.bind(this));
     },
@@ -39,6 +38,10 @@ module.exports = React.createClass({
 	componentDidUpdate: function(){
 		this.resetScroll();
 	},
+
+    shouldComponentUpdate: function(nextProps, nextState){
+        return nextState.reference !== this.state.reference;
+    },
 
     render: function() {
         var content;
@@ -65,11 +68,13 @@ module.exports = React.createClass({
                         <img className="bad-reference" src="/img/bad-reference.png"/>
                       </div>;
         }else if(this.state.initilized && this.state.reference){
-            content = <div dangerouslySetInnerHTML={{__html: converter(this.state.reference.content)}}/>;
+            content = <div dangerouslySetInnerHTML={{__html: this.state.reference.content}}/>;
         }else{
 	        content = '';
 		}
-        return (<div ref="resultcontent" className="result">{content}</div>);
+        return (<div ref="resultcontent" className="result">
+                    {content}
+                </div>);
     },
 
     loadRef: function(params){
@@ -83,6 +88,10 @@ module.exports = React.createClass({
     },
 
 	resetScroll: function(){
-		this.refs.resultcontent.getDOMNode().scrollTop = 0;
+        var position = 0;
+        if(window.location.hash){
+            position = $(window.location.hash).offset().top;
+        }
+        this.refs.resultcontent.getDOMNode().scrollTop = position;
 	}
 });
