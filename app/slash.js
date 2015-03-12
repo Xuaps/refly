@@ -39,7 +39,7 @@ var get = function(uri){
 	references = new References();
 	return references
         .filter('uri', filters.operators.EQUALS, uri)
-        .select(['docset', 'reference', 'type', 'content', 'uri', 'parent_uri'])
+        .select(['docset', 'reference', 'type', 'content', 'content_anchor', 'uri', 'parent_uri'])
         .docsetstatefilter(true)
         .execute().then(function(references) {
             return references[0];

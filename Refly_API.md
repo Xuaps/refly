@@ -42,6 +42,7 @@ The Reference resource has the following attributes:
 - name
 - type
 - content
+- content_anchor
 
 + Parameters
    + docset (string, `slash`) ... Docset of the reference.
@@ -70,7 +71,8 @@ The Reference resource has the following attributes:
                "uri": "/slash/test.html",
                "name": "Slash reference",
                "type": "others",
-               "content": "The content of the Reference's documentation"
+               "content": "The content of the Reference's documentation",
+               "content_anchor": ""
             }
 
 ### Retrieve a Single Reference [GET]

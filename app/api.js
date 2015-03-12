@@ -40,7 +40,8 @@ module.exports.get_reference = function(docset, uri){
                 uri: reference.uri,
                 name: reference.reference,
                 type: reference.type,
-                content: reference.content
+                content: reference.content,
+                content_anchor: reference.content_anchor
             }
         };
     });

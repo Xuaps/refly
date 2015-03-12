@@ -89,8 +89,8 @@ module.exports = React.createClass({
 
 	resetScroll: function(){
         var position = 0;
-        if(window.location.hash){
-            position = $(window.location.hash).offset().top;
+        if(this.state.reference.content_anchor){
+            position = $('#'+this.state.reference.content_anchor).offset().top;
         }
         this.refs.resultcontent.getDOMNode().scrollTop = position;
 	}
