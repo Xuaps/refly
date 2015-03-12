@@ -1347,3 +1347,22 @@ body.widget {
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
+
+.shortcuts {
+}
+.shortcuts dt {
+    display: inline-block;
+    width: 45%;
+    text-align: right;
+}
+.shortcuts dt code {
+    display: inline-block;
+    margin: 3px;
+    background-color: #eaeaea;
+    padding: 5px 10px;
+    border-radius: 5px; 
+}
+.shortcuts dd {
+    display: inline-block;
+    margin: 0 0 10px 15px;
+}

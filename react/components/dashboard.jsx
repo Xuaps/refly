@@ -29,6 +29,7 @@ module.exports = React.createClass({
                     </a>
                         <ul className="menu">
                             <li><a href="/Docsets">Docsets</a></li>
+                            <li><a href="/help.html">Help</a></li>
                             <li><a href="/team.html">About</a></li>
                             <li><a href="/privacy-policy.html">Legal</a></li>
                         </ul>
