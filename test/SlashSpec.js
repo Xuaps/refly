@@ -50,6 +50,14 @@ describe('Slash', function() {
                     content: 'blablabla'
                 },
                 {
+                    reference: 'prueba',
+                    uri: 'pruebas',
+                    parent_uri: null,
+                    type: 'function',
+                    docset: {name: 'require',active: true},
+                    content: 'blablabla'
+                },
+                {
                     reference: 'json',
                     uri: 'json.parse',
                     parent_uri: 'JSON',
@@ -63,9 +71,9 @@ describe('Slash', function() {
         ];
     });
 
-    describe('Search', function(){
+    describe('Search references', function(){
     
-        it('should return the docsets collection filtered', function() {
+        it('should return the references collection filtered', function() {
             var results = null;
 
             waitsFor(function() {
@@ -90,15 +98,7 @@ describe('Slash', function() {
             });
         });
 
-        it('should return only active`s docset references', function(done){
-            slash.search({
-                    name: 'json'
-            }).then(function(response){
-                expect(response.items.length).toEqual(1);
-            }).fin(done);
-        });
-
-        it('should return the docsets collection filtered with all references that contains the pattern searched', function(done) {
+        it('should return the references collection filtered with all references that contains the pattern searched', function(done) {
             slash.search({
                 name: 'aRc'
             }).then(function(response) {
@@ -120,6 +120,22 @@ describe('Slash', function() {
             slash.search({
                 name:'aRc'}).then(function(response){
                     expect(response.total).toEqual(4);
+                    done();
+                });
+        });
+
+        it('should return only active`s docset references', function(done){
+            slash.search({
+                    name: 'search'
+            }).then(function(response){
+                expect(response.items.length).toEqual(4);
+            }).fin(done);
+        });
+
+        it('should return only references in indicated docsets', function(done){
+            slash.search({ docsets: ['require', 'javascript'] })
+                .then(function(response){
+                    expect(response.items.length).toEqual(2);
                     done();
                 });
         });

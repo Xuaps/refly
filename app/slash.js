@@ -25,11 +25,12 @@ var search = function(options) {
 };
 
 var _build_base_query = function(options){
-    return new References()
-        .filter('docset', filters.operators.IN, options.docsets)
-        .filter('reference', filters.operators.CONTAINS, options.name)
-        .filter('type', filters.operators.IN, options.types)
-        .docsetstatefilter(true);
+    var query = new References();
+
+    query = options.docsets?query.filter('docset', filters.operators.IN, options.docsets):query;
+    query = options.name?query.filter('reference', filters.operators.CONTAINS, options.name):query;
+    query = options.types?query.filter('type', filters.operators.IN, options.types):query;
+    return query.docsetstatefilter(true);
 };
 
 var get = function(uri){

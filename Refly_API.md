@@ -81,7 +81,7 @@ The Reference resource has the following attributes:
 
     [Reference][]
 
-##References collection [/api/references{?name,docset,type,pagesize,page}]
+##References collection [/api/references{?name,pagesize,page,docsets*,types*}]
 A collection of References.
 
 The References Collection resource  **embeds* *Reference Resources* in the Refly API.
@@ -123,8 +123,8 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
 ### Retrieve References [GET]
 + Parameters
     + name (optional, string) ... Pattern to find matching references. Only References whose names contain this pattern are returned. Only 20 first coincidences are returned.
-    + docset (optional, string) ... Docset name. Only references in this docset are returned.
-    + type (optional, string) ... Reference's type. Only references os this type are returned.
+    + docsets (optional, string) ... Docset names. Only references in these docsets are returned.
+    + types (optional, string) ... Reference's type. Only references os this type are returned.
     + pagesize = `20` (optional, number, `30`) ... Page size.
     + page = `1` (optional, number, `3`) ... Page number.
 
