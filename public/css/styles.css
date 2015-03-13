@@ -329,6 +329,7 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 #left-pane>#tree-view {
     overflow: auto;
+    padding: 10px;
 }
 #tree-view a {
     color: #333;
@@ -535,7 +536,7 @@ ul.breadcrumbsul li:last-child a:hover {
     display: block;
     content: '';
     float: left;
-    margin: 2px 7px 0px 3px;
+    margin: 2px 7px 0px 7px;
 }
 .type-class:before {
     background-position: 0 0;
@@ -1319,18 +1320,44 @@ body.widget {
 /* the tree node's style */
 .tree-view {
     overflow-y: hidden;
-  }
+}
+.tree-view div {
+    overflow: hidden;
+}
+.docset-icon, .type-icon {
+    display: inline-block;
+}
+div.docset-icon, div.type-icon {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+div.type-icon {
+    padding: 3px 5px;
+    cursor: pointer;
+}
+.tree-view_children>div.type-icon:hover {
+    background: #d2e4f7;
+}
 
-  /* style for the container */
-  .tree-view_children {
-      margin-left: 16px;
+/* style for the container */
+.tree-view_children {
+    width: 100%;
+    padding: 6px 0 0 16px;
+}
+.tree-view_children>.tree-view {
+    padding: 0 0 5px 5px;
 }
 
 .tree-view_children-collapsed {
     height: 0px;
-  }
+}
 
-  .tree-view_arrow {
+.tree-view_arrow>.tree-view {
+    width: 0;
+}
+.tree-view_arrow {
       cursor: pointer;
       margin-right: 6px;
       display: inline-block;
@@ -1338,16 +1365,37 @@ body.widget {
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+
+background-image: url('../img/opened-list.png');
+background-repeat: no-repeat;
+width: 9px;
+height: 9px;
+margin: 4px 3px 0 5px;
+padding: 2px;
+float: left;
+box-sizing: initial;
+background-position: 2px 2px;
 }
 
 /* rotate the triangle to close it */
 .tree-view_arrow-collapsed {
+    background-image: url('../img/closed-list.png');
+    margin: 3px 2px 0 6px;
+    /*
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
+    */
+}
+.tree-view_arrow:hover {
+    background-image: url('../img/opened-list-hover.png');
+}
+.tree-view_arrow-collapsed:hover {
+    background-image: url('../img/closed-list-hover.png');
 }
 
+/* Shortcuts */
 .shortcuts {
 }
 .shortcuts dt {
