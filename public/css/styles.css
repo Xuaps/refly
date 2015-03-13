@@ -329,7 +329,7 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 #left-pane>#tree-view {
     overflow: auto;
-    padding: 10px;
+    padding: 10px 15px 10px 5px;
 }
 #tree-view a {
     color: #333;
@@ -385,7 +385,7 @@ ul.breadcrumbsul li:last-child a:hover {
     display: block;
     content: '';
     float: left;
-    margin: -2px 3px 0 0;
+    margin: -3px 3px 0 0;
 }
 
 .docsets-dotnet:before {
@@ -536,7 +536,7 @@ ul.breadcrumbsul li:last-child a:hover {
     display: block;
     content: '';
     float: left;
-    margin: 2px 7px 0px 7px;
+    margin: 1px 7px 0px 0px;
 }
 .type-class:before {
     background-position: 0 0;
@@ -1319,7 +1319,6 @@ body.widget {
 /*        Treeview        */
 /* the tree node's style */
 .tree-view {
-    overflow-y: hidden;
 }
 .tree-view div {
     overflow: hidden;
@@ -1328,14 +1327,30 @@ body.widget {
     display: inline-block;
 }
 div.docset-icon, div.type-icon {
-    width: 100%;
+    width: 270px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 div.type-icon {
-    padding: 3px 5px;
+    padding: 3px 6px 4px;
     cursor: pointer;
+}
+span.docset-icon {
+    padding: 4px 4px 1px 4px;
+    cursor: pointer;
+    width: 296px;
+}
+span.type-icon {
+    padding: 4px 6px 5px;
+    cursor: pointer;
+    width: 270px;
+}
+span.docset-icon:hover {
+    background: #d2e4f7;
+}
+span.type-icon:hover {
+    background: #d2e4f7;
 }
 .tree-view_children>div.type-icon:hover {
     background: #d2e4f7;
@@ -1344,10 +1359,10 @@ div.type-icon {
 /* style for the container */
 .tree-view_children {
     width: 100%;
-    padding: 6px 0 0 16px;
+    padding: 2px 0 4px 20px;
 }
 .tree-view_children>.tree-view {
-    padding: 0 0 5px 5px;
+    padding: 0 0 0 6px;
 }
 
 .tree-view_children-collapsed {
@@ -1359,28 +1374,27 @@ div.type-icon {
 }
 .tree-view_arrow {
       cursor: pointer;
-      margin-right: 6px;
       display: inline-block;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
 
-background-image: url('../img/opened-list.png');
-background-repeat: no-repeat;
-width: 9px;
-height: 9px;
-margin: 4px 3px 0 5px;
-padding: 2px;
-float: left;
-box-sizing: initial;
-background-position: 2px 2px;
+    background-image: url('../img/opened-list.png');
+    background-repeat: no-repeat;
+    width: 9px;
+    height: 9px;
+    margin: 9px 6px 0 5px;
+    float: left;
+    box-sizing: initial;
+    text-indent: 100%;
 }
 
 /* rotate the triangle to close it */
 .tree-view_arrow-collapsed {
     background-image: url('../img/closed-list.png');
-    margin: 3px 2px 0 6px;
+    margin: 8px 5px 0 6px;
+    text-indent: 100%;
     /*
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
