@@ -15,9 +15,10 @@ References.prototype.filter = function(field, operator, value) {
         this._query = this._query.whereIn(field, value);
     }
     if (operator == filters.operators.CONTAINS && value){
-        this._query = this._query.where(field, 'ilike', value+'%')
+        this._query = this._query.where(function(){
+            this.where(field, 'ilike', value+'%')
             .orWhere(field, 'ilike', '%'+value+'%')
-            .orWhere(field, 'ilike', '%'+value)
+            .orWhere(field, 'ilike', '%'+value)})
             .orderByRaw("refs.reference ilike '"+value+"%' desc")
             .orderByRaw("refs.reference ilike '%"+value+"%' desc")
             .orderByRaw("refs.reference ilike '%"+value+"' desc");
