@@ -12,8 +12,10 @@ var docsetsStore = Reflux.createStore({
     },
 
     onGetActiveDocsets: function(){
-        if(this.docsets.length>0)
+        if(this.docsets.length>0){
+            this.trigger(this.docsets);
             return;
+        }
 
 	    jQuery.ajax({
 	        url:'/api/docsets?active=true',  
@@ -27,8 +29,10 @@ var docsetsStore = Reflux.createStore({
     onGetTypes: function(docset){
         var active_docset = this.docsets
             .filter(function(doc){ return doc.name === docset; })[0];
-        if(active_docset.types)
+        if(active_docset.types){
+            this.trigger(this.docsets);
             return;
+        }
 
         jQuery.ajax({
 	        url:'/api/types?docset='+docset,
@@ -43,8 +47,10 @@ var docsetsStore = Reflux.createStore({
         var node = this.docsets
             .filter(function(doc){ return doc.name === docset;})[0]
             .types.filter(function(type){ return type.name === type_name; })[0];
-        if(node.references && !page)
+        if(node.references && !page){
+            this.trigger(this.docsets);
             return;
+        }
 
         page = page || 1;
 	    jQuery.ajax({
