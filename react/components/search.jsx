@@ -47,7 +47,7 @@ module.exports = React.createClass({
             <div id="search-view" className='full-height' ref='wrap_panel' onScroll={this.askNext}>
                 <div className="search-header">
                     <fieldset>
-                        <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
+                        <input id="txtreference" ref="searchbox" type="text" className="ry-input-text mousetrap" name="reference"
                         placeholder="Reference" onKeyUp={this.onKeyUp} />
                         <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                     </fieldset>
