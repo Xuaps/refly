@@ -1323,25 +1323,25 @@ body.widget {
 .tree-view div {
     overflow: hidden;
 }
-.docset-icon, .type-icon {
+#tree-view .docset-icon, #tree-view .type-icon {
     display: inline-block;
 }
-div.docset-icon, div.type-icon {
+#tree-view div.docset-icon, #tree-view div.type-icon {
     width: 270px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-div.type-icon {
+#tree-view div.type-icon {
     padding: 3px 6px 4px;
     cursor: pointer;
 }
-span.docset-icon {
+#tree-view span.docset-icon {
     padding: 4px 4px 1px 4px;
     cursor: pointer;
     width: 296px;
 }
-span.type-icon {
+#tree-view span.type-icon {
     padding: 4px 6px 5px;
     cursor: pointer;
     width: 270px;
