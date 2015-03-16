@@ -1,8 +1,6 @@
 var Reflux = require('reflux');
-var jQuery = require('jquery-browserify');
 var DocsetsActions = require('../actions/docsetsActions.js');
-var proxy = require('../utils/proxy.js');
-var local = require('store2');
+var data = require('../utils/data.js');
 
 var docsetsStore = Reflux.createStore({
 
@@ -19,14 +17,14 @@ var docsetsStore = Reflux.createStore({
             return;
         }
 
-        var setted_docsets = local.get('setted_docsets');
+        var setted_docsets = data.getWorkingDocsets();
         if(setted_docsets){
             this.docsets = setted_docsets;
             this.trigger(this.docsets);
         }else{
-            proxy.getDefaultDocsets().then(function(results){
+            data.getDefaultDocsets().then(function(results){
                 this.docsets = results['_embedded']['rl:docsets'];
-                local.set('setted_docsets', this.docsets);
+                data.setWorkingDocsets(this.docsets);
                 this.trigger(this.docsets);
             }.bind(this)).fail(this.onFail);
         }
@@ -39,7 +37,7 @@ var docsetsStore = Reflux.createStore({
             this.trigger(this.docsets);
             return;
         }
-        proxy.getTypes(docset).then(function(response){ 
+        data.getTypes(docset).then(function(response){ 
             active_docset.types = response['_embedded']['rl:types']; 
            this.trigger(this.docsets);
         }.bind(this)).fail(this.onFail);
@@ -55,7 +53,7 @@ var docsetsStore = Reflux.createStore({
         }
         
         page = page || 1;
-	    proxy.getReferences(docset, type_name, page).then(function (response){
+	    data.getReferences(docset, type_name, page).then(function (response){
             
             node.references = node.references || [];
             node.references = node.references.concat(response['_embedded']['rl:references']);

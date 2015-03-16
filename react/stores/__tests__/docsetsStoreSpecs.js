@@ -1,7 +1,7 @@
-jest.dontMock('../stores/docsetsStore.js');
-jest.dontMock('../actions/docsetsActions.js');
+jest.dontMock('../docsetsStore.js');
+jest.dontMock('../../actions/docsetsActions.js');
 
-var store, actions, proxy, mocked_docsets, local;
+var store, actions, data, mocked_docsets, local;
 
 describe('Docsets store', function(){
     beforeEach(function(){
@@ -12,12 +12,11 @@ describe('Docsets store', function(){
                 { name: 'slash' } ]
            }
         };
-        proxy = require('../utils/proxy.js');
-        proxy.prototype._docsets = mocked_docsets;
-        local = require('store2');
+        data = require('../../utils/data.js');
+        data.prototype._docsets = mocked_docsets;
 
-        actions = require('../actions/docsetsActions.js');
-        store = require('../stores/docsetsStore.js');
+        actions = require('../../actions/docsetsActions.js');
+        store = require('../docsetsStore.js');
     });
 
     describe('Load docsets', function(){
@@ -33,7 +32,7 @@ describe('Docsets store', function(){
 
         it('should set default docsets as configured docsets if user didnt set them', function(){
             store.listen(function(state){
-                expect(local.set.mock.calls.length).toBe(1);
+                expect(data.setWorkingDocsets.mock.calls.length).toBe(1);
             });
 
             actions.getActiveDocsets();
@@ -45,7 +44,7 @@ describe('Docsets store', function(){
             var mocked_local_docsets = [
                     { name: 'javascript'},
                     { name: 'requirejs' } ];
-            local.get.mockReturnValue(mocked_local_docsets);
+            data.getWorkingDocsets.mockReturnValue(mocked_local_docsets);
             store.listen(function(state){
                 expect(state).toBe(mocked_local_docsets);
             });
