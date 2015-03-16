@@ -1,6 +1,8 @@
 var Reflux = require('reflux');
 var jQuery = require('jquery-browserify');
 var DocsetsActions = require('../actions/docsetsActions.js');
+var proxy = require('../utils/proxy.js');
+var local = require('store2');
 
 var docsetsStore = Reflux.createStore({
 
@@ -17,13 +19,17 @@ var docsetsStore = Reflux.createStore({
             return;
         }
 
-	    jQuery.ajax({
-	        url:'/api/docsets?active=true',  
-	        method: 'GET'
-        }).then(function(results){
-            this.docsets = results['_embedded']['rl:docsets'];
+        var setted_docsets = local.get('setted_docsets');
+        if(setted_docsets){
+            this.docsets = setted_docsets;
             this.trigger(this.docsets);
-        }.bind(this)).fail(this.onFail);
+        }else{
+            proxy.getDefaultDocsets().then(function(results){
+                this.docsets = results['_embedded']['rl:docsets'];
+                local.set('setted_docsets', this.docsets);
+                this.trigger(this.docsets);
+            }.bind(this)).fail(this.onFail);
+        }
     },
 
     onGetTypes: function(docset){
@@ -33,11 +39,7 @@ var docsetsStore = Reflux.createStore({
             this.trigger(this.docsets);
             return;
         }
-
-        jQuery.ajax({
-	        url:'/api/types?docset='+docset,
-	        method: 'GET'
-	    }).then(function(response){ 
+        proxy.getTypes(docset).then(function(response){ 
             active_docset.types = response['_embedded']['rl:types']; 
            this.trigger(this.docsets);
         }.bind(this)).fail(this.onFail);
@@ -51,12 +53,9 @@ var docsetsStore = Reflux.createStore({
             this.trigger(this.docsets);
             return;
         }
-
+        
         page = page || 1;
-	    jQuery.ajax({
-	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type_name, page),
-	        method: 'GET'
-	    }).then(function (response){
+	    proxy.getReferences(docset, type_name, page).then(function (response){
             
             node.references = node.references || [];
             node.references = node.references.concat(response['_embedded']['rl:references']);

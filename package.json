@@ -23,7 +23,8 @@
     "react-router": "^0.12.4",
     "reflux": "^0.2.6",
     "rollbar": "^0.4.0",
-    "serve-favicon": "^2.0.1"
+    "serve-favicon": "^2.0.1",
+    "store2": "^2.2.0"
   },
   "devDependencies": {
     "browserify": "^6.0.2",
