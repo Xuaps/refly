@@ -37,7 +37,6 @@ if (!Object.assign) {
 var stubRouterContext = function(Component, props, stubs) {
   return React.createClass({
     getDefaultProps: function(){
-                         console.log(props);
       return props;
     },
 

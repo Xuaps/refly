@@ -43,7 +43,7 @@ module.exports = React.createClass({
                 </div>
                 <div className="dashboard-footer">
                     <div className="settings">
-                        <button className="ry-icon fa-cog">settings</button>
+                        <button className="ry-icon fa-cog" onClick={this.settings}>settings</button>
                     </div>
                     <div>
                     </div>
@@ -51,7 +51,11 @@ module.exports = React.createClass({
             </div>
         );
     },
-   
+  
+    settings: function(){
+       this.transitionTo('settings');
+    },
+
     navigation: function(uri){
         this.transitionTo(uri);
     },

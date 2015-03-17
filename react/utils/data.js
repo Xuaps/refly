@@ -1,9 +1,17 @@
 var jQuery = require('jquery-browserify');
 var local = require('store2');
 
+var WK_DOCSETS = 'wk_docsets';
 var Data = {};
 
 Data.getDefaultDocsets = function(){
+    return jQuery.ajax({
+	        url:'/api/docsets?active=true',  
+	        method: 'GET'
+        });
+};
+
+Data.getActiveDocsets = function(){
     return jQuery.ajax({
 	        url:'/api/docsets?active=true',  
 	        method: 'GET'

@@ -4,6 +4,10 @@ Data.getDefaultDocsets = function(){
     return wrapInPromise(Data.prototype._docsets);
 };
 
+Data.getActiveDocsets =function(){
+    return wrapInPromise(Data.prototype._docsets);
+};
+
 Data.getTypes = function(docset){
     return wrapInPromise(Data.prototype._types);
 };
@@ -20,8 +24,13 @@ var wrapInPromise = function(collection){
     return {
         then: function(fun){
             fun(collection);
-            return { fail: function(fun){} };
-        }
+            return {then: function(f){
+                            f();
+                            return {fail:function(){}};
+                          },
+                    fail: function(){}
+                    };
+            },
     };
 };
 

@@ -145,7 +145,6 @@ module.exports = React.createClass({
        var wrap = this.refs.wrap_panel.getDOMNode();
 	   var scroll = wrap.scrollTop + wrap.clientHeight + 5 >= wrap.scrollHeight;
        if(scroll && this.state.lastResultsPage===this.state.page){
-           console.log(this.state.lastResultsPage +' '+this.state.page);
 			this.loadNext();
        }
     }
