@@ -1,4 +1,5 @@
 var jQuery = require('jquery-browserify');
+var data = require('../utils/data.js');
 
 function Api(){
     this._url_docset_active='/api/docsets?active=true';
@@ -70,7 +71,10 @@ Api.prototype.get = function (resource, filters){
 	    return jQuery.ajax({
 	        url: this._url_references 
                 +'?name=' + filters.searchtext
-                +'&page=' + filters.page,
+                +'&page=' + filters.page
+                + data.getWorkingDocsets().reduce(function(prev, current){
+                    return prev + '&docsets='+current.name;
+                },''),
 	        method: 'GET'
 	    }).then(this._addUrisToReferences.bind(this));
 	}else if(resource==='treeviewreference'){
