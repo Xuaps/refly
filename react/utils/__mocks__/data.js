@@ -16,10 +16,6 @@ Data.getReferences = function(docset, type, page){
     return wrapInPromise(Data.prototype._references);
 };
 
-Data.getWorkingDocsets = jest.genMockFunction();
-
-Data.setWorkingDocsets = jest.genMockFunction();
-
 var wrapInPromise = function(collection){
     return {
         then: function(fun){

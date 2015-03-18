@@ -1,6 +1,7 @@
 var Reflux = require('reflux');
 var SettingsActions = require('../actions/settingsActions.js');
 var data = require('../utils/data.js');
+var settings = require('../utils/settings.js');
 var Q = require('q');
 
 var settingsStore = Reflux.createStore({
@@ -13,13 +14,13 @@ var settingsStore = Reflux.createStore({
 
     onDocsetsSelectionChanged: function(docset){
         this._loadDocsets().then(function(){
-            var wkd = data.getWorkingDocsets();
+            var wkd = settings.getWorkingDocsets();
             var index;
             if(wkd.some(function(doc,i){index=i;return doc.name === docset.name}))
                 wkd.splice(index,1);
             else
                 wkd.push(docset);
-            data.setWorkingDocsets(wkd);
+            settings.setWorkingDocsets(wkd);
             this._reviewDocsets(this.settings.docsets);
             this.trigger(this.settings);
         }.bind(this)).fail(this.onFail);
@@ -42,7 +43,7 @@ var settingsStore = Reflux.createStore({
     },
 
     _reviewDocsets: function(docsets){
-        var workDocsets = data.getWorkingDocsets();
+        var workDocsets = settings.getWorkingDocsets();
         this.settings.docsets = docsets.map(function(docset){
             docset.active = workDocsets.some(function(work){return work.name === docset.name;});
             return docset;

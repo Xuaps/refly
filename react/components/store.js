@@ -1,5 +1,5 @@
 var jQuery = require('jquery-browserify');
-var data = require('../utils/data.js');
+var settings = require('../utils/settings.js');
 
 function Api(){
     this._url_docset_active='/api/docsets?active=true';
@@ -72,7 +72,7 @@ Api.prototype.get = function (resource, filters){
 	        url: this._url_references 
                 +'?name=' + filters.searchtext
                 +'&page=' + filters.page
-                + data.getWorkingDocsets().reduce(function(prev, current){
+                + settings.getWorkingDocsets().reduce(function(prev, current){
                     return prev + '&docsets='+current.name;
                 },''),
 	        method: 'GET'

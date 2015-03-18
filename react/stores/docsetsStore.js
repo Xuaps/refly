@@ -1,6 +1,7 @@
 var Reflux = require('reflux');
 var DocsetsActions = require('../actions/docsetsActions.js');
 var data = require('../utils/data.js');
+var settings = require('../utils/settings.js');
 
 var docsetsStore = Reflux.createStore({
 
@@ -12,22 +13,8 @@ var docsetsStore = Reflux.createStore({
     },
 
     onGetActiveDocsets: function(){
-        if(this.docsets.length>0){
-            this.trigger(this.docsets);
-            return;
-        }
-
-        var setted_docsets = data.getWorkingDocsets();
-        if(setted_docsets){
-            this.docsets = setted_docsets;
-            this.trigger(this.docsets);
-        }else{
-            data.getDefaultDocsets().then(function(results){
-                this.docsets = results['_embedded']['rl:docsets'];
-                data.setWorkingDocsets(this.docsets);
-                this.trigger(this.docsets);
-            }.bind(this)).fail(this.onFail);
-        }
+        this.docsets = JSON.parse(JSON.stringify(settings.getWorkingDocsets()));
+        this.trigger(this.docsets);
     },
 
     onGetTypes: function(docset){

@@ -1,7 +1,5 @@
 var jQuery = require('jquery-browserify');
-var local = require('store2');
 
-var WK_DOCSETS = 'wk_docsets';
 var Data = {};
 
 Data.getDefaultDocsets = function(){
@@ -30,14 +28,6 @@ Data.getReferences = function(docset, type, page){
 	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type, page),
 	        method: 'GET'
 	    });
-};
-
-Data.getWorkingDocsets = function(){
-    return local.get(WK_DOCSETS);
-};
-
-Data.setWorkingDocsets = function(docsets){
-    local.set(WK_DOCSETS, docsets);
 };
 
 module.exports = Data;

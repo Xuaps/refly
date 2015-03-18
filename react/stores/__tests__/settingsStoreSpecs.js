@@ -1,13 +1,14 @@
 jest.dontMock('../settingsStore.js');
 jest.dontMock('../../actions/settingsActions.js');
-var docsets, actions, store, data;
+var docsets, actions, store, data, settings;
 
 describe('Settings store', function(){
     beforeEach(function(){
+        settings = require('../../utils/settings.js');
         data = require('../../utils/data.js');
         data.prototype._docsets = {'_embedded': {'rl:docsets': [{name: 'java'}, {name: 'javascript'},
             {name: 'require'}, {name: 'angular'}]}};
-        data.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
+        settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
         actions = require('../../actions/settingsActions.js');
         store = require('../settingsStore.js'); 
     }); 
@@ -29,7 +30,7 @@ describe('Settings store', function(){
 
             store.listen(function(state){
                 expect(state.docsets.filter(function(d){ return d.name==='java' })[0].active).toBe(false);
-                expect(data.setWorkingDocsets).toBeCalledWith([ {name: 'angular'}]);
+                expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'angular'}]);
             });
             
             jest.runAllTimers();
@@ -40,7 +41,7 @@ describe('Settings store', function(){
 
             store.listen(function(state){
                 expect(state.docsets.filter(function(d){ return d.name==='javascript' })[0].active).toBe(true);
-                expect(data.setWorkingDocsets).toBeCalledWith([ {name: 'java'}, {name: 'angular'}, {name: 'javascript'}]);
+                expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'java'}, {name: 'angular'}, {name: 'javascript'}]);
             });
             
             jest.runAllTimers();
