@@ -47,7 +47,7 @@ References.prototype.distinct = function(column){
 };
 
 References.prototype.page = function(number, pagesize){
-    this._query = this._query.limit(pagesize).offset((number-1)*pagesize).orderBy('refs.reference', 'ASC');
+    this._query = this._query.limit(pagesize).offset((number-1)*pagesize).orderBy('refs.reference', 'ASC').orderBy('refs.id', 'ASC');
     return this;
 };
 
