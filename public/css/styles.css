@@ -255,7 +255,7 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 #left-pane>div {
 }
-#search-view .search-header {
+.search-view .search-header {
     width: 100%;
     background-color: #39F;
     height: 45px;
@@ -266,13 +266,13 @@ ul.breadcrumbsul li:last-child a:hover {
     padding-right: 8px;
     padding-top: 5px;
 }
-#search-view fieldset {
+.search-view fieldset {
     position: relative;
 }
 
 /* Search */
 
-#search-view {
+.search-view {
     overflow: auto;
 }
 #left-pane div::-webkit-scrollbar {
@@ -292,16 +292,13 @@ ul.breadcrumbsul li:last-child a:hover {
     border: 3px solid #fff;
     border-radius: 5px;
 }
-#results {
-    margin: 0;
-}
-#results .search-message {
+.search-message {
     background-color: #fdb436;
     padding: 20px;
     font-size: 1.2em;
     text-align: center;
 }
-#resultlist li:hover,  #outline-view ul.outline-list>li:hover {
+.resultlist li:hover,  #outline-view ul.outline-list>li:hover {
     background-color: #f5f7f7;
 }
 .resultlistitem {
@@ -800,18 +797,18 @@ ul.breadcrumbsul li:last-child a:hover {
 td.separator {
     width: 5px;
 }
-#search-view>div>div#resultlist, #tree-view>div>.docsetstree {
+.search-view>div>div.resultlist, #tree-view>div>.docsetstree {
     padding-top: 5px;
 }
-#search-view div#resultlist, #tree-view ul, #outline-view ul {
+.search-view div.resultlist, #tree-view ul, #outline-view ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     float: left;
     width: 100%;
 }
-/*#search-view li, #tree-view li, #outline-view ul.outline-list>li {*/
-#search-view li, #tree-view li {
+/*.search-view li, #tree-view li, #outline-view ul.outline-list>li {*/
+.search-view li, #tree-view li {
     padding: 5px 10px 3px;
     text-overflow: ellipsis;
     overflow: hidden;

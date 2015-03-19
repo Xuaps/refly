@@ -4,12 +4,11 @@ var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('./store.js');
 var Q = require('q');
-var TEXT_LOAD_MESSAGE='Loading...';
-var TEXT_REFERENCE_NOT_FOUND_MESSAGE='Reference not found!';
+var InfiniteScroll = require('react-infinite-scroll')(React);
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {results: [], lastResultsPage: 0, message:''};
+        return {results: [], page: 0, message:'', hasMore: true};
     },
     
     getDefaultProps: function() {
@@ -17,62 +16,27 @@ module.exports = React.createClass({
             search: ''
         };
       },
-	
-    componentWillMount: function(){
-		var search = this.props.search;
-
-		if(search){
-			this.loadData(search);
-		}
-	},
-
-    componentDidMount: function(){
-		var search = this.props.search || '';
-        this.setFocus('#txtreference', search);
-    },
 
     render: function(){
-        var message = '';
-        if(this.state.results.length>0){
-            message=
-                <div id="results" ref='scroll_panel'>
-                    <div id="resultlist">
-                        {this.state.results}
-                    </div>
-                </div>
-        }else{
-            message = <div id="results"><div className="search-message">{this.state.message}</div></div>;
-        }
         return(
-            <div id="search-view" className='full-height' ref='wrap_panel' onScroll={this.askNext}>
-                <div className="search-header">
-                    <fieldset>
-                        <input id="txtreference" ref="searchbox" type="text" className="ry-input-text mousetrap" name="reference"
-                        placeholder="Reference" onKeyUp={this.onKeyUp} />
-                        <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
-                    </fieldset>
+                <div  className='search-view full-height' id='scroll_panel'>
+                    <div className="search-header">
+                        <fieldset>
+                            <input id="txtreference" ref="searchbox" type="text" className="ry-input-text mousetrap" name="reference"
+                            placeholder="Reference" onKeyUp={this.onKeyUp} />
+                            <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
+                        </fieldset>
+                    </div>
+                    <InfiniteScroll className='resultlist' loadMore={this.loadData} hasMore={this.state.hasMore} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
+                        {(this.state.results.length>0)?this.state.results: <div className="search-message">Reference not found!</div>}
+                    </InfiniteScroll>
                 </div>
-				{message}
-            </div>
         );
     },
     
-    componentWillReceiveProps: function (newProps) {
-		if(newProps.search && newProps.search!=this.props.search){
-			this.setFocus('#txtreference', newProps.search);
-			this.loadData(newProps.search);
-		}
-    },
-
-    componentDidUpdate: function(prevProps, prevState){
-        if(!this.refs.wrap_panel || !this.refs.scroll_panel)
-           return;
-        var wrap = this.refs.wrap_panel.getDOMNode();
-        var scroll = (wrap.scrollHeight) > wrap.clientHeight;
-
-        if(!scroll && this.state.lastResultsPage===this.state.page){
-            this.loadNext();
-        }
+    componentDidMount: function(){
+		var search = this.props.search || '';
+        this.setFocus('#txtreference', search);
     },
     
     emptySearch: function(){
@@ -97,7 +61,7 @@ module.exports = React.createClass({
             if(!event.target.value){
                 this.cleanResults();
             }else{
-                this.loadData(event.target.value);
+                this.setState({searchtext: event.target.value, results:[], page:0, hasMore:true});
             }
         }.bind(this));
     },
@@ -117,35 +81,22 @@ module.exports = React.createClass({
         return deferred.promise;
     },
 
-	loadData: function(searchtext, page){
-        var page = page || 1;
-        this.setState({message: TEXT_LOAD_MESSAGE, 'page': page});
-        store.get('search', {'searchtext': searchtext, 'page': page})
+	loadData: function(page){
+        page = this.state.page+1;
+        if(!this.props.search)
+            return;
+        store.get('search', {'searchtext': this.props.search, 'page': page})
     	.then(function(results){
-			references = page===1?[]:this.state.results;
-	        results.forEach(function(r){
-	            references.push(<SearchResultRow key={'SRR' + r.ref_uri} onClick={this.props.onClick}
-	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>)
-	        }.bind(this));
+			references = this.state.results;
 			if(results.length>0){
-				this.setState({results:references, lastResultsPage: page, lastsearch: searchtext});
+                results.forEach(function(r){
+                    references.push(<SearchResultRow key={'SRR' + r.ref_uri} onClick={this.props.onClick}
+	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>)
+                }.bind(this));
+				this.setState({results:references, 'page': page});
 			}else{
-				this.setState({results:references, lastsearh: searchtext});
+				this.setState({hasMore: false, page: 0});
 			}
-            this.setState({message:results.length>0?'':TEXT_REFERENCE_NOT_FOUND_MESSAGE});
 		}.bind(this));
-
 	},
-
-    loadNext: function(){
-        this.loadData(this.state.lastsearch, this.state.page+1);
-    },
-
-    askNext: function(e){
-       var wrap = this.refs.wrap_panel.getDOMNode();
-	   var scroll = wrap.scrollTop + wrap.clientHeight + 5 >= wrap.scrollHeight;
-       if(scroll && this.state.lastResultsPage===this.state.page){
-			this.loadNext();
-       }
-    }
 });
