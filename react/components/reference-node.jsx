@@ -7,6 +7,7 @@ var Reference = require('../../app/reference_vo.js');
 
 var ReferenceNode = React.createClass({
     propTypes: {
+        className: React.PropTypes.string,
         name: React.PropTypes.string.isRequired,
         uri: React.PropTypes.string,
         type: React.PropTypes.string,
@@ -16,7 +17,7 @@ var ReferenceNode = React.createClass({
     render: function(){
         var item=this.props;
         return ( 
-            <div className={'type-icon type-'+item.type} onClick={this.onClickHandler}>
+            <div className={'type-icon type-'+item.type+' '+this.props.className} onClick={this.onClickHandler}>
                 {item.name}
             </div>
         );

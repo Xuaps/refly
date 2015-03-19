@@ -1,5 +1,5 @@
 var Reflux = require('reflux');
-var DocsetsActions = require('../actions/docsetsActions.js');
+var TreeviewActions = require('../actions/treeviewActions.js');
 var data = require('../utils/data.js');
 var settings = require('../utils/settings.js');
 
@@ -7,9 +7,11 @@ var docsetsStore = Reflux.createStore({
 
     init: function() {
         this.docsets = [];
-        this.listenTo(DocsetsActions.getActiveDocsets, this.onGetActiveDocsets);
-        this.listenTo(DocsetsActions.getTypes, this.onGetTypes);
-        this.listenTo(DocsetsActions.searchReferences, this.onSearchReferences);
+        this.flatten_elements =[];
+        this.listenTo(TreeviewActions.load, this.onGetActiveDocsets);
+        this.listenTo(TreeviewActions.selectDocset, this.onGetTypes);
+        this.listenTo(TreeviewActions.selectType, this.onSearchReferences);
+        this.listenTo(TreeviewActions.selectReference, this.onMarkReference);
     },
 
     onGetActiveDocsets: function(){
@@ -41,13 +43,20 @@ var docsetsStore = Reflux.createStore({
         
         page = page || 1;
 	    data.getReferences(docset, type_name, page).then(function (response){
-            
             node.references = node.references || [];
             node.references = node.references.concat(response['_embedded']['rl:references']);
+            this.flatten_elements = this.flatten_elements.concat(node.references);
             this.trigger(this.docsets);    
 
             return response['_links'].next?this.onSearchReferences(docset, type_name, page+1):undefined;
         }.bind(this)).fail(this.onFail);
+    },
+
+    onMarkReference: function(ref){
+        this.flatten_elements.forEach(function(elem){
+            elem.marked = (elem.uri === ref.uri);
+        });
+        this.trigger(this.docsets);
     },
 
     onFail: function(error){

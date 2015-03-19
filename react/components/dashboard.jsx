@@ -17,7 +17,7 @@ module.exports = React.createClass({
 		rows = [];
         
         if(!this.searchVisible()){
-            rows.push(<TreeView key="treeviewcomp" onNodeClick={this.navigation} params={{docset: this.getParams().docset, uri: this.getParams().splat}}/>);
+            rows.push(<TreeView key="treeviewcomp" onNodeClick={this.navigation} />);
         }
         rows.push(<Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>);
 		

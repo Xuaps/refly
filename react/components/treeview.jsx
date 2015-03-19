@@ -4,7 +4,7 @@
 
 var React = require('react');
 var store = require('../stores/docsetsStore.js');
-var DocsetsActions = require('../actions/docsetsActions.js');
+var TreeviewActions = require('../actions/treeviewActions.js');
 var TreeView = require('react-treeview');
 var DocsetNode = require('./docset-node.jsx');
 var TypeNode = require('./type-node.jsx');
@@ -18,14 +18,9 @@ var ReferencesTreeView = React.createClass({
         };
     },
 
-	componentWillReceiveProps:  function(newProps) {
-		if(newProps.params && newProps.params.docset)
-			this.setState({selected: {uri: newProps.params.uri, docset:newProps.params.docset}});
-	},
-
     componentWillMount: function(){
         this.unsubscribe = store.listen(this.onDocsetsChange);
-        DocsetsActions.getActiveDocsets();       
+        TreeviewActions.load();       
     },
 
     componentWillUnmount: function(){
@@ -46,7 +41,8 @@ var ReferencesTreeView = React.createClass({
                            var type_comp = node;
                            type_comp.props.children = [];
                            type.references.forEach(function(ref){
-                               var item = <ReferenceNode key={ref.uri} onClick={this.onReferenceClick} {...ref} />;
+                               var item = <ReferenceNode key={ref.uri} onClick={this.onReferenceClick} {...ref}
+                                    className={ref.marked?'selected':''}/>;
                                type_comp.props.children.push(item);
                            }.bind(this));
                        };
@@ -58,15 +54,16 @@ var ReferencesTreeView = React.createClass({
     
     onDocsetClick: function(key, ref){
         this.props.onNodeClick(ref.uri);
-        DocsetsActions.getTypes(ref.docset_name);
+        TreeviewActions.selectDocset(ref.docset_name);
     },
 
     onTypeClick: function(key, type_name){
-        DocsetsActions.searchReferences(key.split('.')[0], type_name);
+        TreeviewActions.selectType(key.split('.')[0], type_name);
     },
     
     onReferenceClick: function(key, ref){
         this.props.onNodeClick(ref.uri);
+        TreeviewActions.selectReference(ref);
     },
 
     render: function() {
