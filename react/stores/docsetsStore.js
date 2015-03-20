@@ -16,19 +16,23 @@ var docsetsStore = Reflux.createStore({
 
     onGetActiveDocsets: function(){
         this.docsets = JSON.parse(JSON.stringify(settings.getWorkingDocsets()));
+        this.flatten_elements = this.flatten_elements.concat(this.docsets);
         this.trigger(this.docsets);
     },
 
     onGetTypes: function(docset){
         var active_docset = this.docsets
             .filter(function(doc){ return doc.name === docset; })[0];
+        this.flatten_elements.forEach(function(el){ el.marked = (el.name === docset) });
         if(active_docset.types){
             this.trigger(this.docsets);
             return;
         }
         data.getTypes(docset).then(function(response){ 
             active_docset.types = response['_embedded']['rl:types']; 
-           this.trigger(this.docsets);
+            this.flatten_elements = this.flatten_elements.concat(active_docset.types.map(
+                    function(typ){typ.docset = docset; return typ;}));
+            this.trigger(this.docsets);
         }.bind(this)).fail(this.onFail);
     },
 
@@ -36,6 +40,7 @@ var docsetsStore = Reflux.createStore({
         var node = this.docsets
             .filter(function(doc){ return doc.name === docset;})[0]
             .types.filter(function(type){ return type.name === type_name; })[0];
+        this.flatten_elements.forEach(function(el){ el.marked = (el.name === type_name && el.docset ===docset) });
         if(node.references && !page){
             this.trigger(this.docsets);
             return;

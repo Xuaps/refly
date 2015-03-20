@@ -44,8 +44,14 @@ describe('Docsets store', function(){
             actions.selectReference({uri: '/test/test', docset: 'requirejs', type: 'others', marked: false});
 
             store.listen(function(state){
-                if(count===3){
+                if(count===1){
+                    expect(state[1].marked).toBe(true);
+                }else if(count===2){
+                    expect(state[1].types[0].marked).toBe(true);
+                    expect(state[1].marked).toBe(false);
+                }else if(count===3){
                     expect(state[1].types[0].references[0].marked).toBe(true);
+                    expect(state[1].types[0].marked).toBe(false);
                 }else if(count===4){
                     expect(state[1].types[0].references[0].marked).toBe(false);
                     expect(state[1].types[0].references[1].marked).toBe(true);

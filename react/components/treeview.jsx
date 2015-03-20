@@ -30,12 +30,14 @@ var ReferencesTreeView = React.createClass({
     onDocsetsChange: function(state){
         var components = [];
         state.forEach(function(docset){
-           components.push(<DocsetNode key={docset.name} onClick={this.onDocsetClick} {...docset} />);
+           components.push(<DocsetNode key={docset.name} onClick={this.onDocsetClick} {...docset} 
+              className={docset.marked?'selected':''} />);
            if(docset.types) {
                    var doc_comp = components[components.length-1];
                    doc_comp.props.children = [];
                    docset.types.forEach(function(type){
-                       var node = <TypeNode key={docset.name+'.'+type.name} onClick={this.onTypeClick} {...type} />;
+                       var node = <TypeNode key={docset.name+'.'+type.name} onClick={this.onTypeClick} {...type}
+                        className={type.marked?'selected':''} />;
                        doc_comp.props.children.push(node);
                        if(type.references) {
                            var type_comp = node;
