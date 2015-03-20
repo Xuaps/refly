@@ -189,6 +189,9 @@ header {
 .menu li a:hover {
     color: #FFF;
 }
+.menu li a:focus {
+    color: #F00;
+}
 
 /* Breadcrumbs */
 
@@ -858,6 +861,7 @@ td.separator {
 }
 .ry-input-text:focus {
     outline: 0 none;
+    border-left: 3px solid #fdb436;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -1348,6 +1352,14 @@ span.docset-icon:hover {
 }
 span.type-icon:hover {
     background: #d2e4f7;
+}
+.docset-icon:focus {
+    background: #333;
+    color: #FFF;
+}
+.type-icon:focus {
+    background: #333;
+    color: #FFF;
 }
 .tree-view_children>div.type-icon:hover {
     background: #d2e4f7;

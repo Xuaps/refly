@@ -13,7 +13,7 @@
 */
 
     Mousetrap.bind('?', function(e) {
-        console.log('help');
+        window.location.href = "/help.html";
         return false;
     }); 
     Mousetrap.bind('up', function(e) {
@@ -21,7 +21,7 @@
         return false;
     }); 
     Mousetrap.bind('down', function(e) {
-        console.log('down');
+//        $('.docset-icon').toggleClass('focus');
         return false;
     }); 
     Mousetrap.bind('right', function(e) {
@@ -33,51 +33,60 @@
         return false;
     }); 
     Mousetrap.bind('ctrl+up', function(e) {
+        $(".result").scrollTop(0);
         console.log('ctrl+up');
         return false;
     }); 
     Mousetrap.bind('ctrl+down', function(e) {
+        $(".result").scrollTop($(".result")[0].scrollHeight);
         console.log('ctrl+down');
         return false;
     }); 
     Mousetrap.bind('ctrl+right', function(e) {
+        window.history.forward();
         console.log('ctrl+right');
         return false;
     }); 
     Mousetrap.bind('ctrl+left', function(e) {
+        window.history.back();
         console.log('ctrl+left');
         return false;
     }); 
     Mousetrap.bind('alt+up', function(e) {
+        $('.result').scrollTop($('.result').scrollTop() - 20);
         console.log('alt+up');
         return false;
     }); 
     Mousetrap.bind('alt+down', function(e) {
+        $('.result').scrollTop($('.result').scrollTop() + 20);
         console.log('alt+down');
         return false;
     }); 
     Mousetrap.bind('alt+right', function(e) {
+        $(".result").scrollTop($('.result').scrollTop() + $(".result")[0].offsetHeight);
         console.log('alt+right');
         return false;
     }); 
     Mousetrap.bind('alt+left', function(e) {
+        $(".result").scrollTop($('.result').scrollTop() - $(".result")[0].offsetHeight);
         console.log('alt+left');
         return false;
     }); 
     Mousetrap.bind('shift+right', function(e) {
-        console.log('shift+right');
+        step = $(".menu li a:focus").parent('.menu li').index() + 1;
+        $(".menu li").eq(step % $(".menu li").length).find('a').focus();
         return false;
     }); 
     Mousetrap.bind('shift+left', function(e) {
-        console.log('shift+left');
+        step = $(".menu li a:focus").parent('.menu li').index() - 1;
+        $(".menu li").eq(step % $(".menu li").length).find('a').focus();
         return false;
     }); 
     Mousetrap.bind('enter', function(e) {
         console.log('enter');
-        return false;
     }); 
     Mousetrap.bind('alt+enter', function(e) {
-        console.log('alt+enter');
+        UE.Popin.show();
         return false;
     }); 
     Mousetrap.bind('ctrl+enter', function(e) {
@@ -89,7 +98,6 @@
         return false;
     }); 
     Mousetrap.bind('tab', function(e) {
-        console.log('tab');
         return false;
     }); 
     Mousetrap.bind('shift+tab', function(e) {
