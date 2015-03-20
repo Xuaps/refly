@@ -190,7 +190,7 @@ header {
     color: #FFF;
 }
 .menu li a:focus {
-    color: #F00;
+    color: #FDB436;
 }
 
 /* Breadcrumbs */
@@ -745,6 +745,15 @@ ul.breadcrumbsul li:last-child a:hover {
 }
 .result p {
     margin: 10px 0;
+}
+.result a {
+    padding: 0 3px;
+}
+.result a:focus {
+    outline: none;
+    color: #FDB436;
+    background-color: #333;
+    border-radius: 3px;
 }
 .result table {
     -webkit-border-radius: 7px;

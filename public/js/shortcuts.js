@@ -91,17 +91,23 @@
     }); 
     Mousetrap.bind('ctrl+enter', function(e) {
         console.log('ctrl+enter');
-        return false;
     }); 
     Mousetrap.bind('escape', function(e) {
         console.log('escape');
         return false;
     }); 
     Mousetrap.bind('tab', function(e) {
+        focused = $('.result a:focus')
+        step = $('.result a').index(focused) + 1;
+        $(".result a").eq(step % $(".result a").length).focus();
+        console.log(step);
         return false;
     }); 
     Mousetrap.bind('shift+tab', function(e) {
-        console.log('shift+tab');
+        focused = $('.result a:focus')
+        step = $('.result a').index(focused) - 1;
+        $(".result a").eq(step % $(".result a").length).focus();
+        console.log(step);
         return false;
     }); 
     Mousetrap.bind('space', function(e) {
