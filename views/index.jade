@@ -13,6 +13,8 @@ html
     |     
     link(href='/css/styles.css', ,='', media='screen', rel='stylesheet', type='text/css')
     |     
+    link(href='/css/solarized_dark.css', ,='', media='screen', rel='stylesheet', type='text/css')
+    |     
     link(href='/css/font-awesome.min.css', ,='', media='screen', rel='stylesheet', type='text/css')
     |     
     link(href='http://fonts.googleapis.com/css?family=Raleway', rel='stylesheet', type='text/css')
@@ -42,9 +44,14 @@ html
     |     
     script(type="text/javascript", src="/js/prism.js" )
     |     
+    script(type="text/javascript", src="/js/highlight.pack.js" )
+    |     
     script(type='text/javascript', src='/js/shortcuts.js')
     |     
     script(type='text/javascript', src='/js/cookies.js')
+    script.
+      hljs.initHighlightingOnLoad();
+
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
