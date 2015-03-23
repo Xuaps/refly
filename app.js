@@ -5,6 +5,7 @@ var express = require('express')
   , path = require('path')
   , morgan = require('morgan')
   , errorhandler = require('errorhandler')
+  , staticAsset = require('static-asset')
   , config = require('config');
 
 var app = express();
@@ -16,6 +17,7 @@ app.set('view engine', 'jade');
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 app.use(morgan('dev'));
 app.use(refly_router);
+app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', function(req, res){
     res.render('index');

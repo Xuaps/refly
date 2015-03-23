@@ -26,6 +26,7 @@
     "reflux": "^0.2.6",
     "rollbar": "^0.4.0",
     "serve-favicon": "^2.0.1",
+    "static-asset": "^0.5.7"
   },
   "devDependencies": {
     "browserify": "^6.0.2",
