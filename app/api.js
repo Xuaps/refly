@@ -46,7 +46,7 @@ module.exports.get_reference = function(docset, uri){
         };
     });
 };
-var DEFAULT_PAGE_SIZE = 20;
+var DEFAULT_PAGE_SIZE = 60;
 var DEFAULT_PAGE = 1;
 
 module.exports.get_references = function(query){
