@@ -8,6 +8,10 @@ var Breadcrumbs = React.createClass({
 	return {data: []};
   },
 
+  componentWillMount: function(){
+      if(this.props.params)
+        this.loadData(this.props.params);
+  },
 
   componentWillReceiveProps: function (newProps) {
 	if(newProps.params && newProps.params.uri!=undefined)
