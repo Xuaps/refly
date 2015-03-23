@@ -3,10 +3,6 @@ var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes.jsx');
 
-Router.run(routes, Router.HistoryLocation, function(Handler){
-    React.render(<Handler/>, document.getElementById('container'));
-});
-
 // string format
 if (!String.prototype.format) {
   String.prototype.format = function() {
@@ -51,6 +47,10 @@ if (!Object.assign) {
     }
   });
 }
+
+Router.run(routes, Router.HistoryLocation, function(Handler){
+    React.render(<Handler/>, document.getElementById('container'));
+});
 
 // react extension
 window.React = React;
