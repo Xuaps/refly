@@ -1,0 +1,64 @@
+body {
+    padding-top: 0;
+}
+html {
+    background-color: #333;
+}
+p {
+    margin: 10px 0;
+}
+h1, h2 {
+    border-left: 3px solid #fdb436;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #333;
+    line-height: normal;
+    height: initial;
+    padding-left: 10px;
+    margin: 30px 0 20px;
+}
+#main {
+    background-color: #f5f7f7;
+    max-width: 800px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 50px 40px;
+    text-align: justify;
+    border-left: 2px solid #d2e4f7;
+    border-right: 2px solid #d2e4f7;
+    position: relative;
+}
+.signature {
+    text-align: center;
+    margin-top: 42px;
+}
+.signature img {
+    width: 100px;
+}
+.box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.team-block {
+    width: 100%;
+    display: inline-block;
+}
+.team-member {
+    width: 33%;
+    padding: 20px 20px 0;
+    float: left;
+    text-align: center;
+    box-sizing: border-box;
+}
+.team-member img {
+    width: 100%;
+    border-left: 3px solid #fdb436;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
