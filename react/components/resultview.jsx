@@ -37,6 +37,9 @@ module.exports = React.createClass({
 
 	componentDidUpdate: function(){
 		this.resetScroll();
+        $('pre').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
