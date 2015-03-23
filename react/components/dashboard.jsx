@@ -3,9 +3,10 @@ var React = require('react');
 var Search = require('./search.jsx');
 var TreeView = require('./treeview.jsx');
 var Resultview = require('./resultview.jsx');
-var Breadcrumbs = require('./breadcrumbs.jsx');
 var URI = require ('URIjs');
 var Router = require('react-router');
+var RouterHandler = Router.RouteHandler;
+var Link = Router.Link;
 
 module.exports = React.createClass({
     mixins: [ Router.State, Router.Navigation ],
@@ -28,16 +29,15 @@ module.exports = React.createClass({
                         <img src="/img/refly-big.jpg"/>
                     </a>
                         <ul className="menu">
-                            <li><a href="/team.html">About</a></li>
-                            <li><a href="/privacy-policy.html">Legal</a></li>
+                            <li><Link to="about">About</Link></li>
+                            <li><Link to="/Legal">Legal</Link></li>
                         </ul>
                 </header>
                 <div id="left-pane">
 					{rows}
                 </div>
                 <div className="right-pane">
-                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
-                    <Resultview key="resultviewcomp" onNavigation={this.navigation} onSearch={this.searchNavigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                    <RouterHandler key="resultviewcomp" onNavigation={this.navigation} onSearch={this.searchNavigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                 </div>
                 <div className="dashboard-footer">
                     <div className="settings">
@@ -59,7 +59,7 @@ module.exports = React.createClass({
     },
     
     searchNavigation: function(query){
-        this.transitionTo('search', null, query);
+        this.transitionTo('dashboard', null, query);
     },
     
     search: function(event){

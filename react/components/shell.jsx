@@ -6,7 +6,7 @@ var RouteHandler = Router.RouteHandler;
 module.exports = React.createClass({
     mixins: [Router.Navigation],
     handleOnKeyUpEvent: function(event){
-       	this.transitionTo('search', null ,{ref: event.target.value});
+       	this.transitionTo('dashboard', null ,{ref: event.target.value});
     },
 
     render: function(){

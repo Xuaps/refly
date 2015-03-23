@@ -3,6 +3,7 @@ var React = require('react');
 var Router = require('react-router');
 var store = require('./store.js');
 var URI = require('URIjs');
+var Breadcrumbs = require('./breadcrumbs.jsx');
 var $ = require('jquery-browserify');
 
 module.exports = React.createClass({
@@ -75,9 +76,14 @@ module.exports = React.createClass({
         }else{
 	        content = '';
 		}
-        return (<div ref="resultcontent" className="result">
-                    {content}
-                </div>);
+        return (
+               <div id='container'>
+                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.uri}}/>
+                    <div ref="resultcontent" className="result">
+                        {content}
+                    </div>
+               </div>
+                );
     },
 
     loadRef: function(params){
