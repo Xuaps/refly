@@ -90,7 +90,7 @@ module.exports = React.createClass({
 			references = this.state.results;
 			if(results.length>0){
                 results.forEach(function(r){
-                    references.push(<SearchResultRow key={'SRR' + r.ref_uri} onClick={this.props.onClick}
+                    references.push(<SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.props.onClick}
 	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>)
                 }.bind(this));
 				this.setState({results:references, 'page': page});
