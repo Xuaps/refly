@@ -3,8 +3,8 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('./store.js');
-var Q = require('q');
 var InfiniteScroll = require('react-infinite-scroll')(React);
+var DbPromise = require('../utils/debounce-promise.js');
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -33,6 +33,11 @@ module.exports = React.createClass({
                 </div>
         );
     },
+
+    componentWillMount: function(){
+        this.dbpromise = new DbPromise(800);
+    },
+
     componentDidMount: function(){
 		var search = this.props.search || '';
         this.setFocus('#txtreference', search);
@@ -44,18 +49,9 @@ module.exports = React.createClass({
         this.cleanResults();
     },
 
-    cleanResults: function(){
-        this.setState({results:[]});
-    },
-
-    setFocus: function(input, searchtext){
-		this.refs.searchbox.getDOMNode(input).focus();
-		this.refs.searchbox.getDOMNode(input).value = searchtext;
-	},
-
     onKeyUp: function(event){
 		event.persist();
-        this.debouncedKeyUp().then(function () {
+        this.dbpromise.debounce().then(function () {
             this.props.onKeyUpEvent(event);
             if(!event.target.value){
                 this.cleanResults();
@@ -65,20 +61,14 @@ module.exports = React.createClass({
         }.bind(this));
     },
 
-	debouncedKeyUp: function () {
-        var deferred = Q.defer();
-        var timerId = this.timerId;
-        var self = this;
-        if (timerId) {
-            clearTimeout(timerId);
-        }
-        timerId = setTimeout(function () {
-                    deferred.resolve();
-                }, 800);
-        this.timerId = timerId;
-        
-        return deferred.promise;
+    cleanResults: function(){
+        this.setState({results:[], hasMore: false});
     },
+
+    setFocus: function(input, searchtext){
+		this.refs.searchbox.getDOMNode(input).focus();
+		this.refs.searchbox.getDOMNode(input).value = searchtext;
+	},
 
 	loadData: function(page){
         if(!this.props.search)
