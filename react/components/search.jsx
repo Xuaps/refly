@@ -8,7 +8,7 @@ var InfiniteScroll = require('react-infinite-scroll')(React);
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {results: [], page: 0, message:'', hasMore: true};
+        return {results: [], message:'', hasMore: false};
     },
     
     getDefaultProps: function() {
@@ -33,7 +33,6 @@ module.exports = React.createClass({
                 </div>
         );
     },
-    
     componentDidMount: function(){
 		var search = this.props.search || '';
         this.setFocus('#txtreference', search);
@@ -61,7 +60,7 @@ module.exports = React.createClass({
             if(!event.target.value){
                 this.cleanResults();
             }else{
-                this.setState({searchtext: event.target.value, results:[], page:0, hasMore:true});
+                this.setState({searchtext: event.target.value, results:[], hasMore:true});
             }
         }.bind(this));
     },
@@ -82,7 +81,6 @@ module.exports = React.createClass({
     },
 
 	loadData: function(page){
-        page = this.state.page+1;
         if(!this.props.search)
             return;
         store.get('search', {'searchtext': this.props.search, 'page': page})
@@ -93,9 +91,9 @@ module.exports = React.createClass({
                     references.push(<SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.props.onClick}
 	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>)
                 }.bind(this));
-				this.setState({results:references, 'page': page});
+				this.setState({results:references});
 			}else{
-				this.setState({hasMore: false, page: 0});
+				this.setState({hasMore: false});
 			}
 		}.bind(this));
 	},
