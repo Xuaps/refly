@@ -2,8 +2,8 @@
 /** @jsx React.DOM */
 
 var React = require('react')
-var store = require('../stores/settingsStore.js');
-var actions = require('../actions/settingsActions.js');
+var store = require('./store.js');
+var actions = require('./actions.js');
 var Reflux = require('reflux');
 var Docsets = require('./docsets.jsx');
 

@@ -1,5 +1,5 @@
-jest.dontMock('../docsetsStore.js');
-jest.dontMock('../../actions/treeviewActions.js');
+jest.dontMock('../store.js');
+jest.dontMock('../actions.js');
 
 var store, actions, settings, data;
 
@@ -7,9 +7,9 @@ describe('Docsets store', function(){
     beforeEach(function(){
         settings = require('../../utils/settings.js');
 
-        actions = require('../../actions/treeviewActions.js');
+        actions = require('../actions.js');
         data = require('../../utils/data.js');
-        store = require('../docsetsStore.js');
+        store = require('../store.js');
     });
 
     describe('Load docsets', function(){

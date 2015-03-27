@@ -8,7 +8,7 @@ var Shell = require('./shell.jsx');
 var Dashboard = require('./dashboard.jsx');
 var Result = require('./resultview.jsx');
 var Docsets = require('./docsetlist.jsx');
-var Settings = require('./settings.jsx');
+var Settings = require('../settings/settings.jsx');
 var About = require('./about.jsx');
 var Legal = require('./legal.jsx');
 

@@ -1,10 +1,10 @@
 var Reflux = require('reflux');
-var SettingsActions = require('../actions/settingsActions.js');
+var SettingsActions = require('./actions.js');
 var data = require('../utils/data.js');
 var settings = require('../utils/settings.js');
 var Q = require('q');
 
-var settingsStore = Reflux.createStore({
+module.exports = Reflux.createStore({
 
     init: function() {
         this.settings = {};
@@ -51,6 +51,4 @@ var settingsStore = Reflux.createStore({
     }
 
 });
-
-module.exports = settingsStore;
 

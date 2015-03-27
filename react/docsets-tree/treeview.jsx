@@ -3,8 +3,8 @@
  */
 
 var React = require('react');
-var store = require('../stores/docsetsStore.js');
-var TreeviewActions = require('../actions/treeviewActions.js');
+var store = require('./store.js');
+var TreeviewActions = require('./actions.js');
 var TreeView = require('react-treeview');
 var DocsetNode = require('./docset-node.jsx');
 var TypeNode = require('./type-node.jsx');

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Search = require('../search-panel/search.jsx');
-var TreeView = require('./treeview.jsx');
+var TreeView = require('../docsets-tree/treeview.jsx');
 var Resultview = require('./resultview.jsx');
 var URI = require ('URIjs');
 var Router = require('react-router');

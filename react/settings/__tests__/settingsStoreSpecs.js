@@ -1,5 +1,5 @@
-jest.dontMock('../settingsStore.js');
-jest.dontMock('../../actions/settingsActions.js');
+jest.dontMock('../store.js');
+jest.dontMock('../actions.js');
 var docsets, actions, store, data, settings;
 
 describe('Settings store', function(){
@@ -9,8 +9,8 @@ describe('Settings store', function(){
         data.prototype._docsets = {'_embedded': {'rl:docsets': [{name: 'java'}, {name: 'javascript'},
             {name: 'require'}, {name: 'angular'}]}};
         settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
-        actions = require('../../actions/settingsActions.js');
-        store = require('../settingsStore.js'); 
+        actions = require('../actions.js');
+        store = require('../store.js'); 
     }); 
 
     it('should load working docsets preferences', function(){

@@ -1,8 +1,6 @@
 var Reflux = require('reflux');
 
-var settingsActions = Reflux.createActions([
+module.exports = Reflux.createActions([
     "getSettings",
     "docsetSelectionChanged",
 ]);
-
-module.exports = settingsActions;

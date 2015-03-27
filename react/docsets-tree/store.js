@@ -1,9 +1,9 @@
 var Reflux = require('reflux');
-var TreeviewActions = require('../actions/treeviewActions.js');
+var TreeviewActions = require('./actions.js');
 var data = require('../utils/data.js');
 var settings = require('../utils/settings.js');
 
-var docsetsStore = Reflux.createStore({
+module.exports = Reflux.createStore({
 
     init: function() {
         this.docsets = [];
@@ -68,5 +68,3 @@ var docsetsStore = Reflux.createStore({
         this.trigger(new Error(error));
     }
 });
-
-module.exports = docsetsStore;
