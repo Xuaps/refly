@@ -56,7 +56,12 @@ References.prototype.page = function(number, size){
     return this;
 };
 
-References.prototype.count = function(){
-    return q.fcall(function(){return this._collection.length;}.bind(this));
+References.prototype.count = function(alias){
+    this._collection=this._collection.map(function(el){
+        el[alias]= this._collection.length;
+        return el;
+    }.bind(this));
+
+    return this;
 };
 module.exports=References;

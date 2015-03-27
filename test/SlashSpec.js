@@ -93,7 +93,8 @@ describe('Slash', function() {
                     reference: 'search',
                     type: 'function',
                     docset: {name: 'slash', active: true},
-					uri: 'search'
+					uri: 'search',
+                    total: 1 //TODO: the stub has its own implementation we have to change all that.
                 }]);
             });
         });
@@ -119,6 +120,7 @@ describe('Slash', function() {
         it('should return total of references that meet the conditions', function(done){
             slash.search({
                 name:'aRc'}).then(function(response){
+                    console.log(response);
                     expect(response.total).toEqual(4);
                     done();
                 });

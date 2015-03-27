@@ -104,9 +104,9 @@ describe('References', function() {
     
     describe('count', function(){
         it('should return the count of elements in the collection', function(done){
-            references.filter('docset', filters.operators.EQUALS, 'slash').count()
+            references.filter('docset', filters.operators.EQUALS, 'slash').count('total').execute()
                 .then(function(res){
-                    expect(res).toBe(4);
+                    expect(res[0].total).toBe('4');
                     done();
                 });
         });

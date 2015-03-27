@@ -51,14 +51,9 @@ References.prototype.page = function(number, pagesize){
     return this;
 };
 
-References.prototype.count = function(){
-    return this._query.count('refs.id')
-        .then(function(res){
-            this.query = db('refs');
-            return parseInt(res[0].count);
-        }.bind(this),function(err){
-            return err;
-        });
+References.prototype.count = function(alias){
+    this._query = this._query.select(db.raw('count(*) OVER() as '+alias));
+    return this;
 };
 
 References.prototype.execute = function() {

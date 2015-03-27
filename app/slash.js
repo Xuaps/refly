@@ -7,19 +7,16 @@ var search = function(options) {
     if((options.page && !options.pagesize) || (options.pagesize && !options.page))
        throw Error('page and pagesize must be given');
 
-    var base = _build_base_query(options); 
     var query = _build_base_query(options);
 
     if(options.page)
         query = query.page(options.page, options.pagesize);
     
-    return q.all([
-           base.count(),
-           query.select(['docset', 'reference', 'type', 'uri']).execute()
-          ]).then(function(results){
+        return query.select(['docset', 'reference', 'type', 'uri']).count('total').execute()
+            .then(function(results){
             return {
-                total: results[0],
-                items: results[1]
+                total: results[0].total,
+                items: results
             };
           });
 };
