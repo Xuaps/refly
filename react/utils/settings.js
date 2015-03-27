@@ -15,16 +15,84 @@ var defaultSettings =
                 "is_active": true,
             }, {
                 "_links": {
-                    "self": {
-                        "href": "/api/docsets/XPath"
-                    }
+                "self": {
+                "href": "/api/docsets/DOM"
+                }
                 },
-                "name": "XPath",
-                "start_uri": "/xpath/functions",
-                "latest_version_date": "2015-03-12T09:20:05.417Z",
+                "name": "DOM",
+                "start_uri": "/dom/document",
+                "latest_version_date": "2015-03-27T10:43:27.569Z",
                 "description": null,
                 "is_active": true,
-            }]
+                "image": "http://localhost:3000/img/languages/dom-logo.png",
+                "bigimage": "http://localhost:3000/img/languages/dom-biglogo.jpg"
+                },{
+                "_links": {
+                "self": {
+                "href": "/api/docsets/DOM Events"
+                }
+                },
+                "name": "DOM Events",
+                "start_uri": "/dom_events/click",
+                "latest_version_date": "2015-03-27T10:43:37.046Z",
+                "description": null,
+                "is_active": true,
+                "image": "http://localhost:3000/img/languages/dom events-logo.png",
+                "bigimage": "http://localhost:3000/img/languages/dom events-biglogo.jpg"
+                },{
+                "_links": {
+                "self": {
+                "href": "/api/docsets/HTML"
+                }
+                },
+                "name": "HTML",
+                "start_uri": "/html/attributes",
+                "latest_version_date": "2015-03-27T10:43:38.470Z",
+                "description": null,
+                "is_active": true,
+                "image": "http://localhost:3000/img/languages/html-logo.png",
+                "bigimage": "http://localhost:3000/img/languages/html-biglogo.jpg"
+                },{
+                "_links": {
+                "self": {
+                "href": "/api/docsets/CSS"
+                }
+                },
+                "name": "CSS",
+                "start_uri": "/css/universal_selectors",
+                "latest_version_date": "2015-03-27T10:43:25.749Z",
+                "description": null,
+                "is_active": true,
+                "image": "http://localhost:3000/img/languages/css-logo.png",
+                "bigimage": "http://localhost:3000/img/languages/css-biglogo.jpg"
+                },{
+                "_links": {
+                "self": {
+                "href": "/api/docsets/NodeJS"
+                }
+                },
+                "name": "NodeJS",
+                "start_uri": "/nodejs/assert",
+                "latest_version_date": "2015-03-27T10:43:49.177Z",
+                "description": null,
+                "is_active": true,
+                "image": "http://localhost:3000/img/languages/nodejs-logo.png",
+                "bigimage": "http://localhost:3000/img/languages/nodejs-biglogo.jpg"
+                },{
+                "_links": {
+                "self": {
+                "href": "/api/docsets/React"
+                }
+                },
+                "name": "React",
+                "start_uri": "/react/component-api",
+                "latest_version_date": "2015-03-27T10:47:52.685Z",
+                "description": null,
+                "is_active": true,
+                "image": "http://localhost:3000/img/languages/react-logo.png",
+                "bigimage": "http://localhost:3000/img/languages/react-biglogo.jpg"
+                },
+            ]
     };
 
 var Settings = function(){
