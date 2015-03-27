@@ -1,4 +1,5 @@
 var jQuery = require('jquery-browserify');
+var settings = require('../utils/settings.js');
 
 var Data = {};
 
@@ -28,6 +29,18 @@ Data.getReferences = function(docset, type, page){
 	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type, page),
 	        method: 'GET'
 	    });
+};
+
+Data.searchReference = function(pattern, page){
+    return jQuery.ajax({
+	        url: '/api/references' 
+                +'?name=' + pattern
+                +'&page=' + page
+                + settings.getWorkingDocsets().reduce(function(prev, current){
+                    return prev + '&docsets='+current.name;
+                },''),
+	        method: 'GET'
+        });
 };
 
 module.exports = Data;

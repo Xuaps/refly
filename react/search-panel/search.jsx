@@ -3,12 +3,16 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var $ = require('jquery-browserify');
 var store = require('./store.js');
+var actions = require('./actions.js');
 var InfiniteScroll = require('react-infinite-scroll')(React);
+var Reflux = require('reflux');
 var DbPromise = require('../utils/debounce-promise.js');
 
 module.exports = React.createClass({
+    mixins: [Reflux.connect(store,"data")],
+
     getInitialState: function() {
-        return {results: [], message:'', hasMore: false};
+        return {data: {results: [], reached_end:true}};
     },
     
     getDefaultProps: function() {
@@ -18,6 +22,10 @@ module.exports = React.createClass({
       },
 
     render: function(){
+       var result_rows = this.state.data.results.map(function(r){
+                    return <SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.props.onClick}
+	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>
+                }.bind(this));
         return(
                 <div  className='search-view full-height' id='scroll_panel'>
                     <div className="search-header">
@@ -27,8 +35,8 @@ module.exports = React.createClass({
                             <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                         </fieldset>
                     </div>
-                    <InfiniteScroll className='resultlist' loadMore={this.loadData} hasMore={this.state.hasMore} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
-                        {(this.state.results.length>0)?this.state.results: <div className="search-message">Reference not found!</div>}
+                    <InfiniteScroll className='resultlist' loadMore={this.search} hasMore={this.props.search && !this.state.data.reached_end} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
+                        {(result_rows.length>0)?result_rows: <div className="search-message">Reference not found!</div>}
                     </InfiniteScroll>
                 </div>
         );
@@ -41,6 +49,8 @@ module.exports = React.createClass({
     componentDidMount: function(){
 		var search = this.props.search || '';
         this.setFocus('#txtreference', search);
+        if(search)
+            this.search(1);
     },
     
     emptySearch: function(){
@@ -56,13 +66,13 @@ module.exports = React.createClass({
             if(!event.target.value){
                 this.cleanResults();
             }else{
-                this.setState({searchtext: event.target.value, results:[], hasMore:true});
+                this.search(1);
             }
         }.bind(this));
     },
 
     cleanResults: function(){
-        this.setState({results:[], hasMore: false});
+        this.setState({data:{results:[], reached_end:true}});
     },
 
     setFocus: function(input, searchtext){
@@ -70,21 +80,7 @@ module.exports = React.createClass({
 		this.refs.searchbox.getDOMNode(input).value = searchtext;
 	},
 
-	loadData: function(page){
-        if(!this.props.search)
-            return;
-        store.get('search', {'searchtext': this.props.search, 'page': page})
-    	.then(function(results){
-			references = this.state.results;
-			if(results.length>0){
-                results.forEach(function(r){
-                    references.push(<SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.props.onClick}
-	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>)
-                }.bind(this));
-				this.setState({results:references});
-			}else{
-				this.setState({hasMore: false});
-			}
-		}.bind(this));
+	search: function(page){
+        actions.searchReference(this.props.search,page);
 	},
 });

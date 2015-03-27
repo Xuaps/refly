@@ -16,6 +16,10 @@ Data.getReferences = function(docset, type, page){
     return wrapInPromise(Data.prototype._references);
 };
 
+Data.searchReference = function(pattern, page){
+    return wrapInPromise(Data.prototype._references);
+};
+
 var wrapInPromise = function(collection){
     return {
         then: function(fun){
