@@ -2,14 +2,17 @@
 var React = require('react');
 var Router = require('react-router');
 var store = require('./store.js');
+var actions = require('./actions.js');
 var URI = require('URIjs');
-var Breadcrumbs = require('./breadcrumbs.jsx');
+var Breadcrumbs = require('../components/breadcrumbs.jsx');
+var Reflux = require('reflux');
 var $ = require('jquery-browserify');
 
 module.exports = React.createClass({
+    mixins: [Reflux.connect(store, "reference")],
 
     getInitialState: function() {
-        return {initilized: false};
+        return {reference: undefined};
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -49,7 +52,7 @@ module.exports = React.createClass({
 
     render: function() {
         var content;
-        if(this.state.initilized && !this.state.reference){
+        if(this.state.reference===null){
 			(this.props.params.uri)? searchtext = this.props.params.uri.split('/').pop() : searchtext = this.props.params.uri;
             Rollbar.error("Reference " + this.props.params.uri + " not found");
 			var urlsearch = "/searchfor/" + searchtext;
@@ -71,10 +74,10 @@ module.exports = React.createClass({
                         </div>
                         <img className="bad-reference" src="/img/bad-reference.png"/>
                       </div>;
-        }else if(this.state.initilized && this.state.reference){
-            content = <div dangerouslySetInnerHTML={{__html: this.state.reference.content}}/>;
+        }else if(this.state.reference===undefined){
+	        content = 'Welcome!';
         }else{
-	        content = '';
+            content = <div dangerouslySetInnerHTML={{__html: this.state.reference.content}}/>;
 		}
         return (
                <div id='container'>
@@ -89,11 +92,8 @@ module.exports = React.createClass({
     loadRef: function(params){
 		if(!params || !params.uri)
             return;
-
-		return store.get('reference', {docset: params.docset, uri: params.uri})
-    		.then(function(ref){
-				this.setState({reference: ref, initilized: true});
-			}.bind(this));
+        
+        actions.loadReference(params.docset, params.uri);
     },
 
 	resetScroll: function(){
