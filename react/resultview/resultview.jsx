@@ -53,29 +53,15 @@ module.exports = React.createClass({
     render: function() {
         var content;
         if(this.state.reference===null){
-			(this.props.params.uri)? searchtext = this.props.params.uri.split('/').pop() : searchtext = this.props.params.uri;
             Rollbar.error("Reference " + this.props.params.uri + " not found");
-			var urlsearch = "/searchfor/" + searchtext;
             content = <div className="warning">
-                        <div>
                             <h2>Page not found</h2>
                             <h3>Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.</h3>
-                            <div className="centered-text white-box">
-                                <p>
-                                    <span>You can make a new search with the term </span>
-                                    <span className="bold"> {searchtext}</span>
-                                </p>
-                                <a className="ry-btn" href={urlsearch} title="Search"><i className="fa fa-search fa-2x"></i></a>
-                            </div>
-                            <div className="centered-text white-box">
-                                <p>or click here to go back</p>
-                                <a className="ry-btn" href='javascript:history.back()' title="Back"><i className="fa fa-undo fa-2x"></i></a>
-                            </div>
-                        </div>
-                        <img className="bad-reference" src="/img/bad-reference.png"/>
                       </div>;
         }else if(this.state.reference===undefined){
-	        content = 'Welcome!';
+	        content = <div className="warning">
+                            <h2>Welcome!</h2>
+                      </div>;
         }else{
             content = <div dangerouslySetInnerHTML={{__html: this.state.reference.content}}/>;
 		}
