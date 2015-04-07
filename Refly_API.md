@@ -81,6 +81,12 @@ The Reference resource has the following attributes:
 
     [Reference][]
 
++ Response 404
+
+        {
+            "message": "Error: Reference not found."
+        }
+
 ##References collection [/api/references{?name,pagesize,page,docsets*,types*}]
 A collection of References.
 

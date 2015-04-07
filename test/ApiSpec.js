@@ -45,10 +45,10 @@ describe('Refly API', function(){
     });
     describe('get_reference', function(){
         describe('reference doesnt exist', function(){
-            it('should return null', function(done){
+            it('should fail with a message error', function(done){
                 api.get_reference('test','/test/test/test.html')
-                    .then(function(res){
-                        expect(res).toBe(null); 
+                    .fail(function(res){
+                        expect(res.message).toBeDefined(); 
                         done();
                     });
             });

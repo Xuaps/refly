@@ -30,7 +30,11 @@ router.get('/api/references/:docset/:uri(*)/hierarchy', function(req, res){
 });
 router.get('/api/references/:docset/:uri(*)', function(req, res){
     api.get_reference(req.params.docset, req.params.uri)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).catch(function(error){
+            res.status(404);
+            res.set('Content-Type', 'application/hal+json');
+            res.send({message: error.toString()});
+        });
 });
 router.get('/api/references?', function(req, res){
     api.get_references(req.query)
