@@ -31,11 +31,7 @@ module.exports = React.createClass({
                 return;
 
             event.preventDefault();
-            if(uri.segment(0)=="searchfor"){
-                this.props.onSearch({ref: uri.segment(0,'').path().slice(1)});
-            }else{
-                this.props.onNavigation(uri.resource());
-            }
+            this.props.onNavigation(uri.resource());
         }.bind(this));
     },
 
@@ -44,6 +40,14 @@ module.exports = React.createClass({
         $('pre').each(function(i, block) {
             hljs.highlightBlock(block);
         });
+	},
+
+	resetScroll: function(){
+        var position = 0;
+        if(this.state.reference.content_anchor){
+            position = $('#'+this.state.reference.content_anchor).position().top;
+        }
+        this.refs.resultcontent.getDOMNode().scrollTop = this.refs.resultcontent.getDOMNode().scrollTop + position - this.refs.breadcrumbs.getDOMNode().clientHeight;
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
@@ -67,7 +71,7 @@ module.exports = React.createClass({
 		}
         return (
                <div id='container'>
-                    <Breadcrumbs key="breadcrumbscomp" params={{docset:this.props.params.docset, uri: this.props.params.uri}}/>
+                    <Breadcrumbs key="breadcrumbscomp" ref="breadcrumbs" params={{docset:this.props.params.docset, uri: this.props.params.uri}}/>
                     <div ref="resultcontent" className="result">
                         {content}
                     </div>
@@ -81,12 +85,4 @@ module.exports = React.createClass({
         
         actions.loadReference(params.docset, params.uri);
     },
-
-	resetScroll: function(){
-        var position = 0;
-        if(this.state.reference.content_anchor){
-            position = $('#'+this.state.reference.content_anchor).offset().top;
-        }
-        this.refs.resultcontent.getDOMNode().scrollTop = position;
-	}
 });
