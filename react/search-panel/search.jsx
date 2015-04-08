@@ -7,6 +7,7 @@ var actions = require('./actions.js');
 var InfiniteScroll = require('react-infinite-scroll')(React);
 var Reflux = require('reflux');
 var DbPromise = require('../utils/debounce-promise.js');
+var Mousetrap = require('mousetrap');
 
 module.exports = React.createClass({
     mixins: [Reflux.connect(store,"data")],
@@ -30,13 +31,13 @@ module.exports = React.createClass({
                 <div  className='search-view full-height' id='scroll_panel'>
                     <div className="search-header">
                         <fieldset>
-                            <input id="txtreference" ref="searchbox" type="text" className="ry-input-text mousetrap" name="reference"
+                            <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
                             placeholder="Reference" onKeyUp={this.onKeyUp} />
                             <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                         </fieldset>
                     </div>
                     <InfiniteScroll className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
-                        {(result_rows.length===0 && !this._hasMore)? <div className="search-message">Reference not found!</div>: result_rows}
+                        {(result_rows.length===0 && !this._hasMore())? <div className="search-message">Reference not found!</div>: result_rows}
                     </InfiniteScroll>
                 </div>
         );
@@ -48,13 +49,25 @@ module.exports = React.createClass({
 
     componentWillMount: function(){
         this.dbpromise = new DbPromise(800);
+        this.mousetrap = new Mousetrap(document.documentElement);
     },
 
     componentDidMount: function(){
 		var search = this.props.search || '';
-        this.setFocus('#txtreference', search);
+		var search_box = this.refs.searchbox.getDOMNode('#txtreference');
+        var default_handler = Mousetrap.handleKey;
+
+        search_box.value = search;
+        this.mousetrap.handleKey = function(character, modifiers, e){
+            search_box.focus();
+            default_handler(character, modifiers, e);
+        };
         if(search)
             this.search(1);
+    },
+
+    componentWillUnmount: function(){
+        //Mousetrap.handleKey = this.default_handler;
     },
     
     emptySearch: function(){
@@ -78,11 +91,6 @@ module.exports = React.createClass({
     cleanResults: function(){
         this.setState({data:{results:[], reached_end:true}});
     },
-
-    setFocus: function(input, searchtext){
-		this.refs.searchbox.getDOMNode(input).focus();
-		this.refs.searchbox.getDOMNode(input).value = searchtext;
-	},
 
 	search: function(page){
         actions.searchReference(this.props.search,page);
