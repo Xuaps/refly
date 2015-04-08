@@ -7,6 +7,7 @@ var URI = require('URIjs');
 var Breadcrumbs = require('../components/breadcrumbs.jsx');
 var Reflux = require('reflux');
 var $ = require('jquery-browserify');
+var DbPromise = require('../utils/debounce-promise.js');
 
 module.exports = React.createClass({
     mixins: [Reflux.connect(store, "reference")],
@@ -21,6 +22,7 @@ module.exports = React.createClass({
     
     componentWillMount: function(){
         this.loadRef(this.props.params);
+        this.dbpromise = new DbPromise(100);
     },
     
     componentDidMount: function(){
@@ -36,7 +38,7 @@ module.exports = React.createClass({
     },
 
 	componentDidUpdate: function(){
-		this.resetScroll();
+		this.dbpromise.debounce().then(this.resetScroll);
         $('pre').each(function(i, block) {
             hljs.highlightBlock(block);
         });
@@ -44,11 +46,10 @@ module.exports = React.createClass({
 
 	resetScroll: function(){
         var position = 0;
-        this.refs.resultcontent.getDOMNode().scrollTop = 0;
-        if(this.state.reference.content_anchor){
-            position = $('#'+this.state.reference.content_anchor).offset().top - 50;
+        if(this.state.reference && this.state.reference.content_anchor){
+            position = this.refs.resultcontent.getDOMNode().scrollTop + $('#'+this.state.reference.content_anchor).offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
         }
-        this.refs.resultcontent.getDOMNode().scrollTop = position - this.refs.breadcrumbs.getDOMNode().clientHeight;
+        this.refs.resultcontent.getDOMNode().scrollTop = position;
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
