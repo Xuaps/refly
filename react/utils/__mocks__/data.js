@@ -1,30 +1,30 @@
 var Data = function(){};
 
 Data.getDefaultDocsets = function(){
-    return wrapInPromise(Data.prototype._docsets);
+    return this.wrapInPromise(Data.prototype._docsets);
 };
 
 Data.getActiveDocsets =function(){
-    return wrapInPromise(Data.prototype._docsets);
+    return this.wrapInPromise(Data.prototype._docsets);
 };
 
 Data.getTypes = function(docset){
-    return wrapInPromise(Data.prototype._types);
+    return this.wrapInPromise(Data.prototype._types);
 };
 
 Data.getReferences = function(docset, type, page){
-    return wrapInPromise(Data.prototype._references);
+    return this.wrapInPromise(Data.prototype._references);
 };
 
 Data.getReference = function(docset, uri){
-    return wrapInPromise(Data.prototype._references[0]);
+    return this.wrapInPromise(Data.prototype._references[0]);
 };
 
 Data.searchReference = function(pattern, page){
-    return wrapInPromise(Data.prototype._references);
+    return this.wrapInPromise(Data.prototype._references);
 };
 
-var wrapInPromise = function(collection){
+Data.wrapInPromise = function(collection){
     return {
         then: function(fun){
             fun(collection);

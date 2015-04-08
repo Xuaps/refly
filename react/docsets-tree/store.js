@@ -40,12 +40,13 @@ module.exports = Reflux.createStore({
         var node = this.docsets
             .filter(function(doc){ return doc.name === docset;})[0]
             .types.filter(function(type){ return type.name === type_name; })[0];
-        this.flatten_elements.forEach(function(el){ el.marked = (el.name === type_name && el.docset ===docset) });
-        if(node.references && !page){
-            this.trigger(this.docsets);
-            return;
-        }
-        
+        if(!page){
+            this.flatten_elements.forEach(function(el){ el.marked = (el.name === type_name && el.docset ===docset) });
+            if(node.references){
+                this.trigger(this.docsets);
+                return;
+            }
+        } 
         page = page || 1;
 	    data.getReferences(docset, type_name, page).then(function (response){
             node.references = node.references || [];
