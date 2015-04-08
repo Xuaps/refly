@@ -35,11 +35,15 @@ module.exports = React.createClass({
                             <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                         </fieldset>
                     </div>
-                    <InfiniteScroll className='resultlist' loadMore={this.search} hasMore={this.props.search && !this.state.data.reached_end} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
-                        {(result_rows.length>0)?result_rows: <div className="search-message">Reference not found!</div>}
+                    <InfiniteScroll className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
+                        {(result_rows.length===0 && !this._hasMore)? <div className="search-message">Reference not found!</div>: result_rows}
                     </InfiniteScroll>
                 </div>
         );
+    },
+
+    _hasMore: function(){
+        return this.props.search && !this.state.data.reached_end;
     },
 
     componentWillMount: function(){
