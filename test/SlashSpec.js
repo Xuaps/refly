@@ -120,8 +120,15 @@ describe('Slash', function() {
         it('should return total of references that meet the conditions', function(done){
             slash.search({
                 name:'aRc'}).then(function(response){
-                    console.log(response);
                     expect(response.total).toEqual(4);
+                    done();
+                });
+        });
+
+        it('should return total equal to 0 if any reference meets the conditions', function(done){
+            slash.search({
+                name:'rtrrrraRc'}).then(function(response){
+                    expect(response.total).toEqual(0);
                     done();
                 });
         });

@@ -15,7 +15,7 @@ var search = function(options) {
         return query.select(['docset', 'reference', 'type', 'uri']).count('total').execute()
             .then(function(results){
             return {
-                total: results[0].total,
+                total: results.length>0?results[0].total:0,
                 items: results
             };
           });
