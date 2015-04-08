@@ -1,5 +1,7 @@
 var jQuery = require('jquery-browserify');
 var settings = require('../utils/settings.js');
+var ReferenceNotFoundError = require('../errors/reference-not-found.js');
+var Q = require('q');
 
 var Data = {};
 
@@ -41,6 +43,21 @@ Data.searchReference = function(pattern, page){
                 },''),
 	        method: 'GET'
         });
+};
+
+Data.getReference = function(docset, uri){
+    var deferred = Q.defer();
+    jQuery.ajax({
+        url: '/api/references/{0}/{1}'.format(docset, uri),
+        method: 'GET',
+        statusCode: {
+            404: function(){
+                deferred.reject(new ReferenceNotFoundError());
+            }
+        }
+    }).then(deferred.resolve);
+
+    return deferred.promise;
 };
 
 module.exports = Data;

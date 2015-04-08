@@ -25,8 +25,9 @@ module.exports.get_reference = function(docset, uri){
     var old_identifier = docset + '/' + uri;
 
     return slash.get(old_identifier).then(function(reference) {
-        if (!reference)
-            return null;
+        if (!reference){
+            throw new Error('Reference not found.');
+        }
 
         return {
             links: {

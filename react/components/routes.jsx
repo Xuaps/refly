@@ -6,7 +6,7 @@ var DefaultRoute = Router.DefaultRoute;
 
 var Shell = require('./shell.jsx');
 var Dashboard = require('./dashboard.jsx');
-var Result = require('./resultview.jsx');
+var Result = require('../resultview/resultview.jsx');
 var Docsets = require('./docsetlist.jsx');
 var Settings = require('../settings/settings.jsx');
 var About = require('./about.jsx');
