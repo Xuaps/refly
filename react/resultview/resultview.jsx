@@ -1,13 +1,15 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Router = require('react-router');
-var store = require('./store.js');
-var actions = require('./actions.js');
 var URI = require('URIjs');
-var Breadcrumbs = require('../components/breadcrumbs.jsx');
 var Reflux = require('reflux');
 var $ = require('jquery-browserify');
+
 var DbPromise = require('../utils/debounce-promise.js');
+
+var store = require('./store.js');
+var actions = require('./actions.js');
+var Breadcrumbs = require('../components/breadcrumbs.jsx');
 
 module.exports = React.createClass({
     mixins: [Reflux.connect(store, "reference")],
