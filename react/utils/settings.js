@@ -1,4 +1,3 @@
-var Configry = require('configry');
 var WK_DOCSETS = 'wk_docsets';
 var defaultSettings = 
     {
@@ -95,16 +94,21 @@ var defaultSettings =
             ]
     };
 
-var Settings = function(){
-    this.config = new Configry(defaultSettings, [WK_DOCSETS]);
-}
+var Reflux = require('reflux');
+var Configry = require('configry');
+var Settings = Reflux.createStore({
+    init: function() {
+        this.config = new Configry(defaultSettings, [WK_DOCSETS]);
+    },
+    
+    getWorkingDocsets:  function(){
+        return this.config.get(WK_DOCSETS);
+    },
 
-Settings.prototype.getWorkingDocsets = function(){
-    return this.config.get(WK_DOCSETS);
-};
+    setWorkingDocsets:  function(docsets){
+        this.config.set(WK_DOCSETS, docsets, true);
+        this.trigger(docsets);
+    }
+});
 
-Settings.prototype.setWorkingDocsets = function(docsets){
-    this.config.set(WK_DOCSETS, docsets, true);
-};
-
-module.exports = new Settings();
+module.exports = Settings;

@@ -12,6 +12,7 @@ module.exports = Reflux.createStore({
         this.listenTo(TreeviewActions.selectDocset, this.onGetTypes);
         this.listenTo(TreeviewActions.selectType, this.onSearchReferences);
         this.listenTo(TreeviewActions.selectReference, this.onMarkReference);
+        this.listenTo(settings, this.onGetActiveDocsets);
     },
 
     onGetActiveDocsets: function(){
