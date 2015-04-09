@@ -49,7 +49,7 @@ module.exports = React.createClass({
     },
 
     _hasMore: function(){
-        return this.props.search && !this.state.data.reached_end;
+        return this.pattern && !this.state.data.reached_end;
     },
 
     componentWillMount: function(){
@@ -58,16 +58,16 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function(){
-		var search = this.props.search || '';
+        this.pattern = this.props.search;
 		var search_box = this.refs.searchbox.getDOMNode('#txtreference');
         var default_handler = Mousetrap.handleKey;
 
-        search_box.value = search;
+        search_box.value = this.props.search;
         this.mousetrap.handleKey = function(character, modifiers, e){
             search_box.focus();
             default_handler(character, modifiers, e);
         };
-        if(search)
+        if(this.pattern)
             this.search(1);
     },
 
@@ -88,6 +88,7 @@ module.exports = React.createClass({
             if(!event.target.value){
                 this.cleanResults();
             }else{
+                this.pattern = event.target.value;
                 this.search(1);
             }
         }.bind(this));
@@ -98,6 +99,6 @@ module.exports = React.createClass({
     },
 
 	search: function(page){
-        actions.searchReference(this.props.search,page);
+        actions.searchReference(this.pattern, page);
 	},
 });

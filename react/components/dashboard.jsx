@@ -63,7 +63,7 @@ module.exports = React.createClass({
     
     search: function(event){
         this.setState({last_search: event.target.value});
-        this.props.onKeyUpEvent(event);
+        //this.props.onKeyUpEvent(event);
     },
     
     searchVisible: function(){
