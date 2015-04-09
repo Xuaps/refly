@@ -24,8 +24,8 @@ module.exports = React.createClass({
 
     render: function(){
        var result_rows = this.state.data.results.map(function(r){
-                    return <SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.props.onClick}
-	                reference={r.name} type={r.type} docset={r.docset_name} uri={r.uri}/>
+                    return <SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.onClickHandler}
+	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
                 }.bind(this));
         return(
                 <div  className='search-view full-height' id='scroll_panel'>
@@ -41,6 +41,11 @@ module.exports = React.createClass({
                     </InfiniteScroll>
                 </div>
         );
+    },
+    
+    onClickHandler: function(uri){
+        actions.markReference(uri);
+        this.props.onClick(uri);
     },
 
     _hasMore: function(){

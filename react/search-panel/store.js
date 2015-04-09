@@ -7,8 +7,36 @@ module.exports = Reflux.createStore({
     
     init: function() {
         this.results = [];
-        this.search_history = [];
+        this.search_history = {};
         this.listenTo(ReferencesActions.searchReference, this.onSearch);
+        this.listenTo(ReferencesActions.markReference, this.onMarkReference);
+    },
+
+    onMarkReference: function(uri){
+       this.results.forEach(function(ref){
+           ref.marked = (ref.uri === uri);
+       });
+       this.trigger(this._getResult());
+    },
+
+    onSearch: function(searchtext, page){
+        if(this.search_history.search === searchtext && this.search_history.pages.indexOf(page)!==-1){
+            this.trigger(this._getResult());
+            return;
+        }
+
+        Data.searchReference(searchtext, page)
+            .then(function(results){
+                var is_new_search = this.search_history.search!==searchtext;
+                this.search_history = (!is_new_search)? this.search_history : {search: searchtext}; this.search_history.pages = this.search_history.pages || [];
+                this.search_history.pages.push(page);
+                this.search_history.reached_end = !results['_links'].next;
+                this.results = (!is_new_search)?this.results: [];
+                this.results = this.results
+                    .concat(results['_embedded']['rl:references']
+                        .map(function(ref){ return this._addUris(ref);}.bind(this)));
+                this.trigger(this._getResult());}.bind(this))
+            .fail(this.onFail);
     },
 
     _addUris: function(ref){
@@ -24,29 +52,8 @@ module.exports = Reflux.createStore({
         return ref;
     },
 
-    onSearch: function(searchtext, page){
-        if(this.search_history[searchtext] && this.search_history[searchtext].pages.indexOf(page)!==-1){
-            this.trigger(this._getResult(searchtext));
-            return;
-        }
-
-        Data.searchReference(searchtext, page)
-            .then(function(results){
-                this.search_history[searchtext] = this.search_history[searchtext] || {};
-                this.search_history[searchtext].pages = this.search_history[searchtext].pages || [];
-                this.search_history[searchtext].pages.push(page);
-                this.search_history[searchtext].reached_end = !results['_links'].next;
-
-                this.results[searchtext] = this.results[searchtext] || [];
-                this.results[searchtext] = this.results[searchtext]
-                    .concat(results['_embedded']['rl:references']
-                        .map(function(ref){ return this._addUris(ref);}.bind(this)));
-                this.trigger(this._getResult(searchtext));}.bind(this))
-            .fail(this.onFail);
-    },
-
-    _getResult: function(pattern){
-        return { results: this.results[pattern], reached_end: this.search_history[pattern].reached_end };
+    _getResult: function(){
+        return { results: this.results, reached_end: this.search_history.reached_end };
     },
 
     onFail: function(error){

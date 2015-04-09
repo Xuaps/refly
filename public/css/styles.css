@@ -1303,7 +1303,7 @@ footer .copyright {
     float: right;
 }
 
-#tree-view .selected a {
+.selected a {
     font-weight: bold;
     border-left: 3px solid #fdb436;
     color: #333;
@@ -1356,7 +1356,7 @@ body.widget {
     cursor: pointer;
     width: 270px;
 }
-.tree-view .selected {
+.selected {
     background-color: #333;
     color: #FFF;
 }
