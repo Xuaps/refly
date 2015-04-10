@@ -4,6 +4,7 @@ var Router = require('react-router');
 var URI = require('URIjs');
 var Reflux = require('reflux');
 var $ = require('jquery-browserify');
+var jsesc = require('jsesc');
 
 var DbPromise = require('../utils/debounce-promise.js');
 
@@ -50,7 +51,7 @@ module.exports = React.createClass({
         var position = 0;
         var anchor = window.location.hash?window.location.hash:((this.state.reference && this.state.reference.content_anchor)?'#'+this.state.reference.content_anchor:'');
         if(anchor){
-            position = this.refs.resultcontent.getDOMNode().scrollTop + $(anchor).offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
+            position = this.refs.resultcontent.getDOMNode().scrollTop + $(jsesc(anchor)).offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
         }
         this.refs.resultcontent.getDOMNode().scrollTop = position;
 	},
