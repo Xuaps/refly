@@ -48,8 +48,9 @@ module.exports = React.createClass({
 
 	resetScroll: function(){
         var position = 0;
-        if(this.state.reference && this.state.reference.content_anchor){
-            position = this.refs.resultcontent.getDOMNode().scrollTop + $('#'+this.state.reference.content_anchor).offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
+        var anchor = window.location.hash?window.location.hash:((this.state.reference && this.state.reference.content_anchor)?'#'+this.state.reference.content_anchor:'');
+        if(anchor){
+            position = this.refs.resultcontent.getDOMNode().scrollTop + $(anchor).offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
         }
         this.refs.resultcontent.getDOMNode().scrollTop = position;
 	},
