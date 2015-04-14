@@ -1,5 +1,4 @@
 var Reflux = require('reflux');
-var jQuery = require('jquery-browserify');
 var ReferencesActions = require('./actions.js');
 var Data = require('../utils/data.js');
 
