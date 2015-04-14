@@ -18,9 +18,6 @@ html
     link(href=assetFingerprint('/css/font-awesome.min.css'), ,='', media='screen', rel='stylesheet', type='text/css')
     |     
     link(href=assetFingerprint('http://fonts.googleapis.com/css?family=Raleway'), rel='stylesheet', type='text/css')
-    |     
-    link(href='http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css', ,='', media='screen', rel='stylesheet', type='text/css')
-    script(type='text/javascript', src=assetFingerprint('/js/config.js'))
   body
     #container
     |     
@@ -31,6 +28,12 @@ html
         | This website uses cookies, if you want to use the sites without cookies or would like to know more, you can do that 
         a(href='cookies-policy.html') here
         |             . By continuing to browse the site, you are agreeing to our use of cookies.
+    |     
+    script(type='text/javascript', src=assetFingerprint('https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'))
+    |    
+    script(type='text/javascript', src=assetFingerprint('/js/airbrake-shim.js'), data-airbrake-project-id='refly', data-airbrake-project-key="0eb2891adfa08afa30a7526ca1173596" data-airbrake-environment-name="debug")
+    |    
+    script(type='text/javascript', src=assetFingerprint('/js/config.js'))
     |     
     script(type="text/javascript", src=assetFingerprint("/js/bundle.js") )
     |     
@@ -45,27 +48,3 @@ html
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       ga('create', 'UA-51748976-3', 'auto');
       ga('send', 'pageview');
-
-    script(type='text/javascript').
-
-      var _ues = {
-      host:'refly.userecho.com',
-      forum:'39663',
-      lang:'en',
-      tab_corner_radius:5,
-      tab_font_size:20,
-      tab_image_hash:'ZmVlZGJhY2s%3D',
-      tab_chat_hash:'Y2hhdA%3D%3D',
-      tab_alignment:'top',
-      tab_text_color:'#ffffff',
-      tab_text_shadow_color:'#00000055',
-      tab_bg_color:'#333333',
-      tab_hover_color:'#3399FF'
-      };
-
-      (function() {
-      var _ue = document.createElement('script'); _ue.type = 'text/javascript'; _ue.async = true;
-      _ue.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.userecho.com/js/widget-1.4.gz.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(_ue, s);
-      })();
-
