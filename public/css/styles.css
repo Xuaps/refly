@@ -1282,11 +1282,11 @@ footer .copyright {
 /* Cookies */
 .cookiesms{
     width: 100%;
+    bottom: -100px;
     padding-left: 1%;
     padding: 15px;
     clear: both;
     color: #FFF;
-    bottom: 0px;
     position: fixed;
     background-color: #000;
     opacity: 0.85;
