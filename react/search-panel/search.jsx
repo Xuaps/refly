@@ -91,7 +91,7 @@ module.exports = React.createClass({
                 this.pattern = event.target.value;
                 this.search(1);
             }
-        }.bind(this));
+        }.bind(this)).done();
     },
 
     cleanResults: function(){

@@ -9,7 +9,7 @@ module.exports = React.createClass({
 	},
 
     componentWillMount: function(){
-        this.loadData();
+        this.loadData().done();
     },
 
     render: function(){

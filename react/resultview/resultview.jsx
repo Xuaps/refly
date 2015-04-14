@@ -40,7 +40,7 @@ module.exports = React.createClass({
     },
 
 	componentDidUpdate: function(){
-		this.dbpromise.debounce().then(this.resetScroll);
+		this.dbpromise.debounce().then(this.resetScroll).done();
         $('pre').each(function(i, block) {
             hljs.highlightBlock(block);
         });

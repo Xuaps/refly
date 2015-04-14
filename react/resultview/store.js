@@ -13,14 +13,14 @@ module.exports = Reflux.createStore({
         Data.getReference(docset, uri)
             .then(function(reference){
                 this.trigger(reference);
-            }.bind(this)).fail(this.onFail);
+            }.bind(this)).fail(this.onFail).done();
     },
     
     onFail: function(error){
         if(error instanceof ReferenceNotFoundError){
             this.trigger(null);
         }else{
-            this.trigger(new Error(error));
+            throw error;
         }
     },
 });

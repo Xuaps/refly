@@ -23,15 +23,11 @@ module.exports = Reflux.createStore({
             settings.setWorkingDocsets(wkd);
             this._reviewDocsets(this.settings.docsets);
             this.trigger(this.settings);
-        }.bind(this)).fail(this.onFail);
+        }.bind(this)).done();
     },
 
     onGetSettings: function(){
-        this._loadDocsets().then(function(){this.trigger(this.settings);}.bind(this)).fail(this.onFail);
-    },
-
-    onFail: function(error){
-        this.trigger(new Error(error));
+        this._loadDocsets().then(function(){this.trigger(this.settings);}.bind(this)).done();
     },
 
     _loadDocsets: function(){

@@ -30,9 +30,12 @@ Data.wrapInPromise = function(collection){
             fun(collection);
             return {then: function(f){
                             f();
-                            return {fail:function(){}};
+                            return {fail:function(){}, done: function(){}};
                           },
-                    fail: function(){}
+                    fail: function(){
+                            return {fail:function(){}, done: function(){}};
+                          },
+                    done: function(){}
                     };
             },
     };

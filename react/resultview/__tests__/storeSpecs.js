@@ -38,6 +38,7 @@ describe('Resultview status', function(){
                 {then:function(){
                                     return {fail: function(f){
                                                     f(new ReferenceNotFoundError());
+                                                    return {done:function(){}};
                                                 }
                                             }
                                  }

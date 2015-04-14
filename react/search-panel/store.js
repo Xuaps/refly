@@ -36,7 +36,7 @@ module.exports = Reflux.createStore({
                     .concat(results['_embedded']['rl:references']
                         .map(function(ref){ return this._addUris(ref);}.bind(this)));
                 this.trigger(this._getResult());}.bind(this))
-            .fail(this.onFail);
+            .done();
     },
 
     _addUris: function(ref){
@@ -56,7 +56,4 @@ module.exports = Reflux.createStore({
         return { results: this.results, reached_end: this.search_history.reached_end };
     },
 
-    onFail: function(error){
-        this.trigger(new Error(error));
-    }
 });

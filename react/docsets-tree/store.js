@@ -34,7 +34,7 @@ module.exports = Reflux.createStore({
             this.flatten_elements = this.flatten_elements.concat(active_docset.types.map(
                     function(typ){typ.docset = docset; return typ;}));
             this.trigger(this.docsets);
-        }.bind(this)).fail(this.onFail);
+        }.bind(this)).done();
     },
 
     onSearchReferences: function(docset, type_name, page){
@@ -56,7 +56,7 @@ module.exports = Reflux.createStore({
             this.trigger(this.docsets);    
 
             return response['_links'].next?this.onSearchReferences(docset, type_name, page+1):undefined;
-        }.bind(this)).fail(this.onFail);
+        }.bind(this)).done();
     },
 
     onMarkReference: function(ref){
@@ -65,8 +65,4 @@ module.exports = Reflux.createStore({
         });
         this.trigger(this.docsets);
     },
-
-    onFail: function(error){
-        this.trigger(new Error(error));
-    }
 });

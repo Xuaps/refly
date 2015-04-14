@@ -1,6 +1,5 @@
 /** @jsx React.DOM */
 var React = require('react')
-var SimpleMail = require('./simpleform.jsx');
 var Docsets = require('./docsetstable.jsx');
 
 
