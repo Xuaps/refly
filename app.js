@@ -29,7 +29,15 @@ app.use('/', function(req, res){
 
 app.use(airbrake.expressHandler());
 if ('development' == env) {
-  app.use(errorhandler());
+    app.use(errorhandler());
+}else{
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: {}
+        });
+    });
 }
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddr'), function(){
