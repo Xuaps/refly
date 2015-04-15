@@ -22,11 +22,11 @@ router.get('/api', function(req, res){
 });
 router.get('/api/references/:docset/:uri(*)/c&b', function(req, res){
     api.get_children_and_brothers(req.params.docset, req.params.uri)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).done();
 });
 router.get('/api/references/:docset/:uri(*)/hierarchy', function(req, res){
     api.get_ascendants(req.params.docset, req.params.uri)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).done();
 });
 router.get('/api/references/:docset/:uri(*)', function(req, res){
     api.get_reference(req.params.docset, req.params.uri)
@@ -34,23 +34,23 @@ router.get('/api/references/:docset/:uri(*)', function(req, res){
             res.status(404);
             res.set('Content-Type', 'application/hal+json');
             res.send({message: error.toString()});
-        });
+        }).done();
 });
 router.get('/api/references?', function(req, res){
     api.get_references(req.query)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).done();
 });
 router.get('/api/docsets/:name', function(req, res){
     api.get_docset(req.protocol +'://' + req.get('host'), req.params.name)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).done();
 });
 router.get('/api/docsets?', function(req, res){
     api.get_docsets(req.protocol +'://' + req.get('host'), req.query.active)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).done();
 });
 router.get('/api/types?', function(req, res){
     api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
-        .then(send.bind(null,res));
+        .then(send.bind(null,res)).done();
 });
 
 module.exports = router;

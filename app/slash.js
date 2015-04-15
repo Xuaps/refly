@@ -12,13 +12,13 @@ var search = function(options) {
     if(options.page)
         query = query.page(options.page, options.pagesize);
     
-        return query.select(['docset', 'reference', 'type', 'uri']).count('total').execute()
-            .then(function(results){
-            return {
-                total: results.length>0?results[0].total:0,
-                items: results
-            };
-          });
+    return query.select(['docset', 'reference', 'type', 'uri']).count('total').execute()
+        .then(function(results){
+        return {
+            total: results.length>0?results[0].total:0,
+            items: results
+        };
+      });
 };
 
 var _build_base_query = function(options){
