@@ -9,6 +9,7 @@ var express = require('express')
   , config = require('config');
 
 var app = express();
+var env = process.env.NODE_ENV || 'development';
 
 app.set('port', config.serverConfig.port);
 app.set('ipaddr', config.serverConfig.ip);
@@ -20,10 +21,9 @@ app.use(refly_router);
 app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', function(req, res){
-    res.render('index');
+    res.render('index', {environment: env});
 });   
 
-var env = process.env.NODE_ENV || 'development';
 if ('development' == env) {
   app.use(errorhandler());
 }
