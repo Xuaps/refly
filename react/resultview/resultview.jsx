@@ -34,6 +34,9 @@ module.exports = React.createClass({
             var uri=new URI(event.currentTarget.href);
             if(uri.host()!==baseUri.host())
                 return;
+            
+            if(uri.path() === baseUri.path())
+                return;
 
             event.preventDefault();
             this.props.onNavigation(uri.resource());
