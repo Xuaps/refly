@@ -37,7 +37,7 @@ global.Airbrake.wrap = function(fn) {
 
 // Registers console reporter when notifier is ready.
 global.Airbrake.onload = function() {
-  Airbrake.addReporter(Airbrake.consoleReporter);
+    Airbrake.addReporter(Airbrake.consoleReporter);
 }
 
 // Reports unhandled exceptions.

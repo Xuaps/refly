@@ -52,8 +52,5 @@ Router.run(routes, Router.HistoryLocation, function(Handler){
     React.render(<Handler/>, document.getElementById('container'));
 });
 
-window.onerror = function(message, file, line) {
-  Airbrake.push({error: {message: message, fileName: file, lineNumber: line}});
-};
 // react extension
 window.React = React;
