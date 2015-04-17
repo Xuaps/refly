@@ -3,7 +3,6 @@ var React = require('react');
 var Router = require('react-router');
 var URI = require('URIjs');
 var Reflux = require('reflux');
-var DOMPurify = require('dompurify');
 var $ = require('jquery-browserify');
 
 var DbPromise = require('../utils/debounce-promise.js');
@@ -53,7 +52,12 @@ module.exports = React.createClass({
         var position = 0;
         var anchor = window.location.hash?window.location.hash:((this.state.reference && this.state.reference.content_anchor)?'#'+this.state.reference.content_anchor:'');
         if(anchor){
-            position = this.refs.resultcontent.getDOMNode().scrollTop + $(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1')).offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
+            anchor_o=$(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1'));
+            if(anchor_o.length === 0){
+                Airbrake.push({name: 'Anchor not found', message: 'Anchor {0} not found in {1}.'.format(anchor, this.state.reference.uri), stack: new Error().stack});
+                return; 
+            }
+            position = this.refs.resultcontent.getDOMNode().scrollTop + anchor_o.offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
         }
         this.refs.resultcontent.getDOMNode().scrollTop = position;
 	},
@@ -74,7 +78,7 @@ module.exports = React.createClass({
                             <h2>Welcome!</h2>
                       </div>;
         }else{
-            content = <Highlight innerHTML={true} selector="pre" > {DOMPurify.sanitize(this.state.reference.content)} </Highlight>;
+            content = <Highlight innerHTML={true} selector="pre" > {this.state.reference.content} </Highlight>;
 		}
         return (
                <div id='container'>
