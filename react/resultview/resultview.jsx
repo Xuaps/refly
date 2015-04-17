@@ -3,6 +3,7 @@ var React = require('react');
 var Router = require('react-router');
 var URI = require('URIjs');
 var Reflux = require('reflux');
+var DOMPurify = require('dompurify');
 var $ = require('jquery-browserify');
 
 var DbPromise = require('../utils/debounce-promise.js');
@@ -10,6 +11,7 @@ var DbPromise = require('../utils/debounce-promise.js');
 var store = require('./store.js');
 var actions = require('./actions.js');
 var Breadcrumbs = require('../components/breadcrumbs.jsx');
+var Highlight = require('./highlight.jsx');
 
 module.exports = React.createClass({
     mixins: [Reflux.connect(store, "reference")],
@@ -40,10 +42,11 @@ module.exports = React.createClass({
     },
 
 	componentDidUpdate: function(){
-		this.dbpromise.debounce().then(this.resetScroll).done();
-        $('pre').each(function(i, block) {
-            hljs.highlightBlock(block);
-        });
+		this.dbpromise.debounce().then(
+            function(){
+                this.resetScroll();
+            }.bind(this)        
+        ).done();
 	},
 
 	resetScroll: function(){
@@ -71,7 +74,7 @@ module.exports = React.createClass({
                             <h2>Welcome!</h2>
                       </div>;
         }else{
-            content = <div dangerouslySetInnerHTML={{__html: this.state.reference.content}}/>;
+            content = <Highlight innerHTML={true} selector="pre" > {DOMPurify.sanitize(this.state.reference.content)} </Highlight>;
 		}
         return (
                <div id='container'>
