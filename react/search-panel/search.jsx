@@ -36,7 +36,7 @@ module.exports = React.createClass({
                         </fieldset>
                     </div>
                     <InfiniteScroll className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
-                        {(result_rows.length===0 && !this._hasMore())? <div className="search-message">Reference not found!</div>: result_rows}
+                        {(result_rows.length===0 && this.pattern)? <div className="search-message">Reference not found!</div>: result_rows}
                     </InfiniteScroll>
                 </div>
         );
@@ -70,10 +70,10 @@ module.exports = React.createClass({
             this.search(1);
     },
 
-    componentWillUnmount: function(){
-        //Mousetrap.handleKey = this.default_handler;
+    shouldComponentUpdate: function(nextProps, nextState) {
+       return nextState.data.results.length!==this.state.data.results.length;
     },
-    
+
     emptySearch: function(){
         this.refs.searchbox.getDOMNode('#txtreference').value='';
         this.props.onKeyUpEvent({target:{value: ''}});
