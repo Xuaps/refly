@@ -36,7 +36,7 @@ module.exports = React.createClass({
 					{rows}
                 </div>
                 <div className="right-pane">
-                    <RouterHandler key="resultviewcomp" onNavigation={this.navigation} onSearch={this.searchNavigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                    <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                 </div>
                 <div className="dashboard-footer">
                     <div className="settings">
@@ -55,10 +55,6 @@ module.exports = React.createClass({
 
     navigation: function(uri){
         this.transitionTo(uri);
-    },
-    
-    searchNavigation: function(query){
-        this.transitionTo('dashboard', null, query);
     },
     
     search: function(event){
