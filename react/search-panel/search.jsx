@@ -7,6 +7,7 @@ var InfiniteScroll = require('react-infinite-scroll')(React);
 var Reflux = require('reflux');
 var DbPromise = require('../utils/debounce-promise.js');
 var Mousetrap = require('mousetrap');
+var NOT_FOUND = 'Reference not found!', LOADING = 'Loading...';
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -33,7 +34,7 @@ module.exports = React.createClass({
                             <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
                         </fieldset>
                     </div>
-                    <InfiniteScroll pageStart={1} className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
+                    <InfiniteScroll pageStart={1} className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">{LOADING}</span>}>
                         {this.state.message?<div className="search-message">{this.state.message}</div>:''}
                         {result_rows}
                     </InfiniteScroll>
@@ -77,7 +78,7 @@ module.exports = React.createClass({
     storeUpdated: function(data){
         var message = '';
         if(data.results.length === 0){
-            message = 'Reference not found!';
+            message = NOT_FOUND;
         }
 
         this.setState({'data': data, 'message': message});
@@ -107,6 +108,8 @@ module.exports = React.createClass({
     },
 
 	search: function(page){
+        if(page===1)
+            this.setState({message: LOADING});
         actions.searchReference(this.pattern, page);
 	},
 });
