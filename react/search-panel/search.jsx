@@ -9,10 +9,8 @@ var DbPromise = require('../utils/debounce-promise.js');
 var Mousetrap = require('mousetrap');
 
 module.exports = React.createClass({
-    mixins: [Reflux.connect(store,"data")],
-
     getInitialState: function() {
-        return {data: {results: [], reached_end:true}};
+        return {data: {results: [], reached_end:true}, message:''};
     },
     
     getDefaultProps: function() {
@@ -36,7 +34,8 @@ module.exports = React.createClass({
                         </fieldset>
                     </div>
                     <InfiniteScroll pageStart={1} className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">Loading ...</span>}>
-                        {(result_rows.length===0 && this.pattern)? <div className="search-message">Reference not found!</div>: result_rows}
+                        {this.state.message?<div className="search-message">{this.state.message}</div>:''}
+                        {result_rows}
                     </InfiniteScroll>
                 </div>
         );
@@ -54,6 +53,11 @@ module.exports = React.createClass({
     componentWillMount: function(){
         this.dbpromise = new DbPromise(800);
         this.mousetrap = new Mousetrap(document.documentElement);
+        this.unsubscribe = store.listen(this.storeUpdated);
+    },
+
+    componentWillUnmount: function(){
+        this.unsubscribe();
     },
 
     componentDidMount: function(){
@@ -70,8 +74,13 @@ module.exports = React.createClass({
             this.search(1);
     },
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-       return nextState.data.results.length!==this.state.data.results.length;
+    storeUpdated: function(data){
+        var message = '';
+        if(data.results.length === 0){
+            message = 'Reference not found!';
+        }
+
+        this.setState({'data': data, 'message': message});
     },
 
     emptySearch: function(){
@@ -94,7 +103,7 @@ module.exports = React.createClass({
     },
 
     cleanResults: function(){
-        this.setState({data:{results:[], reached_end:true}});
+        this.setState({data:{results:[], reached_end:true}, message: ''});
     },
 
 	search: function(page){
