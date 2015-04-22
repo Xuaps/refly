@@ -5,39 +5,31 @@ html
     |     
     meta(charset='UTF-8')
     |     
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    |     
     meta(name='description', content='Refly is the reference library where programmers can find all the information of the most popular languages in the fastest and fluid way')
     |     
     meta(name='keywords', content='Reference, Library, Docset')
     |     
     meta(name='author', content='Xuaps')
     |     
-    link(href=assetFingerprint('/css/styles.css'), ,='', media='screen', rel='stylesheet', type='text/css')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    |     
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css', rel='stylesheet', type='text/css')
     | 
-    link(href=assetFingerprint('/css/tomorrow-night-blue.css'), ,='', media='screen', rel='stylesheet', type='text/css')
-    |     
-    link(href=assetFingerprint('/css/font-awesome.min.css'), ,='', media='screen', rel='stylesheet', type='text/css')
-    |     
-    link(href=assetFingerprint('http://fonts.googleapis.com/css?family=Raleway'), rel='stylesheet', type='text/css')
+    link(href=assetFingerprint('/css/tomorrow-night-blue.css'), rel='stylesheet', type='text/css')
+    | 
+    link(href=assetFingerprint('/css/styles.css'), rel='stylesheet', type='text/css')
   body
     #container
     |     
-    #cookie1.cookiesms
-      button.ry-btn(onclick='controlcookies()') Aceptar
-      |             
-      p
-        | This website uses cookies, if you want to use the sites without cookies or would like to know more, you can do that 
-        a(href='cookies-policy.html') here
-        |             . By continuing to browse the site, you are agreeing to our use of cookies.
-    |     
-    script(type='text/javascript', src=assetFingerprint('https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'))
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    |    
+    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
     |    
     script(type='text/javascript', src=assetFingerprint('/js/airbrake-shim.js'), data-airbrake-project-id='refly', data-airbrake-project-key="0eb2891adfa08afa30a7526ca1173596" data-airbrake-environment-name="#{environment}")
-    |    
-    script(type='text/javascript', src=assetFingerprint('/js/config.js'))
     |     
     script(type="text/javascript", src=assetFingerprint("/js/bundle.js") )
-    |     
-    script(type='text/javascript', src=assetFingerprint('/js/cookies.js'))
 
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

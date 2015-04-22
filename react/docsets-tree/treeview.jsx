@@ -70,7 +70,7 @@ var ReferencesTreeView = React.createClass({
 
     render: function() {
         return (
-                <div id="tree-view" className="full-height">
+                <div id="tree-view">
                     {this.state.data}
                 </div>
                );

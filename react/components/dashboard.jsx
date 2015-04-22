@@ -16,33 +16,26 @@ module.exports = React.createClass({
     render: function(){
 		rows = [];
         
+        rows.push(<Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>);
         if(!this.searchVisible()){
             rows.push(<TreeView key="treeviewcomp" onNodeClick={this.navigation} />);
         }
-        rows.push(<Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>);
 		
         return(
-            <div id="content">
-                <header>
-                    <a className="logo" href="/">
-                        <img src="/img/refly-big.jpg"/>
-                    </a>
-                        <ul className="menu">
+            <div className='container-fluid'>
+                <div className='row'>
+                    <div className='col-md-3 column'>
+                        {rows}
+                    </div>
+                    <div className='col-md-9 column'>
+                        <ul className="nav nav-pills">
+                            <li><Link to="settings">Settings</Link></li>
                             <li><Link to="about">About</Link></li>
                             <li><Link to="/Legal">Legal</Link></li>
                         </ul>
-                </header>
-                <div id="left-pane">
-					{rows}
-                </div>
-                <div className="right-pane">
-                    <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
-                </div>
-                <div className="dashboard-footer">
-                    <div className="settings">
-                        <button className="ry-icon fa-cog" onClick={this.settings}>settings</button>
-                    </div>
-                    <div>
+                        <div className="col-md-12 column">
+                            <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                        </div>
                     </div>
                 </div>
             </div>

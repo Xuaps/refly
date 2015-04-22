@@ -45,11 +45,9 @@ var Breadcrumbs = React.createClass({
             }
 		}
 	return(
-      <div id="breadcrumbs-view">
-          <ul className="breadcrumbs-list" className="breadcrumbsul">
+          <ol className="breadcrumb">
               {rows}
-          </ul>
-      </div>);
+          </ol>);
   },
 
   loadData: function(params){
