@@ -26,18 +26,19 @@ module.exports = React.createClass({
 	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
                 }.bind(this));
         return(
-                <div  className='search-view full-height' id='scroll_panel'>
-                    <div className="search-header">
-                        <fieldset>
-                            <input id="txtreference" ref="searchbox" type="text" className="ry-input-text" name="reference"
-                            placeholder="Reference" onKeyUp={this.onKeyUp} />
-                            <span className="ry-icon fa-close" onClick={this.emptySearch}></span>
-                        </fieldset>
+                <div className='row'>
+                    <div  className='col-md-12 column' id='scroll_panel'>
+                        <div className="input-group">
+                          <span className="input-group-addon" id="basic-addon1">
+                            <span className="glyphicon glyphicon-search" aria-hidden="true"/>
+                          </span>
+                          <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
+                        </div>
+                        <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
+                            {this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:''}
+                            {result_rows}
+                        </InfiniteScroll>
                     </div>
-                    <InfiniteScroll pageStart={1} className='resultlist' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="search-message">{LOADING}</span>}>
-                        {this.state.message?<div className="search-message">{this.state.message}</div>:''}
-                        {result_rows}
-                    </InfiniteScroll>
                 </div>
         );
     },

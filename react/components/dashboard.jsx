@@ -28,13 +28,17 @@ module.exports = React.createClass({
                         {rows}
                     </div>
                     <div className='col-md-9 column'>
-                        <ul className="nav nav-pills">
-                            <li><Link to="settings">Settings</Link></li>
-                            <li><Link to="about">About</Link></li>
-                            <li><Link to="/Legal">Legal</Link></li>
-                        </ul>
-                        <div className="col-md-12 column">
-                            <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                        <div className='row'>
+                            <ul className="nav nav-pills">
+                                <li><Link to="settings">Settings</Link></li>
+                                <li><Link to="about">About</Link></li>
+                                <li><Link to="/Legal">Legal</Link></li>
+                            </ul>
+                        </div>
+                        <div className='row'>
+                            <div className="col-md-12 column">
+                                <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                            </div>
                         </div>
                     </div>
                 </div>
