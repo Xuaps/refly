@@ -20,7 +20,7 @@ module.exports = React.createClass({
                         <div className='container'>
                             <div className='row'>
                                 <div className="col-xs-5">
-                                    <a className="btn btn-default" href="#">
+                                    <a className="btn btn-default" href="#" onClick={this.activeSideBar}>
                                         <span className="glyphicon glyphicon-menu-hamburger"></span>
                                     </a>
                                     <a href="/" alt="Refly.co">Refly</a>
@@ -34,25 +34,26 @@ module.exports = React.createClass({
                         </div>
                     </header>
                     <div className="container">
-                        <div className='row'>
-                            <nav>
+                        <div className='row row-offcanvas row-offcanvas-left'>
+                            <nav className="sidebar-offcanvas col-xs-10">
+                                <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>
+                                {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigation} />:''}
                             </nav>
-                            <article>
-                                <div className="col-xs-12">
-                                    <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
-                                </div>
+                            <article className="col-xs-12">
+                                <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                             </article>
                         </div>                        
                     </div>
                 </div>
         );
     },
-  
-    settings: function(){
-       this.transitionTo('settings');
-    },
 
+    activeSideBar: function(){
+        $('.row-offcanvas').toggleClass('active');
+    },
+  
     navigation: function(uri){
+        $('.row-offcanvas').toggleClass('active');
         this.transitionTo(uri);
     },
     
