@@ -84,10 +84,14 @@ module.exports = React.createClass({
             content = <Highlight innerHTML={true} selector="pre" > {this.state.reference.content} </Highlight>;
 		}
         return (
-               <div id='container'>
+               <div>
                     <Breadcrumbs key="breadcrumbscomp" ref="breadcrumbs" params={{docset:this.props.params.docset, uri: this.props.params.uri}}/>
-                    <div ref="resultcontent" className="result">
-                        {content}
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <div ref="resultcontent" className="result">
+                                {content}
+                            </div>
+                        </div>
                     </div>
                </div>
                 );

@@ -14,35 +14,37 @@ module.exports = React.createClass({
     },
 
     render: function(){
-		rows = [];
-        
-        rows.push(<Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>);
-        if(!this.searchVisible()){
-            rows.push(<TreeView key="treeviewcomp" onNodeClick={this.navigation} />);
-        }
-		
         return(
-            <div className='container-fluid'>
-                <div className='row'>
-                    <div className='col-md-3 column'>
-                        {rows}
-                    </div>
-                    <div className='col-md-9 column'>
-                        <div className='row'>
-                            <ul className="nav nav-pills">
-                                <li><Link to="settings">Settings</Link></li>
-                                <li><Link to="about">About</Link></li>
-                                <li><Link to="/Legal">Legal</Link></li>
-                            </ul>
-                        </div>
-                        <div className='row'>
-                            <div className="col-md-12 column">
-                                <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                <div>
+                    <header>
+                        <div className='container'>
+                            <div className='row'>
+                                <div className="col-xs-5">
+                                    <a className="btn btn-default" href="#">
+                                        <span className="glyphicon glyphicon-menu-hamburger"></span>
+                                    </a>
+                                    <a href="/" alt="Refly.co">Refly</a>
+                                </div>
+                                <div className="col-xs-3 col-xs-offset-4 text-right">
+                                    <a className="btn btn-default" href="#">
+                                        <span className="glyphicon glyphicon-user"></span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
+                    </header>
+                    <div className="container">
+                        <div className='row'>
+                            <nav>
+                            </nav>
+                            <article>
+                                <div className="col-xs-12">
+                                    <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                                </div>
+                            </article>
+                        </div>                        
                     </div>
                 </div>
-            </div>
         );
     },
   
