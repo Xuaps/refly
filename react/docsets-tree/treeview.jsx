@@ -24,7 +24,21 @@ var ReferencesTreeView = React.createClass({
     },
 
     componentWillUnmount: function(){
+        window.removeEventListener('resize', this.calculateHeight, false);
         this.unsubscribe();
+    },
+
+    componentDidMount: function(){
+        window.addEventListener('resize', this.calculateHeight, false);
+        this.calculateHeight();
+    },
+    
+    componentDidUpdate: function(prevProps, prevState){
+        this.calculateHeight();
+    },
+
+    calculateHeight: function(){
+        this.refs['tree-view-panel'].getDOMNode().style.height = window.document.body.clientHeight - 145 +'px';        
     },
 
     onDocsetsChange: function(state){
@@ -70,7 +84,7 @@ var ReferencesTreeView = React.createClass({
 
     render: function() {
         return (
-                <div className='row tree-view-panel'>
+                <div ref='tree-view-panel' className='row tree-view-panel'>
                         {this.state.data}
                 </div>
                );

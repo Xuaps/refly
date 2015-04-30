@@ -74,17 +74,13 @@ header {
 }
 
 /*search*/
-.search-results{
+#search-results{
     overflow-y:auto;
-    height: 100%;
-    bottom: 145px;
 }
 
 /*        Treeview        */
 /* the tree node's style */
 .tree-view-panel{
-    margin-bottom:50px;
-    height: 100%;
     overflow-y:auto;
 }
 

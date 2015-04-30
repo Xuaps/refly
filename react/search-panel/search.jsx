@@ -27,17 +27,19 @@ module.exports = React.createClass({
                 }.bind(this));
         return(
                 <div className='row'>
-                    <div  className='col-md-12 column' id='scroll_panel'>
+                    <div  className='col-xs-12 column'>
                         <div className="input-group">
                           <span className="input-group-addon" id="basic-addon1">
                             <span className="glyphicon glyphicon-search" aria-hidden="true"/>
                           </span>
                           <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
                         </div>
-                        <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='scroll_panel' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
-                            {this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:''}
-                            {result_rows}
-                        </InfiniteScroll>
+                        <div id="search-results" ref='search-results'>
+                            <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='search-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
+                                {this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:undefined}
+                                {result_rows}
+                            </InfiniteScroll>
+                        </div>
                     </div>
                 </div>
         );
@@ -59,10 +61,14 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function(){
+        window.removeEventListener('resize', this.calculateHeight, false);
         this.unsubscribe();
     },
 
     componentDidMount: function(){
+        window.addEventListener('resize', this.calculateHeight, false);
+        this.calculateHeight();
+
         this.pattern = this.props.search;
 		var search_box = this.refs.searchbox.getDOMNode('#txtreference');
         var default_handler = Mousetrap.handleKey;
@@ -74,6 +80,10 @@ module.exports = React.createClass({
         };
         if(this.pattern)
             this.search(1);
+    },
+
+    calculateHeight: function(){
+        this.refs['search-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - 125 +'px';        
     },
 
     storeUpdated: function(data){
