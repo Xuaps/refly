@@ -49,7 +49,7 @@ if (!Object.assign) {
 }
 
 Router.run(routes, Router.HistoryLocation, function(Handler){
-    React.render(<Handler/>, document.getElementById('content'));
+    React.render(<Handler/>, document.getElementById('react-anchor'));
 });
 
 // react extension

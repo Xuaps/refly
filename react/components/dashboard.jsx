@@ -33,13 +33,22 @@ module.exports = React.createClass({
                             </div>
                         </div>
                     </header>
-                    <div className="container">
+                    <div id="content" className="container">
                         <div className='row row-offcanvas row-offcanvas-left'>
-                            <nav className="sidebar-offcanvas col-xs-10">
-                                <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>
-                                {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigation} />:''}
-                            </nav>
-                            <article className="col-xs-12">
+                            <div className="col-sm-3 sidebar-offcanvas">
+                                <div className="sidebar-panel">
+                                    <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>
+                                    {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigation} />:''}
+                                </div>
+                                <div className="footer sidebar-panel">
+                                        <ul className="nav nav-pills">
+                                            <li><Link to="settings">Settings</Link></li>
+                                            <li><Link to="about">About</Link></li>
+                                            <li><Link to="/Legal">Legal</Link></li>
+                                        </ul>
+                                </div>
+                            </div>
+                            <article className="col-xs-12 col-sm-9">
                                 <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                             </article>
                         </div>                        
