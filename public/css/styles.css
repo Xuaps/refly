@@ -16,6 +16,10 @@ header {
 }
 
 
+.sidebar-panel{
+  width: 24%;
+  position: fixed;
+}
 /*
  * Off Canvas
  * --------------------------------------------------
@@ -39,33 +43,33 @@ header {
 
   .row-offcanvas-right
   .sidebar-offcanvas {
-    right: -300px; /* 6 columns */
+    right: -80%; /* 6 columns */
   }
 
   .row-offcanvas-left
   .sidebar-offcanvas {
-    left: -300px; /* 6 columns */
+    left: -80%; /* 6 columns */
   }
 
   .row-offcanvas-right.active {
-    right: 300px; /* 6 columns */
+    right: 80%; /* 6 columns */
   }
 
   .row-offcanvas-left.active {
-    left: 300px; /* 6 columns */
+    left: 80%; /* 6 columns */
   }
 
   .sidebar-offcanvas {
     position: absolute;
     top: 0;
-    width: 300px; /* 6 columns */
+    width: 80%; /* 6 columns */
+  }
+  
+  .sidebar-panel{
+      width:75%;
   }
 }
 
-.sidebar-panel{
-  width: 285px;
-  position: fixed;
-}
 
 /* sidebar footer */
 .footer {
@@ -80,7 +84,7 @@ header {
 
 /*        Treeview        */
 /* the tree node's style */
-.tree-view-panel{
+#tree-view-panel{
     overflow-y:auto;
 }
 

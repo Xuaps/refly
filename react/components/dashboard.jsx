@@ -4,6 +4,7 @@ var Search = require('../search-panel/search.jsx');
 var TreeView = require('../docsets-tree/treeview.jsx');
 var URI = require ('URIjs');
 var Router = require('react-router');
+var $ = require('jquery-browserify');
 var RouterHandler = Router.RouteHandler;
 var Link = Router.Link;
 
@@ -17,7 +18,7 @@ module.exports = React.createClass({
         return(
                 <div>
                     <header>
-                        <div className='container'>
+                        <div className='container-fluid'>
                             <div className='row'>
                                 <div className="col-xs-5">
                                     <a className="btn btn-default" href="#" onClick={this.activeSideBar}>
@@ -33,18 +34,17 @@ module.exports = React.createClass({
                             </div>
                         </div>
                     </header>
-                    <div id="content" className="container">
+                    <div id="content" className="container-fluid">
                         <div className='row row-offcanvas row-offcanvas-left'>
                             <div className="col-sm-3 sidebar-offcanvas">
                                 <div className="sidebar-panel">
-                                    <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigation} search={this.getQuery().ref}/>
-                                    {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigation} />:''}
+                                    <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
+                                    {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigateWithTransition} />:undefined}
                                 </div>
                                 <div className="footer sidebar-panel">
                                         <ul className="nav nav-pills">
-                                            <li><Link to="settings">Settings</Link></li>
-                                            <li><Link to="about">About</Link></li>
-                                            <li><Link to="/Legal">Legal</Link></li>
+                                            <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
+                                            <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
                                         </ul>
                                 </div>
                             </div>
@@ -61,8 +61,12 @@ module.exports = React.createClass({
         $('.row-offcanvas').toggleClass('active');
     },
   
-    navigation: function(uri){
+    navigateWithTransition: function(uri){
         $('.row-offcanvas').toggleClass('active');
+        this.navigation(uri);
+    },
+
+    navigation: function(uri){
         this.transitionTo(uri);
     },
     

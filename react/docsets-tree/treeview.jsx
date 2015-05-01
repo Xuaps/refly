@@ -84,7 +84,7 @@ var ReferencesTreeView = React.createClass({
 
     render: function() {
         return (
-                <div ref='tree-view-panel' className='row tree-view-panel'>
+                <div id="tree-view-panel" ref='tree-view-panel'>
                         {this.state.data}
                 </div>
                );

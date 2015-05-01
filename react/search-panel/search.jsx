@@ -26,20 +26,18 @@ module.exports = React.createClass({
 	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
                 }.bind(this));
         return(
-                <div className='row'>
-                    <div  className='col-xs-12 column'>
-                        <div className="input-group">
-                          <span className="input-group-addon" id="basic-addon1">
-                            <span className="glyphicon glyphicon-search" aria-hidden="true"/>
-                          </span>
-                          <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
-                        </div>
-                        <div id="search-results" ref='search-results'>
-                            <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='search-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
-                                {this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:undefined}
-                                {result_rows}
-                            </InfiniteScroll>
-                        </div>
+                <div>
+                    <div className="input-group">
+                      <span className="input-group-addon" id="basic-addon1">
+                        <span className="glyphicon glyphicon-search" aria-hidden="true"/>
+                      </span>
+                      <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
+                    </div>
+                    <div id="search-results" ref='search-results'>
+                        <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='search-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
+                            {this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:undefined}
+                            {result_rows}
+                        </InfiniteScroll>
                     </div>
                 </div>
         );
