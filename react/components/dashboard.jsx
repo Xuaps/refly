@@ -20,16 +20,27 @@ module.exports = React.createClass({
                     <header>
                         <div className='container-fluid'>
                             <div className='row'>
-                                <div className="col-xs-5">
+                                <div className="col-xs-5 visible-xs">
                                     <a className="btn btn-default" href="#" onClick={this.activeSideBar}>
                                         <span className="glyphicon glyphicon-menu-hamburger"></span>
                                     </a>
                                     <a href="/" alt="Refly.co">Refly</a>
                                 </div>
-                                <div className="col-xs-3 col-xs-offset-4 text-right">
+                                <div className="col-xs-3 col-xs-offset-4 visible-xs text-right">
                                     <a className="btn btn-default" href="#">
                                         <span className="glyphicon glyphicon-user"></span>
                                     </a>
+                                </div>
+                                <div className="col-xs-12 hidden-xs">
+                                    <div className='navbar-header'>
+                                        <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
+                                    </div>
+                                    <div className="navbar-collapse">
+                                        <ul className="nav navbar-nav navbar-right">
+                                            <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
+                                            <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
+                                        </ul>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +52,7 @@ module.exports = React.createClass({
                                     <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
                                     {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigateWithTransition} />:undefined}
                                 </div>
-                                <div className="footer sidebar-panel">
+                                <div className="footer sidebar-panel visible-xs">
                                         <ul className="nav nav-pills">
                                             <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
                                             <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
