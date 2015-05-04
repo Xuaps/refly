@@ -1,4 +1,3 @@
-var jQuery = require('jquery-browserify');
 var settings = require('../utils/settings.js');
 
 function Api(){
@@ -29,14 +28,14 @@ Api.prototype._addUrisToReferences= function(res){
 
 Api.prototype.get = function (resource, filters){
 	if(resource==='docset_all'){
-	    return jQuery.ajax({
+	    return $.ajax({
 	        url: this._url_docset_all,
 	        method: 'GET'
 	    }).then(function(res){
             return res['_embedded']['rl:docsets'];   
         });
 	}else if(resource==='breadcrumbs'){
-        return jQuery.ajax({
+        return $.ajax({
             context: this,
 	        url: this._url_breadcrumbs.format(filters.uri),
 	        method: 'GET'

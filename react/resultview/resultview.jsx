@@ -3,7 +3,6 @@ var React = require('react');
 var Router = require('react-router');
 var URI = require('URIjs');
 var Reflux = require('reflux');
-var $ = require('jquery-browserify');
 
 var DbPromise = require('../utils/debounce-promise.js');
 

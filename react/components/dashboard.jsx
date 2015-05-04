@@ -4,7 +4,6 @@ var Search = require('../search-panel/search.jsx');
 var TreeView = require('../docsets-tree/treeview.jsx');
 var URI = require ('URIjs');
 var Router = require('react-router');
-var $ = require('jquery-browserify');
 var RouterHandler = Router.RouteHandler;
 var Link = Router.Link;
 
