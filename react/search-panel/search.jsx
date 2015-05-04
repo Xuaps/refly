@@ -25,6 +25,14 @@ module.exports = React.createClass({
                     return <SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.onClickHandler}
 	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
                 }.bind(this));
+       var content;
+       if(result_rows.length>0){
+           content = <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='search-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
+                        {result_rows}
+                    </InfiniteScroll>;
+        }else{
+            content = this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:undefined;
+        }
         return(
                 <div>
                     <div className="input-group">
@@ -34,10 +42,7 @@ module.exports = React.createClass({
                       <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
                     </div>
                     <div id="search-results" ref='search-results'>
-                        <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='search-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
-                            {this.state.message?<div className="alert alert-info" role="alert">{this.state.message}</div>:undefined}
-                            {result_rows}
-                        </InfiniteScroll>
+                        {content}
                     </div>
                 </div>
         );
