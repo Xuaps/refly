@@ -20,32 +20,38 @@ module.exports = React.createClass({
                     <header>
                         <div className='container-fluid'>
                             <div className='row'>
-                                <div className="col-xs-5 visible-xs">
-                                    <a className="btn btn-default" href="#" onClick={this.activeSideBar}>
-                                        <span className="glyphicon glyphicon-menu-hamburger"></span>
-                                    </a>
-                                    <a href="/" alt="Refly.co">Refly</a>
-                                </div>
-                                <div className="col-xs-3 col-xs-offset-4 visible-xs text-right">
-                                    <a className="btn btn-default" href="#">
-                                        <span className="glyphicon glyphicon-user"></span>
-                                    </a>
-                                </div>
-                                <div className="col-xs-12 hidden-xs">
-                                    <div className='navbar-header'>
+                                <div className="col-xs-12">
+                                    <nav className="navbar navbar-default navbar-fixed-top">
+                                      <div className="container">
+                                        <div className='navbar-header'>
+                                            <a className="btn btn-default navbar-toggle navbar-btn" href="#" onClick={this.activeSideBar}>
+                                                <span className="glyphicon glyphicon-menu-hamburger"></span>
+                                            </a>                                
+                                            <a className="btn btn-default navbar-btn navbar-toggle" href="#">
+                                                <span className="glyphicon glyphicon-user"></span>
+                                            </a>
                                         <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
+                                        </div>
+                                        <div className="navbar-collapse hidden-xs">
+                                            <form className="navbar-form navbar-right" role="search">
+                                              <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="User"/>
+                                                <input type="password" className="form-control" placeholder="Pass"/>
+                                              </div>
+                                              <button type="submit" className="btn btn-default">Log in</button>
+                                            </form>
+                                            <ul className="nav navbar-nav navbar-right">
+                                                <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
+                                                <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
+                                            </ul>
+                                         </div>
                                     </div>
-                                    <div className="navbar-collapse">
-                                        <ul className="nav navbar-nav navbar-right">
-                                            <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
-                                            <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
-                                        </ul>
-                                     </div>
-                                </div>
+                                 </nav>
+                               </div>
                             </div>
                         </div>
                     </header>
-                    <div id="content" className="container-fluid">
+                    <div className="container-fluid">
                         <div className='row row-offcanvas row-offcanvas-left'>
                             <div className="col-sm-3 sidebar-offcanvas">
                                 <div className="sidebar-panel">

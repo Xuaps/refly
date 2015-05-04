@@ -1,20 +1,9 @@
 html,
 body {
     overflow-x:hidden;
+    padding-top: 35px;
     height: 100%;
 }
-
-header {
-    width:100%;
-    position: fixed;
-    top:0px;
-    z-index:999;
-}
-
-#content{
-    margin-top:50px;
-}
-
 
 .sidebar-panel{
   width: 24%;
@@ -66,7 +55,8 @@ header {
   }
   
   .sidebar-panel{
-      width:75%;
+      width:70%;
+      padding-left:20px;
   }
 }
 
@@ -74,7 +64,8 @@ header {
 /* sidebar footer */
 .footer {
   bottom: 0;
-  background-color: #f5f5f5;
+  color:white;
+  background-color: #EEEEEE;
 }
 
 /*search*/
