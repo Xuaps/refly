@@ -86,7 +86,8 @@ module.exports = React.createClass({
     },
 
     calculateHeight: function(){
-        this.refs['search-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - 125 +'px';        
+        var footer = (window.document.body.clientWidth<768?44:0);
+        this.refs['search-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - footer - 108 +'px';        
     },
 
     storeUpdated: function(data){

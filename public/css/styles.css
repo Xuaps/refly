@@ -1,8 +1,11 @@
 html,
 body {
-    overflow-x:hidden;
-    padding-top: 35px;
     height: 100%;
+}
+
+body {
+    overflow-x:hidden;
+    padding-top: 70px;
 }
 
 .sidebar-panel{

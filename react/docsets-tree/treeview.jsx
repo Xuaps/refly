@@ -38,7 +38,8 @@ var ReferencesTreeView = React.createClass({
     },
 
     calculateHeight: function(){
-        this.refs['tree-view-panel'].getDOMNode().style.height = window.document.body.clientHeight - 145 +'px';        
+        var footer = (window.document.body.clientWidth<768?44:0);
+        this.refs['tree-view-panel'].getDOMNode().style.height = window.document.body.clientHeight - footer - 108 +'px';        
     },
 
     onDocsetsChange: function(state){
