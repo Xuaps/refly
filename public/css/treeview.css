@@ -1,0 +1,332 @@
+/*        Treeview        */
+/* the tree node's style */
+#tree-view-panel{
+    overflow-y:auto;
+}
+
+.tree-view {
+    margin-top:6px;
+}
+.tree-view div {
+    overflow: hidden;
+}
+
+.tree-view_children {
+  margin-left: 16px;
+}
+.tree-view_children-collapsed {
+    height: 0px;
+}
+.tree-view_arrow {
+      cursor: pointer;
+      margin-right: 2px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      float: left;
+}
+
+/* rotate the triangle to close it */
+.tree-view_arrow-collapsed {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.docset-icon{
+    cursor: pointer;
+}
+/* tree-view icons */
+.docset-icon:before {
+    background-image: url('../img/docsets.png');
+    background-position: -24px -48px;
+    height: 24px;
+    width: 24px;
+    content: '';
+    float:left;
+    margin-right:2px;
+    margin-top:-2px;
+}
+
+.docsets-dotnet:before {
+    background-position: 0px 0px;
+}
+.docsets-Haskel:before {
+    background-position: -24px 0px;
+}
+.docsets-Nodejs:before {
+    background-position: -48px 0px;
+}
+.docsets-Angularjs:before {
+    background-position: -72px 0px;
+}
+.docsets-Backbonejs:before {
+    background-position: -96px 0px;
+}
+
+.docsets-java:before {
+    background-position: 0px -24px;
+}
+.docsets-JavaScript:before {
+    background-position: -24px -24px;
+}
+.docsets-PHP:before {
+    background-position: -48px -24px;
+}
+.docsets-Bower:before {
+    background-position: -72px -24px;
+}
+.docsets-Chai:before {
+    background-position: -96px -24px;
+}
+
+.docsets-Ruby:before {
+    background-position: 0px -48px;
+}
+.docsets-slash:before {
+    background-position: -24px -48px;
+}
+.docsets-HTML:before {
+    background-position: -48px -48px;
+}
+.docsets-Cordova:before {
+    background-position: -72px -48px;
+}
+.docsets-D3:before {
+    background-position: -96px -48px;
+}
+
+.docsets-XPath:before {
+    background-position: 0px -72px;
+}
+.docsets-DOM:before {
+    background-position: -24px -72px;
+}
+.docsets-CSS:before {
+    background-position: -48px -72px;
+}
+.docsets-Emberjs:before {
+    background-position: -72px -72px;
+}
+.docsets-Go:before {
+    background-position: -96px -72px;
+}
+
+.docsets-React:before {
+    background-position: 0px -96px;
+}
+.docsets-SVG:before {
+    background-position: -24px -96px;
+}
+.docsets-Git:before {
+    background-position: -48px -96px;
+}
+.docsets-Grunt:before {
+    background-position: -72px -96px;
+}
+.docsets-Express:before {
+    background-position: -96px -96px;
+}
+
+.docsets-JQuery:before {
+    background-position: 0px -120px;
+}
+.docsets-Less:before {
+    background-position: -24px -120px;
+}
+.docsets-MarkDown:before {
+    background-position: -48px -120px;
+}
+.docsets-Modernizr:before {
+    background-position: -72px -120px;
+}
+.docsets-Mongoosejs:before {
+    background-position: -96px -120px;
+}
+
+.docsets-Nginx:before {
+    background-position: 0px -144px;
+}
+.docsets-PHPUnit:before {
+    background-position: -24px -144px;
+}
+.docsets-PostgreSQL:before {
+    background-position: -48px -144px;
+}
+.docsets-Redis:before {
+    background-position: -72px -144px;
+}
+.docsets-RequireJS:before {
+    background-position: -96px -144px;
+}
+
+.docsets-Rethinkdb:before {
+    background-position: 0px -168px;
+}
+.docsets-Sass:before {
+    background-position: -24px -168px;
+}
+.docsets-Socket:before {
+    background-position: -48px -168px;
+}
+.docsets-Yii:before {
+    background-position: -72px -168px;
+}
+.docsets-Underscore:before {
+    background-position: -96px -168px;
+}
+
+.docsets-Python:before {
+    background-position: 0px -192px;
+}
+.docsets-Sinonjs:before {
+    background-position: -24px -192px;
+}
+.docsets-Mongodb:before {
+    background-position: -48px -192px;
+}
+.docsets-DOM_Events:before {
+    background-position: -72px -192px;
+}
+.type-icon{
+    cursor: pointer;
+}
+.type-icon:before {
+    background-image: url('../img/types.png');
+    height: 16px;
+    width: 16px;
+    display: block;
+    content: '';
+    float: left;
+    margin: 1px 7px 0px 0px;
+}
+.type-class:before {
+    background-position: 0 0;
+}
+.type-constant:before {
+    background-position: -16px 0;
+}
+.type-context:before {
+    background-position: -32px 0;
+}
+.type-control:before {
+    background-position: -48px 0;
+}
+.type-docset:before {
+    background-position: -64px 0;
+}
+.type-event:before {
+    background-position: 0 -16px;
+}
+.type-exception:before {
+    background-position: -16px -16px;
+}
+.type-expression:before {
+    background-position: -32px -16px;
+}
+.type-function:before {
+    background-position: -48px -16px;
+}
+.type-generator:before {
+    background-position: -64px -16px;
+}
+.type-guide:before {
+    background-position: 0 -32px;
+}
+.type-interface:before {
+    background-position: -16px -32px;
+}
+.type-method:before {
+    background-position: -32px -32px;
+}
+.type-wrapper:before {
+    background-position: -48px -32px;
+}
+.type-module:before {
+    background-position: -64px -32px;
+}
+.type-namespace:before {
+    background-position: 0 -48px;
+}
+.type-object:before {
+    background-position: -16px -48px;
+}
+.type-operator:before {
+    background-position: -32px -48px;
+}
+.type-others:before {
+    background-position: -48px -48px;
+}
+.type-predefinedvariable:before {
+    background-position: -64px -48px;
+}
+.type-property:before {
+    background-position: 0 -64px;
+}
+.type-reference:before {
+    background-position: -16px -64px;
+}
+.type-statement:before {
+    background-position: -32px -64px;
+}
+.type-type:before {
+    background-position: -48px -64px;
+}
+.type-variable:before {
+    background-position: -64px -64px;
+}
+/*
+#tree-view .docset-icon, #tree-view .type-icon {
+    display: inline-block;
+}
+#tree-view div.docset-icon, #tree-view div.type-icon {
+    width: 270px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#tree-view div.type-icon {
+    padding: 3px 6px 4px;
+    cursor: pointer;
+}
+#tree-view span.docset-icon {
+    padding: 4px 4px 1px 4px;
+    cursor: pointer;
+    width: 296px;
+}
+#tree-view span.type-icon {
+    padding: 4px 6px 5px;
+    cursor: pointer;
+    width: 270px;
+}
+/*
+.selected {
+    background-color: #333;
+    color: #FFF;
+}
+.tree-view .tree-view_children>div.selected:hover {
+    background-color: #333;
+    color: #FFF;
+}
+span.docset-icon:hover {
+    background: #d2e4f7;
+}
+span.type-icon:hover {
+    background: #d2e4f7;
+    color: #000;
+}
+.docset-icon:focus {
+    background: #333;
+    color: #FFF;
+}
+.type-icon:focus {
+    background: #333;
+    color: #FFF;
+}
+.tree-view_children>div.type-icon:hover {
+    background: #d2e4f7;
+    color: #000;
+}
+
+/* style for the container */
