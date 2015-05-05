@@ -44,6 +44,7 @@ module.exports = React.createClass({
             event.preventDefault();
             this.props.onNavigation(uri.resource());
         }.bind(this));
+        this.refs.resultcontent.getDOMNode().style.minHeight = document.body.clientHeight + 'px';
     },
 
 	componentDidUpdate: function(){

@@ -6,11 +6,18 @@ body {
 body {
     overflow-x:hidden;
     padding-top: 70px;
+    background-color:#F5F5F5;
 }
 
 .sidebar-panel{
   width: 22%;
   position: fixed;
+}
+
+article{
+    min-height: 100%;
+    padding-top: 10px;
+    background: white;
 }
 
 
@@ -79,6 +86,7 @@ body {
 .footer {
   bottom: 0;
   background-color: #222222;
+  width:100%;
 }
 
 .footer a {
