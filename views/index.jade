@@ -23,12 +23,22 @@ html
     |     
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     |    
+    script(type='text/javascript', src=assetFingerprint('/js/jquery.cookiesdirective.js'))
+    |    
     script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
     |    
     script(type='text/javascript', src=assetFingerprint('/js/airbrake-shim.js'), data-airbrake-project-id='refly', data-airbrake-project-key="0eb2891adfa08afa30a7526ca1173596" data-airbrake-environment-name="#{environment}")
     |     
     script(type="text/javascript", src=assetFingerprint("/js/bundle.js") )
-
+    
+    script.
+      $(document).ready(function() {
+      $.cookiesDirective({
+      privacyPolicyUri: '/cookies',
+      position: 'bottom',
+      explicitConsent:false,
+      });});
+      
     script.
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

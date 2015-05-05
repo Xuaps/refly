@@ -10,6 +10,7 @@ var Docsets = require('./docsetlist.jsx');
 var Settings = require('../settings/settings.jsx');
 var About = require('./about.jsx');
 var Legal = require('./legal.jsx');
+var Cookies = require('./cookies.jsx');
 
 var routes = (
     <Route name='dashboard' path='/' handler={Dashboard}>
@@ -17,6 +18,7 @@ var routes = (
         <Route name='settings' path='settings' handler={Settings}/>
         <Route name='legal' handler={Legal}/>
         <Route name='about' handler={About}/>
+        <Route name='cookies' handler={Cookies}/>
         <Route name="result" path=':docset/*' handler={Result}/>
         <Route name="notfound" path=':splat' handler={Result}/>
         <DefaultRoute handler={Result}/>
