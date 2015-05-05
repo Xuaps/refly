@@ -13,6 +13,9 @@ body {
   position: fixed;
 }
 
+.clearer{
+    pointer-events:auto;
+}
 /*
  * Off Canvas
  * --------------------------------------------------

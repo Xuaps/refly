@@ -35,11 +35,12 @@ module.exports = React.createClass({
         }
         return(
                 <div>
-                    <div className="input-group">
+                    <div className="input-group has-feedback">
                       <span className="input-group-addon" id="basic-addon1">
                         <span className="glyphicon glyphicon-search" aria-hidden="true"/>
                       </span>
                       <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
+                      <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback" onClick={this.emptySearch}></span>
                     </div>
                     <div id="search-results" ref='search-results'>
                         {content}
@@ -77,6 +78,7 @@ module.exports = React.createClass({
         var default_handler = Mousetrap.handleKey;
 
         search_box.value = this.props.search;
+        $(search_box).next('span').toggle(Boolean(this.props.search));
         this.mousetrap.handleKey = function(character, modifiers, e){
             search_box.focus();
             default_handler(character, modifiers, e);
@@ -84,7 +86,7 @@ module.exports = React.createClass({
         if(this.pattern)
             this.search(1);
     },
-
+    
     calculateHeight: function(){
         var footer = (window.document.body.clientWidth<768?44:0);
         this.refs['search-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - footer - 108 +'px';        
@@ -100,13 +102,15 @@ module.exports = React.createClass({
     },
 
     emptySearch: function(){
-        this.refs.searchbox.getDOMNode('#txtreference').value='';
+        $(this.refs.searchbox.getDOMNode('#txtreference')).val('').focus();
+        $(this.refs.searchbox.getDOMNode('#txtreference')).next('span').hide();
         this.props.onKeyUpEvent({target:{value: ''}});
         this.cleanResults();
     },
 
     onKeyUp: function(event){
 		event.persist();
+        $(event.target).next('span').toggle(Boolean(event.target.value));
         this.dbpromise.debounce().then(function () {
             this.props.onKeyUpEvent(event);
             if(!event.target.value){
@@ -115,6 +119,7 @@ module.exports = React.createClass({
                 this.pattern = event.target.value;
                 this.search(1);
             }
+
         }.bind(this)).done();
     },
 
