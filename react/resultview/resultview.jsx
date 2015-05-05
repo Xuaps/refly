@@ -34,8 +34,12 @@ module.exports = React.createClass({
             if(uri.host()!==baseUri.host())
                 return;
             
-            if(uri.path() === baseUri.path())
+            if(uri.path() === baseUri.path()){
+                if(uri.hash()){
+                    this.resetScroll(uri.hash());
+                }
                 return;
+            }
 
             event.preventDefault();
             this.props.onNavigation(uri.resource());
@@ -45,23 +49,23 @@ module.exports = React.createClass({
 	componentDidUpdate: function(){
 		this.dbpromise.debounce().then(
             function(){
-                this.resetScroll();
+                this.resetScroll((this.state.reference && this.state.reference.content_anchor)?'#'+this.state.reference.content_anchor:'');
             }.bind(this)        
         ).done();
 	},
 
-	resetScroll: function(){
+	resetScroll: function(anchor){
         var position = 0;
-        var anchor = window.location.hash?window.location.hash:((this.state.reference && this.state.reference.content_anchor)?'#'+this.state.reference.content_anchor:'');
+
         if(anchor){
             anchor_o=$(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1'));
             if(anchor_o.length === 0){
                 Airbrake.push({name: 'Anchor not found', message: 'Anchor {0} not found in {1}.'.format(anchor, this.state.reference.uri), stack: new Error().stack});
                 return; 
             }
-            position = this.refs.resultcontent.getDOMNode().scrollTop + anchor_o.offset().top - this.refs.breadcrumbs.getDOMNode().clientHeight - 50;
+            position = anchor_o.offset().top - 60;
         }
-        this.refs.resultcontent.getDOMNode().scrollTop = position;
+        $('html, body').animate({ scrollTop: position }, 300, function(){ });
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
