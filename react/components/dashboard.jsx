@@ -21,7 +21,7 @@ module.exports = React.createClass({
                             <div className='row'>
                                 <div className="col-xs-12">
                                     <nav className="navbar navbar-default navbar-fixed-top">
-                                      <div className="container">
+                                      <div className="container-fluid">
                                         <div className='navbar-header'>
                                             <a className="btn btn-default navbar-toggle navbar-btn" href="#" onClick={this.activeSideBar}>
                                                 <span className="glyphicon glyphicon-menu-hamburger"></span>
@@ -29,7 +29,7 @@ module.exports = React.createClass({
                                             <a className="btn btn-default navbar-btn navbar-toggle" href="#">
                                                 <span className="glyphicon glyphicon-user"></span>
                                             </a>
-                                        <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
+                                            <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <form className="navbar-form navbar-right" role="search">
