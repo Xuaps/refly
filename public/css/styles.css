@@ -9,8 +9,15 @@ body {
 }
 
 .sidebar-panel{
-  width: 24%;
+  width: 22%;
   position: fixed;
+}
+
+
+@media screen and (max-width: 991px) {
+    .sidebar-panel{
+        width: 30%;
+    }
 }
 
 .clearer{
@@ -62,7 +69,7 @@ body {
   }
   
   .sidebar-panel{
-      width:70%;
+      width:77%;
       padding-left:20px;
   }
 }

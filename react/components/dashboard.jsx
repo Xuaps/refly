@@ -52,7 +52,7 @@ module.exports = React.createClass({
                     </header>
                     <div className="container-fluid">
                         <div className='row row-offcanvas row-offcanvas-left'>
-                            <div className="col-sm-3 sidebar-offcanvas">
+                            <div className="col-sm-4 col-md-3 sidebar-offcanvas">
                                 <div className="sidebar-panel">
                                     <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
                                     {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigateWithTransition} />:undefined}
@@ -64,7 +64,7 @@ module.exports = React.createClass({
                                         </ul>
                                 </div>
                             </div>
-                            <article className="col-xs-12 col-sm-9">
+                            <article className="col-xs-12 col-sm-8 col-md-9">
                                 <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
                             </article>
                         </div>                        
