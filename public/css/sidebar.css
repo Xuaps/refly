@@ -5,6 +5,7 @@
 .sidebar-panel{
   width: 22%;
   position: fixed;
+  padding-left:20px;
 }
 
 @media screen and (max-width: 991px) {
@@ -59,8 +60,11 @@
   }
   
   .sidebar-panel{
-      width:77%;
-      padding-left:20px;
+      width:73%;
+  }
+
+  .row-offcanvas-left.active .sidebar-panel{
+    left: 0px; /* 6 columns */
   }
 }
 
