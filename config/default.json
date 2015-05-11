@@ -20,5 +20,9 @@
 
   "njstrace": {
     "enabled": false
+  },
+
+  "cookies": {
+      "secret": "lJthXcFVOitYFpSkUA"
   }
 }

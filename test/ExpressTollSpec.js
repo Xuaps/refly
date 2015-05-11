@@ -5,7 +5,8 @@ describe('express-toll', function(){
         req: {},
         res: {
             set: function(){},
-            send: function(){} 
+            send: function(){},
+            status: function(){}
         },
         next: function(){}
     };
@@ -14,18 +15,19 @@ describe('express-toll', function(){
         spyOn(data, 'next');
 
         var toll  = new Toll(function(){return true;});
-        toll.activate(data.req, data.res, data.next);
+        toll.activate()(data.req, data.res, data.next);
 
         expect(data.next).toHaveBeenCalled();
     });
 
     it('should stop the request and return a 402 when the condition is not satisfied', function(){
         spyOn(data, 'next');
+        spyOn(data.res, 'status');
 
         var toll = new Toll(function(){return false;});
-        toll.activate(data.req, data.res, data.next);
+        toll.activate()(data.req, data.res, data.next);
 
-        expect(data.res.status).toBe(402);
+        expect(data.res.status).toHaveBeenCalledWith(402);
         expect(data.next).not.toHaveBeenCalled();
     });
 });
