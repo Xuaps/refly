@@ -10,7 +10,7 @@ var express = require('express')
   , airbrake = require('airbrake').createClient('0eb2891adfa08afa30a7526ca1173596')
   , toll = require('./routes/express-toll.js')
   , session = require('cookie-session')
-  , session_provider = require('./routes/refly-session.js');
+  , session_provider = require('./routes/client-manager.js');
 
 var app = express();
 var env = process.env.NODE_ENV || 'development';
@@ -33,7 +33,7 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
 app.use(session_provider); 
 app.use(airbrake.expressHandler());
-app.use(new toll(function(){return false}, "Payment required.").activate());
+app.use(new toll(function(){return true}, "Payment required.").activate());
 
 /* routes */
 app.use(refly_router);
