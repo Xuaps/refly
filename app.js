@@ -10,7 +10,8 @@ var express = require('express')
   , airbrake = require('airbrake').createClient('0eb2891adfa08afa30a7526ca1173596')
   , toll = require('./routes/express-toll.js')
   , session = require('cookie-session')
-  , session_provider = require('./routes/client-manager.js');
+  , session_provider = require('./routes/client-manager.js')
+  , user_manager = require('./routes/users-manager.js');
 
 var app = express();
 var env = process.env.NODE_ENV || 'development';
@@ -32,6 +33,7 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 /* middlewares */
 app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
 app.use(session_provider); 
+app.use(user_manager);
 app.use(airbrake.expressHandler());
 app.use(new toll(function(){return true}, "Payment required.").activate());
 

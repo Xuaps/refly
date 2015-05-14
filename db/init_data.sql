@@ -37,3 +37,8 @@ INSERT INTO refs(id, docset, reference, type, content, uri, parent_uri) VALUES (
 -- DOCSETS
 INSERT INTO docsets (docset, default_uri, update_date, label, active) VALUES ('slash','/slash/test.html', CURRENT_DATE, 'new', true);
 INSERT INTO docsets (docset, default_uri, label, active) VALUES ('node', '/node/' , 'soon', false);
+-- CLIENTS AND USERS
+INSERT INTO users(id, email) VALUES (95, '123456@anonymous');
+INSERT INTO clients(id, user_id) VALUES ('44022900-9030-4c57-8b74-f5779ca015d4', 95);
+
+

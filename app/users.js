@@ -1,17 +1,28 @@
 var db = require('./db');
-var filters = require('./filters');
+
 function Users(){
     this._query = db('users');
 } 
 
 Users.prototype.getBySessionId = function(client_id){
-    this._query = this._query.innerJoin('clients', 'users.id', 'clients.user_id')
-        .where('clients.id', filters.operators.EQUAL, client_id);
-    return this.execute().then(function(rows){ return rows[0]; });
+    return this._query.innerJoin('clients', 'users.id', 'clients.user_id')
+        .where('clients.id', client_id)
+   .then(function(rows){ return rows.length>0?rows[0]:undefined; });
 };
 
 Users.prototype.createNewAnonymousUser = function(client_id){
-    return undefined;
+    return db.transaction(function(trx){
+        var user = {email:Date.now()+'@anonymous'};
+        return trx.insert(user, 'id')
+                .into('users')
+                .then(function(ids){
+                    return trx.insert({id:client_id,user_id:ids[0]})
+                            .into('clients')
+                            .then(function(){
+                                return user;
+                            });
+                });
+    });
 };
 
 Users.prototype.execute = function() {
@@ -19,10 +30,7 @@ Users.prototype.execute = function() {
             function(rows){
                 this._query = db('users');
                 return rows;
-            }.bind(this),
-            function(err){
-                return err;
-            });
+            }.bind(this));
 };
 
 module.exports = Users;
