@@ -11,7 +11,8 @@ var express = require('express')
   , toll = require('./routes/express-toll.js')
   , session = require('cookie-session')
   , session_provider = require('./routes/client-manager.js')
-  , user_manager = require('./routes/users-manager.js');
+  , user_manager = require('./routes/users-manager.js')
+  , random_values = require('./app/random-values.js');
 
 var app = express();
 var env = process.env.NODE_ENV || 'development';
@@ -35,7 +36,9 @@ app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000})
 app.use(session_provider); 
 app.use(user_manager);
 app.use(airbrake.expressHandler());
-app.use(new toll(function(){return true}, "Payment required.").activate());
+app.use(new toll({route: '/api/references/:docset/:uri*'
+            , exclude: ['/api/references/:docset/:uri*/c&b','/api/references/:docset/:uri*/hierarchy']},
+            function(){return random_values.boolean.weighted(95);}, "Payment required.").activate());
 
 /* routes */
 app.use(refly_router);
