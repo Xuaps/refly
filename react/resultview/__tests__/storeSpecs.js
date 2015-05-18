@@ -1,13 +1,16 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
+jest.dontMock('../../errors/reference-not-found.js');
+jest.dontMock('../../errors/payment-required.js');
 
-var store, data, ReferenceNotFoundError;
+var store, data, ReferenceNotFoundError, PaymentRequiredError;
 
 describe('Resultview status', function(){
     beforeEach(function(){
         store = require('../store.js');
         actions = require('../actions.js');
         data = require('../../utils/data.js');
+        PaymentRequiredError = require('../../errors/payment-required.js');
         ReferenceNotFoundError = require('../../errors/reference-not-found.js');
     });
     
@@ -30,7 +33,7 @@ describe('Resultview status', function(){
     });
 
     describe('state after dont found a reference', function(){
-        it('should be null', function(){
+        it('should return an error', function(){
             var docset = 'test';
             var uri = 'test_uri/uri';
             var mock_ref = { name: 'test'};
@@ -46,7 +49,29 @@ describe('Resultview status', function(){
 
             actions.loadReference(docset, uri);
             store.listen(function(status){
-                expect(status).toBe(null);
+                expect(status.name).toBe("ReferenceNotFoundError");
+            });
+        });
+    });
+
+    describe('state after dont found a reference', function(){
+        it('should return an error', function(){
+            var docset = 'test';
+            var uri = 'test_uri/uri';
+            var mock_ref = { name: 'test'};
+            data.getReference = jest.genMockFunction().mockReturnValue(
+                {then:function(){
+                                    return {fail: function(f){
+                                                    f(new PaymentRequiredError());
+                                                    return {done:function(){}};
+                                                }
+                                            }
+                                 }
+                });
+
+            actions.loadReference(docset, uri);
+            store.listen(function(status){
+                expect(status.name).toBe("PaymentRequiredError");
             });
         });
     });

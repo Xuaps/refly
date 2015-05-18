@@ -1,7 +1,6 @@
 var Reflux = require('reflux');
 var actions = require('./actions.js');
 var Data = require('../utils/data.js');
-var ReferenceNotFoundError = require('../errors/reference-not-found.js');
 
 module.exports = Reflux.createStore({
     
@@ -17,8 +16,8 @@ module.exports = Reflux.createStore({
     },
     
     onFail: function(error){
-        if(error instanceof ReferenceNotFoundError){
-            this.trigger(null);
+        if(error instanceof Error){
+            this.trigger(error);
         }else{
             throw error;
         }

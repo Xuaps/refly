@@ -1,5 +1,6 @@
 var settings = require('../utils/settings.js');
 var ReferenceNotFoundError = require('../errors/reference-not-found.js');
+var PaymentRequiredError = require('../errors/payment-required.js');
 var Q = require('q');
 
 var Data = {};
@@ -50,6 +51,9 @@ Data.getReference = function(docset, uri){
         url: '/api/references/{0}/{1}'.format(docset, uri),
         method: 'GET',
         statusCode: {
+            402: function(){
+                deferred.reject(new PaymentRequiredError());
+            },
             404: function(){
                 deferred.reject(new ReferenceNotFoundError());
             }

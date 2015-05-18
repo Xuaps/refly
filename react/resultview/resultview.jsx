@@ -11,6 +11,12 @@ var actions = require('./actions.js');
 var Breadcrumbs = require('../components/breadcrumbs.jsx');
 var Highlight = require('./highlight.jsx');
 
+var ReferenceNotFoundError = require('../errors/reference-not-found.js');
+var PaymentRequiredError = require('../errors/payment-required.js');
+var Page404 = require('../errors/404.jsx');
+var Page402 = require('../errors/402.jsx');
+var Welcome = require('../welcome/welcome.jsx');
+
 module.exports = React.createClass({
     mixins: [Reflux.connect(store, "reference")],
 
@@ -75,15 +81,14 @@ module.exports = React.createClass({
 
     render: function() {
         var content;
-        if(this.state.reference===null){
-            content = <div className="warning">
-                            <h2>Page not found</h2>
-                            <h3>Ups! Someone has smashed "accidentally" one of our flies and we have not gathered that information.</h3>
-                      </div>;
-        }else if(this.state.reference===undefined){
-	        content = <div className="warning">
-                            <h2>Welcome!</h2>
-                      </div>;
+        if(this.state.reference===undefined){
+	        content = <Welcome/>;
+        }else if(this.state.reference instanceof Error){
+            if(this.state.reference.name === "PaymentRequiredError"){
+            content = <Page402/>;
+            }else if(this.state.reference.name === "ReferenceNotFoundError"){
+                content = <Page404/>;
+            }
         }else{
             content = <Highlight innerHTML={true} selector="pre" > {this.state.reference.content} </Highlight>;
 		}
