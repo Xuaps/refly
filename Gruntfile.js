@@ -75,7 +75,7 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/treeview.css', '!public/css/sidebar.css'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/treeview.css', '!public/css/sidebar.css', '!public/css/welcome.css'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
         ]
       },
@@ -114,7 +114,7 @@ module.exports = function (grunt) {
     cssmin:{
         target: {
             files: {
-                'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css']
+                'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css', 'public/css/welcome.css']
                 }
          }
     }
