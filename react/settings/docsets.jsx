@@ -10,9 +10,9 @@ var Docsets = React.createClass({
             return <Docset {...doc} key={doc.name} onClick={this.props.onClick}/>;
         }.bind(this));
         return (
-            <div>
+            <ul className="col3">
                 {docsets} 
-            </div>
+            </ul>
             );
     },
 

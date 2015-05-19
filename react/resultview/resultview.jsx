@@ -10,6 +10,7 @@ var store = require('./store.js');
 var actions = require('./actions.js');
 var Breadcrumbs = require('../components/breadcrumbs.jsx');
 var Highlight = require('./highlight.jsx');
+var Welcome = require('../components/welcome.jsx')
 
 var ReferenceNotFoundError = require('../errors/reference-not-found.js');
 var PaymentRequiredError = require('../errors/payment-required.js');

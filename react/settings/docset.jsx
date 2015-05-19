@@ -7,10 +7,10 @@ var Docset = React.createClass({
     render: function(){
         var item = this.props;
         return (
-            <div>
+            <li>
                 <label htmlFor="checkbox">{item.name}</label>
                 <input type='checkbox' name={item.name} value={item.name} defaultChecked={item.active} onClick={this.onClickHandler} />
-            </div>
+            </li>
             );
     },
 

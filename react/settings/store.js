@@ -10,6 +10,7 @@ module.exports = Reflux.createStore({
         this.settings = {};
         this.listenTo(SettingsActions.getSettings, this.onGetSettings);
         this.listenTo(SettingsActions.docsetSelectionChanged, this.onDocsetsSelectionChanged);
+        this.listenTo(SettingsActions.searchDocset, this.onSearchDocset);
     },
 
     onDocsetsSelectionChanged: function(docset){
@@ -28,6 +29,19 @@ module.exports = Reflux.createStore({
 
     onGetSettings: function(){
         this._loadDocsets().then(function(){this.trigger(this.settings);}.bind(this)).done();
+    },
+
+    onSearchDocset: function(searchtext){
+        console.log(searchtext);
+        this._loadDocsets().then(function(){
+            this.settings.docsets = this.settings.docsets.map(function(docset){
+                if(docset.indexOf(searchtext)!=-1){
+                    return docset;
+                }
+            });
+            console.log(this.settings)
+            this.trigger(this.settings);
+        }.bind(this)).done();
     },
 
     _loadDocsets: function(){

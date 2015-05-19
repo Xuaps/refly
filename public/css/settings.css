@@ -1,0 +1,16 @@
+.col3 {
+	min-height: 100%;
+	width: 100%;
+	column-count: 3;
+	column-gap: 10px;
+	column-rule: 1px solid #fc0;
+}
+
+.col3 li{
+	width: 33.3333%;
+	float:left;
+	list-style-type:none;  
+}
+.clear{
+	clear:both;
+}
