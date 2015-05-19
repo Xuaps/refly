@@ -21,11 +21,19 @@ var Settings = React.createClass({
 
     render: function(){
         return (<div>
-            <div>
-            <label htmlFor="searchbox">Search docset</label>
-            <SearchBox key="csearchbox" onKeyUp={this.onSearchDocset}/>
+            <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+            <div className="navbar-header">
+            <div className="input-container">
+                <SearchBox key="csearchbox" onKeyUp={this.onSearchDocset}/>
             </div>
-            <div><Docsets key={'docsets-list'} docsets={this.state.settings.docsets} onClick={this.onDocsetSelectionChanged} /></div>
+            </div>
+            </div>
+            </nav>
+            <div className="clear"></div>
+            <div>
+                <Docsets key={'docsets-list'} docsets={this.state.settings.docsets} onClick={this.onDocsetSelectionChanged} />
+            </div>
             <div className="clear"></div>
             </div>);
     },

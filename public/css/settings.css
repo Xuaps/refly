@@ -1,16 +1,24 @@
 .col3 {
 	min-height: 100%;
 	width: 100%;
-	column-count: 3;
-	column-gap: 10px;
-	column-rule: 1px solid #fc0;
+}
+.col3 li{
+	width: 300px;
+	list-style-type:none;
+	display: inline-block;
+	padding: 5px;
 }
 
-.col3 li{
-	width: 33.3333%;
-	float:left;
-	list-style-type:none;  
-}
 .clear{
 	clear:both;
 }
+.input-container{
+	width: 50%;
+	margin-left: -1%;
+	margin-top: 0.2%;
+	vertical-align: middle;
+}
+label{
+	margin-right: 2%;
+}
+
