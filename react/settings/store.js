@@ -28,20 +28,24 @@ module.exports = Reflux.createStore({
     },
 
     onGetSettings: function(){
-        this._loadDocsets().then(function(){this.trigger(this.settings);}.bind(this)).done();
+        this._loadDocsets().then(function(){
+            //Full Copy of docsets, to filter
+            this.settings.completedocsets = this.settings.docsets;
+            this.trigger(this.settings);
+        }.bind(this)).done();
     },
 
     onSearchDocset: function(searchtext){
-        console.log(searchtext);
-        this._loadDocsets().then(function(){
-            this.settings.docsets = this.settings.docsets.map(function(docset){
-                if(docset.indexOf(searchtext)!=-1){
-                    return docset;
-                }
-            });
-            console.log(this.settings)
-            this.trigger(this.settings);
-        }.bind(this)).done();
+        newdocsets = [];
+        for(index in this.settings.completedocsets){
+            docset = this.settings.completedocsets[index];
+            if(docset.name.toLowerCase().indexOf(searchtext.toLowerCase()) != -1){
+                newdocsets.push(docset);
+            }
+        }
+        this.settings.docsets = newdocsets;
+        this.trigger(this.settings);
+
     },
 
     _loadDocsets: function(){

@@ -12,7 +12,7 @@ var Settings = React.createClass({
     mixins: [Reflux.connect(store,"settings")],
     
     getInitialState: function() {
-        return {settings: {docsets: []}};
+        return {settings: {docsets: [], completedocsets: []}};
     },
 
     componentWillMount: function(){
@@ -34,9 +34,7 @@ var Settings = React.createClass({
         actions.docsetSelectionChanged(docset);
     },
 
-    onSearchDocset: function(){
-        console.log(this.refs);
-        searchtext = 'a';
+    onSearchDocset: function(searchtext){
         actions.searchDocset(searchtext);
     }
 

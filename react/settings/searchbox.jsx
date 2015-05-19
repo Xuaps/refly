@@ -14,7 +14,7 @@ var Docset = React.createClass({
     },
 
     onKeyUpHandler: function(event){
-        this.props.onKeyUp(this.props);
+        this.props.onKeyUp(event.target.value);
     }
 });
 
