@@ -50,6 +50,7 @@
     "proxyquire": "^1.0.1",
     "randomstring": "^1.0.3",
     "react": "^0.12.2",
+    "react-countdown-clock": "^1.0.2",
     "react-infinite-scroll": "^0.1.5",
     "react-router": "^0.12.4",
     "react-tools": "^0.12.2",

@@ -85,7 +85,7 @@ module.exports = React.createClass({
 	        content = <Welcome/>;
         }else if(this.state.reference instanceof Error){
             if(this.state.reference.name === "PaymentRequiredError"){
-            content = <Page402/>;
+                content = <Page402 onComplete={this.retry}/>;
             }else if(this.state.reference.name === "ReferenceNotFoundError"){
                 content = <Page404/>;
             }
@@ -104,6 +104,10 @@ module.exports = React.createClass({
                     </div>
                </div>
                 );
+    },
+
+    retry: function(){
+        this.loadRef(this.props.params);
     },
 
     loadRef: function(params){

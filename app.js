@@ -38,7 +38,7 @@ app.use(user_manager);
 app.use(airbrake.expressHandler());
 app.use(new toll({route: '/api/references/:docset/:uri*'
             , exclude: ['/api/references/:docset/:uri*/c&b','/api/references/:docset/:uri*/hierarchy']},
-            function(){return random_values.boolean.weighted(95);}, "Payment required.").activate());
+            function(){return random_values.boolean.weighted(92);}, "Payment required.").activate());
 
 /* routes */
 app.use(refly_router);
