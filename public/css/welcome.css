@@ -4,7 +4,7 @@
 	color: #FFF;
 	text-align: center;
 	font-weight: bold;
-	height: 200px;
+	height: 150px;
 }
 #header{
     position: absolute;
@@ -13,7 +13,7 @@
     left: 0;
     right: 0;
     width: 50%;
-    height: 30%;
+    height: 80%;
     margin: auto;
 }
 .mainhead h1{
@@ -28,7 +28,7 @@
 	padding-bottom: 10px;
 }
 .center{
-	padding-top: 30px;
+	margin-bottom: 50px;
 	clear: both;
 	text-align: center;
 }
