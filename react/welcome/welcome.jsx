@@ -16,7 +16,7 @@ module.exports = React.createClass({
                     <div  className="jumbotron">Our labour: keeping documentations up-to-date; Yours: Enjoy the experience of solving all your doubts in one centered place.</div>
                     </blockquote>
                     <p className="center"><span className='imageexample'><img src="/img/welcome1.png" /></span> <span className='imageexample'><img src="/img/welcome2.png" /></span> <span className='imageexample'><img src="/img/welcome3.png" /></span></p>
-                    <p className="center"><input type="button" className="btn btn-primary" value="Register now" /></p>
+                    <p className="center"><input type="button" className="btn btn-primary" value="Sign up now" /></p>
                 </div>
                 <div>
                 </div>
