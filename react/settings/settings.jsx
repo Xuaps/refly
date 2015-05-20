@@ -12,7 +12,7 @@ var Settings = React.createClass({
     mixins: [Reflux.connect(store,"settings")],
     
     getInitialState: function() {
-        return {settings: {docsets: [], completedocsets: []}};
+        return {settings: {docsets: []}};
     },
 
     componentWillMount: function(){
@@ -20,18 +20,14 @@ var Settings = React.createClass({
     },
 
     render: function(){
-        return (<div>
-            <nav className="navbar navbar-inverse">
-            <div className="container-fluid">
-            <div className="navbar-header">
+        return (<div className="panel panel-default">
+            <div className="panel-heading">
             <div className="input-container">
                 <SearchBox key="csearchbox" onKeyUp={this.onSearchDocset}/>
             </div>
             </div>
-            </div>
-            </nav>
             <div className="clear"></div>
-            <div>
+            <div className="panel-body">
                 <Docsets key={'docsets-list'} docsets={this.state.settings.docsets} onClick={this.onDocsetSelectionChanged} />
             </div>
             <div className="clear"></div>

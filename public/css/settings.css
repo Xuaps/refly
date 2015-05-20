@@ -14,11 +14,9 @@
 }
 .input-container{
 	width: 50%;
-	margin-left: -1%;
-	margin-top: 0.2%;
 	vertical-align: middle;
 }
 label{
-	margin-right: 2%;
+	margin-left: 3%;
 }
 
