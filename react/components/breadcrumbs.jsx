@@ -18,14 +18,9 @@ var Breadcrumbs = React.createClass({
   },
 
   render: function() {
-	if(this.props.visibility=='hide'){
-		cssclass = "half-height hide";
-	}else{
-		cssclass = "half-height";
-	}
 	var rows = [];
-	for(index in this.state.data){
-		item=this.state.data[index];
+	for(var index in this.state.data){
+		var item=this.state.data[index];
         if(index==this.state.data.length-1){
  		    rows.push(
             <li key={'BCLi' + item.uri}>

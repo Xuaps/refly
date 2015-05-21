@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "URIjs": "^1.14.1",
+    "babelify": "^6.1.1",
     "browserify": "^6.0.2",
     "configry": "^1.1.2",
     "grunt": "~0.4.1",
@@ -54,7 +55,6 @@
     "react-infinite-scroll": "^0.1.5",
     "react-router": "^0.12.4",
     "react-tools": "^0.12.2",
-    "reactify": "^1.0.0",
     "reflux": "^0.2.6",
     "request": "~2.27.0",
     "sinon": "^1.10.2",

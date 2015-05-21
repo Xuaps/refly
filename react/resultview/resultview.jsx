@@ -65,7 +65,7 @@ module.exports = React.createClass({
         var position = 0;
 
         if(anchor){
-            anchor_o=$(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1'));
+            var anchor_o=$(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1'));
             if(anchor_o.length === 0){
                 Airbrake.push({name: 'Anchor not found', message: 'Anchor {0} not found in {1}.'.format(anchor, this.state.reference.uri), stack: new Error().stack});
                 return; 

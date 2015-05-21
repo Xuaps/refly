@@ -96,7 +96,7 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
           options: {
-            transform:  [ 'reactify' ]
+            transform:  [ 'babelify' ]
           },
           files: { 'public/js/bundle.js': ['react/components/*.jsx'] }
         }
