@@ -31,16 +31,10 @@ module.exports = React.createClass({
                                             <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
-                                            <form className="navbar-form navbar-right" role="search">
-                                              <div className="form-group">
-                                                <input type="text" className="form-control" placeholder="User"/>
-                                                <input type="password" className="form-control" placeholder="Pass"/>
-                                              </div>
-                                              <button type="submit" className="btn btn-default">Log in</button>
-                                            </form>
                                             <ul className="nav navbar-nav navbar-right">
                                                 <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
                                                 <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
+                                                <li><a href="/session" onClick={function(){this.navigateWithTransition("session"); return false;}.bind(this)}>Sing In/Join Us</a></li>
                                             </ul>
                                          </div>
                                     </div>
@@ -64,7 +58,7 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                             <article className="col-xs-12 col-sm-8 col-md-9">
-                                <RouterHandler key="resultviewcomp" onNavigation={this.navigation} params={{docset:this.getParams().docset, uri: this.getParams().splat}}/>
+                                <RouterHandler key="resultviewcomp" onNavigation={this.navigation} />
                             </article>
                         </div>                        
                     </div>

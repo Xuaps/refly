@@ -33,7 +33,7 @@ var DocsetNode = React.createClass({
 
     onClickHandler: function() {
         var ref = new Reference({docset_name: this.props.name, uri: this.props.start_uri});
-        this.props.onClick(this._currentElement.key, ref);
+        this.props.onClick(this._reactInternalInstance._currentElement.key, ref);
         this.setState({collapsed: !this.state.collapsed});
     },
 });

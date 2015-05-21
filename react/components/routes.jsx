@@ -10,11 +10,13 @@ var Settings = require('../settings/settings.jsx');
 var About = require('./about.jsx');
 var Legal = require('./legal.jsx');
 var Cookies = require('./cookies.jsx');
+var Session = require('../session/session.jsx');
 
 var routes = (
     <Route name='dashboard' path='/' handler={Dashboard}>
         <Route name='docsets' path='docsets' handler={Docsets}/>
         <Route name='settings' path='settings' handler={Settings}/>
+        <Route name='session' handler={Session}/>
         <Route name='legal' handler={Legal}/>
         <Route name='about' handler={About}/>
         <Route name='cookies' handler={Cookies}/>

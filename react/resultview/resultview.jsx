@@ -67,7 +67,7 @@ module.exports = React.createClass({
         if(anchor){
             var anchor_o=$(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1'));
             if(anchor_o.length === 0){
-                Airbrake.push({name: 'Anchor not found', message: 'Anchor {0} not found in {1}.'.format(anchor, this.state.reference.uri), stack: new Error().stack});
+                Airbrake.push({name: 'Anchor not found', message: 'Anchor {0} not found in {1}.'.format(anchor, this.state.reference.splat), stack: new Error().stack});
                 return; 
             }
             position = anchor_o.offset().top - 60;
@@ -94,7 +94,7 @@ module.exports = React.createClass({
 		}
         return (
                <div>
-                    <Breadcrumbs key="breadcrumbscomp" ref="breadcrumbs" params={{docset:this.props.params.docset, uri: this.props.params.uri}}/>
+                    <Breadcrumbs key="breadcrumbscomp" ref="breadcrumbs" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                     <div className="row">
                         <div className="col-xs-12">
                             <div ref="resultcontent" className="result">
@@ -111,9 +111,9 @@ module.exports = React.createClass({
     },
 
     loadRef: function(params){
-		if(!params || !params.uri)
+		if(!params || !params.splat)
             return;
         
-        actions.loadReference(params.docset, params.uri);
+        actions.loadReference(params.docset, params.splat);
     },
 });

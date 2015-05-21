@@ -20,7 +20,7 @@ var ReferenceNode = React.createClass({
     },
 
     onClickHandler: function() {
-        this.props.onClick(this._currentElement.key, new Reference(this.props));
+        this.props.onClick(this._reactInternalInstance._currentElement.key, new Reference(this.props));
     },
 });
 

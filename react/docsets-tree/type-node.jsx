@@ -27,7 +27,7 @@ var TypeNode = React.createClass({
     },
 
     onClickHandler: function() {
-        this.props.onClick(this._currentElement.key, this.props.name);
+        this.props.onClick(this._reactInternalInstance._currentElement.key, this.props.name);
         this.setState({collapsed: !this.state.collapsed});
     },
 });
