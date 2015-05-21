@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var store = require('./store.js');

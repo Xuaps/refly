@@ -1,4 +1,3 @@
-var hljs = require('highlight.js');
 var React = require('react');
 
 var Highlight = React.createClass({

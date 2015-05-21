@@ -1,7 +1,3 @@
-/**
- * @jsx React.DOM
- */
-
 var React = require('react');
 var Reference = require('../../app/reference_vo.js');
 

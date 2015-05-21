@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 var Search = require('../search-panel/search.jsx');
 var TreeView = require('../docsets-tree/treeview.jsx');
