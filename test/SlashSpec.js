@@ -73,22 +73,15 @@ describe('Slash', function() {
 
     describe('Search references', function(){
     
-        it('should return the references collection filtered', function() {
+        it('should return the references collection filtered', function(done) {
             var results = null;
 
-            waitsFor(function() {
-                return results != null;
-            });
-            
             slash.search({
                 name: 'search',
                 types: [ 'function' ],
                 docsets: [ 'slash' ]
             }).then(function(response) {
                 results = response;
-            });
-
-            runs(function() {
                 expect(results.items).toEqual([{
                     reference: 'search',
                     type: 'function',
@@ -96,6 +89,7 @@ describe('Slash', function() {
 					uri: 'search',
                     total: 1 //TODO: the stub has its own implementation we have to change all that.
                 }]);
+                done();
             });
         });
 

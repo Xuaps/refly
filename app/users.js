@@ -24,9 +24,14 @@ Users.prototype.createNewAnonymousUser = function(client_id){
     });
 };
 
+Users.prototype.find = function(values){
+    return db('users')
+        .where(values);
+};
+
 Users.prototype.findOrCreate = function(user){
     var _that = this;
-    return _that.getByProfileId(user.profile_id).then(function(users){
+    return _that._getByProfile(user.profile_id).then(function(users){
         if(users.length===0)
             return _that.add(user);
         if(_that._haveChanges(users[0], user)){
@@ -36,7 +41,7 @@ Users.prototype.findOrCreate = function(user){
     });
 };
 
-Users.prototype.getByProfileId = function (profile_id){
+Users.prototype._getByProfile = function (profile_id){
     return db('users')
         .where('users.profile_id', profile_id);
 };

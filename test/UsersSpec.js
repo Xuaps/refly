@@ -59,4 +59,22 @@ describe('users repository', function(){
 
         });
     });
+
+    describe('find', function(){
+        it('should find a user by auth token', function(done){
+            db_mock.mock.init()
+                .then(function(){
+                    return db_mock.mock.tableInitialvalue('users', [
+                        {id: 123, profile_id: 1234, auth_token: 'swert', email: 'email@refly.co'}
+                        ]);
+                })
+                .then(function(){
+                    new Users().find({auth_token: 'swert'})
+                    .then(function(users){
+                        expect(users[0].profile_id).toBe(1234);
+                        done();
+                    });
+                });
+        });
+    });
 });
