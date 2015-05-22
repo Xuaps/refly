@@ -1,11 +1,10 @@
 var db = require('./db');
 
 function Users(){
-    this._query = db('users');
 } 
 
 Users.prototype.getBySessionId = function(client_id){
-    return this._query.innerJoin('clients', 'users.id', 'clients.user_id')
+    return db('users').innerJoin('clients', 'users.id', 'clients.user_id')
         .where('clients.id', client_id)
    .then(function(rows){ return rows.length>0?rows[0]:undefined; });
 };
@@ -25,12 +24,45 @@ Users.prototype.createNewAnonymousUser = function(client_id){
     });
 };
 
-Users.prototype.execute = function() {
-    return this._query.then(
-            function(rows){
-                this._query = db('users');
-                return rows;
-            }.bind(this));
+Users.prototype.findOrCreate = function(user){
+    var _that = this;
+    return _that.getByProfileId(user.profile_id).then(function(users){
+        if(users.length===0)
+            return _that.add(user);
+        if(_that._haveChanges(users[0], user)){
+            return _that.update(users[0].id, user);
+        }
+        return users[0];
+    });
+};
+
+Users.prototype.getByProfileId = function (profile_id){
+    return db('users')
+        .where('users.profile_id', profile_id);
+};
+
+Users.prototype.add = function (user){
+    return db('users')
+        .insert(user, 'id')
+        .into('users')
+        .then(function(ids){ 
+            user.id=ids[0];
+            return user; 
+    });
+};
+
+Users.prototype.update = function(id, user){
+    return db('users')
+            .where('users.profile_id', user.profile_id)
+            .update({email:user.email, auth_token: user.auth_token})
+            .then(function(){
+                user.id = id; 
+                return user;
+            });
+};
+
+Users.prototype._haveChanges = function(old, newest){
+    return old.email!==newest.email || old.auth_token!==newest.auth_token;
 };
 
 module.exports = Users;
