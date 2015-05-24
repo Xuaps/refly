@@ -20,7 +20,7 @@ var Settings = React.createClass({
     },
 
     render: function(){
-        return (<div className="panel panel-default">
+        return (<div className="_settings panel panel-default">
             <div className="panel-heading">
             <div className="input-container">
                 <SearchBox key="csearchbox" onKeyUp={this.onSearchDocset}/>

@@ -1,22 +1,22 @@
-.col3 {
+._settings .col3 {
 	min-height: 100%;
 	width: 100%;
 }
-.col3 li{
+._settings .col3 li{
 	width: 300px;
 	list-style-type:none;
 	display: inline-block;
 	padding: 5px;
 }
 
-.clear{
+._settings .clear{
 	clear:both;
 }
-.input-container{
+._settings .input-container{
 	width: 50%;
 	vertical-align: middle;
 }
-label{
+._settings label{
 	margin-left: 3%;
 }
 

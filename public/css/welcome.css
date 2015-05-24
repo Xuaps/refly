@@ -1,4 +1,4 @@
-.mainhead{
+._welcome .mainhead{
     position: relative;
 	background-color: #222222;
 	color: #FFF;
@@ -6,7 +6,7 @@
 	font-weight: bold;
 	height: 150px;
 }
-#header{
+._welcome #header{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -16,18 +16,18 @@
     height: 80%;
     margin: auto;
 }
-.mainhead h1{
+._welcome .mainhead h1{
 	font-weight: bold;
 }
-.imageexample{
+._welcome .imageexample{
 	margin: 10px;
 	margin-bottom: 40px;
 }
-.paragraph{
+._welcome .paragraph{
 	clear: both;
 	padding-bottom: 10px;
 }
-.center{
+._welcome .center{
 	margin-bottom: 50px;
 	clear: both;
 	text-align: center;

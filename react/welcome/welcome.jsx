@@ -3,7 +3,7 @@ var React = require('react');
 
 module.exports = React.createClass({
     render: function(){
-        return (<div>
+        return (<div className="_welcome">
         	    <div className="mainhead">
         	    <div id="header"><h1>Refly.co</h1>
         	    <p><img src="" /></p>
