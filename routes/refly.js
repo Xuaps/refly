@@ -3,6 +3,7 @@ var router = express.Router();
 var hal = require('express-hal');
 var api = require('../app/api.js');
 var cacheResponseDirective = require('express-cache-response-directive');
+var passport = require('passport');
 
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';

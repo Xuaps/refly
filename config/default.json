@@ -13,16 +13,21 @@
     }
   },
 
-  "redisConfig": {
-    "host":"127.0.0.1",
-    "port":"6379"
-  },
-
-  "njstrace": {
-    "enabled": false
-  },
-
   "cookies": {
       "secret": "lJthXcFVOitYFpSkUA"
+  },
+
+  "auth": {
+      "host": "http://localhost:3000",
+      "providers": {
+          "google": {
+                "clientID": "",
+                "clientSecret": ""
+          },
+          "github": {
+                "clientID": "",
+                "clientSecret": ""
+          }
+      }
   }
 }

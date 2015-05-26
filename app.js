@@ -1,6 +1,7 @@
 var express = require('express')
   , favicon = require('serve-favicon')
   , refly_router = require('./routes/refly')
+  , authentication_router = require('./routes/authentication.js')
   , http = require('http')
   , path = require('path')
   , morgan = require('morgan')
@@ -9,9 +10,8 @@ var express = require('express')
   , config = require('config')
   , airbrake = require('airbrake').createClient('0eb2891adfa08afa30a7526ca1173596')
   , toll = require('./routes/express-toll.js')
+  , passport = require('passport')
   , session = require('cookie-session')
-  , session_provider = require('./routes/client-manager.js')
-  , user_manager = require('./routes/users-manager.js')
   , random_values = require('./app/random-values.js');
 
 var app = express();
@@ -25,7 +25,6 @@ app.set('ipaddr', config.serverConfig.ip);
 app.set('views', './views');
 app.set('view engine', 'jade');
 
-
 /*** static resources ***/
 app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,14 +32,14 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 
 /* middlewares */
 app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
-app.use(session_provider); 
-app.use(user_manager);
+app.use(passport.initialize());
 app.use(airbrake.expressHandler());
 app.use(new toll({route: '/api/references/:docset/:uri*'
             , exclude: ['/api/references/:docset/:uri*/c&b','/api/references/:docset/:uri*/hierarchy']},
             function(){return random_values.boolean.weighted(92);}, "Payment required.").activate());
 
 /* routes */
+app.use(authentication_router);
 app.use(refly_router);
 
 /* general */

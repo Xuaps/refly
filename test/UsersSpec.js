@@ -7,13 +7,18 @@ describe('users repository', function(){
         it('should create and return a new user if it doesnt exist', function(done){
             db_mock.mock.init()
                 .then(function(){
+                   return db_mock.mock.tableInitialvalue('users', [
+                        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'email@refly.co'} 
+                       ]);
+                })
+                .then(function(){
                     var users = new Users();        
                     users
-                        .findOrCreate({profile_id:3456, auth_token:'abbb', email:'email@refly.co'})
+                        .findOrCreate({profile_id:3456, profile_provider:'github', auth_token:'abbb', email:'email@refly.co'})
                         .then(function(user){
                             expect(user.id).toBeDefined();
                             db_mock('users').count('id as count').then(function(result){
-                                expect(result[0].count).toBe(1);
+                                expect(result[0].count).toBe(2);
                                 done();
                             });
                         });
@@ -24,13 +29,13 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                    return db_mock.mock.tableInitialvalue('users', [
-                        {id:123, profile_id:2345, auth_token:'aaaa', email:'email@refly.co'} 
+                        {id:123, profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.co'} 
                        ]);
                 })
                 .then(function(){
                     var users = new Users();        
                     users
-                        .findOrCreate({profile_id:2345, auth_token:'aaaa', email:'email@refly.co'})
+                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.co'})
                         .then(function(user){
                             expect(user.id).toBe(123);
                             done();
@@ -42,13 +47,13 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                    return db_mock.mock.tableInitialvalue('users', [
-                        {id:123, profile_id:2345, auth_token:'aabb', email:'old_email@refly.co'} 
+                        {id:123, profile_id:2345, profile_provider:'google', auth_token:'aabb', email:'old_email@refly.co'} 
                        ]);
                 })
                 .then(function(){
                     var users = new Users();        
                     users
-                        .findOrCreate({profile_id:2345, auth_token:'aaaa', email:'email@refly.co'})
+                        .findOrCreate({profile_id:2345, profile_provider: 'google', auth_token:'aaaa', email:'email@refly.co'})
                         .then(function(user){
                             expect(user.id).toBe(123);
                             expect(user.auth_token).toBe('aaaa');

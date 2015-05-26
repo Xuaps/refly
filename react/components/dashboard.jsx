@@ -34,7 +34,7 @@ module.exports = React.createClass({
                                             <ul className="nav navbar-nav navbar-right">
                                                 <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
                                                 <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
-                                                <li><a href="/session" onClick={function(){this.navigateWithTransition("session"); return false;}.bind(this)}>Sing In/Join Us</a></li>
+                                                <li><a href="/session" onClick={function(){this.navigateWithTransition("session"); return false;}.bind(this)}>Sing In</a></li>
                                             </ul>
                                          </div>
                                     </div>

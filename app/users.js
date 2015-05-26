@@ -31,7 +31,7 @@ Users.prototype.find = function(values){
 
 Users.prototype.findOrCreate = function(user){
     var _that = this;
-    return _that._getByProfile(user.profile_id).then(function(users){
+    return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){
         if(users.length===0)
             return _that.add(user);
         if(_that._haveChanges(users[0], user)){
@@ -41,9 +41,10 @@ Users.prototype.findOrCreate = function(user){
     });
 };
 
-Users.prototype._getByProfile = function (profile_id){
+Users.prototype._getByProfile = function (profile_id, profile_provider){
     return db('users')
-        .where('users.profile_id', profile_id);
+        .where('users.profile_id', profile_id)
+        .andWhere('users.profile_provider', profile_provider);
 };
 
 Users.prototype.add = function (user){
