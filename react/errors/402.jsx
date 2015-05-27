@@ -3,11 +3,9 @@ var CountdownClock = require('react-countdown-clock');
 
 module.exports = React.createClass({
     render: function(){
-        return <div className="container">
-                    <div className="row">
-                        <div className='col-xs-12 text-center'>
-                            <CountdownClock seconds={10} color="#000" alpha={0.9} size={150} onComplete={this.props.onComplete} />
-                        </div>
+        return <div>
+                    <div className="row text-center">
+                        <CountdownClock seconds={10} color="#000" alpha={0.9} size={150} onComplete={this.props.onComplete} />
                         <h2 className='col-xs-12 text-center'>Please consider upgrade to PRO to avoid this message</h2>
                     </div>
                     <div className="row">

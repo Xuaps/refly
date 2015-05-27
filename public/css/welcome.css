@@ -4,7 +4,7 @@
 	color: #FFF;
 	text-align: center;
 	font-weight: bold;
-	height: 150px;
+	min-height: 150px;
 }
 ._welcome #header{
     position: absolute;
@@ -13,7 +13,6 @@
     left: 0;
     right: 0;
     width: 50%;
-    height: 80%;
     margin: auto;
 }
 ._welcome .mainhead h1{
