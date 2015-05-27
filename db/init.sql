@@ -144,8 +144,11 @@ CREATE TABLE users
 (
   id integer NOT NULL DEFAULT nextval('uid_seq'::regclass),
   email text,
+  auth_token text,
+  profile_id numeric,
+  profile_provider text,
   CONSTRAINT users_pkey PRIMARY KEY (id),
-  CONSTRAINT emai_unique UNIQUE (email)
+  CONSTRAINT profile_unique UNIQUE (profile_id, profile_provider)
 )
 WITH (
   OIDS=FALSE
@@ -153,33 +156,5 @@ WITH (
 ALTER TABLE users
   OWNER TO postgres;
 
--- Table: clients
-
--- DROP TABLE clients;
-
-CREATE TABLE clients
-(
-  id uuid NOT NULL,
-  user_id integer,
-  CONSTRAINT clients_pkey PRIMARY KEY (id),
-  CONSTRAINT user_id_fk FOREIGN KEY (user_id)
-      REFERENCES users (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE clients
-  OWNER TO postgres;
-
--- Index: fki_user_id_fk
-
--- DROP INDEX fki_user_id_fk;
-
-CREATE INDEX fki_user_id_fk
-  ON clients
-  USING btree
-  (user_id);
-
-INSERT INTO meta  values('15');
+INSERT INTO meta  values('16');
 
