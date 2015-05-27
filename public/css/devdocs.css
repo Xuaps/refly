@@ -315,7 +315,7 @@ pre, ._redis > .example, ._toc, ._docs-links, ._mobile-nav {
 ._markdown h3,
 ._mocha h3,
 ._mongoose h3,
-._sinon h3, ._apache h3, ._chai h3, ._coffeescript h3, ._express h3, ._go h3, ._lua h3, ._meteor h3, ._npm h3, ._requirejs h3, ._angular .defs > li > h3:first-child, ._bower h3, ._bower h4, ._c > h4, ._clojure h2[id], ._clojure h3, ._d3 h6, ._haskell > h3, ._haskell p.src, ._jquery .signature > .name, ._jquery .api-item > h3, ._knockout > h3, ._laravel h3, ._modernizr h3, ._moment h3, ._node > h3, ._node > h4, ._phpunit > h3, ._postgres .VARIABLELIST dt, ._rdoc .method-heading, ._rdoc .signature, ._react > h3, ._rfc-pre > h3, ._rfc-pre > h4, ._socketio > h3, ._sphinx dl:not(.docutils) > dt, ._yard .signature, ._yii h3, ._shortcut-code, ._label, ._cordova p > code,
+._sinon h3, ._apache h3, ._chai h3, ._coffeescript h3, ._express h3, ._go h3, ._lua h3, ._meteor h3, ._npm h3, ._requirejs h3, ._angular .defs > li > h3:first-child, ._bower h3, ._bower h4, ._c > h4, ._clojure h2[id], ._clojure h3, ._d3 h6, ._haskell > h3, ._haskell p.src, ._jquery .signature > .name, ._jquery .api-item > h3, ._knockout > h3, ._laravel h3, ._modernizr h3, ._moment h3, ._node > h3, ._node > h4, ._phpunit > h3, ._postgres .VARIABLELIST dt, ._rdoc .method-heading, ._rdoc .signature, ._react > h3, ._rfc-pre > h3, ._rfc-pre > h4, ._socketio > h3, ._sphinx dl:not(.docutils) dt, ._yard .signature, ._yii h3, ._shortcut-code, ._label, ._cordova p > code,
 ._grunt p > code,
 ._less p > code,
 ._lodash p > code,
@@ -345,7 +345,7 @@ pre, ._redis > .example, ._toc, ._docs-links, ._mobile-nav {
 ._markdown h3,
 ._mocha h3,
 ._mongoose h3,
-._sinon h3, ._apache h3, ._chai h3, ._coffeescript h3, ._express h3, ._go h3, ._lua h3, ._meteor h3, ._npm h3, ._requirejs h3, ._angular .defs > li > h3:first-child, ._bower h3, ._bower h4, ._c > h4, ._clojure h2[id], ._clojure h3, ._d3 h6, ._haskell > h3, ._haskell p.src, ._jquery .signature > .name, ._jquery .api-item > h3, ._knockout > h3, ._laravel h3, ._modernizr h3, ._moment h3, ._node > h3, ._node > h4, ._phpunit > h3, ._postgres .VARIABLELIST dt, ._rdoc .method-heading, ._rdoc .signature, ._react > h3, ._rfc-pre > h3, ._rfc-pre > h4, ._socketio > h3, ._sphinx dl:not(.docutils) > dt, ._yard .signature, ._yii h3 {
+._sinon h3, ._apache h3, ._chai h3, ._coffeescript h3, ._express h3, ._go h3, ._lua h3, ._meteor h3, ._npm h3, ._requirejs h3, ._angular .defs > li > h3:first-child, ._bower h3, ._bower h4, ._c > h4, ._clojure h2[id], ._clojure h3, ._d3 h6, ._haskell > h3, ._haskell p.src, ._jquery .signature > .name, ._jquery .api-item > h3, ._knockout > h3, ._laravel h3, ._modernizr h3, ._moment h3, ._node > h3, ._node > h4, ._phpunit > h3, ._postgres .VARIABLELIST dt, ._rdoc .method-heading, ._rdoc .signature, ._react > h3, ._rfc-pre > h3, ._rfc-pre > h4, ._socketio > h3, ._sphinx dl:not(.docutils) dt, ._yard .signature, ._yii h3 {
   display: block;
   line-height: 1.375rem;
   margin: 2em 0 1em;
@@ -372,7 +372,7 @@ pre, ._redis > .example, ._toc, ._docs-links, ._mobile-nav {
 ._markdown h3,
 ._mocha h3,
 ._mongoose h3,
-._sinon h3, ._apache h3, ._chai h3, ._coffeescript h3, ._express h3, ._go h3, ._lua h3, ._meteor h3, ._npm h3, ._requirejs h3, ._angular .defs > li > h3:first-child, ._bower h3, ._c > h4, ._clojure h2[id], ._clojure h3, ._d3 h6, ._ember .return > h3, ._ember .params > h3, ._haskell p.src, ._jquery .signature > .name, ._jquery .api-item > h3, ._knockout > h3, ._laravel h3, ._modernizr h3, ._moment h3, ._node > h3, ._phpunit > h3, ._postgres .VARIABLELIST dt, ._rdoc .method-heading, ._rdoc .signature, ._react > h3, ._rfc-pre > h3, ._socketio > h3, ._sphinx dl:not(.docutils) > dt, ._yard .signature, ._yii h3 {
+._sinon h3, ._apache h3, ._chai h3, ._coffeescript h3, ._express h3, ._go h3, ._lua h3, ._meteor h3, ._npm h3, ._requirejs h3, ._angular .defs > li > h3:first-child, ._bower h3, ._c > h4, ._clojure h2[id], ._clojure h3, ._d3 h6, ._ember .return > h3, ._ember .params > h3, ._haskell p.src, ._jquery .signature > .name, ._jquery .api-item > h3, ._knockout > h3, ._laravel h3, ._modernizr h3, ._moment h3, ._node > h3, ._phpunit > h3, ._postgres .VARIABLELIST dt, ._rdoc .method-heading, ._rdoc .signature, ._react > h3, ._rfc-pre > h3, ._socketio > h3, ._sphinx dl:not(.docutils) dt, ._yard .signature, ._yii h3 {
   background: #d4f3fd;
   border-color: #94bbeb; }
 
@@ -397,24 +397,6 @@ pre, ._redis > .example, ._toc, ._docs-links, ._mobile-nav {
 ._mdn .inlineIndicator > a:after {
   content: none !important; }
 
-html {
-  font-size: 100%; }
-  @media (max-width: 800px) {
-    html {
-      font-size: 93.75%; } }
-
-/*
-body {
-  margin: 0;
-  color: $textColor;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  -webkit-tap-highlight-color: rgba(black, 0);
-  -webkit-touch-callout: none;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-}
-*/
 a {
   color: #0082c6;
   text-decoration: none; }
@@ -2121,7 +2103,7 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-columns: 16em;
   -moz-columns: 16em;
   columns: 16em; }
-  ._mdn .index > span {
+  ._mdn .index span {
     display: block;
     font-size: 1rem;
     font-weight: bold; }

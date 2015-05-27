@@ -28,7 +28,7 @@ var Highlight = React.createClass({
     if (this.props.innerHTML) {
       return <div dangerouslySetInnerHTML={{__html: this.props.children[1]}} className={this.props.className || null}></div>;
     } else {
-      return <pre><code className={this.props.className}>{this.props.children}</code></pre>;
+      return <pre>{this.props.children}</pre>;
     }
   }
 });
