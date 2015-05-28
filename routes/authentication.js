@@ -13,8 +13,7 @@ router.get('/auth/github', passport.authenticate(github_auth.name, {session: fal
 router.get('/auth/github/callback', passport.authenticate(github_auth.name, 
             {session: false, failureRedirect: "/errorLogin"}),
             function(req,res){
-                req.session.token = req.user.auth_token;
-                res.redirect("/");
+                res.redirect("/session?access_token=" + req.user.auth_token);
             }
 );
 
@@ -22,8 +21,7 @@ router.get('/auth/google', passport.authenticate(google_auth.name, {session: fal
 router.get('/auth/google/callback', passport.authenticate(google_auth.name, 
             {session: false, failureRedirect: "/errorLogin"}),
             function(req,res){
-                req.session.token = req.user.auth_token;
-                res.redirect("/");
+                res.redirect("/session?access_token=" + req.user.auth_token);
             }
 );
 
