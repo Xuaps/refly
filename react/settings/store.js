@@ -36,8 +36,7 @@ module.exports = Reflux.createStore({
     },
 
     onSearchDocset: function(searchtext){
-        newdocsets = [];
-        newdocsets = this.settings.docsets.filter(function(docset){if(docset.name.toLowerCase().indexOf(searchtext.toLowerCase()) != -1){return docset;}});
+        var newdocsets = this.settings.docsets.filter(function(docset){if(docset.name.toLowerCase().indexOf(searchtext.toLowerCase()) != -1){return docset;}});
         this.trigger({docsets: newdocsets});
 
     },
