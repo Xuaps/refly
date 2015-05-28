@@ -29,7 +29,7 @@ node_modules
 public/js/jade-templates.js
 
 # only for your eyes files
-config/develop.json
+config/development.json
 
 #floobits
 .floo
