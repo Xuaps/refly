@@ -67,7 +67,7 @@ Data.getReference = function(docset, uri){
 
 Data.getCurrentUser = function(){
     var deferred = Q.defer();
-    var token = authentication.getAuth().token;
+    var token = authentication.getAuth();
     $.ajax({
         url: '/api/users/current',
         method: 'GET',

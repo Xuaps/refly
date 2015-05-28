@@ -1,24 +1,22 @@
-var AUTH = 'auth';
-var defaultAuth = 
-    {
-        token: ''
-    };
+var AUTH = 'token';
+var defaultAuth = '';
 
 var Reflux = require('reflux');
-var Configry = require('configry');
+var ls = require('local-storage');
 var Authentication = Reflux.createStore({
     init: function() {
-        this.config = new Configry(defaultAuth, [AUTH]);
+        if(ls.get(AUTH)===null){
+            ls.set(AUTH, defaultAuth);
+        }
     },
     
     getAuth:  function(){
-        return this.config.get(AUTH);
+        return ls.get(AUTH);
     },
 
     setAuth:  function(token){
-        var auth = {'token': token};
-        this.config.set(AUTH, auth, true);
-        this.trigger(auth);
+        ls.set(AUTH, token);
+        this.trigger(token);
     }
 });
 

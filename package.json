@@ -49,6 +49,7 @@
     "jasmine-node": "^2.0.0",
     "jest-cli": "^0.2.1",
     "load-grunt-tasks": "~0.2.0",
+    "local-storage": "^1.4.2",
     "mousetrap": "^1.5.2",
     "passport": "^0.2.1",
     "passport-github": "^0.1.5",
