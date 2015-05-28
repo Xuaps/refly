@@ -360,4 +360,34 @@ The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
 
     [Docsets collection][]
 
+#Group User
+A User resource in Refly API
 
+## User [/api/users/current]
+A single User object. It represents the current user in the application.  
+The User resource has the following attributes:
+
+- email
+
++ Model (application/hal+json; charset=utf-8)
+
+   HAL+JSON representation of Docset Resource.
+
+   + Body
+
+            {
+               "_links": {
+                   "self": { "href": "/api/users/current" }
+               },
+               "email": "test@refly.co"
+            }
+
+### Retrieve Current User [GET]
+
++ Response 200
+
+    [User][]
+
++ Response 401
+
+    {"message": "Unauthorized"}

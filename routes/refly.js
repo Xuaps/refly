@@ -4,6 +4,7 @@ var hal = require('express-hal');
 var api = require('../app/api.js');
 var cacheResponseDirective = require('express-cache-response-directive');
 var passport = require('passport');
+var BearerStrategyFactory = require('../app/auth_strategies/bearer.js');
 
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';
@@ -15,7 +16,8 @@ var send = function(res, hal){
     res.cacheControl('public', {'maxAge': maxAge});
     res.hal(hal);
 };
-
+var bearer_auth = BearerStrategyFactory.create();
+passport.use(bearer_auth);
 router.use(hal.middleware);
 router.use(cacheResponseDirective());
 router.get('/api', function(req, res){
@@ -53,5 +55,11 @@ router.get('/api/types?', function(req, res){
     api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
         .then(send.bind(null,res)).done();
 });
+
+router.get('/api/users/current', passport.authenticate(bearer_auth.name, {session: false}),
+        function(req, res){
+            api.findUser(req.user.auth_token)
+                .then(send.bind(null,res)).done();
+        });
 
 module.exports = router;

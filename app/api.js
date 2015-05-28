@@ -1,4 +1,5 @@
 var slash = require('./slash.js');
+var Users = require('./users.js');
 var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
@@ -188,6 +189,21 @@ module.exports.get_docsets = function(main_url, active){
            }
        };
     });
+};
+
+module.exports.findUser = function(token){
+    return new Users().find({auth_token: token})
+        .then(function(users){
+            return {
+                links: {
+                    self: '/api/users/current',
+                    curies: getCuries(),
+                },
+                data: {
+                    email: users[0].email
+                }
+            };
+        });
 };
 
 var getCuries = function(){
