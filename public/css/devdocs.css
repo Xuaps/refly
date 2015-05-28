@@ -458,9 +458,6 @@ ol ol {
 ol ol ol {
   list-style-type: lower-roman; }
 
-li + li {
-  margin-top: .25em; }
-
 li > ul, li > ol, dd > ul, dd > ol {
   margin: .5em 0; }
 
@@ -1492,7 +1489,7 @@ input[type="search"]::-webkit-search-decoration {
 ._attribution {
   clear: both;
   margin: 2rem 0 1.5rem;
-  font-size: .75rem;
+  font-size: 80%;
   color: #666;
   text-align: center;
   -webkit-font-smoothing: subpixel-antialiased; }
