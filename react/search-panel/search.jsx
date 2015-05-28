@@ -4,7 +4,7 @@ var store = require('./store.js');
 var actions = require('./actions.js');
 var InfiniteScroll = require('react-infinite-scroll')(React);
 var Reflux = require('reflux');
-var DbPromise = require('../utils/debounce-promise.js');
+var DbPromise = require('../infrastructure/debounce-promise.js');
 var Mousetrap = require('mousetrap');
 var NOT_FOUND = 'Reference not found!', LOADING = 'Loading...';
 

@@ -4,8 +4,8 @@ var docsets, actions, store, data, settings;
 
 describe('Settings store', function(){
     beforeEach(function(){
-        settings = require('../../utils/settings.js');
-        data = require('../../utils/data.js');
+        settings = require('../../infrastructure/settings.js');
+        data = require('../../infrastructure/data.js');
         data.prototype._docsets = {'_embedded': {'rl:docsets': [{name: 'java'}, {name: 'javascript'},
             {name: 'require'}, {name: 'angular'}]}};
         settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);

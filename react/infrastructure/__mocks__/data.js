@@ -24,6 +24,10 @@ Data.searchReference = function(pattern, page){
     return this.wrapInPromise(Data.prototype._references);
 };
 
+Data.getCurrentUser = function(){
+    return this.wrapInPromise(Data.prototype._users[0]);
+};
+
 Data.wrapInPromise = function(collection){
     return {
         then: function(fun){

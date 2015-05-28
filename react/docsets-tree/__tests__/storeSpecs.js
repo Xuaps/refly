@@ -5,10 +5,10 @@ var store, actions, settings, data, mocked_local_docsets;
 
 describe('Docsets store', function(){
     beforeEach(function(){
-        settings = require('../../utils/settings.js');
+        settings = require('../../infrastructure/settings.js');
 
         actions = require('../actions.js');
-        data = require('../../utils/data.js');
+        data = require('../../infrastructure/data.js');
         store = require('../store.js');
 
         mocked_local_docsets = [

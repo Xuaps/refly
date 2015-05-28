@@ -1,4 +1,4 @@
-var settings = require('../utils/settings.js');
+var settings = require('../infrastructure/settings.js');
 
 function Api(){
     this._url_docset_all='/api/docsets';

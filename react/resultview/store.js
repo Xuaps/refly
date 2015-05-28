@@ -1,6 +1,6 @@
 var Reflux = require('reflux');
 var actions = require('./actions.js');
-var Data = require('../utils/data.js');
+var Data = require('../infrastructure/data.js');
 
 module.exports = Reflux.createStore({
     

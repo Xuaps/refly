@@ -1,6 +1,8 @@
-var settings = require('../utils/settings.js');
+var settings = require('../infrastructure/settings.js');
+var authentication = require('../infrastructure/authentication.js');
 var ReferenceNotFoundError = require('../errors/reference-not-found.js');
 var PaymentRequiredError = require('../errors/payment-required.js');
+var AuthenticationError = require('../errors/authentication-required.js');
 var Q = require('q');
 
 var Data = {};
@@ -56,6 +58,25 @@ Data.getReference = function(docset, uri){
             },
             404: function(){
                 deferred.reject(new ReferenceNotFoundError());
+            }
+        }
+    }).then(deferred.resolve);
+
+    return deferred.promise;
+};
+
+Data.getCurrentUser = function(){
+    var deferred = Q.defer();
+    var token = authentication.getAuth().token;
+    $.ajax({
+        url: '/api/users/current',
+        method: 'GET',
+        headers: {
+            authorization: 'Bearer {0}'.format(token)
+        },
+        statusCode: {
+            401: function(){
+                deferred.reject(new AuthenticationError());
             }
         }
     }).then(deferred.resolve);

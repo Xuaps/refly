@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 var SettingsActions = require('./actions.js');
-var data = require('../utils/data.js');
-var settings = require('../utils/settings.js');
+var data = require('../infrastructure/data.js');
+var settings = require('../infrastructure/settings.js');
 var Q = require('q');
 
 module.exports = Reflux.createStore({

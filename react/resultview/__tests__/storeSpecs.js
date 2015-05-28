@@ -9,7 +9,7 @@ describe('Resultview status', function(){
     beforeEach(function(){
         store = require('../store.js');
         actions = require('../actions.js');
-        data = require('../../utils/data.js');
+        data = require('../../infrastructure/data.js');
         PaymentRequiredError = require('../../errors/payment-required.js');
         ReferenceNotFoundError = require('../../errors/reference-not-found.js');
     });

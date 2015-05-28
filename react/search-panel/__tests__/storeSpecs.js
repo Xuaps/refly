@@ -5,7 +5,7 @@ var store, actions, data, mocked_results, mocked_empty_results, count;
 
 describe('Search panel store', function(){
     beforeEach(function(){
-        data = require('../../utils/data.js');
+        data = require('../../infrastructure/data.js');
         actions = require('../actions.js');
         store = require('../store.js');
 
