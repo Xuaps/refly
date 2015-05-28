@@ -11,7 +11,6 @@ var express = require('express')
   , airbrake = require('airbrake').createClient('0eb2891adfa08afa30a7526ca1173596')
   , toll = require('./routes/express-toll.js')
   , passport = require('passport')
-  , session = require('cookie-session')
   , random_values = require('./app/random-values.js');
 
 var app = express();
@@ -31,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 
 /* middlewares */
-app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
 app.use(passport.initialize());
 app.use(airbrake.expressHandler());
 app.use(new toll({route: '/api/references/:docset/:uri*'
