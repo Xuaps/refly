@@ -62,4 +62,10 @@ router.get('/api/users/current', passport.authenticate(bearer_auth.name, {sessio
                 .then(send.bind(null,res)).done();
         });
 
+router.delete('/api/session', passport.authenticate(bearer_auth.name, {session: false}),
+        function(req, res){
+            api.deleteSession(req.user.auth_token)
+                .then(send.bind(null,res)).done();
+        });
+
 module.exports = router;

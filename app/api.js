@@ -206,6 +206,21 @@ module.exports.findUser = function(token){
         });
 };
 
+module.exports.deleteSession = function(token){
+    return new Users().revokeAccessToken({auth_token: token})
+        .then(function(){
+            return {
+                links: {
+                    self: '/api/session',
+                    curies: getCuries(),
+                },
+                data: {
+                    message: "Session removed"
+                }
+            };
+        });
+};
+
 var getCuries = function(){
     return [
                 {

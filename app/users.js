@@ -29,6 +29,12 @@ Users.prototype.find = function(values){
         .where(values);
 };
 
+Users.prototype.revokeAccessToken = function(values){
+    return db('users')
+        .update({auth_token: undefined})
+        .where(values);
+};
+
 Users.prototype.findOrCreate = function(user){
     var _that = this;
     return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){

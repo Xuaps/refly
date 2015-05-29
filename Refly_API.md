@@ -391,3 +391,35 @@ The User resource has the following attributes:
 + Response 401
 
     {"message": "Unauthorized"}
+
+#Group Session
+A Session resource in Refly API
+
+## Session [/api/session]
+A single Session object. It represents the a user's session in Refly.
+The Session resource has the following attributes:
+
+- email
+
++ Model (application/hal+json; charset=utf-8)
+
+   HAL+JSON representation of Docset Resource.
+
+   + Body
+
+            {
+               "_links": {
+                   "self": { "href": "/api/session" }
+               },
+               "token": "token"
+            }
+
+### Delete current Session [DELETE]
+
++ Response 200
+
+    {"message": "Session deleted"}
+
++ Response 401
+
+    {"message": "Unauthorized"}
