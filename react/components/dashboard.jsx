@@ -1,7 +1,7 @@
 var React = require('react');
 var Search = require('../search-panel/search.jsx');
 var TreeView = require('../docsets-tree/treeview.jsx');
-var SingButton = require('../session/session-button.jsx');
+var SignButton = require('../session/session-button.jsx');
 var URI = require ('URIjs');
 var Router = require('react-router');
 var RouterHandler = Router.RouteHandler;
@@ -26,14 +26,14 @@ module.exports = React.createClass({
                                             <a className="btn btn-default navbar-toggle navbar-btn" href="#" onClick={this.activeSideBar}>
                                                 <span className="glyphicon glyphicon-menu-hamburger"></span>
                                             </a>                                
-                                            <SingButton className="navbar-toggle" onClickHandler={function(e){this.navigation('session');}.bind(this)}/>
+                                            <SignButton className="navbar-toggle" onClickHandler={function(e){this.navigation('session');}.bind(this)}/>
                                             <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <ul className="nav navbar-nav navbar-right">
                                                 <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
                                                 <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
-                                                <li><SingButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
+                                                <li><SignButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
                                             </ul>
                                          </div>
                                     </div>

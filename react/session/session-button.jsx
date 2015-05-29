@@ -21,7 +21,7 @@ module.exports = React.createClass({
                     <span className="hidden-xs">{this.state.status.user.email}</span> <span className="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                   </button>;
         }else{
-            return <button className={"btn btn-default navbar-btn " + this.className} onClick={this.props.onClickHandler}><span className="hidden-xs">Sing In</span> <span className="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>;
+            return <button className={"btn btn-default navbar-btn " + this.className} onClick={this.props.onClickHandler}><span className="hidden-xs">Sign In</span> <span className="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>;
         }
     }
 });
