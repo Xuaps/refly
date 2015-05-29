@@ -1,6 +1,7 @@
 var React = require('react');
 var Search = require('../search-panel/search.jsx');
 var TreeView = require('../docsets-tree/treeview.jsx');
+var SingButton = require('../session/session-button.jsx');
 var URI = require ('URIjs');
 var Router = require('react-router');
 var RouterHandler = Router.RouteHandler;
@@ -34,7 +35,7 @@ module.exports = React.createClass({
                                             <ul className="nav navbar-nav navbar-right">
                                                 <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
                                                 <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
-                                                <li><a href="/session" onClick={function(){this.navigateWithTransition("session"); return false;}.bind(this)}>Sing In</a></li>
+                                                <li><SingButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
                                             </ul>
                                          </div>
                                     </div>

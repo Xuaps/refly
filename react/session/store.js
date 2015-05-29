@@ -10,19 +10,26 @@ module.exports = Reflux.createStore({
         this.listenToMany(actions);
     },
 
+    onInit: function() {
+        var token = authentication.getAuth();
+        if(token){
+           this._buildUser();
+        }else{
+           this._cleanStatus();
+           this.trigger(this.status);
+        }
+    },
+
     onLoginSuccessful: function(token){
         authentication.setAuth(token);
-        data.getCurrentUser()
-            .then(function(user){
-                this.status.user = user;
-                this.status.isAuthenticated = true;
-                this.trigger(this.status);
-            }.bind(this))
-            .fail(this.onFail);    
+        return this._buildUser();
     },
     
     onLogOut: function(){
-        this.trigger();
+        data.deleteSession().fail(this.fail);
+        authentication.setAuth('');
+        this._cleanStatus();
+        this.trigger(this.status);
     },
     
     onFail: function(error){
@@ -32,4 +39,18 @@ module.exports = Reflux.createStore({
             throw error;
         }
     },
+
+    _buildUser: function(){
+        return data.getCurrentUser()
+            .then(function(user){
+                this.status.user = user;
+                this.status.isAuthenticated = true;
+                this.trigger(this.status);
+            }.bind(this))
+            .fail(this.onFail);    
+    },
+
+    _cleanStatus: function(){
+      this.status = {isAuthenticated: false};
+    }
 });

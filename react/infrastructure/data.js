@@ -84,4 +84,23 @@ Data.getCurrentUser = function(){
     return deferred.promise;
 };
 
+Data.deleteSession = function(){
+    var deferred = Q.defer();
+    var token = authentication.getAuth();
+    $.ajax({
+        url: '/api/session',
+        method: 'DELETE',
+        headers: {
+            authorization: 'Bearer {0}'.format(token)
+        },
+        statusCode: {
+            401: function(){
+                deferred.reject(new AuthenticationError());
+            }
+        }
+    }).then(deferred.resolve);
+
+    return deferred.promise;
+};
+
 module.exports = Data;

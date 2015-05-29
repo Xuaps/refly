@@ -13,6 +13,8 @@ module.exports = React.createClass({
     componentWillMount: function(){
         if(this.props.query.access_token){
             actions.loginSuccessful(this.props.query.access_token);
+        }else{
+            actions.init();
         }
     },
 
