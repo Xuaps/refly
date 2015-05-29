@@ -26,9 +26,7 @@ module.exports = React.createClass({
                                             <a className="btn btn-default navbar-toggle navbar-btn" href="#" onClick={this.activeSideBar}>
                                                 <span className="glyphicon glyphicon-menu-hamburger"></span>
                                             </a>                                
-                                            <a className="btn btn-default navbar-btn navbar-toggle" href="#">
-                                                <span className="glyphicon glyphicon-user"></span>
-                                            </a>
+                                            <SingButton className="navbar-toggle" onClickHandler={function(e){this.navigation('session');}.bind(this)}/>
                                             <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
                                         </div>
                                         <div className="navbar-collapse hidden-xs">

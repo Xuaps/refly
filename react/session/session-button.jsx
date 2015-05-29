@@ -12,15 +12,16 @@ module.exports = React.createClass({
 
     componentWillMount: function(){
         actions.init();
+        this.className = this.props.className || '';
     },
 
     render: function (){
         if(this.state.status.isAuthenticated){
-           return <a onClick={actions.logOut}> 
-                    {this.state.status.user.email} <span className="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                  </a>;
+           return <button className={"btn btn-default navbar-btn " + this.className} onClick={actions.logOut}> 
+                    <span className="hidden-xs">{this.state.status.user.email}</span> <span className="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                  </button>;
         }else{
-            return <a onClick={this.props.onClickHandler}>Sing In <span className="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>;
+            return <button className={"btn btn-default navbar-btn " + this.className} onClick={this.props.onClickHandler}><span className="hidden-xs">Sing In</span> <span className="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>;
         }
     }
 });
