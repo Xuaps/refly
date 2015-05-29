@@ -19,18 +19,42 @@ module.exports = React.createClass({
     },
 
     render: function (){
+        var error;
         if(this.state.status.isAuthenticated){
             return <div>You are logged in as {this.state.status.user.email}</div>;
         }else{
+            if(this.props.query.error){
+                error = <div className="col-xs-12">
+                            <div className="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Error!</strong> {this.props.query.error}
+                            </div>
+                        </div>
+            }
             return <div>
-                <ul>
-                    <li>
-                        <a href="/auth/google">google</a>
-                    </li>
-                        <li>
-                            <a href="/auth/github">github</a>
-                        </li>
-                </ul>
+                    <div className="row">
+                        {error}        
+                        <div className="col-xs-12">
+                            <div class="page-header">
+                              <h1>Sign In</h1>
+                            </div>
+                        </div>
+                        <div className="col-xs-12">
+                            <div className="panel panel-default">
+                            <div className="panel-heading">Use your favourite service</div>
+                            <div className="panel-body text-center">
+                                <div className="btn-group" role="group">
+                                    <a href="/auth/google" className="btn btn-default">
+                                     <i className="icon-google-plus"></i> Google
+                                    </a>
+                                    <a href="/auth/github" className="btn btn-default">
+                                        <i className="icon-github"></i> GitHub
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>;
         }
     }

@@ -11,18 +11,24 @@ passport.use(google_auth);
 
 router.get('/auth/github', passport.authenticate(github_auth.name, {session: false, scope: github_auth.scope }));
 router.get('/auth/github/callback', passport.authenticate(github_auth.name, 
-            {session: false, failureRedirect: "/errorLogin"}),
+            {session: false, failureRedirect: "/session", failureFlash: true}),
             function(req,res){
                 res.redirect("/session?access_token=" + req.user.auth_token);
             }
 );
 
 router.get('/auth/google', passport.authenticate(google_auth.name, {session: false, scope: google_auth.scope }));
-router.get('/auth/google/callback', passport.authenticate(google_auth.name, 
-            {session: false, failureRedirect: "/errorLogin"}),
-            function(req,res){
-                res.redirect("/session?access_token=" + req.user.auth_token);
-            }
-);
+router.get('/auth/google/callback', function(req, res, next) {
+  if(req.query.error)
+    return res.redirect('/session?error='+req.query.error);
+
+  passport.authenticate(google_auth.name, function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/session'); }
+    return res.redirect('/session?access_token=' + user.auth_token);
+  })(req, res, next);
+});
+        
+        
 
 module.exports = router;
