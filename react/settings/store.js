@@ -21,6 +21,7 @@ module.exports = Reflux.createStore({
                 wkd.splice(index,1);
             else
                 wkd.push(docset);
+            // si no está logado hacer esto
             settings.setWorkingDocsets(wkd);
             this._reviewDocsets(this.settings.docsets);
             this.trigger(this.settings);
@@ -29,8 +30,6 @@ module.exports = Reflux.createStore({
 
     onGetSettings: function(){
         this._loadDocsets().then(function(){
-            //Full Copy of docsets, to filter
-            this.settings.completedocsets = this.settings.docsets;
             this.trigger(this.settings);
         }.bind(this)).done();
     },
@@ -49,13 +48,22 @@ module.exports = Reflux.createStore({
             .then(function(response){this._reviewDocsets(response['_embedded']['rl:docsets']);}.bind(this));
     },
 
+    _loadMyDocsets: function(user){
+        return data.getUserDocsets(user)
+            .then(function(response){this._markactiveDocsets(response['_embedded']['rl:docsets']);}.bind(this));
+    },
+
     _reviewDocsets: function(docsets){
+        // si no está logado, carga esto.
         var workDocsets = settings.getWorkingDocsets();
-        this.settings.docsets = docsets.map(function(docset){
-            docset.active = workDocsets.some(function(work){return work.name === docset.name;});
+        this.settings.docsets = this._markactiveDocsets(docsets, workDocsets);
+    },
+
+    _markactiveDocsets: function(activedocsets){
+        
+        return docsets.map(function(docset){
+            docset.active = activedocsets.some(function(work){return work.name === docset.name;});
             return docset;
         });
     }
-
 });
-

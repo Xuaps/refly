@@ -24,6 +24,12 @@ Docsets.prototype.select = function(columns){
     return this;
 };
 
+Docsets.prototype.docsetsbyuser = function(user){
+    this._query = this._query.innerJoin('docsetsxuser', 'docsetsxuser.docset', 'docsets.docset')
+        .where('docsetsxuser.user', filters.operators.IN , user);
+    return this;
+};
+
 Docsets.prototype.order = function(column, direction){
     this._query = this._query.orderBy(column, direction);
     return this;

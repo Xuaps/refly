@@ -14,6 +14,13 @@ Data.getDefaultDocsets = function(){
         });
 };
 
+Data.getUserDocsets = function(user){
+    return $.ajax({
+            url: '/api/settings/{0}'.format(user),  
+            method: 'GET'
+        });
+};
+
 Data.getActiveDocsets = function(){
     return $.ajax({
 	        url:'/api/docsets?active=true',  

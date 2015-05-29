@@ -112,13 +112,19 @@ var get_docset = function(name){
 };
 
 var get_docsets = function(active){
-	docsets = new Docsets();
-	if(active){
-		docsets.filter('active', filters.operators.EQUALS, active);
-	}
+    docsets = new Docsets();
+    if(active){
+        docsets.filter('active', filters.operators.EQUALS, active);
+    }
     return docsets
         .select(['docset','default_uri', 'update_date', 'label', 'active']).order('update_date', 'ASC')
         .execute();
+};
+
+var get_docsetsbyuser = function(user){
+    docsets = new Docsets();
+    return docsets
+    .select(['docsets.docset','docsets.default_uri', 'docsets.update_date', 'docsets.label', 'docsets.active']).docsetsbyuser(user).execute();
 };
 
 module.exports.branch = branch;
@@ -126,5 +132,6 @@ module.exports.breadcrumbs = breadcrumbs;
 module.exports.get_types = get_types;
 module.exports.get_docset = get_docset;
 module.exports.get_docsets = get_docsets;
+module.exports.get_docsetsbyuser = get_docsetsbyuser;
 module.exports.get = get;
 module.exports.search = search;

@@ -191,6 +191,32 @@ module.exports.get_docsets = function(main_url, active){
     });
 };
 
+module.exports.get_docsetsbyuser = function(main_url, user){
+    return slash.get_docsetsbyuser(user).then(function(docsets) {
+       return {
+            links: {
+                self: '/api/settings/' + user, 
+                curies: getCuries(),
+            },
+            embeds: {
+               "rl:docsets": docsets.map(function(docset){
+                   return {
+                        links: {
+                            self: '/api/docsets/' + docset.docset 
+                        },
+                        name: docset.docset,
+                        start_uri: docset.default_uri,
+                        latest_version_date: docset.update_date,
+                        description: docset.label,
+                        is_active: docset.active,
+                        image: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-logo.png',
+                        bigimage: main_url + '/img/languages/' + docset.docset.toLowerCase() + '-biglogo.jpg'
+                   };           
+                })
+           }
+       };
+    });
+};
 module.exports.findUser = function(token){
     return new Users().find({auth_token: token})
         .then(function(users){

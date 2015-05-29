@@ -51,6 +51,12 @@ router.get('/api/docsets?', function(req, res){
     api.get_docsets(req.protocol +'://' + req.get('host'), req.query.active)
         .then(send.bind(null,res)).done();
 });
+
+router.get('/api/settings/:user', function(req, res){
+    api.get_docsetsbyuser(req.protocol +'://' + req.get('host'), req.params.user)
+        .then(send.bind(null,res)).done();
+});
+
 router.get('/api/types?', function(req, res){
     api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
         .then(send.bind(null,res)).done();
