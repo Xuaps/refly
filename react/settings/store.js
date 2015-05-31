@@ -23,14 +23,23 @@ module.exports = Reflux.createStore({
                 wkd.push(docset);
             // si no está logado hacer esto
             settings.setWorkingDocsets(wkd);
-            this._reviewDocsets(this.settings.docsets);
+            this._marklocalDocsets(this.settings.docsets);
             this.trigger(this.settings);
         }.bind(this)).done();
     },
 
     onGetSettings: function(){
-        this._loadDocsets().then(function(){
-            this.trigger(this.settings);
+        this._loadDocsets().then(function(response){
+            this._loadMyDocsets(112)
+                .then(function(userresponse){
+                    var logged = false;
+                    if(logged){
+                        this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],userresponse['_embedded']['rl:docsets']);
+                    }else{
+                        this.settings.docsets = this._marklocalDocsets(response['_embedded']['rl:docsets']);
+                    }
+                    this.trigger(this.settings);
+                }.bind(this));
         }.bind(this)).done();
     },
 
@@ -45,21 +54,19 @@ module.exports = Reflux.createStore({
             return Q.fcall(function(){});
 
         return data.getActiveDocsets()
-            .then(function(response){this._reviewDocsets(response['_embedded']['rl:docsets']);}.bind(this));
     },
 
     _loadMyDocsets: function(user){
-        return data.getUserDocsets(user)
-            .then(function(response){this._markactiveDocsets(response['_embedded']['rl:docsets']);}.bind(this));
+        return data.getUserDocsets(user);
     },
 
-    _reviewDocsets: function(docsets){
+    _marklocalDocsets: function(docsets){
         // si no está logado, carga esto.
         var workDocsets = settings.getWorkingDocsets();
-        this.settings.docsets = this._markactiveDocsets(docsets, workDocsets);
+        return this._markactiveDocsets(docsets, workDocsets);
     },
 
-    _markactiveDocsets: function(activedocsets){
+    _markactiveDocsets: function(docsets, activedocsets){
         
         return docsets.map(function(docset){
             docset.active = activedocsets.some(function(work){return work.name === docset.name;});
