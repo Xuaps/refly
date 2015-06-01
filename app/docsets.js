@@ -4,6 +4,7 @@ var db = require('./db');
 
 function Docsets(){
     this._query = db('docsets');
+    this._querydocsetsxusers = db('docsetsxuser')
 } 
 
 Docsets.prototype.filter = function(field, operator, value) {
@@ -26,8 +27,23 @@ Docsets.prototype.select = function(columns){
 
 Docsets.prototype.docsetsbyuser = function(user){
     this._query = this._query.innerJoin('docsetsxuser', 'docsetsxuser.docset', 'docsets.docset')
-        .where('docsetsxuser.user', filters.operators.IN , user);
+    this._query = this._query.innerJoin('users', 'docsetsxuser.user', 'users.id')
+        .where('users.email', filters.operators.IN , user);
     return this;
+};
+
+Docsets.prototype.savedocsetxuser = function(user,docsets){
+    var insertingdocsets = [];
+    return db.transaction(function(trx){
+        docsets.forEach(function(docset){
+            insertingdocsets.push({user: user, docset: docset})
+        });
+        return db('docsetsxuser').transacting(trx).del().where({user: user})
+        .then(function(){
+            return trx.insert(insertingdocsets)
+                    .into('docsetsxuser')
+        });
+    });
 };
 
 Docsets.prototype.order = function(column, direction){

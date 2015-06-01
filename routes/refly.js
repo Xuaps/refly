@@ -52,7 +52,12 @@ router.get('/api/docsets?', function(req, res){
         .then(send.bind(null,res)).done();
 });
 
-router.get('/api/settings/:user', function(req, res){
+router.get('/api/settings/set?', passport.authenticate(bearer_auth.name, {session: false}), function(req, res){
+    api.savedocsetxuser(req.protocol +'://' + req.get('host'), req.user.auth_token, req.query.docsets)
+        .then(send.bind(null,res)).done();
+});
+
+router.get('/api/settings/:user', passport.authenticate(bearer_auth.name, {session: false}), function(req, res){
     api.get_docsetsbyuser(req.protocol +'://' + req.get('host'), req.params.user)
         .then(send.bind(null,res)).done();
 });

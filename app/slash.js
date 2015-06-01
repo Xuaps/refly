@@ -1,6 +1,7 @@
 var References = require('./references');
 var Docsets = require('./docsets');
 var filters = require('./filters');
+var Users = require('./users');
 var q = require('q');
 
 var search = function(options) {
@@ -126,12 +127,20 @@ var get_docsetsbyuser = function(user){
     return docsets
     .select(['docsets.docset','docsets.default_uri', 'docsets.update_date', 'docsets.label', 'docsets.active']).docsetsbyuser(user).execute();
 };
+var savedocsetxuser = function(token, docsetstring){
+    var docsetlist = docsetstring.split(',');
+    return new Users().find({auth_token: token}).then(function(users){
+        docsets = new Docsets();
+        return docsets.savedocsetxuser(users[0].id, docsetlist);
+    })
 
+}
 module.exports.branch = branch;
 module.exports.breadcrumbs = breadcrumbs;
 module.exports.get_types = get_types;
 module.exports.get_docset = get_docset;
 module.exports.get_docsets = get_docsets;
 module.exports.get_docsetsbyuser = get_docsetsbyuser;
+module.exports.savedocsetxuser = savedocsetxuser;
 module.exports.get = get;
 module.exports.search = search;

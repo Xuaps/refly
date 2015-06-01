@@ -217,6 +217,18 @@ module.exports.get_docsetsbyuser = function(main_url, user){
        };
     });
 };
+module.exports.savedocsetxuser = function(main_url, token, docsets){
+    return slash.savedocsetxuser(token,docsets).then(function() {
+       return {
+            links: {
+                self: '/api/settings/set',
+                curies: getCuries(),
+            },
+            status: "saved"
+       };
+    });
+};
+
 module.exports.findUser = function(token){
     return new Users().find({auth_token: token})
         .then(function(users){

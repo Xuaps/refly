@@ -2,6 +2,7 @@ var Reflux = require('reflux');
 var SettingsActions = require('./actions.js');
 var data = require('../infrastructure/data.js');
 var settings = require('../infrastructure/settings.js');
+var authentication = require('../infrastructure/authentication.js');
 var Q = require('q');
 
 module.exports = Reflux.createStore({
@@ -22,6 +23,7 @@ module.exports = Reflux.createStore({
             else
                 wkd.push(docset);
             // si no está logado hacer esto
+            this._setUserDocsets(this.settings.docsets);
             settings.setWorkingDocsets(wkd);
             this._marklocalDocsets(this.settings.docsets);
             this.trigger(this.settings);
@@ -30,16 +32,20 @@ module.exports = Reflux.createStore({
 
     onGetSettings: function(){
         this._loadDocsets().then(function(response){
-            this._loadMyDocsets(112)
+            this._loadMyDocsets()
                 .then(function(userresponse){
-                    var logged = false;
+                    var logged = true;
                     if(logged){
                         this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],userresponse['_embedded']['rl:docsets']);
                     }else{
                         this.settings.docsets = this._marklocalDocsets(response['_embedded']['rl:docsets']);
                     }
                     this.trigger(this.settings);
-                }.bind(this));
+                }.bind(this),
+                function(error){
+                    console.log('fuera');
+                    return false;
+                }.bind(this))
         }.bind(this)).done();
     },
 
@@ -56,10 +62,33 @@ module.exports = Reflux.createStore({
         return data.getActiveDocsets()
     },
 
-    _loadMyDocsets: function(user){
-        return data.getUserDocsets(user);
+    _loadMyDocsets: function(){
+        return data.getCurrentUser()
+        .then(function (user) {
+             return data.getUserDocsets(user.email);
+        }.bind(this),
+        function(){
+          console.log('not logged');
+        }.bind(this));
     },
 
+    _setUserDocsets: function(docsets){
+        var activedocsets = [];
+        return data.getCurrentUser()
+        .then(function (user) {
+            activedocsets = docsets.filter(function(docset){
+                if(docset.active){
+                    return true;
+                }else{
+                    return false;
+                }
+            }).map(function(docset){return docset.name});
+             return data.setUserDocsets(activedocsets);
+        }.bind(this),
+        function(){
+          console.log('not logged');
+        }.bind(this));
+    },
     _marklocalDocsets: function(docsets){
         // si no está logado, carga esto.
         var workDocsets = settings.getWorkingDocsets();

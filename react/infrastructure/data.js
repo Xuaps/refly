@@ -15,10 +15,39 @@ Data.getDefaultDocsets = function(){
 };
 
 Data.getUserDocsets = function(user){
+    var token = authentication.getAuth();
     return $.ajax({
             url: '/api/settings/{0}'.format(user),  
-            method: 'GET'
-        });
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer {0}'.format(token)
+            },
+            statusCode: {
+                401: function(){
+                    deferred.reject(new AuthenticationError());
+                },
+                400: function(){
+                    deferred.reject(new AuthenticationError());
+                }
+            }
+            });
+};
+
+Data.setUserDocsets = function(docsets){
+    var token = authentication.getAuth();
+    return $.ajax({
+            url:'/api/settings/set'
+            + '?docsets=' + docsets.join(','),
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer {0}'.format(token)
+            },
+            statusCode: {
+                401: function(){
+                    deferred.reject(new AuthenticationError());
+                }
+            }
+            });
 };
 
 Data.getActiveDocsets = function(){
