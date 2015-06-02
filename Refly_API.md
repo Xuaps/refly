@@ -423,3 +423,56 @@ The Session resource has the following attributes:
 + Response 401
 
     {"message": "Unauthorized"}
+
+##Group Settings [GET]
+Application settings resource in *Refly API*
+
+## Retrieve the user docsets selection [/api/settings]
+
++ Model (application/hal+json; charset=utf-8)
+
+   HAL+JSON representation of Docset Resource.
+
+   + Body
+
+            {
+                "_links": {
+                   "self": { "href": "/api/settings" },
+                    "curies": [
+                        { 
+                            "name": "rl",
+                            "href": "http://refly.co/rels/{rel}",
+                            "templated": true
+                        }
+                    ]
+                },
+                "_embedded": {
+                    "rl:docsets": [
+                        {
+                            "_links": {
+                               "self": { "href": "/api/docsets/slash"}
+                            },
+                           "name": "slash",
+                           "start_uri": "/slash/test.html",
+                           "latest_version_date": "2014-12-30T23:00:00.000Z",
+                           "description": "new",
+                           "is_active": true,
+                           "image": "http://myserver.com/img/docset.png",
+                           "bigimage": "http://myserver.com/img/bigdocset.png"
+                        }    
+                    ]
+                 }
+             }
+
+## Save user docsets selection[PUT]
+
+## Modify docset selection [/api/settings?docsets={docsets}]
+Parameter *docsets* (list of docset names separated by comma)
+
++ Response 200
+
+    {"message": "Selection saved"}
+
++ Response 401
+
+    {"message": "Unauthorized"}
