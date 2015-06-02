@@ -221,10 +221,12 @@ module.exports.savedocsetxuser = function(main_url, token, docsets){
     return slash.savedocsetxuser(token,docsets).then(function() {
        return {
             links: {
-                self: '/api/settings/set',
+                self: '/api/settings?docsets=' + docsets,
                 curies: getCuries(),
             },
-            status: "saved"
+            data: {
+                message: "Selection saved"
+            }
        };
     });
 };
