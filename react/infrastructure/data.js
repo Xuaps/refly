@@ -17,7 +17,7 @@ Data.getDefaultDocsets = function(){
 Data.getUserDocsets = function(user){
     var token = authentication.getAuth();
     return $.ajax({
-            url: '/api/settings/{0}'.format(user),  
+            url: '/api/settings',
             method: 'GET',
             headers: {
                 authorization: 'Bearer {0}'.format(token)
@@ -35,10 +35,11 @@ Data.getUserDocsets = function(user){
 
 Data.setUserDocsets = function(docsets){
     var token = authentication.getAuth();
+
     return $.ajax({
-            url:'/api/settings/set'
-            + '?docsets=' + docsets.join(','),
-            method: 'GET',
+            url:'/api/settings?'
+            + 'docsets=' + docsets.join(','),
+            method: 'PUT',
             headers: {
                 authorization: 'Bearer {0}'.format(token)
             },
@@ -112,6 +113,9 @@ Data.getCurrentUser = function(){
         },
         statusCode: {
             401: function(){
+                deferred.reject(new AuthenticationError());
+            },
+            400: function(){
                 deferred.reject(new AuthenticationError());
             }
         }

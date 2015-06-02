@@ -122,17 +122,19 @@ var get_docsets = function(active){
         .execute();
 };
 
-var get_docsetsbyuser = function(user){
+var get_docsetsbyuser = function(token){
     docsets = new Docsets();
-    return docsets
-    .select(['docsets.docset','docsets.default_uri', 'docsets.update_date', 'docsets.label', 'docsets.active']).docsetsbyuser(user).execute();
+    return new Users().find({auth_token: token}).then(function(users){
+        return docsets
+        .select(['docsets.docset','docsets.default_uri', 'docsets.update_date', 'docsets.label', 'docsets.active']).docsetsbyuser(users[0].id).execute();
+    })
 };
 var savedocsetxuser = function(token, docsetstring){
     var docsetlist = docsetstring.split(',');
     return new Users().find({auth_token: token}).then(function(users){
         docsets = new Docsets();
         return docsets.savedocsetxuser(users[0].id, docsetlist);
-    })
+    });
 
 }
 module.exports.branch = branch;

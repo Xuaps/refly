@@ -191,11 +191,11 @@ module.exports.get_docsets = function(main_url, active){
     });
 };
 
-module.exports.get_docsetsbyuser = function(main_url, user){
-    return slash.get_docsetsbyuser(user).then(function(docsets) {
+module.exports.get_docsetsbyuser = function(main_url, token){
+    return slash.get_docsetsbyuser(token).then(function(docsets) {
        return {
             links: {
-                self: '/api/settings/' + user, 
+                self: '/api/settings',
                 curies: getCuries(),
             },
             embeds: {

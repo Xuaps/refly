@@ -28,7 +28,7 @@ Docsets.prototype.select = function(columns){
 Docsets.prototype.docsetsbyuser = function(user){
     this._query = this._query.innerJoin('docsetsxuser', 'docsetsxuser.docset', 'docsets.docset')
     this._query = this._query.innerJoin('users', 'docsetsxuser.user', 'users.id')
-        .where('users.email', filters.operators.IN , user);
+        .where('users.id', filters.operators.IN , user);
     return this;
 };
 
