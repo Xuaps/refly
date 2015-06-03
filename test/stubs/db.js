@@ -34,6 +34,35 @@ db.mock = {
                         table.uuid('id');
                         table.integer('user_id');
                     });
+            })
+            .then(function(){
+                return db.schema.hasTable('docsetsxuser');
+            })
+            .then(function(exists){
+                if(exists)
+                    return db('docsetsxuser').del();
+                else
+                    return db.schema.createTable('docsetsxuser', function(table){
+                        table.uuid('id');
+                        table.integer('user');
+                        table.integer('docset');
+                });
+            })
+            .then(function(){
+                return db.schema.hasTable('docsets');
+            })
+            .then(function(exists){
+                if(exists)
+                    return db('docsets').del();
+                else
+                    return db.schema.createTable('docsets', function(table){
+                        table.uuid('id');
+                        table.integer('docset');
+                        table.integer('default_uri');
+                        table.integer('update_date');
+                        table.integer('label');
+                        table.integer('active');
+                });
             });
     },
 

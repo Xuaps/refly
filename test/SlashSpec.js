@@ -1,8 +1,11 @@
 var proxyquire = require('proxyquire');
 var sinon = require('sinon');
+var db_mock = require('./stubs/db.js');
 var References = require('./stubs/references');
+var Users = proxyquire('../app/users.js', {'./db': db_mock});
 var Docsets = require('./stubs/docsets');
-
+var Docsetsxuser = proxyquire('../app/docsets.js', {'./db': db_mock});
+var slashdocsetsxuser = proxyquire('../app/slash', { './references' : References, './docsets': Docsetsxuser, './users': Users });
 var slash = proxyquire('../app/slash', { './references' : References, './docsets': Docsets });
 
 describe('Slash', function() {
@@ -211,4 +214,65 @@ describe('Slash', function() {
            }).fin(done); 
        });       
    });
+});
+
+describe('Settings', function(){
+    describe('get docsets from a single user', function(){
+        it('It should look for a user by token and return his docsets ', function(done){
+            db_mock.mock.init()
+                .then(function(){
+                   db_mock.mock.tableInitialvalue('users', [
+                        {id:1, profile_id:2345, profile_provider:'github', auth_token:'yag_Rxg', email:'testemail@refly.co'} 
+                       ]);
+                   db_mock.mock.tableInitialvalue('docsets', [
+                        {id:1, docset:'Chai', default_uri:'/chai', update_date:'12/03/2014', label:'', active: true},
+                        {id:2, docset:'Cpp', default_uri:'/cpp', update_date:'04/01/2014', label:'', active: true}
+                       ]);
+                   return db_mock.mock.tableInitialvalue('docsetsxuser', [
+                        {id:1 ,user:'1', docset:'Chai'},
+                        {id:2 ,user:'1', docset:'Cpp'},
+                       ]);
+                })
+
+                .then(function(){
+                    var token = 'yag_Rxg';
+                    slashdocsetsxuser.get_docsetsbyuser(token).then(function(docsets) {
+                        expect(docsets.length).toBe(2);
+                        done();
+                    });
+                });
+        });
+
+    describe('Save selected docsets', function(){
+        it('should add a new user docsets', function(done){
+           db_mock.mock.init()
+                .then(function(){
+                   db_mock.mock.tableInitialvalue('users', [
+                        {id:1, profile_id:2345, profile_provider:'github', auth_token:'yag_Rxg', email:'testemail@refly.co'} 
+                       ]);
+                   db_mock.mock.tableInitialvalue('docsets', [
+                        {id:1, docset:'Chai', default_uri:'/chai', update_date:'12/03/2014', label:'', active: true},
+                        {id:2, docset:'Cpp', default_uri:'/cpp', update_date:'04/01/2014', label:'', active: true},
+                        {id:2, docset:'AngularJS', default_uri:'/angularjs', update_date:'04/08/2014', label:'', active: true}
+                       ]);
+                   return db_mock.mock.tableInitialvalue('docsetsxuser', [
+                        {id:1 ,user:'1', docset:'Chai'},
+                        {id:2 ,user:'1', docset:'Cpp'},
+                       ]);
+                })
+
+                .then(function(){
+                    var token = 'yag_Rxg';
+                    slashdocsetsxuser.savedocsetxuser(token,'Angular,Chai').then(function() {
+                        slashdocsetsxuser.get_docsetsbyuser(token).then(function(docsets) {
+                            expect(returneddocsets.length).toBe(3);
+                            done();
+                        });
+
+                        done();
+                    });
+                });
+        });
+    });
+    });
 });
