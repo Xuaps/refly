@@ -34,6 +34,7 @@ module.exports = Reflux.createStore({
             this._loadMyDocsets()
                 .then(function(userresponse){
                     this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],userresponse['_embedded']['rl:docsets']);
+                    settings.setWorkingDocsets(userresponse['_embedded']['rl:docsets']);
                     this.trigger(this.settings);
                 }.bind(this))
                 .catch(function(error){
@@ -78,7 +79,6 @@ module.exports = Reflux.createStore({
         }.bind(this));
     },
     _marklocalDocsets: function(docsets){
-        // si no está logado, carga esto.
         var workDocsets = settings.getWorkingDocsets();
         return this._markactiveDocsets(docsets, workDocsets);
     },
