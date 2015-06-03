@@ -5,9 +5,9 @@ var Docset = React.createClass({
         var item = this.props;
         return (
             <li>
-                <div>
+                <div className="_settings item">
                 <input type='checkbox' name={item.name} id={item.name} value={item.name} defaultChecked={item.active} onClick={this.onClickHandler} />
-                <label htmlFor={item.name}>{item.name}</label>
+                <label className={"docset-icon docsets-" + item.name} htmlFor={item.name}>{item.name}</label>
                 </div>
             </li>
             );

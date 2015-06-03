@@ -12,6 +12,10 @@
 ._settings .clear{
 	clear:both;
 }
+._settings .item:hover{
+	background-color: #73ADED;
+	color: #FFF;
+}
 ._settings .input-container{
 	width: 50%;
 	vertical-align: middle;
