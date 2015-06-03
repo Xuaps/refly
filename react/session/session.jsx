@@ -35,7 +35,7 @@ module.exports = React.createClass({
                     <div className="row">
                         {error}        
                         <div className="col-xs-12">
-                            <div class="page-header">
+                            <div className="page-header">
                               <h1>Sign In</h1>
                             </div>
                         </div>
