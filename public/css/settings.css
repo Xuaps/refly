@@ -15,6 +15,7 @@
 
 ._settings .item{
     padding-top: 5px;
+    padding-left: 10px;
 }
 
 ._settings .item:hover{

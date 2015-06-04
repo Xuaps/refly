@@ -4,27 +4,32 @@
 	color: #FFF;
 	text-align: center;
 	font-weight: bold;
-	min-height: 150px;
+	min-height: 200px;
 }
 ._welcome #header{
     position: absolute;
-    top: 0;
+    top: 15%;
     bottom: 0;
     left: 0;
     right: 0;
-    width: 50%;
+    width: 100%;
     margin: auto;
+    vertical-align: middle;
 }
 ._welcome .mainhead h1{
 	font-weight: bold;
 }
-._welcome .imageexample{
-	margin: 10px;
-	margin-bottom: 40px;
+._welcome .imageexamples li{
+	list-style-type:none;
+	display: inline-block;
+	padding: 25px;
+	margin-bottom: 20px;
 }
+
 ._welcome .paragraph{
 	clear: both;
 	padding-bottom: 10px;
+	text-align: justify;
 }
 ._welcome .center{
 	margin-bottom: 50px;

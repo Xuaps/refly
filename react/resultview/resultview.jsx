@@ -81,7 +81,9 @@ module.exports = React.createClass({
 
     render: function() {
         var content;
+        var normalview = true;
         if(this.state.reference===undefined){
+            normalview = false;
 	        content = <Welcome/>;
         }else if(this.state.reference instanceof Error){
             if(this.state.reference.name === "PaymentRequiredError"){
@@ -92,6 +94,7 @@ module.exports = React.createClass({
         }else{
             content = <Highlight innerHTML={true} selector="pre" > {this.state.reference.content} </Highlight>;
 		}
+        if(normalview){
         return (
                <div>
                     <Breadcrumbs key="breadcrumbscomp" ref="breadcrumbs" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
@@ -104,6 +107,9 @@ module.exports = React.createClass({
                     </div>
                </div>
                 );
+    }else{
+        return (<div>{content}</div>);
+    }
     },
 
     retry: function(){
