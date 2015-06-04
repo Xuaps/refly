@@ -108,7 +108,7 @@ module.exports = React.createClass({
                </div>
                 );
     }else{
-        return (<div>{content}</div>);
+        return (<div ref="resultcontent" className="result">{content}</div>);
     }
     },
 
