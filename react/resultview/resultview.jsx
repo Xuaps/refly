@@ -72,7 +72,8 @@ module.exports = React.createClass({
             }
             position = anchor_o.offset().top - 60;
         }
-        $('html, body').animate({ scrollTop: position }, 300, function(){ });
+        $('html, body').removeClass('overflowed');
+        $('html, body').animate({ scrollTop: position }, 300, function(){$('html, body').addClass('overflowed');});
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){

@@ -1,6 +1,10 @@
 html,
 body {
     height: 100%;
+
+}
+.overflowed{
+	overflow-x: hidden;
 }
 
 body {
