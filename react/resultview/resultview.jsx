@@ -77,6 +77,8 @@ module.exports = React.createClass({
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
+        if(nextState.reference.name=='PaymentRequiredError')
+            return true;
         return nextState.reference !== this.state.reference;
     },
 
@@ -114,6 +116,7 @@ module.exports = React.createClass({
     },
 
     retry: function(){
+        actions.onCompleteBlockingPeriod();
         this.loadRef(this.props.params);
     },
 

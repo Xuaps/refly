@@ -1,5 +1,6 @@
 var Reflux = require('reflux');
 var actions = require('./actions.js');
+var PaymentRequiredError = require('../errors/payment-required.js');
 var Data = require('../infrastructure/data.js');
 
 module.exports = Reflux.createStore({
@@ -9,13 +10,23 @@ module.exports = Reflux.createStore({
     },
 
     onLoadReference: function(docset, uri){
-        Data.getReference(docset, uri)
-            .then(function(reference){
-                this.trigger(reference);
-            }.bind(this)).fail(this.onFail).done();
+        if(this.blocked){
+            new PaymentRequiredError();
+        } else {
+            Data.getReference(docset, uri)
+                .then(function(reference){
+                    this.trigger(reference);
+                }.bind(this)).fail(this.onFail).done();
+        }
     },
-    
+
+    onCompleteBlockingPeriod: function(){
+        this.blocked = false;
+    },
+
     onFail: function(error){
+        if(error.name =='PaymentRequiredError')
+            this.blocked = true;
         if(error instanceof Error){
             this.trigger(error);
         }else{

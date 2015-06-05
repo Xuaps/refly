@@ -1,7 +1,8 @@
 var React = require('react');
 var CountdownClock = require('react-countdown-clock');
-
 module.exports = React.createClass({
+
+
     render: function(){
         return <div>
                     <div className="row text-center">
