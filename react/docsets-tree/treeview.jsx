@@ -66,7 +66,7 @@ var ReferencesTreeView = React.createClass({
     },
     
     onDocsetClick: function(key, ref){
-        this.props.onNodeClick(ref.uri);
+        this.props.onNodeClick(ref.uri, false);
         TreeviewActions.selectDocset(ref.docset_name);
     },
 
@@ -75,9 +75,10 @@ var ReferencesTreeView = React.createClass({
     },
     
     onReferenceClick: function(key, ref){
-        this.props.onNodeClick(ref.uri);
+        this.props.onNodeClick(ref.uri, true);
         TreeviewActions.selectReference(ref);
     },
+    
 
     render: function() {
         return (

@@ -276,6 +276,17 @@
 .type-variable:before {
     background-position: -64px -64px;
 }
+
+.selected {
+    background-color: #73ADED;
+    color: #FFF;
+    font-weight: bolder;
+}
+
+.selected span {
+    color: #FFF;
+    font-weight: bolder;
+}
 /*
 #tree-view .docset-icon, #tree-view .type-icon {
     display: inline-block;
@@ -301,10 +312,7 @@
     width: 270px;
 }
 /*
-.selected {
-    background-color: #333;
-    color: #FFF;
-}
+
 .tree-view .tree-view_children>div.selected:hover {
     background-color: #333;
     color: #FFF;

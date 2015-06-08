@@ -50,7 +50,7 @@ module.exports = React.createClass({
     
     onClickHandler: function(uri){
         actions.markReference(uri);
-        this.props.onClick(uri);
+        this.props.onClick(uri, true);
     },
 
     _hasMore: function(){

@@ -1,6 +1,6 @@
 var React = require('react');
 var Reference = require('../../app/reference_vo.js');
-
+var URI = require('URIjs');
 var ReferenceNode = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
@@ -12,11 +12,19 @@ var ReferenceNode = React.createClass({
     
     render: function(){
         var item=this.props;
+        var selected = '';
+        if (this.isSelected()){ selected = ' selected';}
         return ( 
-            <div className={'type-icon type-'+item.type+' '+this.props.className} onClick={this.onClickHandler}>
+            <div className={'type-icon type-'+item.type+' '+this.props.className + selected} onClick={this.onClickHandler}>
                 {item.name}
             </div>
         );
+    },
+
+    isSelected: function(elementuri){
+        var baseUri=new URI(window.document.baseURI);
+        var nodeuri = baseUri.protocol() + '://' + baseUri.host() + this.props.uri;
+        return window.document.baseURI == nodeuri;
     },
 
     onClickHandler: function() {

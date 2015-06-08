@@ -31,8 +31,8 @@ module.exports = React.createClass({
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <ul className="nav navbar-nav navbar-right">
-                                                <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
-                                                <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
+                                                <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings", true); return false;}.bind(this)}>Settings</a></li>
+                                                <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal", true); return false;}.bind(this)}>Legal</a></li>
                                                 <li><SignButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
                                             </ul>
                                          </div>
@@ -51,8 +51,8 @@ module.exports = React.createClass({
                                 </div>
                                 <div className="footer sidebar-panel visible-xs">
                                         <ul className="nav nav-pills">
-                                            <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings"); return false;}.bind(this)}>Settings</a></li>
-                                            <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal"); return false;}.bind(this)}>Legal</a></li>
+                                            <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings", true); return false;}.bind(this)}>Settings</a></li>
+                                            <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal", true); return false;}.bind(this)}>Legal</a></li>
                                         </ul>
                                 </div>
                             </div>
@@ -69,8 +69,9 @@ module.exports = React.createClass({
         $('.row-offcanvas').toggleClass('active');
     },
   
-    navigateWithTransition: function(uri){
-        $('.row-offcanvas').toggleClass('active');
+    navigateWithTransition: function(uri, hidetreeview){
+        if(hidetreeview)
+            $('.row-offcanvas').toggleClass('active');
         this.navigation(uri);
     },
 
