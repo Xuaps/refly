@@ -72,8 +72,7 @@ module.exports = React.createClass({
             }
             position = anchor_o.offset().top - 60;
         }
-        $('html, body').removeClass('overflowed');
-        $('html, body').animate({ scrollTop: position }, 300, function(){$('html, body').addClass('overflowed');});
+        $('html, body').animate({ scrollTop: position }, 300, function(){});
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
@@ -90,6 +89,7 @@ module.exports = React.createClass({
 	        content = <Welcome/>;
         }else if(this.state.reference instanceof Error){
             if(this.state.reference.name === "PaymentRequiredError"){
+                var Page402 = require('../errors/402.jsx');
                 content = <Page402 onComplete={this.retry}/>;
             }else if(this.state.reference.name === "ReferenceNotFoundError"){
                 content = <Page404/>;

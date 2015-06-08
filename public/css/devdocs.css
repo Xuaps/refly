@@ -441,7 +441,7 @@ b, strong {
 small {
   font-size: .9em; }
 
-ul, ol {
+._page ul, ._page ol {
   margin: 1.5em 0;
   padding: 0 0 0 2em;
   list-style: disc outside; }
