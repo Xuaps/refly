@@ -87,7 +87,7 @@ The Reference resource has the following attributes:
             "message": "Error: Reference not found."
         }
 
-##References collection [/api/references{?name,pagesize,page,docsets*,types*}]
+## References collection [/api/references{?name,pagesize,page,docsets*,types*}]
 A collection of References.
 
 The References Collection resource  **embeds* *Reference Resources* in the Refly API.
@@ -360,7 +360,7 @@ The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
 
     [Docsets collection][]
 
-#Group User
+# Group User
 A User resource in Refly API
 
 ## User [/api/users/current]
@@ -390,16 +390,18 @@ The User resource has the following attributes:
 
 + Response 401
 
-    {"message": "Unauthorized"}
+        {
+            "message": "Unauthorized"
+        }
 
-#Group Session
+# Group Session
 A Session resource in Refly API
 
 ## Session [/api/session]
 A single Session object. It represents the a user's session in Refly.
 The Session resource has the following attributes:
 
-- email
+- token
 
 + Model (application/hal+json; charset=utf-8)
 
@@ -418,13 +420,13 @@ The Session resource has the following attributes:
 
 + Response 200
 
-    {"message": "Session deleted"}
+        {"message": "Session deleted"}
 
 + Response 401
 
-    {"message": "Unauthorized"}
+        {"message": "Unauthorized"}
 
-##Group Settings [GET]
+##Group Settings
 Application settings resource in *Refly API*
 
 ## Retrieve the user docsets selection [/api/settings]
@@ -471,8 +473,94 @@ Parameter *docsets* (list of docset names separated by comma)
 
 + Response 200
 
-    {"message": "Selection saved"}
+        {"message": "Selection saved"}
 
 + Response 401
 
-    {"message": "Unauthorized"}
+        {"message": "Unauthorized"}
+
+# Group Subscription
+Subscription resource of *Refly API*
+
+## Subscription [/api/subscriptions/current]
+A Subscription resource in Refly API. It represents the current users
+subscription. The subscription object has the following attributes:
+
+- payment_data (object)
+    - last4 (string)
+    - brand (string)
+- plan (string)
+
++ Model (application/hal+json; charset=utf-8)
+
+    HAL+JSON representation of Subscription Resource.
+
+    + Body
+
+            {
+                "_links": {
+                    "self": { "href": "/api/subscriptions/current" },
+                    ],
+                    "rl:user": { "href": "/api/users/current" }
+                },
+                "_embedded": {
+                    "rl:form": {
+                        "_links": {
+                            "self": { "href": "/api/subscriptions/form" },
+                            "curies": [
+                                { 
+                                    "name": "rl",
+                                    "href": "http://refly.co/rels/{rel}",
+                                    "templated": true
+                                }
+                            ],
+                            "rl:target": { "href": "/api/subscriptions/form" }
+                        },
+                        "method": "PUT",
+                        "type": "application/hal+json",
+                        "class": "add-subscription"
+                    }
+                },
+                "payment_data": {
+                    "last4": "3243",
+                    "brand": "visa"
+                },
+                "plan": "monthly"
+            }
+
+### Retrieve current Subscription [GET]
+
++ Request Get current Subscription (application/json)
+
+    + Header
+
+            Authentication: Bearer 03b21e72fb2e5d875173d475
+
++ Response 200
+
+    [Subscription][]
+
+## Subscription Form [/api/subscriptions/form]
+A Subscription form resource in Refly API. It represents the form to create or
+update a subscription.
+
+### Create a Subscription [PUT]
+
++ Request Create a Subscription (application/json)
+
+    + Header
+
+            Authentication: Bearer 03b21e72fb2e5d875173d475
+
+    + Attributes (object)
+        + token (string)
+        + plan (string)
+
+    + Body
+
+            { "token": "03b21e72fb2e5d875173d475",
+              "plan": "anual" }
+
++ Response 200
+
+    [Subscription][]

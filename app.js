@@ -1,5 +1,6 @@
 var express = require('express')
   , favicon = require('serve-favicon')
+  , subscription_router = require('./routes/subscriptions.js')
   , users_router = require('./routes/users.js')
   , references_router = require('./routes/references.js')
   , authentication_router = require('./routes/authentication.js')

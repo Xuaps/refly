@@ -4,10 +4,11 @@ var config = require('config');
 
 module.exports.create = function(){
     var strategy = new BearerStrategy( _verifier);
-    strategy.name= 'bearer';
 
     return strategy;
 };
+
+module.exports.name = 'bearer';
 
 var _verifier = function(token, done) {
     new Users().find({auth_token: token}).then(function(user){
