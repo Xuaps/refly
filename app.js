@@ -57,7 +57,7 @@ app.use(users_router);
 
 /* general */
 app.use('/', function(req, res){
-    res.render('index', {environment: env});
+    res.render('index', {environment: env, stripe_pk: config.stripe.public_key});
 });   
 
 /*errors*/

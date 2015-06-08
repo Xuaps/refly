@@ -11,6 +11,7 @@ var About = require('./about.jsx');
 var Legal = require('./legal.jsx');
 var Cookies = require('./cookies.jsx');
 var Session = require('../session/session.jsx');
+var Payment = require('../payment/payment.jsx');
 
 var routes = (
     <Route name='dashboard' path='/' handler={Dashboard}>
@@ -20,6 +21,7 @@ var routes = (
         <Route name='legal' handler={Legal}/>
         <Route name='about' handler={About}/>
         <Route name='cookies' handler={Cookies}/>
+        <Route name='upgrade' handler={Payment}/>
         <Route name="result" path=':docset/*' handler={Result}/>
         <Route name="notfound" path=':splat' handler={Result}/>
         <DefaultRoute handler={Result}/>

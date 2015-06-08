@@ -31,7 +31,12 @@ html
     |    
     script(type='text/javascript', src=assetFingerprint('/js/airbrake-shim.js'), data-airbrake-project-id='refly', data-airbrake-project-key="0eb2891adfa08afa30a7526ca1173596" data-airbrake-environment-name="#{environment}")
     |     
+    script(type="text/javascript", src=assetFingerprint("https://js.stripe.com/v2/") )
+    |     
     script(type="text/javascript", src=assetFingerprint("/js/bundle.js") )
+
+    script.
+      Stripe.setPublishableKey('#{stripe_pk}');
     
     script.
       $(document).ready(function() {
