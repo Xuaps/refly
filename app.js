@@ -1,6 +1,7 @@
 var express = require('express')
   , favicon = require('serve-favicon')
-  , refly_router = require('./routes/refly')
+  , users_router = require('./routes/users.js')
+  , references_router = require('./routes/references.js')
   , authentication_router = require('./routes/authentication.js')
   , http = require('http')
   , path = require('path')
@@ -12,6 +13,9 @@ var express = require('express')
   , toll = require('./routes/express-toll.js')
   , DomainRedirect = require('./routes/domain-redirect.js')
   , passport = require('passport')
+  , BearerStrategyFactory = require('./app/auth_strategies/bearer.js')
+  , hal = require('express-hal')
+  , cacheResponseDirective = require('express-cache-response-directive')
   , random_values = require('./app/random-values.js');
 
 var app = express();
@@ -40,10 +44,15 @@ app.use(airbrake.expressHandler());
 app.use(new toll({route: '/api/references/:docset/:uri*'
             , exclude: ['/api/references/:docset/:uri*/c&b','/api/references/:docset/:uri*/hierarchy']},
             function(){return random_values.boolean.weighted(92);}, "Payment required.").activate());
+var bearer_auth = BearerStrategyFactory.create();
+passport.use(bearer_auth);
+app.use(hal.middleware);
+app.use(cacheResponseDirective());
 
 /* routes */
 app.use(authentication_router);
-app.use(refly_router);
+app.use(references_router);
+app.use(users_router);
 
 /* general */
 app.use('/', function(req, res){
