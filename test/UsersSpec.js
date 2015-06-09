@@ -16,7 +16,6 @@ describe('users repository', function(){
                     users
                         .findOrCreate({profile_id:3456, profile_provider:'github', auth_token:'abbb', email:'email@refly.co'})
                         .then(function(user){
-                            expect(user.id).toBeDefined();
                             db_mock('users').count('id as count').then(function(result){
                                 expect(result[0].count).toBe(2);
                                 done();
@@ -37,7 +36,8 @@ describe('users repository', function(){
                     users
                         .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.co'})
                         .then(function(user){
-                            expect(user.id).toBe(123);
+                            expect(user.profile_id).toBe(2345);
+                            expect(user.profile_provider).toBe('github');
                             done();
                         });
                 });
@@ -55,7 +55,6 @@ describe('users repository', function(){
                     users
                         .findOrCreate({profile_id:2345, profile_provider: 'google', auth_token:'aaaa', email:'email@refly.co'})
                         .then(function(user){
-                            expect(user.id).toBe(123);
                             expect(user.auth_token).toBe('aaaa');
                             expect(user.email).toBe('email@refly.co');
                             done();
