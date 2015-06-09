@@ -29,5 +29,10 @@
                 "clientSecret": ""
           }
       }
+  },
+
+  "stripe": {
+      "public_key": "public key",
+      "private_key": "private_key"
   }
 }

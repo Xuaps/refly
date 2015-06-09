@@ -44,7 +44,7 @@ Users.prototype.add = function (user){
 Users.prototype.update = function(user){
     return db('users')
             .where('users.profile_id', user.profile_id)
-            .update({email:user.email, auth_token: user.auth_token})
+            .update(user)
             .then(function(){
                 return user;
             });

@@ -3,6 +3,8 @@ var Users = require('./users.js');
 var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
+var config = require('config');
+var stripe = require('stripe')(config.stripe.secret_key);
 
 module.exports.entry = function(){
     return {
@@ -259,6 +261,16 @@ module.exports.deleteSession = function(token){
                 }
             };
         });
+};
+
+module.exports.createSubscription = function(user, token, plan){
+    return stripe.customers.create({
+        source: token,
+        description: user.email
+    }).then(function(customer){
+        user.stripe_id = customer.id;
+        return new Users().update(user);
+    });
 };
 
 var getCuries = function(){

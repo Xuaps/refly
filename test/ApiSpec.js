@@ -1,10 +1,18 @@
 var proxyquire = require('proxyquire');
 var referencesMock = require('./stubs/references.js');
 var slash = proxyquire('../app/slash.js', {'./references': referencesMock});
-var api = proxyquire('../app/api.js', {'./slash.js': slash});
+var stripeMock = require('./stubs/stripe.js');
+var dbMock = require('./stubs/db.js');
+var Users = proxyquire('../app/users.js', {'./db': dbMock});
+var api = proxyquire('../app/api.js', {'./slash.js': slash, './users.js': Users, 'stripe': stripeMock});
 
 describe('Refly API', function(){
-    beforeEach(function() {
+    var fake_users = [
+        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'test@refly.co'},
+        {id:123, profile_id:3345, profile_provider:'google', auth_token:'bbbb', email:'test_2@refly.co', stripe_id: 'cus_12345'}
+    ];
+
+    beforeEach(function(done) {
       referencesMock.prototype._collection = [
                 {
                     reference: 'search',
@@ -42,7 +50,12 @@ describe('Refly API', function(){
                 content: 'test'
             });
         }
+        dbMock.mock.init()
+            .then(function(){
+               return dbMock.mock.tableInitialvalue('users', fake_users);
+            }).then(function(){ done(); });
     });
+
     describe('get_reference', function(){
         describe('reference doesnt exist', function(){
             it('should fail with a message error', function(done){
@@ -77,6 +90,32 @@ describe('Refly API', function(){
                     });
                     done();
                 });
+        });
+    });
+
+    describe('Create subscription', function(){
+        xit('should recover the customer if it exists', function(){
+        });
+
+        it('should create a new customer if it doesnt exist', function(done){
+            var token = 'token';
+            var plan = 'anual';
+            stripeMock.mock.customer = { id: 'new_customer' };
+
+            api.createSubscription(user, token, plan)
+                .then(function(subscription){
+                    return new dbMock('users').select()
+                        .then(function(users){
+                            expect(users[0].stripe_id).toBe('new_customer');
+                            done();
+                        });
+                });
+        });
+
+        xit('should update payment data if their have changed and customer exists', function(){
+        });
+
+        xit('should create subscription', function(){
         });
     });
 });

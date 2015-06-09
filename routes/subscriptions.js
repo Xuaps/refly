@@ -21,7 +21,8 @@ router.get('/api/subscription/current', passport.authenticate(BearerStrategyFact
 
 router.put('/api/subscription/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
-            api.createSubscription(req.token, req.plan)
+            console.log(req);
+            api.createSubscription(req.user, req.body.token, req.body.plan)
                 .then(send.bind(null,res)).done();
         });
 

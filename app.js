@@ -1,4 +1,5 @@
 var express = require('express')
+  , bodyParser = require('body-parser')
   , favicon = require('serve-favicon')
   , subscription_router = require('./routes/subscriptions.js')
   , users_router = require('./routes/users.js')
@@ -39,7 +40,7 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 if('development' != env) {
     app.use(new DomainRedirect().https_redirect());
 }
-
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(airbrake.expressHandler());
 app.use(new toll({route: '/api/references/:docset/:uri*'
@@ -54,6 +55,7 @@ app.use(cacheResponseDirective());
 app.use(authentication_router);
 app.use(references_router);
 app.use(users_router);
+app.use(subscription_router);
 
 /* general */
 app.use('/', function(req, res){
