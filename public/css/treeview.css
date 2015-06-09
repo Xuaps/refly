@@ -5,7 +5,7 @@
 }
 
 .tree-view {
-    margin-top:6px;
+    margin-top:10px;
 }
 .tree-view div {
     overflow: hidden;
@@ -13,9 +13,11 @@
 
 .tree-view_children {
   margin-left: 16px;
+  margin-top: 10px;
 }
 .tree-view_children-collapsed {
-    height: 0px;
+      height: 0px;
+
 }
 .tree-view_arrow {
       cursor: pointer;
@@ -25,6 +27,9 @@
       -ms-user-select: none;
       user-select: none;
       float: left;
+      margin-top: -4px;
+      margin-right: 15px;
+      font-size: 160%;
 }
 
 /* rotate the triangle to close it */
@@ -36,6 +41,7 @@
 }
 .docset-icon{
     cursor: pointer;
+    font-size: 135%;
 }
 /* tree-view icons */
 .docset-icon:before {
@@ -46,7 +52,7 @@
     content: '';
     float:left;
     margin-right:2px;
-    margin-top:-2px;
+    margin-top:3px;
 }
 
 .docsets-dotnet:before {
@@ -199,7 +205,8 @@
     display: block;
     content: '';
     float: left;
-    margin: 1px 7px 0px 0px;
+    margin: 4px 7px 20px 0px;
+    font-size: 135%;
 }
 .type-class:before {
     background-position: 0 0;
@@ -280,12 +287,10 @@
 .selected {
     background-color: #73ADED;
     color: #FFF;
-    font-weight: bolder;
 }
 
 .selected span {
     color: #FFF;
-    font-weight: bolder;
 }
 /*
 #tree-view .docset-icon, #tree-view .type-icon {

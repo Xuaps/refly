@@ -12,10 +12,12 @@ var ReferenceNode = React.createClass({
     
     render: function(){
         var item=this.props;
-        var selected = '';
-        if (this.isSelected()){ selected = ' selected';}
+        this.props.className = this.props.className.replace('selected', '');
+        if (this.isSelected()){
+            this.props.className += ' selected';
+        }
         return ( 
-            <div className={'type-icon type-'+item.type+' '+this.props.className + selected} onClick={this.onClickHandler}>
+            <div className={'type-icon type-'+item.type+' '+this.props.className} onClick={this.onClickHandler}>
                 {item.name}
             </div>
         );
