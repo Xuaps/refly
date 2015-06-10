@@ -1,3 +1,4 @@
+var Q = require('q');
 var slash = require('./slash.js');
 var Users = require('./users.js');
 var JSON = require('../app/JSON');
@@ -5,6 +6,7 @@ var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
 var config = require('config');
 var stripe = require('stripe')(config.stripe.secret_key);
+var Subscription = require('./subscription.js');
 
 module.exports.entry = function(){
     return {
@@ -263,14 +265,33 @@ module.exports.deleteSession = function(token){
         });
 };
 
-module.exports.createSubscription = function(user, token, plan){
-    return stripe.customers.create({
-        source: token,
-        description: user.email
-    }).then(function(customer){
-        user.stripe_id = customer.id;
-        return new Users().update(user);
-    });
+module.exports.createSubscription = function(user, plan, token){
+    return getCustomer(user, token)
+        .then(function(customer){
+           if(user.stripe_id != customer.id){
+              return setStripeId(user, customer.id).then(function(){ return customer;});
+           }
+           return customer;
+        }) 
+        .then(function(customer){
+           return Subscription.create(user,customer, plan);
+        });
+};
+
+var getCustomer = function(user, token){
+    if(user.stripe_id){
+        return stripe.customers.retrieve(user.stripe_id);
+    }else{
+        return stripe.customers.create({
+            source: token,
+            description: user.email
+        });
+    }
+};
+
+var setStripeId = function(user, id){
+    user.stripe_id = id;
+    return new Users().update(user);
 };
 
 var getCuries = function(){

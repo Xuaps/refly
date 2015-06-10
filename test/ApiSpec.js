@@ -7,10 +7,7 @@ var Users = proxyquire('../app/users.js', {'./db': dbMock});
 var api = proxyquire('../app/api.js', {'./slash.js': slash, './users.js': Users, 'stripe': stripeMock});
 
 describe('Refly API', function(){
-    var fake_users = [
-        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'test@refly.co'},
-        {id:123, profile_id:3345, profile_provider:'google', auth_token:'bbbb', email:'test_2@refly.co', stripe_id: 'cus_12345'}
-    ];
+    var fake_users;
 
     beforeEach(function(done) {
       referencesMock.prototype._collection = [
@@ -50,6 +47,10 @@ describe('Refly API', function(){
                 content: 'test'
             });
         }
+        fake_users = [
+            {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'test@refly.co'},
+            {id:124, profile_id:3345, profile_provider:'google', auth_token:'bbbb', email:'test_2@refly.co', stripe_id: 'cus_12345'}
+        ];
         dbMock.mock.init()
             .then(function(){
                return dbMock.mock.tableInitialvalue('users', fake_users);
@@ -94,15 +95,27 @@ describe('Refly API', function(){
     });
 
     describe('Create subscription', function(){
-        xit('should recover the customer if it exists', function(){
+        it('should recover the customer if it exists', function(done){
+            var token = 'token';
+            var plan = 'anual';
+            stripeMock.mock.customer = { id: 'cus_12345' , sources:{data:[{last4:"4444", brand:"visa"}]}};
+
+            api.createSubscription(fake_users[1], plan, token)
+                .then(function(subscription){
+                    return new dbMock('users').select()
+                        .then(function(users){
+                            expect(users[1].stripe_id).toBe('cus_12345');
+                            done();
+                        });
+                });
         });
 
         it('should create a new customer if it doesnt exist', function(done){
             var token = 'token';
             var plan = 'anual';
-            stripeMock.mock.customer = { id: 'new_customer' };
+            stripeMock.mock.customer = { id: 'new_customer' , sources:{data:[{last4:"4444", brand:"visa"}]}};
 
-            api.createSubscription(user, token, plan)
+            api.createSubscription(fake_users[0], plan, token)
                 .then(function(subscription){
                     return new dbMock('users').select()
                         .then(function(users){
@@ -111,8 +124,18 @@ describe('Refly API', function(){
                         });
                 });
         });
+        
+        it('should retunr payment data', function(done){
+            var token = 'token';
+            var plan = 'anual';
+            stripeMock.mock.customer = { id: 'new_customer', sources:{data:[{last4:"4444", brand:"visa"}]}};
 
-        xit('should update payment data if their have changed and customer exists', function(){
+            api.createSubscription(fake_users[0], plan, token)
+                .then(function(subscription){
+                    expect(subscription.payment_data.last4).toBe("4444");
+                    expect(subscription.payment_data.brand).toBe("visa");
+                    done();
+                });
         });
 
         xit('should create subscription', function(){
