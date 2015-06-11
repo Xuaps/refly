@@ -526,7 +526,10 @@ subscription. The subscription object has the following attributes:
                     "brand": "visa"
                 },
                 "plan": "monthly",
-                "status": "active"
+                "status": "active",
+                "cancel_at_period_end": false,
+                "current_period_start": 1434020626,
+                "current_period_end": 1436612626
             }
 
 ### Retrieve current Subscription [GET]
