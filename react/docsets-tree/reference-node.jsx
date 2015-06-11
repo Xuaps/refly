@@ -1,6 +1,7 @@
 var React = require('react');
 var Reference = require('../../app/reference_vo.js');
 var URI = require('URIjs');
+var MAX_WORD_LENGTH = 29;
 var ReferenceNode = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
@@ -18,7 +19,7 @@ var ReferenceNode = React.createClass({
         }
         return ( 
             <div className={'type-icon type-'+item.type+' '+this.props.className} onClick={this.onClickHandler}>
-                {item.name}
+                {item.name.replace(".", ". ").replace("::", ":: ")}
             </div>
         );
     },
