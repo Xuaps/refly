@@ -1,5 +1,7 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
+jest.dontMock('q');
+var Q = require('q');
 
 var store, actions, data, authentication;
 
@@ -55,7 +57,7 @@ describe('Session status', function(){
       it('should be unauthenticated and doesnt have a user defined', function(){
         var cont = 0;
         data.prototype._users = [{email: 'test@refly.co'}];
-        data.deleteSession = jest.genMockFunction().mockReturnValue({fail: function(){}});
+        data.deleteSession = jest.genMockFunction().mockReturnValue(Q.fcall(function(){return;}));
         actions.loginSuccessful('test');  
         actions.logOut();
         store.listen(function(status){

@@ -26,10 +26,11 @@ module.exports = Reflux.createStore({
     },
     
     onLogOut: function(){
-        data.deleteSession().fail(this.fail);
-        authentication.setAuth('');
-        this._cleanStatus();
-        this.trigger(this.status);
+        data.deleteSession().then(function(){
+            authentication.setAuth('');
+            this._cleanStatus();
+            this.trigger(this.status);
+        }).fail(this.onFail);
     },
     
     onFail: function(error){
