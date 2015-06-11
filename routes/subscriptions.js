@@ -22,7 +22,15 @@ router.get('/api/subscription/current', passport.authenticate(BearerStrategyFact
 router.put('/api/subscription/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
             api.createSubscription(req.user, req.body.plan, req.body.token)
-                .then(function(sub){res.json(sub);}).done();
+                .then(function(sub){res.json(sub);})
+                .catch(function(err){
+                    if(err.name === 'InternalError'){
+                        res.status(500);
+                    }else{
+                        res.status(400);
+                    }
+                    res.json({error: err});
+                });
         });
 
 module.exports = router;

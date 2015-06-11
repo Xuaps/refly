@@ -7,6 +7,9 @@ var util = require('util');
 var config = require('config');
 var stripe = require('stripe')(config.stripe.secret_key);
 var Subscription = require('./subscription.js');
+var CreditCardError = require('./errors/credit-card.js');
+var InternalError = require('./errors/internal.js');
+var airbrake = require('airbrake').createClient(config.airbrake.key);
 
 module.exports.entry = function(){
     return {
@@ -272,10 +275,22 @@ module.exports.createSubscription = function(user, plan, token){
               return setStripeId(user, customer.id).then(function(){ return customer;});
            }
            return customer;
-        }) 
+        })
         .then(function(customer){
-           return Subscription.create(user,customer, plan);
-        });
+            return stripe.customers.createSubscription(customer.id,
+                { "plan": plan })
+            .then(function(subscription){
+               return Subscription.create(user,customer, subscription);
+            });
+        }).catch(manageStripeErrors);
+};
+
+var manageStripeErrors = function(err){
+    airbrake.notify(err);
+    if(err.type === 'StripeCardError'){
+        throw new CreditCardError(err.message);
+    }
+    throw new InternalError("Something went wrong on Refly's end");
 };
 
 var getCustomer = function(user, token){
@@ -284,7 +299,7 @@ var getCustomer = function(user, token){
     }else{
         return stripe.customers.create({
             source: token,
-            description: user.email
+            email: user.email
         });
     }
 };

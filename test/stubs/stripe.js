@@ -9,6 +9,10 @@ module.exports = function(token){
 
             retrieve: function(id){
                 return returnMockCustomer();
+            },
+
+            createSubscription: function(customer, plan){
+                return Q.fcall(function(){ return mock.subscription || {"plan":{ id:''}, status:''};});
             }
         }
     };

@@ -525,7 +525,8 @@ subscription. The subscription object has the following attributes:
                     "last4": "3243",
                     "brand": "visa"
                 },
-                "plan": "monthly"
+                "plan": "monthly",
+                "status": "active"
             }
 
 ### Retrieve current Subscription [GET]
@@ -539,6 +540,18 @@ subscription. The subscription object has the following attributes:
 + Response 200
 
     [Subscription][]
+
+### Cancel current Subscription [DELETE]
+
++ Cancel current Subscription (application/json)
+
+    + Header
+
+            Authentication: Bearer 03b21e72fb2e5d875173d475
+
++ Response 200
+
+        { "message": "Subscription canceled" }
 
 ## Subscription Form [/api/subscriptions/form]
 A Subscription form resource in Refly API. It represents the form to create or

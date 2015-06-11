@@ -135,10 +135,22 @@ describe('Refly API', function(){
                     expect(subscription.payment_data.last4).toBe("4444");
                     expect(subscription.payment_data.brand).toBe("visa");
                     done();
-                });
+                }).fail(done);
         });
 
-        xit('should create subscription', function(){
+        it('should create subscription', function(done){
+            var token = 'token';
+            var plan = 'anual';
+            stripeMock.mock.customer = { id: 'new_customer', sources:{data:[{last4:"4444", brand:"visa"}]}};
+            stripeMock.mock.subscription = { plan:{id:'annual'}, status: 'active'};
+
+            api.createSubscription(fake_users[0], plan, token)
+                .then(function(subscription){
+                    expect(subscription.plan).toBe("annual");
+                    expect(subscription.status).toBe("active");
+                    done();
+                }).fail(done);
+
         });
     });
 });
