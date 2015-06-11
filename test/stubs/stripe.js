@@ -13,6 +13,10 @@ module.exports = function(token){
 
             createSubscription: function(customer, plan){
                 return Q.fcall(function(){ return mock.subscription || {"plan":{ id:''}, status:''};});
+            },
+            
+            cancelSubscription: function(customer_id, subscription_id, params){
+                return Q.fcall(function() { return mock.subscription; });
             }
         }
     };

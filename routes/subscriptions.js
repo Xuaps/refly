@@ -6,6 +6,29 @@ var passport = require('passport');
 
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';
+
+router.get('/api/subscription/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
+        function(req, res){
+            api.getSubscription(req.user)
+                .then(function(sub){res.json(sub);})
+                .catch(manageErrors.bind(null, res));
+        });
+
+router.delete('/api/subscription/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
+        function(req, res){
+            api.cancelSubscription(req.user)
+                .then(function(sub){res.json(sub);})
+                .catch(manageErrors.bind(null, res));
+        });
+
+router.put('/api/subscription/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
+        function(req, res){
+            api.createSubscription(req.user, req.body.plan, req.body.token)
+                .then(function(sub){res.json(sub);})
+                .catch(manageErrors.bind(null, res));
+        });
+
+
 if ('development' == env) {
     maxAge = 0;
 }
@@ -15,22 +38,13 @@ var send = function(res, hal){
     res.hal(hal);
 };
 
-router.get('/api/subscription/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
-        function(req, res){
-        });
-
-router.put('/api/subscription/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
-        function(req, res){
-            api.createSubscription(req.user, req.body.plan, req.body.token)
-                .then(function(sub){res.json(sub);})
-                .catch(function(err){
-                    if(err.name === 'InternalError'){
-                        res.status(500);
-                    }else{
-                        res.status(400);
-                    }
-                    res.json({error: err});
-                });
-        });
+var manageErrors = function(res,err){
+    if(err.name === 'InternalError'){
+        res.status(500);
+    }else{
+        res.status(400);
+    }
+    res.json({error: err});
+};
 
 module.exports = router;

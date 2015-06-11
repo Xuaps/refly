@@ -268,6 +268,13 @@ module.exports.deleteSession = function(token){
         });
 };
 
+module.exports.getSubscription = function(user){
+    return stripe.customers.retrieve(user.stripe_id)
+        .then(function(customer){
+            return mapSusbcription(Subscription.create(user, customer, customer.subscriptions.data[0]));
+        }).catch(manageStripeErrors);
+};
+
 module.exports.createSubscription = function(user, plan, token){
     return getCustomer(user, token)
         .then(function(customer){
@@ -280,9 +287,52 @@ module.exports.createSubscription = function(user, plan, token){
             return stripe.customers.createSubscription(customer.id,
                 { "plan": plan })
             .then(function(subscription){
-               return Subscription.create(user,customer, subscription);
+               return mapSusbcription(Subscription.create(user,customer, subscription));
             });
         }).catch(manageStripeErrors);
+};
+
+module.exports.cancelSubscription = function(user){
+    return stripe.customers.retrieve(user.stripe_id)
+        .then(function(customer){
+            return stripe.customers.cancelSubscription(
+                 customer.id, customer.subscriptions.data[0].id,{at_period_end: true})
+                .then(function(canceled_subscription){
+                    return mapSusbcription(Subscription.create(user, customer, canceled_subscription));
+                });
+        }).catch(manageStripeErrors);
+};
+
+var mapSusbcription = function(subscription){
+    return {
+        links: {
+            self: '/api/subscriptions/current',
+            curies: getCuries(),
+            "rl:user": "/api/users/current",
+        },
+        embeds: {
+            "rl:form": {
+                links: {
+                    self: "/api/subscription/form",
+                    curies: getCuries(),
+                    "rl:target": "/api/subscriptions/form"
+                },
+                data:{
+                    method: "PUT",
+                    type: "application/hal+json",
+                    class: "create-subscription"
+                }
+            }
+        },
+        data: {
+            payment_data: subscription.payment_data,
+            plan: subscription.plan,
+            status: subscription.status,
+            cancel_at_period_end: subscription.cancel_at_period_end,
+            current_period_start: subscription.current_period_start,
+            current_period_end: subscription.current_period_end
+        }
+    };
 };
 
 var manageStripeErrors = function(err){

@@ -153,4 +153,35 @@ describe('Refly API', function(){
 
         });
     });
+
+    describe('Cancel subscription', function(){
+        it('should cancel the subscription', function(done){
+            var subscription = { plan:{id:'annual'}, status: 'active'};
+            stripeMock.mock.subscription = { plan:{id:'annual'}, status: 'active', cancel_at_period_end: true,
+                current_period_start: 1434008506, current_period_end: 1436600506 };
+            stripeMock.mock.customer = { id: 'new_customer', sources:{data:[{last4:"4444", brand:"visa"}]}, 
+                subscriptions:{data: [subscription]}};
+            
+            api.cancelSubscription(fake_users[0])
+                .then(function(canceled_subscription){
+                    expect(canceled_subscription.status).toBe('active');
+                    expect(canceled_subscription.cancel_at_period_end).toBe(true);
+                    expect(canceled_subscription.current_period_start).toBe(1434008506);
+                    expect(canceled_subscription.current_period_end).toBe(1436600506);
+                    done();
+                });
+        });
+    });
+
+    describe('Get subscription', function(){
+        it('should return the active subscription', function(done){
+            var sub = { plan:{id:'annual'}, status: 'active'};
+
+            api.getSubscription(fake_users[0])
+                .then(function(subscription){
+                    expect(subscription).toEqual({ payment_data : { last4 : '4444', brand : 'visa' }, plan : 'annual', user : { id : 123, profile_id : 3456, profile_provider : 'google', auth_token : 'aaaa', email : 'test@refly.co', stripe_id : undefined }, cancel_at_period_end : undefined, current_period_end : undefined, current_period_start : undefined, status : 'active' });
+                    done();
+                });
+        });
+    });
 });

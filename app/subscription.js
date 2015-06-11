@@ -11,6 +11,9 @@ Subscription.create = function(user, customer, subscription){
         brand: customer.sources.data[0].brand
     };
     sub.plan = subscription.plan.id;
+    sub.cancel_at_period_end = subscription.cancel_at_period_end;
+    sub.current_period_end = subscription.current_period_end;
+    sub.current_period_start = subscription.current_period_start;
     sub.status = subscription.status;
     sub.user = user;
 
