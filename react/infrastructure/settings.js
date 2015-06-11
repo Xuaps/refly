@@ -8,7 +8,7 @@ var defaultSettings =
                     }
                 },
                 "name": "JavaScript",
-                "start_uri": "/javascript/statements",
+                "start_uri": "/javascript/statements_and_declarations",
                 "latest_version_date": "2015-03-12T09:19:56.144Z",
                 "description": null,
                 "is_active": true,
@@ -45,7 +45,7 @@ var defaultSettings =
                 }
                 },
                 "name": "HTML",
-                "start_uri": "/html/attributes",
+                "start_uri": "/html/html_attribute_reference",
                 "latest_version_date": "2015-03-27T10:43:38.470Z",
                 "description": null,
                 "is_active": true,
@@ -84,7 +84,7 @@ var defaultSettings =
                 }
                 },
                 "name": "React",
-                "start_uri": "/react/component-api",
+                "start_uri": "/react/thinking_in_react",
                 "latest_version_date": "2015-03-27T10:47:52.685Z",
                 "description": null,
                 "is_active": true,
