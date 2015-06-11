@@ -197,6 +197,7 @@
 }
 .type-icon{
     cursor: pointer;
+    font-size: 135%;
 }
 .type-icon:before {
     background-image: url('../img/types.png');

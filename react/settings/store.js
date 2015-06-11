@@ -38,7 +38,9 @@ module.exports = Reflux.createStore({
                     this.trigger(this.settings);
                 }.bind(this))
                 .catch(function(error){
-                    this.settings.docsets = this._marklocalDocsets(response['_embedded']['rl:docsets']);
+                    if(response != undefined){
+                        this.settings.docsets = this._marklocalDocsets(response['_embedded']['rl:docsets']);
+                    }
                     this.trigger(this.settings);
                 }.bind(this))
         }.bind(this)).done();
