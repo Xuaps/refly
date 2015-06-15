@@ -10,6 +10,7 @@ var express = require('express')
   , config = require('config')
   , airbrake = require('airbrake').createClient('0eb2891adfa08afa30a7526ca1173596')
   , toll = require('./routes/express-toll.js')
+  , DomainRedirect = require('./routes/domain-redirect.js')
   , passport = require('passport')
   , random_values = require('./app/random-values.js');
 
@@ -30,6 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 
 /* middlewares */
+if('development' != env) {
+    app.use(new DomainRedirect().https_redirect());
+}
+
 app.use(passport.initialize());
 app.use(airbrake.expressHandler());
 app.use(new toll({route: '/api/references/:docset/:uri*'
