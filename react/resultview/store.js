@@ -2,6 +2,7 @@ var Reflux = require('reflux');
 var actions = require('./actions.js');
 var PaymentRequiredError = require('../errors/payment-required.js');
 var Data = require('../infrastructure/data.js');
+var blocked = false;
 
 module.exports = Reflux.createStore({
     

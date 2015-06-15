@@ -19,9 +19,13 @@ var ReferenceNode = React.createClass({
         }
         return ( 
             <div className={'type-icon type-'+item.type+' '+this.props.className} onClick={this.onClickHandler}>
-                {item.name.replace(".", ". ").replace("::", ":: ")}
+                {this.wordWrapping(item.name)}
             </div>
         );
+    },
+
+    wordWrapping: function(word){
+        return word.replace(".", ". ").replace("::", ":: ").replace("#", "# ");
     },
 
     isSelected: function(elementuri){

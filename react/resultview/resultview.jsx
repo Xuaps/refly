@@ -89,7 +89,6 @@ module.exports = React.createClass({
 	        content = <Welcome/>;
         }else if(this.state.reference instanceof Error){
             if(this.state.reference.name === "PaymentRequiredError"){
-                var Page402 = require('../errors/402.jsx');
                 content = <Page402 onComplete={this.retry}/>;
             }else if(this.state.reference.name === "ReferenceNotFoundError"){
                 content = <Page404/>;
