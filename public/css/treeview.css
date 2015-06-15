@@ -58,16 +58,16 @@
 .docsets-dotnet:before {
     background-position: 0px 0px;
 }
-.docsets-Haskel:before {
+.docsets-Haskell:before {
     background-position: -24px 0px;
 }
-.docsets-Nodejs:before {
+.docsets-NodeJS:before {
     background-position: -48px 0px;
 }
-.docsets-Angularjs:before {
+.docsets-AngularJS:before {
     background-position: -72px 0px;
 }
-.docsets-Backbonejs:before {
+.docsets-BackboneJS:before {
     background-position: -96px 0px;
 }
 
@@ -112,7 +112,7 @@
 .docsets-CSS:before {
     background-position: -48px -72px;
 }
-.docsets-Emberjs:before {
+.docsets-EmberJS:before {
     background-position: -72px -72px;
 }
 .docsets-Go:before {
@@ -147,7 +147,7 @@
 .docsets-Modernizr:before {
     background-position: -72px -120px;
 }
-.docsets-Mongoosejs:before {
+.docsets-MongooseJS:before {
     background-position: -96px -120px;
 }
 
@@ -167,33 +167,75 @@
     background-position: -96px -144px;
 }
 
-.docsets-Rethinkdb:before {
+.docsets-RethinkDB:before {
     background-position: 0px -168px;
 }
 .docsets-Sass:before {
     background-position: -24px -168px;
 }
-.docsets-Socket:before {
+.docsets-SocketIO:before {
     background-position: -48px -168px;
 }
 .docsets-Yii:before {
     background-position: -72px -168px;
 }
-.docsets-Underscore:before {
+.docsets-UnderscoreJS:before {
     background-position: -96px -168px;
 }
 
-.docsets-Python:before {
+.docsets-Python2:before {
     background-position: 0px -192px;
 }
-.docsets-Sinonjs:before {
+.docsets-Python3:before {
+    background-position: 0px -192px;
+}
+.docsets-SinonJS:before {
     background-position: -24px -192px;
+}
+.docsets-npm:before {
+    background-position: -72px -192px;
 }
 .docsets-Mongodb:before {
     background-position: -48px -192px;
 }
 .docsets-DOM_Events:before {
     background-position: -72px -192px;
+}
+.docsets-C:before {
+    background-position: -96px -192px;
+}
+.docsets-Cpp:before {
+    background-position: 0px -218px;
+}
+.docsets-CoffeeScript:before {
+    background-position: -24px -218px;
+}
+.docsets-Apache:before {
+    background-position: -48px -218px;
+}
+.docsets-Lo-Dash:before {
+    background-position: -72px -218px;
+}
+.docsets-Laravel:before {
+    background-position: -96px -218px;
+}
+.docsets-KnockOut:before {
+    background-position: 0px -248px;
+}
+.docsets-Http:before {
+    background-position: -24px -248px;
+}
+.docsets-Moment:before {
+    background-position: -48px -248px;
+}
+.docsets-Django:before {
+    background-position: -72px -248px;
+}
+.docsets-Marionette:before {
+    background-position: -96px -248px;
+}
+.docsets-Rails:before {
+    background-position: 0px -280px;
 }
 .type-icon{
     cursor: pointer;
