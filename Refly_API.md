@@ -544,6 +544,14 @@ subscription. The subscription object has the following attributes:
 
     [Subscription][]
 
++ Response 500
+
+        {error: {message: 'error'}}
+
++ Response 400
+
+        {error: {message: 'error'}}
+
 ### Cancel current Subscription [DELETE]
 
 + Cancel current Subscription (application/json)
@@ -555,6 +563,14 @@ subscription. The subscription object has the following attributes:
 + Response 200
 
         { "message": "Subscription canceled" }
+
++ Response 500
+
+        {error: {message: 'error'}}
+
++ Response 400
+
+        {error: {message: 'error'}}
 
 ## Subscription Form [/api/subscriptions/form]
 A Subscription form resource in Refly API. It represents the form to create or
@@ -580,3 +596,11 @@ update a subscription.
 + Response 200
 
     [Subscription][]
+
++ Response 500
+
+        {error: {message: 'error'}}
+
++ Response 400
+
+        {error: {message: 'error'}}
