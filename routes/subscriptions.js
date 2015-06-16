@@ -7,24 +7,25 @@ var passport = require('passport');
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';
 
-router.get('/api/subscription/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
+router.get('/api/subscriptions/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
             api.getSubscription(req.user)
-                .then(function(sub){res.json(sub);})
+                .then(send.bind(null, res))
                 .catch(manageErrors.bind(null, res));
         });
 
-router.delete('/api/subscription/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
+router.delete('/api/subscriptions/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
             api.cancelSubscription(req.user)
-                .then(function(sub){res.json(sub);})
+                .then(send.bind(null,res))
                 .catch(manageErrors.bind(null, res));
         });
 
-router.put('/api/subscription/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
+router.put('/api/subscriptions/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
+            console.log(req.body);
             api.createSubscription(req.user, req.body.plan, req.body.token)
-                .then(function(sub){res.json(sub);})
+                .then(send.bind(null,res))
                 .catch(manageErrors.bind(null, res));
         });
 

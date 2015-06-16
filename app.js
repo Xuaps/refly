@@ -17,6 +17,7 @@ var express = require('express')
   , passport = require('passport')
   , BearerStrategyFactory = require('./app/auth_strategies/bearer.js')
   , hal = require('express-hal')
+  , session = require('cookie-session')  
   , cacheResponseDirective = require('express-cache-response-directive')
   , random_values = require('./app/random-values.js');
 
@@ -40,6 +41,7 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 if('development' != env) {
     app.use(new DomainRedirect().https_redirect());
 }
+app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(airbrake.expressHandler());
