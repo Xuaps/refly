@@ -6,6 +6,19 @@ var AuthenticationError = require('../errors/authentication-required.js');
 var Q = require('q');
 
 var Data = {};
+var statusCodeHandlers = function(deferred){
+    return  {
+                401: function(){
+                    deferred.reject(new AuthenticationError());
+                },
+                400: function(err){
+                    deferred.reject(err.responseJSON);
+                },
+                500: function(err){
+                    deferred.reject(err.responseJSON);
+                }
+            };
+};
 
 Data.getDefaultDocsets = function(){
     return $.ajax({
@@ -89,14 +102,7 @@ Data.getReference = function(docset, uri){
     $.ajax({
         url: '/api/references/{0}/{1}'.format(docset, uri),
         method: 'GET',
-        statusCode: {
-            402: function(){
-                deferred.reject(new PaymentRequiredError());
-            },
-            404: function(){
-                deferred.reject(new ReferenceNotFoundError());
-            }
-        }
+        statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
     return deferred.promise;
@@ -111,14 +117,7 @@ Data.getCurrentUser = function(){
         headers: {
             authorization: 'Bearer {0}'.format(token)
         },
-        statusCode: {
-            401: function(){
-                deferred.reject(new AuthenticationError());
-            },
-            400: function(){
-                deferred.reject(new AuthenticationError());
-            }
-        }
+        statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
     return deferred.promise;
@@ -133,14 +132,57 @@ Data.deleteSession = function(){
         headers: {
             authorization: 'Bearer {0}'.format(token)
         },
-        statusCode: {
-            401: function(){
-                deferred.reject(new AuthenticationError());
-            }
-        }
+        statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
     return deferred.promise;
 };
 
+Data.getSubscription = function(){
+    var deferred = Q.defer();
+    var token = authentication.getAuth();
+    $.ajax({
+        url: '/api/subscriptions/current',
+        method: 'GET',
+        headers: {
+            authorization: token?'Bearer {0}'.format(token):''
+        },
+        statusCode: statusCodeHandlers(deferred)
+    }).then(deferred.resolve);
+
+    return deferred.promise;
+};
+
+Data.cancelSubscription = function(){
+    var deferred = Q.defer();
+    var token = authentication.getAuth();
+    $.ajax({
+        url: '/api/subscriptions/current',
+        method: 'DELETE',
+        headers: {
+            authorization: 'Bearer {0}'.format(token)
+        },
+        statusCode: statusCodeHandlers(deferred)
+    }).then(deferred.resolve);
+
+    return deferred.promise;
+};
+
+Data.createSubscription = function(card_token, plan){
+    var deferred = Q.defer();
+    var token = authentication.getAuth();
+    $.ajax({
+        url: '/api/subscriptions/form',
+        method: 'PUT',
+        headers: {
+            authorization: 'Bearer {0}'.format(token),
+        },
+        data: JSON.stringify({ "token": card_token, "plan": plan }),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        statusCode: statusCodeHandlers(deferred)
+    }).then(deferred.resolve);
+
+    return deferred.promise;
+};
 module.exports = Data;
