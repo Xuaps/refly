@@ -132,8 +132,8 @@ describe('Refly API', function(){
 
             api.createSubscription(fake_users[0], plan, token)
                 .then(function(subscription){
-                    expect(subscription.payment_data.last4).toBe("4444");
-                    expect(subscription.payment_data.brand).toBe("visa");
+                    expect(subscription.data.payment_data.last4).toBe("4444");
+                    expect(subscription.data.payment_data.brand).toBe("visa");
                     done();
                 }).fail(done);
         });
@@ -146,8 +146,8 @@ describe('Refly API', function(){
 
             api.createSubscription(fake_users[0], plan, token)
                 .then(function(subscription){
-                    expect(subscription.plan).toBe("annual");
-                    expect(subscription.status).toBe("active");
+                    expect(subscription.data.plan).toBe("annual");
+                    expect(subscription.data.status).toBe("active");
                     done();
                 }).fail(done);
 
@@ -164,10 +164,10 @@ describe('Refly API', function(){
             
             api.cancelSubscription(fake_users[0])
                 .then(function(canceled_subscription){
-                    expect(canceled_subscription.status).toBe('active');
-                    expect(canceled_subscription.cancel_at_period_end).toBe(true);
-                    expect(canceled_subscription.current_period_start).toBe(1434008506);
-                    expect(canceled_subscription.current_period_end).toBe(1436600506);
+                    expect(canceled_subscription.data.status).toBe('active');
+                    expect(canceled_subscription.data.cancel_at_period_end).toBe(true);
+                    expect(canceled_subscription.data.current_period_start).toBe(1434008506);
+                    expect(canceled_subscription.data.current_period_end).toBe(1436600506);
                     done();
                 });
         });
@@ -175,13 +175,16 @@ describe('Refly API', function(){
 
     describe('Get subscription', function(){
         it('should return the active subscription', function(done){
-            var sub = { plan:{id:'annual'}, status: 'active'};
+            var subscription = { plan:{id:'annual'}, status: 'active'};
+            stripeMock.mock.subscription = subscription;
+            stripeMock.mock.customer = { id: 'new_customer', sources:{data:[{last4:"4444", brand:"visa"}]}, 
+                subscriptions:{data: [subscription]}};
 
-            api.getSubscription(fake_users[0])
+            api.getSubscription(fake_users[1])
                 .then(function(subscription){
-                    expect(subscription).toEqual({ payment_data : { last4 : '4444', brand : 'visa' }, plan : 'annual', user : { id : 123, profile_id : 3456, profile_provider : 'google', auth_token : 'aaaa', email : 'test@refly.co', stripe_id : undefined }, cancel_at_period_end : undefined, current_period_end : undefined, current_period_start : undefined, status : 'active' });
+                    expect(subscription.data).toEqual({ payment_data : { last4 : '4444', brand : 'visa' }, plan : 'annual', cancel_at_period_end : undefined, current_period_end : undefined, current_period_start : undefined, status : 'active' });
                     done();
-                });
+                }).fail(done);
         });
     });
 });

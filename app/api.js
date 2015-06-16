@@ -269,6 +269,9 @@ module.exports.deleteSession = function(token){
 };
 
 module.exports.getSubscription = function(user){
+    if(!user.stripe_id)
+        return Q.fcall(function(){ return mapSusbcription(Subscription.create(user)); });
+
     return stripe.customers.retrieve(user.stripe_id)
         .then(function(customer){
             return mapSusbcription(Subscription.create(user, customer, customer.subscriptions.data[0]));
