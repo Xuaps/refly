@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var api = require('../app/api.js');
+var passport = require('passport');
+var BearerStrategyFactory = require('../app/auth_strategies/bearer.js');
 
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';
@@ -44,12 +46,12 @@ router.get('/api/docsets?', function(req, res){
         .then(send.bind(null,res)).done();
 });
 
-router.put('/api/settings?', passport.authenticate(bearer_auth.name, {session: false}), function(req, res){
+router.put('/api/settings?', passport.authenticate(BearerStrategyFactory.name, {session: false}), function(req, res){
     api.savedocsetxuser(req.protocol +'://' + req.get('host'), req.user.auth_token, req.query.docsets)
         .then(send.bind(null,res)).done();
 });
 
-router.get('/api/settings', passport.authenticate(bearer_auth.name, {session: false}), function(req, res){
+router.get('/api/settings', passport.authenticate(BearerStrategyFactory.name, {session: false}), function(req, res){
     api.get_docsetsbyuser(req.protocol +'://' + req.get('host'), req.user.auth_token)
         .then(send.bind(null,res)).done();
 });
