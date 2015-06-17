@@ -129,8 +129,8 @@ module.exports = React.createClass({
 
     _create: function(event){
         event.preventDefault();
-        actions.createSubscription(this.refs.number.getDOMNode().value, this.refs.cvc.getDOMNode().value,
-                this.refs.month.getDOMNode().value, this.refs.year.getDOMNode().value, event.target.plan.value);
+        actions.createSubscription(event.target.plan.value, this.refs.number.getDOMNode().value, this.refs.cvc.getDOMNode().value,
+                this.refs.month.getDOMNode().value, this.refs.year.getDOMNode().value);
     },
 
     _add: function(event){
