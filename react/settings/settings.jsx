@@ -18,17 +18,17 @@ var Settings = React.createClass({
 
     render: function(){
         return (<div className="_settings panel panel-default">
-            <div className="panel-heading">
-            <div className="input-container">
-                <SearchBox key="csearchbox" onKeyUp={this.onSearchDocset}/>
-            </div>
-            </div>
-            <div className="clear"></div>
-            <div className="panel-body">
-                <Docsets key={'docsets-list'} docsets={this.state.settings.docsets} onClick={this.onDocsetSelectionChanged} />
-            </div>
-            <div className="clear"></div>
-            </div>);
+                    <div className="panel-heading">
+                        <div className="input-container">
+                            <SearchBox key="csearchbox" onKeyUp={this.onSearchDocset}/>
+                        </div>
+                    </div>
+                    <div className="clear"></div>
+                    <div className="panel-body">
+                        <Docsets key={'docsets-list'} docsets={this.state.settings.docsets} onClick={this.onDocsetSelectionChanged} />
+                    </div>
+                    <div className="clear"></div>
+                </div>);
     },
 
     onDocsetSelectionChanged: function(docset){

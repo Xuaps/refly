@@ -98,6 +98,20 @@ Data.getReferences = function(docset, type, page){
 	    });
 };
 
+Data.mailSending = function(name, email, message){
+    var token = authentication.getAuth();
+    return $.ajax({
+            url: '/api/message/send',
+            method: 'POST',
+            headers: {
+                name: name,
+                email: email,
+                message: message,
+                authorization: 'Bearer {0}'.format(token)
+            },
+        });
+};
+
 Data.searchReference = function(pattern, page){
     return $.ajax({
 	        url: '/api/references' 

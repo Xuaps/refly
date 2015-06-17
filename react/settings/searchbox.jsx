@@ -8,7 +8,7 @@ var Docset = React.createClass({
                     <span className="input-group-addon" id="basic-addon1">
                         <span className="glyphicon glyphicon-search" aria-hidden="true"/>
                     </span>
-                    <input type="text" ref="docsetsearchbox" className="form-control capture-focus" name="txtdocsetsearch" id="txtdocsetsearch" placeholder="Search for docset..." onKeyUp={this.onKeyUpHandler} />
+                    <input type="text" ref="docsetsearchbox" className="form-control focusable" name="txtdocsetsearch" id="txtdocsetsearch" placeholder="Search for docset..." onKeyUp={this.onKeyUpHandler} />
                     <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback" onClick={this.emptySearch}></span>
                 </div>);
     },

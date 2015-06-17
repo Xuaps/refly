@@ -79,7 +79,7 @@ module.exports = React.createClass({
         search_box.value = this.props.search;
         $(search_box).next('span').toggle(Boolean(this.props.search));
         this.mousetrap.handleKey = function(character, modifiers, e){
-            if(e.target.className.indexOf('capture-focus')==-1){
+            if(e.target.className.indexOf('focusable')==-1){
                 search_box.focus();
                 default_handler(character, modifiers, e);
             }
