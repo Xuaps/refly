@@ -57,7 +57,7 @@ module.exports = Reflux.createStore({
 
     _setSubscription: function(subscription){
         this._cleanState();
-        if(subscription.status)
+        if(subscription.payment_data.last4)
             this.state.subscription = subscription;
         
         this.trigger(this.state);

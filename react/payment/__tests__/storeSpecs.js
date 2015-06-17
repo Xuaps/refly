@@ -45,14 +45,27 @@ describe('Payment state', function(){
         });
         describe('user logged', function(){
             describe('without subscription', function(){
-                it('shouldnt return a subscription', function(){
-                data.getSubscription = mockCall({});
-                    
-                    actions.init();
-                    store.listen(function(state){
-                        expect(state.isAuthenticated).toBe(true);
-                        expect(state.status).toBe(undefined);
-                        expect(state.subscription).not.toBeDefined();
+                describe('with payment data', function(){
+                    it('should return paymenta data', function(){
+                    data.getSubscription = mockCall({ payment_data:  subscription.payment_data});
+                        actions.init();
+                        store.listen(function(state){
+                            expect(state.isAuthenticated).toBe(true);
+                            expect(state.subscription).toBeDefined();
+                            expect(state.subscription.payment_data).toBeDefined();
+                        });
+                    });
+                });
+
+                describe('without payment data', function(){
+                    it('shouldnt return a subscription', function(){
+                    data.getSubscription = mockCall({payment_data:{}});
+                        
+                        actions.init();
+                        store.listen(function(state){
+                            expect(state.isAuthenticated).toBe(true);
+                            expect(state.subscription).not.toBeDefined();
+                        });
                     });
                 });
             });
