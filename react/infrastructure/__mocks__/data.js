@@ -28,20 +28,28 @@ Data.getCurrentUser = function(){
     return this.wrapInPromise(Data.prototype._users[0]);
 };
 
+Data.getUserDocsets = function(){
+    return this.wrapInPromise(Data.prototype._userDocsets);
+};
+
+Data.setUserDocsets = function(docsets){
+};
+
 Data.wrapInPromise = function(collection){
+    if(collection && collection.then)
+        return collection;
+
     return {
         then: function(fun){
-            fun(collection);
-            return {then: function(f){
-                            f();
-                            return {fail:function(){}, done: function(){}};
-                          },
-                    fail: function(){
-                            return {fail:function(){}, done: function(){}};
-                          },
-                    done: function(){}
-                    };
-            },
+            return Data.wrapInPromise(fun(collection));
+        },
+        fail: function(){
+            return {fail:function(){}, done: function(){}};
+          },
+        catch: function(){
+            return {fail:function(){}, done: function(){}};
+          },
+        done: function(){}
     };
 };
 

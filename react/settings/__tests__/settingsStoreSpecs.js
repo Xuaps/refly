@@ -6,6 +6,8 @@ describe('Settings store', function(){
     beforeEach(function(){
         settings = require('../../infrastructure/settings.js');
         data = require('../../infrastructure/data.js');
+        data.prototype._users = [{email: 'test@refly.co'}];
+        data.prototype._userDocsets = {'_embedded': {'rl:docsets': []}};
         data.prototype._docsets = {'_embedded': {'rl:docsets': [{name: 'java'}, {name: 'javascript'},
             {name: 'require'}, {name: 'angular'}]}};
         settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
@@ -26,6 +28,7 @@ describe('Settings store', function(){
 
     describe('selection docsets changed', function(){
         it('should remove deselected working docsets', function(){
+            actions.getSettings();
             actions.docsetSelectionChanged({name: 'java'}); 
 
             store.listen(function(state){
@@ -37,6 +40,7 @@ describe('Settings store', function(){
         });
 
         it('should add selected working docsets', function(){
+            actions.getSettings();
             actions.docsetSelectionChanged({name: 'javascript'}); 
 
             store.listen(function(state){
