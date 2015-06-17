@@ -8,15 +8,21 @@ var Q = require('q');
 var Data = {};
 var statusCodeHandlers = function(deferred){
     return  {
-                401: function(){
-                    deferred.reject(new AuthenticationError());
-                },
                 400: function(err){
                     deferred.reject(err.responseJSON);
                 },
+                401: function(){
+                    deferred.reject(new AuthenticationError());
+                },
+                402: function(){
+                    deferred.reject(new PaymentRequiredError());
+                },
+                404: function(){
+                    deferred.reject(new ReferenceNotFoundError());
+                },
                 500: function(err){
                     deferred.reject(err.responseJSON);
-                }
+                },
             };
 };
 
