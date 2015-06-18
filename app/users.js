@@ -1,11 +1,26 @@
 var db = require('./db');
+var config = require('config');
+var stripe = require('stripe')(config.stripe.secret_key);
 
 function Users(){
 } 
 
 Users.prototype.find = function(values){
     return db('users')
-        .where(values);
+        .where(values)
+        .then(function(users){
+            if(users.length !== 1)
+                return;
+            if(!users[0].stripe_id)
+                return users[0];
+
+            return stripe.customers.retrieve(users[0].stripe_id)
+                .then(function(customer){
+                    var activePlan = customer.subscriptions.data[0] && (customer.subscriptions.data[0].status === 'active');
+                    users[0].haveActivePlan = activePlan;
+                    return users;
+                });
+        });
 };
 
 Users.prototype.revokeAccessToken = function(values){
