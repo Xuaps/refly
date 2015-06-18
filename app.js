@@ -12,14 +12,13 @@ var express = require('express')
   , staticAsset = require('static-asset')
   , config = require('config')
   , airbrake = require('airbrake').createClient(config.airbrake.key)
-  , toll = require('./routes/express-toll.js')
   , DomainRedirect = require('./routes/domain-redirect.js')
   , passport = require('passport')
+  , AnonymousStrategy = require('passport-anonymous')
   , BearerStrategyFactory = require('./app/auth_strategies/bearer.js')
   , hal = require('express-hal')
   , session = require('cookie-session')  
-  , cacheResponseDirective = require('express-cache-response-directive')
-  , random_values = require('./app/random-values.js');
+  , cacheResponseDirective = require('express-cache-response-directive');
 
 var app = express();
 var env = process.env.NODE_ENV || 'development';
@@ -45,11 +44,9 @@ app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000})
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(airbrake.expressHandler());
-app.use(new toll({route: '/api/references/:docset/:uri*'
-            , exclude: ['/api/references/:docset/:uri*/c&b','/api/references/:docset/:uri*/hierarchy']},
-            function(){return random_values.boolean.weighted(92);}, "Payment required.").activate());
 var bearer_auth = BearerStrategyFactory.create();
 passport.use(bearer_auth);
+passport.use(new AnonymousStrategy());
 app.use(hal.middleware);
 app.use(cacheResponseDirective());
 

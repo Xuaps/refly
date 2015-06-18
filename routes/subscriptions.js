@@ -23,7 +23,6 @@ router.delete('/api/subscriptions/current', passport.authenticate(BearerStrategy
 
 router.put('/api/subscriptions/form', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
-            console.log(req.body);
             api.createSubscription(req.user, req.body.plan, req.body.token)
                 .then(send.bind(null,res))
                 .catch(manageErrors.bind(null, res));

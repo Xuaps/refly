@@ -3,6 +3,8 @@ var router = express.Router();
 var api = require('../app/api.js');
 var passport = require('passport');
 var BearerStrategyFactory = require('../app/auth_strategies/bearer.js');
+var toll = require('./express-toll.js');
+var random_values = require('../app/random-values.js');
 
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';
@@ -25,14 +27,18 @@ router.get('/api/references/:docset/:uri(*)/hierarchy', function(req, res){
     api.get_ascendants(req.params.docset, req.params.uri)
         .then(send.bind(null,res)).done();
 });
-router.get('/api/references/:docset/:uri(*)', function(req, res){
-    api.get_reference(req.params.docset, req.params.uri)
-        .then(send.bind(null,res)).catch(function(error){
-            res.status(404);
-            res.set('Content-Type', 'application/hal+json');
-            res.send({message: error.toString()});
-        }).done();
-});
+router.get('/api/references/:docset/:uri(*)', 
+    passport.authenticate([BearerStrategyFactory.name, 'anonymous'], {session: false}),
+    toll.ask(function(req){ return random_values.boolean.weighted(92);}, "Payment required."),
+    function(req, res){
+        api.get_reference(req.params.docset, req.params.uri)
+            .then(send.bind(null,res)).catch(function(error){
+                res.status(404);
+                res.set('Content-Type', 'application/hal+json');
+                res.send({message: error.toString()});
+            }).done();
+    }
+);
 router.get('/api/references?', function(req, res){
     api.get_references(req.query)
         .then(send.bind(null,res)).done();

@@ -6,6 +6,7 @@
     "test": "jest -c jest.config && jasmine-node test/"
   },
   "dependencies": {
+    "URIjs": "^1.14.1",
     "airbrake": "^0.3.8",
     "body-parser": "^1.12.4",
     "config": "^0.4.36",
@@ -28,7 +29,6 @@
     "rollbar": "^0.4.0",
     "serve-favicon": "^2.0.1",
     "static-asset": "^0.5.7",
-    "URIjs": "^1.14.1",
     "stripe": "^3.3.4"
   },
   "devDependencies": {
