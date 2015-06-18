@@ -1,7 +1,9 @@
 var React = require('react');
+var Router = require('react-router');
 var CountdownClock = require('react-countdown-clock');
-module.exports = React.createClass({
 
+module.exports = React.createClass({
+    mixins: [Router.Navigation],
 
     render: function(){
         return <div>
@@ -13,9 +15,13 @@ module.exports = React.createClass({
                         <div className="h1 col-xs-12"></div>
                         <div className="h1 col-xs-12"></div>
                         <div className="col-xs-12 text-center">
-                            <button className='btn-lg btn-success'>Upgrade to PRO</button>
+                            <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
                         </div>
                     </div>
                 </div>;
+    },
+
+    _upgrade: function(){
+        this.transitionTo('/upgrade');
     }
 });
