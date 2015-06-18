@@ -26,10 +26,18 @@ var statusCodeHandlers = function(deferred){
             };
 };
 
+var getHeaders = function(){
+    var token = authentication.getAuth();
+    return {
+        authorization: token?'Bearer {0}'.format(token):''
+    };
+};
+   
 Data.getDefaultDocsets = function(){
     return $.ajax({
 	        url:'/api/docsets?active=true',  
-	        method: 'GET'
+	        method: 'GET',
+            headers: getHeaders(),
         });
 };
 
@@ -38,9 +46,7 @@ Data.getUserDocsets = function(user){
     return $.ajax({
             url: '/api/settings',
             method: 'GET',
-            headers: {
-                authorization: 'Bearer {0}'.format(token)
-            },
+            headers: getHeaders(),
             statusCode: {
                 401: function(){
                     deferred.reject(new AuthenticationError());
@@ -59,9 +65,7 @@ Data.setUserDocsets = function(docsets){
             url:'/api/settings?'
             + 'docsets=' + docsets.join(','),
             method: 'PUT',
-            headers: {
-                authorization: 'Bearer {0}'.format(token)
-            },
+            headers: getHeaders(),
             statusCode: {
                 401: function(){
                     deferred.reject(new AuthenticationError());
@@ -73,21 +77,24 @@ Data.setUserDocsets = function(docsets){
 Data.getActiveDocsets = function(){
     return $.ajax({
 	        url:'/api/docsets?active=true',  
-	        method: 'GET'
+	        method: 'GET',
+            headers: getHeaders(),
         });
 };
 
 Data.getTypes = function(docset){
     return $.ajax({
 	        url:'/api/types?docset='+docset,
-	        method: 'GET'
+	        method: 'GET',
+            headers: getHeaders(),
 	    });
 };
 
 Data.getReferences = function(docset, type, page){
     return $.ajax({
 	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type, page),
-	        method: 'GET'
+	        method: 'GET',
+            headers: getHeaders()
 	    });
 };
 
@@ -99,7 +106,8 @@ Data.searchReference = function(pattern, page){
                 + settings.getWorkingDocsets().reduce(function(prev, current){
                     return prev + '&docsets='+current.name;
                 },''),
-	        method: 'GET'
+	        method: 'GET',
+            headers: getHeaders()
         });
 };
 
@@ -108,7 +116,8 @@ Data.getReference = function(docset, uri){
     $.ajax({
         url: '/api/references/{0}/{1}'.format(docset, uri),
         method: 'GET',
-        statusCode: statusCodeHandlers(deferred)
+        statusCode: statusCodeHandlers(deferred),
+        headers: getHeaders()
     }).then(deferred.resolve);
 
     return deferred.promise;
@@ -120,9 +129,7 @@ Data.getCurrentUser = function(){
     $.ajax({
         url: '/api/users/current',
         method: 'GET',
-        headers: {
-            authorization: 'Bearer {0}'.format(token)
-        },
+        headers: getHeaders(),
         statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
@@ -135,9 +142,7 @@ Data.deleteSession = function(){
     $.ajax({
         url: '/api/session',
         method: 'DELETE',
-        headers: {
-            authorization: 'Bearer {0}'.format(token)
-        },
+        headers: getHeaders(),
         statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
@@ -150,9 +155,7 @@ Data.getSubscription = function(){
     $.ajax({
         url: '/api/subscriptions/current',
         method: 'GET',
-        headers: {
-            authorization: token?'Bearer {0}'.format(token):''
-        },
+        headers: getHeaders(),
         statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
@@ -165,9 +168,7 @@ Data.cancelSubscription = function(){
     $.ajax({
         url: '/api/subscriptions/current',
         method: 'DELETE',
-        headers: {
-            authorization: 'Bearer {0}'.format(token)
-        },
+        headers: getHeaders(),
         statusCode: statusCodeHandlers(deferred)
     }).then(deferred.resolve);
 
@@ -180,9 +181,7 @@ Data.createSubscription = function(card_token, plan){
     $.ajax({
         url: '/api/subscriptions/form',
         method: 'PUT',
-        headers: {
-            authorization: 'Bearer {0}'.format(token),
-        },
+        headers: getHeaders(),
         data: JSON.stringify({ "token": card_token, "plan": plan }),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
