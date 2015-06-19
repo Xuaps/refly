@@ -24,3 +24,8 @@ article{
 .clearer{
     pointer-events:auto;
 }
+
+.messageok{
+    background-color: #E3EED8;
+    color: #588147;
+}

@@ -66,5 +66,18 @@ router.get('/api/types?', function(req, res){
     api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
         .then(send.bind(null,res)).done();
 });
+router.post('/api/message/send', passport.authenticate(BearerStrategyFactory.name, {session: false}), function(req, res){
+    if(req.user){
+        name = "refly user"
+        email = req.user.email;
+    }else{
+        name = req.get('name');
+        email = req.get('email');
+    }
+    api.sendMail(name, email, req.get('message'))
+    res.status(200);
+    res.set('Content-Type', 'application/hal+json');
+    res.send({message: "message sent"});
+});
 
 module.exports = router;

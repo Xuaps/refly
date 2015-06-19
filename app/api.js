@@ -4,6 +4,7 @@ var Users = require('./users.js');
 var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
+var mandrill = require('mandrill-api/mandrill');
 var config = require('config');
 var stripe = require('stripe')(config.stripe.secret_key);
 var Subscription = require('./subscription.js');
@@ -304,6 +305,38 @@ module.exports.cancelSubscription = function(user){
                     return mapSusbcription(Subscription.create(user, customer, canceled_subscription));
                 });
         }).catch(manageStripeErrors);
+};
+
+module.exports.sendMail = function(name, email, message){
+    send(name, email, message);
+};
+
+var send = function(name, email, message){
+    var mandrill_client = new mandrill.Mandrill(config.contact.API_KEY);
+    var message = {
+        "text": message,
+        "subject": "contact email from refly",
+        "from_email": email,
+        "from_name": name,
+        "to": [{
+                "email": config.contact.recipient,
+                "name": "refly.co administrator",
+                "type": "to"
+            }],
+        "headers": {
+            "Reply-To": "message.reply@example.com"
+        },
+    };
+    var async = false;
+    return mandrill_client.messages.send({"message": message, "async": async},
+        function(result) {
+            console.log(result);
+    }, function(e) {
+        // Mandrill returns the error as an object with name and message keys
+        airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
+        console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+        // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+    });
 };
 
 var mapSusbcription = function(subscription){
