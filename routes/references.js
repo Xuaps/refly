@@ -66,7 +66,7 @@ router.get('/api/types?', function(req, res){
     api.get_types(req.protocol +'://' + req.get('host'), req.query.docset)
         .then(send.bind(null,res)).done();
 });
-router.post('/api/message/send', passport.authenticate(BearerStrategyFactory.name, {session: false}), function(req, res){
+router.post('/api/message/send', passport.authenticate([BearerStrategyFactory.name, 'anonymous'], {session: false}), function(req, res){
     if(req.user){
         name = "refly user"
         email = req.user.email;

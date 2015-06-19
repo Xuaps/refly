@@ -14,7 +14,7 @@ var Contact = React.createClass({
         if(this.state.status.sent){
           var statusinfo = (<div className="alert alert-dismissible messageok">
                                 <button type="button" className="close" data-dismiss="alert">×</button>
-                                <strong>Good!</strong> Message sent successfully <a href="#">you will recieve an answer as soon as possible</a>.
+                                <strong>Good!</strong> Message sent successfully.<br /><em>you will recieve an answer as soon as possible.</em>
                             </div>);
         }else{
           var statusinfo = (<span></span>);
