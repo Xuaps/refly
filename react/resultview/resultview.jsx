@@ -29,6 +29,7 @@ module.exports = React.createClass({
     },
     
     componentWillMount: function(){
+        this.unBlock();
         this.loadRef(this.props.params);
         this.dbpromise = new DbPromise(100);
     },
@@ -76,8 +77,9 @@ module.exports = React.createClass({
 	},
 
     shouldComponentUpdate: function(nextProps, nextState){
-        if(nextState.reference.name=='PaymentRequiredError')
+        if(nextState.reference && nextState.reference.name=='PaymentRequiredError'){
             return true;
+        }
         return nextState.reference !== this.state.reference;
     },
 
@@ -117,6 +119,10 @@ module.exports = React.createClass({
     retry: function(){
         actions.onCompleteBlockingPeriod();
         this.loadRef(this.props.params);
+    },
+
+    unBlock: function(){
+        actions.onCompleteBlockingPeriod();
     },
 
     loadRef: function(params){
