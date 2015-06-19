@@ -13,10 +13,7 @@
     }
   },
 
-  "contact": {
-      "recipient": "averdion@gmail.com",
-      "API_KEY": "OvMcHCdmBJTrNwsmZFLf8g"
-  },
+
 
   "cookies": {
       "secret": "lJthXcFVOitYFpSkUA"

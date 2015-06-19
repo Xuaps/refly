@@ -18,7 +18,7 @@ var send = function(res, hal){
 router.get('/api/users/current', passport.authenticate(BearerStrategyFactory.name, {session: false}),
         function(req, res){
             api.findUser(req.user.auth_token)
-                .then(send.bind(null,res)).done();
+                .then(send.bind(null,res)).catch(function(err){console.log(err);}).done();
         });
 
 router.delete('/api/session', passport.authenticate(BearerStrategyFactory.name, {session: false}),
