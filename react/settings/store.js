@@ -31,10 +31,9 @@ module.exports = Reflux.createStore({
 
     onGetSettings: function(){
         this._loadDocsets().then(function(response){
-            this._loadMyDocsets()
+            this._loadFromDB()
                 .then(function(userresponse){
                     this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],userresponse['_embedded']['rl:docsets']);
-                    settings.setWorkingDocsets(userresponse['_embedded']['rl:docsets']);
                     this.trigger(this.settings);
                 }.bind(this))
                 .catch(function(error){
@@ -59,7 +58,7 @@ module.exports = Reflux.createStore({
         return data.getActiveDocsets()
     },
 
-    _loadMyDocsets: function(){
+    _loadFromDB: function(){
         return data.getCurrentUser()
         .then(function (user) {
              return data.getUserDocsets(user.email);
