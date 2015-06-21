@@ -12,7 +12,7 @@ describe('Settings store', function(){
             {name: 'require'}, {name: 'angular'}]}};
         settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
         actions = require('../actions.js');
-        store = require('../store.js'); 
+        store = require('../store.js');
     }); 
 
     it('should load working docsets preferences', function(){
