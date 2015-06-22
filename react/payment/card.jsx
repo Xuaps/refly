@@ -24,20 +24,24 @@ module.exports = React.createClass({
                 name: '',
             },
         });
+        this._setCardValues(this.props);
     },
 
     componentWillReceiveProps: function(props){
-        if(props.readonly != this.props.readonly){
-            var cvc = this.refs.cvc.getDOMNode();
-            var expiry = this.refs.expiry.getDOMNode();
-            var number = this.refs.number.getDOMNode();
-            cvc.readOnly = props.readonly;
-            number.readOnly = props.readonly;
-            expiry.readOnly = props.readonly;
-            cvc.value = props.readonly?'***':'';
-            number.value = props.readonly?'************' + props.data.last4:'';
-            expiry.value = props.readonly?'**/****':'';
-        }
+        if(props.readonly != this.props.readonly)
+            this._setCardValues(props); 
+    },
+
+    _setCardValues: function(props){
+        var cvc = this.refs.cvc.getDOMNode();
+        var expiry = this.refs.expiry.getDOMNode();
+        var number = this.refs.number.getDOMNode();
+        cvc.readOnly = props.readonly;
+        number.readOnly = props.readonly;
+        expiry.readOnly = props.readonly;
+        cvc.value = props.readonly?'***':'';
+        number.value = props.readonly?'************' + props.data.last4:'';
+        expiry.value = props.readonly?'**/****':'';
     },
 
     render: function(){
