@@ -162,6 +162,7 @@ module.exports = React.createClass({
     },
 
     _cancel: function(){
+        this.setState({loaded: false});
         actions.cancelSubscription();
     },
 });
