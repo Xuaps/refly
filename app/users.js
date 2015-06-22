@@ -10,7 +10,7 @@ Users.prototype.find = function(values){
         .where(values)
         .then(function(users){
             if(users.length !== 1)
-                return;
+                return [];
             if(!users[0].stripe_id)
                 return users;
 
