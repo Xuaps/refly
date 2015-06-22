@@ -12,7 +12,7 @@ module.exports = React.createClass({
     
     componentDidMount: function(){
         var card = new Card({
-            form: 'form',
+            form: '#card-form',
             container: '.card-wrapper',
             formSelectors: {
                 numberInput: 'input#number', 
@@ -42,19 +42,19 @@ module.exports = React.createClass({
 
     render: function(){
         var display = this.props.disabled?'none':'block';
-        return <div  style={{"display": display}}>
+        return <div  id="card-form" style={{"display": display}}>
                 <div className="row">
                     <div className="col-xs-12 card-wrapper"/>
                     <div className="col-xs-12">&nbsp;</div>
                     <div className="form-group">
                         <div className="col-xs-12">
-                          <input id="number" type="text" ref="number" className='capture-focus form-control' placeholder="Card Number" />
+                          <input id="number" type="text" ref="number" className='focusable form-control' placeholder="Card Number" />
                         </div>
                     </div>
                     <div className="form-group">
                         <div className="col-xs-12">
-                          <input id="cvc" style={{width:"40%", float:"left"}} placeholder="CVC" type="text" ref="cvc" className='capture-focus form-control'/>
-                          <input id="expiry" style={{width:"60%"}} type="text" placeholder="MM/YYYY" ref="expiry" className='capture-focus form-control' />
+                          <input id="cvc" style={{width:"40%", float:"left"}} placeholder="CVC" type="text" ref="cvc" className='focusable form-control'/>
+                          <input id="expiry" style={{width:"60%"}} type="text" placeholder="MM/YYYY" ref="expiry" className='focusable form-control' />
                         </div>
                     </div>
                </div>

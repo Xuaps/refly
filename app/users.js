@@ -14,7 +14,6 @@ Users.prototype.find = function(values){
             if(!users[0].stripe_id)
                 return users;
 
-            console.log(config.stripe.secret_key)
             return stripe.customers.retrieve(users[0].stripe_id)
                 .then(function(customer){
                     var activePlan = customer.subscriptions.data[0] && (customer.subscriptions.data[0].status === 'active');

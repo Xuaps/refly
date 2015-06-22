@@ -40,7 +40,7 @@ var Contact = React.createClass({
                                  <div><textarea className="form-control focusable" rows="3" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
                               </div>
                            </fieldset>);
-        return (<div>
+        return (<span>
                     <button type="button" className="btn btn-default navbar-btn" onClick={this.reDraw} data-toggle="modal" data-backdrop="false" data-target="#myModal">
                       <span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                     </button>
@@ -64,7 +64,7 @@ var Contact = React.createClass({
                         </div>
                       </div>
                     </div>
-                </div>);
+                </span>);
     },
 
     reDraw: function(){
