@@ -46,7 +46,6 @@ module.exports = Reflux.createStore({
     },
 
     onFail: function(err){
-        this._cleanState();
         if(err.name === 'AuthenticationRequiredError'){
             this.state.isAuthenticated = false;
         }else{
@@ -65,7 +64,7 @@ module.exports = Reflux.createStore({
 
     _cleanState: function(){
         this.state.subscription = undefined;
-        this.err = undefined;
+        this.state.error = undefined;
         this.state.isAuthenticated = true;
     },
 });

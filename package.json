@@ -60,6 +60,7 @@
     "react": "^0.13.3",
     "react-countdown-clock": "^1.0.2",
     "react-infinite-scroll": "^0.1.5",
+    "react-loader": "^1.4.0",
     "react-router": "^0.13.3",
     "react-tools": "^0.12.2",
     "react-treeview": "^0.3.12",

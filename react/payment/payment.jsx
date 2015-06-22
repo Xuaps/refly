@@ -3,21 +3,31 @@ var Reflux = require('reflux');
 var actions = require('./actions.js');
 var store = require('./store.js');
 var Session = require('../session/session.jsx'); 
+var CardForm = require('./card.jsx');
+var Loader = require('react-loader');
 
 module.exports = React.createClass({
-    mixins: [Reflux.connect(store, 'store')],
 
     getInitialState: function(){
-        return {};
+        return {
+            loaded: false
+        };
     },
 
     componentWillMount: function(){
         actions.init();
     },
 
+    componentDidMount: function(){
+        this.unsubscribe = store.listen(this._onStatusChange);
+    },
+
+    componentWillUnmount: function(){
+        this.unsubscribe();
+    },
+
     render: function(){
         var error, return_data;
-        var blur_style = {"position": "absolute", "top":"0", "left":"0", "width": "100%", "height":"100%", "zIndex":"2", "opacity":"0.8", "filter": "alpha(opacity = 80)", "background": "#FFF", "display": (this.state.store && this.state.store.isAuthenticated?"none":"block")};
         if(this.state.store && this.state.store.error){
             error = <div className="col-xs-12">
                         <div className="alert alert-danger alert-dismissible" role="alert">
@@ -30,112 +40,52 @@ module.exports = React.createClass({
         if(this.state.store && this.state.store.subscription){
            if(this.state.store.subscription.status === 'active'){
                 if(this.state.store.subscription.cancel_at_period_end){
-                    return_data = <p> Your subscription are going to finalize on {this.state.store.subscription.current_period_end}. </p>;
+                    return_data = <div className="row">
+                            <div className='col-xs-12 h1 text-center'>
+                                Your subscription iu going to finalize on   
+                            </div>
+                            <div className="col-xs-12 h1 text-center">
+                                <strong>{new Date(this.state.store.subscription.current_period_end*1000).toDateString()}</strong> 
+                            </div>
+                         </div>;
                 }else{
-                    return_data = <p> You are sybscripted to {this.state.store.subscription.plan}. If you want cancel it click <button onClick={this._cancel}>here</button></p>;
+
+            return_data = <div className="row">
+                            <div className='col-xs-12 h1 text-center'>
+                                You are currently subscribed to  
+                            </div>
+                            <div className="col-xs-12 h1 text-center">
+                                <strong>{this.state.store.subscription.plan}</strong> plan 
+                            </div>
+                         </div>
                 }
            }else{
-               return_data = <form onSubmit={this._add}>
-                <p> Credit card number xxxx xxxx xxxx {this.state.store.subscription.payment_data.last4} </p>
-                <div  className="col-xs-12">
-                    <div style={blur_style}></div>
-                    <div className="panel panel-default">
-                      <div className="panel-body">
-                        Monthly
-                      </div>
-                      <span className="input-group-addon">
-                        <input type="radio" aria-label="..." name="plan" value="refly_monthly" defaultChecked/>
-                      </span>
-                    </div>
-                </div>
-                <div  className="col-xs-12">
-                    <div style={blur_style}></div>
-                    <div className="panel panel-default">
-                      <div className="panel-body">
-                        Yearly
-                      </div>
-                      <span className="input-group-addon">
-                        <input type="radio" aria-label="..." name="plan" value="refly_yearly"/>
-                      </span>
-                    </div>
-                </div>
-                <div  className="col-xs-12">
-                    <div style={blur_style}></div>
-                    <button type="submit">Submit Payment</button>
-                </div>
-            </form>;
+               return_data = <CardForm onSubmit={function(params){this._sendAction(actions.addSubscription, params);}.bind(this)} data = {{last4:this.state.store.subscription.payment_data.last4, brand: this.state.store.subscription.payment_data.brand}} readonly={true}/>
            }
         }else{
-            return_data = <form onSubmit={this._create}>
-                   <div className="col-xs-12">
-                      <div style={blur_style}></div>
-                      <div className="form-row">
-                        <label>
-                          <span>Card Number</span>
-                          <input type="text" size="20" ref="number" className='capture-focus'/>
-                        </label>
-                      </div>
-
-                      <div className="form-row">
-                        <label>
-                          <span>CVC</span>
-                          <input type="text" size="4" ref="cvc" className='capture-focus'/>
-                        </label>
-                      </div>
-
-                      <div className="form-row">
-                        <label>
-                          <span>Expiration (MM/YYYY)</span>
-                          <input type="text" size="2" ref="month" className='capture-focus'/>
-                        </label>
-                        <span> / </span>
-                        <input type="text" size="4" ref="year" className='capture-focus'/>
-                      </div>
-                </div>
-                <div  className="col-xs-12">
-                    <div style={blur_style}></div>
-                    <div className="panel panel-default">
-                      <div className="panel-body">
-                        Monthly
-                      </div>
-                      <span className="input-group-addon">
-                        <input type="radio" aria-label="..." name="plan" value="refly_monthly" defaultChecked/>
-                      </span>
-                    </div>
-                </div>
-                <div  className="col-xs-12">
-                    <div style={blur_style}></div>
-                    <div className="panel panel-default">
-                      <div className="panel-body">
-                        Yearly
-                      </div>
-                      <span className="input-group-addon">
-                        <input type="radio" aria-label="..." name="plan" value="refly_yearly"/>
-                      </span>
-                    </div>
-                </div>
-                <div  className="col-xs-12">
-                    <div style={blur_style}></div>
-                    <button type="submit">Submit Payment</button>
-                </div>
-            </form>;
+            return_data = <CardForm onSubmit={function(params){this._sendAction(actions.createSubscription, params);}.bind(this)} disabled={!this.state.store || !this.state.store.isAuthenticated}/>
         }
-        return <div className="row">
-            {error}
-            <Session query={this.props.query}/>
-            {return_data}
+        return <div>
+            <div className="row">
+                {error}
+            </div>
+            <Session title="Before upgrade you need to sign in" query={this.props.query}/>
+            <Loader loaded={this.state.loaded}>
+                {return_data}
+            </Loader>
         </div>;
     },
 
-    _create: function(event){
-        event.preventDefault();
-        actions.createSubscription(event.target.plan.value, this.refs.number.getDOMNode().value, this.refs.cvc.getDOMNode().value,
-                this.refs.month.getDOMNode().value, this.refs.year.getDOMNode().value);
+    _sendAction: function(call, params){
+        this.setState({loaded: false});
+        call(params); 
     },
 
-    _add: function(event){
-        event.preventDefault();
-        actions.addSubscription(event.target.plan.value);
+    _onStatusChange: function(status){
+        this.setState({
+            store: status,
+            loaded: true
+        });
     },
 
     _cancel: function(){

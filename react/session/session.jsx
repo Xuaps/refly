@@ -10,6 +10,12 @@ module.exports = React.createClass({
        return {status:{}};
     },
 
+    getDefaultProps: function(){
+        return {
+            title: 'Sign in'
+        };
+    },
+
     componentWillMount: function(){
         if(this.props.query.access_token){
             actions.loginSuccessful(this.props.query.access_token);
@@ -21,7 +27,9 @@ module.exports = React.createClass({
     render: function (){
         var error;
         if(this.state.status.isAuthenticated){
-            return <div>You are logged in as {this.state.status.user.email}</div>;
+            return <div className="row">
+                <div className='col-xs-12 lead'>  <span className="glyphicon glyphicon-user"></span>  You are logged in as <span className='label label-primary'>{this.state.status.user.email}</span></div>
+            </div>
         }else{
             if(this.props.query.error){
                 error = <div className="col-xs-12">
@@ -36,7 +44,7 @@ module.exports = React.createClass({
                         {error}        
                         <div className="col-xs-12">
                             <div className="page-header">
-                              <h1>Sign In</h1>
+                              <h1>{this.props.title}</h1>
                             </div>
                         </div>
                         <div className="col-xs-12">
