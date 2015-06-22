@@ -142,11 +142,11 @@ describe('Refly API', function(){
             var token = 'token';
             var plan = 'anual';
             stripeMock.mock.customer = { id: 'new_customer', sources:{data:[{last4:"4444", brand:"visa"}]}};
-            stripeMock.mock.subscription = { plan:{id:'annual'}, status: 'active'};
+            stripeMock.mock.subscription = { plan:{id:'annual', name: 'Yearly'}, status: 'active'};
 
             api.createSubscription(fake_users[0], plan, token)
                 .then(function(subscription){
-                    expect(subscription.data.plan).toBe("annual");
+                    expect(subscription.data.plan).toBe("Yearly");
                     expect(subscription.data.status).toBe("active");
                     done();
                 }).fail(done);
@@ -175,14 +175,14 @@ describe('Refly API', function(){
 
     describe('Get subscription', function(){
         it('should return the active subscription', function(done){
-            var subscription = { plan:{id:'annual'}, status: 'active'};
+            var subscription = { plan:{id:'annual', name: 'Yearly'}, status: 'active'};
             stripeMock.mock.subscription = subscription;
             stripeMock.mock.customer = { id: 'new_customer', sources:{data:[{last4:"4444", brand:"visa"}]}, 
                 subscriptions:{data: [subscription]}};
 
             api.getSubscription(fake_users[1])
                 .then(function(subscription){
-                    expect(subscription.data).toEqual({ payment_data : { last4 : '4444', brand : 'visa' }, plan : 'annual', cancel_at_period_end : undefined, current_period_end : undefined, current_period_start : undefined, status : 'active' });
+                    expect(subscription.data).toEqual({ payment_data : { last4 : '4444', brand : 'visa' }, plan : 'Yearly', cancel_at_period_end : undefined, current_period_end : undefined, current_period_start : undefined, status : 'active' });
                     done();
                 }).fail(done);
         });

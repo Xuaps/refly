@@ -14,6 +14,7 @@ Subscription.create = function(user, customer, subscription){
     }
     if(subscription){
         sub.plan = subscription.plan.id;
+        sub.plan_name = subscription.plan.name;
         sub.cancel_at_period_end = subscription.cancel_at_period_end;
         sub.current_period_end = subscription.current_period_end;
         sub.current_period_start = subscription.current_period_start;

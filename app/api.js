@@ -362,7 +362,7 @@ var mapSusbcription = function(subscription){
         },
         data: {
             payment_data: subscription.payment_data,
-            plan: subscription.plan,
+            plan: subscription.plan_name,
             status: subscription.status,
             cancel_at_period_end: subscription.cancel_at_period_end,
             current_period_start: subscription.current_period_start,
