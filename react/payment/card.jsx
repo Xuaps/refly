@@ -73,11 +73,17 @@ module.exports = React.createClass({
     _onSubmit: function(e){
         event.preventDefault();
         if(this.props.readonly){
-            this.props.onSubmit(this.plan);
+            this.props.onSubmit({plan: this.plan});
         }else{
             var expiry = this.refs.expiry.getDOMNode().value.split('/');
-            this.props.onSubmit(this.plan, this.refs.number.getDOMNode().value, this.refs.cvc.getDOMNode().value,
-                expiry[0], expiry[1]);
+            this.props.onSubmit({
+                    plan: this.plan, 
+                    number: this.refs.number.getDOMNode().value, 
+                    cvc: this.refs.cvc.getDOMNode().value,
+                    month: expiry[0].trim(), 
+                    year: expiry[1].trim()
+                    });
+
         }
     }
 });

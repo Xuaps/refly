@@ -17,24 +17,24 @@ module.exports = Reflux.createStore({
             .fail(this.onFail);
     },
 
-    onCreateSubscription: function(plan, number, cvc, month, year){
+    onCreateSubscription: function(params){
         var that = this;
         Stripe.card.createToken({
-            "number": number,
-            "cvc": cvc,
-            "exp_month": month,
-            "exp_year": year
+            "number": params.number,
+            "cvc": params.cvc,
+            "exp_month": params.month,
+            "exp_year": params.year
         }, function(status, response){
             if(response.error){
                 that.onFail(response);
             }else{
-                that.onAddSubscription(plan, response.id);
+                that.onAddSubscription(params, response.id);
             }
         });
     },
 
-    onAddSubscription: function(plan, token){
-        data.createSubscription(token, plan)
+    onAddSubscription: function(params, token){
+        data.createSubscription(token, params.plan)
             .then(this._setSubscription)
             .fail(this.onFail);
     },
