@@ -12,6 +12,7 @@ module.exports = Reflux.createStore({
     },
 
     onInit: function(){
+        this._cleanState();
         data.getSubscription()
             .then(this._setSubscription)
             .fail(this.onFail);
@@ -34,12 +35,14 @@ module.exports = Reflux.createStore({
     },
 
     onAddSubscription: function(params, token){
+        this._cleanState();
         data.createSubscription(token, params.plan)
             .then(this._setSubscription)
             .fail(this.onFail);
     },
 
     onCancelSubscription: function(token, plan){
+        this._cleanState();
         data.cancelSubscription(token, plan)
             .then(this._setSubscription)
             .fail(this.onFail);
@@ -55,7 +58,6 @@ module.exports = Reflux.createStore({
     },
 
     _setSubscription: function(subscription){
-        this._cleanState();
         if(subscription.payment_data.last4)
             this.state.subscription = subscription;
         
