@@ -1,5 +1,4 @@
 var WK_DOCSETS = 'wk_docsets';
-var ACTIVE_DOCSETS = null;
 var defaultSettings = 
     {
         wk_docsets: [{
@@ -103,18 +102,11 @@ var Settings = Reflux.createStore({
     },
     
     getWorkingDocsets:  function(){
-        return ACTIVE_DOCSETS || this.getLocalDocsets();
-    },
-
-    getLocalDocsets: function(){
         return this.config.get(WK_DOCSETS);
-    },
-    setLocalDocsets: function(docsets){
-        this.config.set(WK_DOCSETS, docsets, true);
     },
 
     setWorkingDocsets:  function(docsets){
-        ACTIVE_DOCSETS = docsets;
+        this.config.set(WK_DOCSETS, docsets, true);
         this.trigger(docsets);
     }
 });

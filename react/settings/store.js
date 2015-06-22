@@ -22,9 +22,9 @@ module.exports = Reflux.createStore({
                 wkd.splice(index,1);
             else
                 wkd.push(docset);
-            settings.setWorkingDocsets(wkd);
             this._setUserDocsets(this.settings.docsets);
-            this.settings.docsets = this._markactiveDocsets(this.settings.docsets, wkd);
+            settings.setWorkingDocsets(wkd);
+            this._marklocalDocsets(this.settings.docsets);
             this.trigger(this.settings);
         }.bind(this)).done();
     },
@@ -33,18 +33,12 @@ module.exports = Reflux.createStore({
         this._loadDocsets().then(function(response){
             this._loadFromDB()
                 .then(function(userresponse){
-                    var userdocsets = userresponse['_embedded']['rl:docsets'];
-                    if(userdocsets.length==0){
-                        userdocsets = settings.getLocalDocsets();
-                    }
-                    this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],userdocsets);
-                    settings.setWorkingDocsets(userdocsets);
+                    this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],userresponse['_embedded']['rl:docsets']);
                     this.trigger(this.settings);
                 }.bind(this))
                 .catch(function(error){
                     if(response != undefined){
-                        var workDocsets = settings.getWorkingDocsets();
-                        this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'], workDocsets);
+                        this.settings.docsets = this._marklocalDocsets(response['_embedded']['rl:docsets']);
                     }
                     this.trigger(this.settings);
                 }.bind(this))
@@ -83,10 +77,6 @@ module.exports = Reflux.createStore({
                 }
             }).map(function(docset){return docset.name});
              return data.setUserDocsets(activedocsets);
-        }.bind(this))
-        .catch(function(error){
-            var workDocsets = settings.getWorkingDocsets();
-            settings.setLocalDocsets(workDocsets);
         }.bind(this));
     },
     _marklocalDocsets: function(docsets){
