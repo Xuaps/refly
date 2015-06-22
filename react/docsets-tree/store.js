@@ -2,6 +2,7 @@ var Reflux = require('reflux');
 var TreeviewActions = require('./actions.js');
 var data = require('../infrastructure/data.js');
 var settings = require('../infrastructure/settings.js');
+var authentication = require('../infrastructure/authentication.js');
 
 module.exports = Reflux.createStore({
 
@@ -13,6 +14,7 @@ module.exports = Reflux.createStore({
         this.listenTo(TreeviewActions.selectType, this.onSearchReferences);
         this.listenTo(TreeviewActions.selectReference, this.onMarkReference);
         this.listenTo(settings, this.onGetActiveDocsets);
+        this.listenTo(authentication, this.onGetActiveDocsets);
     },
 
     onGetActiveDocsets: function(){
