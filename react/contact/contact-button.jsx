@@ -9,6 +9,10 @@ var Contact = React.createClass({
        return {status:{}};
     },
 
+    componentWillMount: function(){
+        actions.init();
+        this.className = this.props.className || '';
+    },
 
     render: function(){
         if(this.state.status.sent){
@@ -41,7 +45,7 @@ var Contact = React.createClass({
                               </div>
                            </fieldset>);
         return (<span>
-                    <button type="button" className="btn btn-default navbar-btn" onClick={this.reDraw} data-toggle="modal" data-backdrop="false" data-target="#myModal">
+                    <button type="button" className={"btn btn-default navbar-btn " + this.className} onClick={this.reDraw} data-toggle="modal" data-backdrop="false" data-target="#myModal">
                       <span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                     </button>
                     <div className="modal fade" ref="MyModal" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

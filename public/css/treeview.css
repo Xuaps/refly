@@ -6,6 +6,7 @@
 
 .tree-view {
     margin-top:10px;
+    white-space: nowrap;
 }
 .tree-view div {
     overflow: hidden;
