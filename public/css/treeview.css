@@ -237,6 +237,9 @@
 .docsets-Rails:before {
     background-position: 0px -280px;
 }
+.docsets-Nokogiri:before {
+    background-position: -24px -280px;
+}
 .type-icon{
     cursor: pointer;
     font-size: 135%;
