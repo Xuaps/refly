@@ -31,9 +31,16 @@ module.exports = Reflux.createStore({
         }.bind(this)).done();
     },
 
+    getUserDocsets: function(){
+        return data.getCurrentUser()
+        .then(function (user) {
+             return data.getUserDocsets(user.email);
+        }.bind(this));
+    },
+
     onGetSettings: function(){
         this._loadDocsets().then(function(response){
-            settings.getUserDocsets()
+            this.getUserDocsets()
                 .then(function(userresponse){
                     var mydocsets = userresponse['_embedded']['rl:docsets'];
                     if(mydocsets.length==0){
@@ -72,7 +79,7 @@ module.exports = Reflux.createStore({
              var workDocsets = settings.getWorkingDocsets();
              settings.setWorkingDocsets(workDocsets);
              var activedocsets = workDocsets.map(function(docset){return docset.name});
-             return settings.setUserDocset(activedocsets);
+             return data.setUserDocset(activedocsets);
         }.bind(this))
         .catch(function(error){
             var workDocsets = settings.getWorkingDocsets();
