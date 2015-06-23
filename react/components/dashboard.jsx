@@ -28,13 +28,13 @@ module.exports = React.createClass({
                                                 <span className="glyphicon glyphicon-menu-hamburger"></span>
                                             </a>
                                             <ContactButton className="navbar-toggle" ref="btncontact"/>
-                                            <SignButton className="navbar-toggle" onClickHandler={function(e){this.navigation('session');}.bind(this)}/>
+                                            <SignButton className="navbar-toggle" onClickHandler={function(e){e.preventDefault();this.navigation('session');}.bind(this)}/>
                                             <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <ul className="nav navbar-nav navbar-right">
-                                                <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
-                                                <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
+                                                <li><a href="/settings" onClick={function(e){e.preventDefault();this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
+                                                <li><a href="/legal" onClick={function(e){e.preventDefault();this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
                                                 <li><ContactButton ref="btncontact"/></li>
                                                 <li><SignButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
                                             </ul>
@@ -54,8 +54,8 @@ module.exports = React.createClass({
                                 </div>
                                 <div className="footer sidebar-panel visible-xs">
                                         <ul className="nav nav-pills">
-                                            <li><a href="/settings" onClick={function(event){event.preventDefault();this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
-                                            <li><a href="/legal" onClick={function(event){event.preventDefault();this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
+                                            <li><a href="/settings" onClick={function(e){e.preventDefault();this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
+                                            <li><a href="/legal" onClick={function(e){e.preventDefault();this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
                                         </ul>
                                 </div>
                             </div>

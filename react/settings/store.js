@@ -77,13 +77,14 @@ module.exports = Reflux.createStore({
         return data.getCurrentUser()
         .then(function (user) {
              var workDocsets = settings.getWorkingDocsets();
-             settings.setWorkingDocsets(workDocsets);
              var activedocsets = workDocsets.map(function(docset){return docset.name});
-             return data.setUserDocset(activedocsets);
+             return data.setUserDocsets(activedocsets);
         }.bind(this))
         .catch(function(error){
-            var workDocsets = settings.getWorkingDocsets();
-            settings.setLocalDocsets(workDocsets);
+            if(error.name=='AuthenticationRequiredError'){
+                var workDocsets = settings.getWorkingDocsets();
+                settings.setLocalDocsets(workDocsets);
+            }
         }.bind(this));
 
     },

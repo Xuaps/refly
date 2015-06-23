@@ -117,10 +117,7 @@ var Settings = Reflux.createStore({
 
     setWorkingDocsets:  function(docsets){
         this.config.set(WK_DOCSETS, docsets, true);
-        if(previousdocsets != docsets)
-            this.trigger(docsets);
-        else
-           previousdocsets = docsets;
+        this.trigger(docsets);
     },
 
     setLocalDocsets:  function(docsets){
