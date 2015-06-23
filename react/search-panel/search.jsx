@@ -60,6 +60,11 @@ module.exports = React.createClass({
     componentWillMount: function(){
         this.dbpromise = new DbPromise(800);
         this.mousetrap = new Mousetrap(document.documentElement);
+        this.characterlist = new Array('A','B','C','D','E','F','G','H','I','J','Q','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z',
+            '1','2','3','4','5','6','7','8','9','0',
+            '\\','!','"','·','$','%','&','/','(',')',
+            '.',',','=',"'",'^','*','[',']','ç','+','-','_','?','¿','¡','^','{','}');
         this.unsubscribe = store.listen(this.storeUpdated);
     },
 
@@ -74,16 +79,14 @@ module.exports = React.createClass({
 
         this.pattern = this.props.search;
 		var search_box = this.refs.searchbox.getDOMNode('#txtreference');
-        var default_handler = Mousetrap.handleKey;
 
         search_box.value = this.props.search;
         $(search_box).next('span').toggle(Boolean(this.props.search));
-        this.mousetrap.handleKey = function(character, modifiers, e){
+        this.mousetrap.bind(this.characterlist,function(e){
             if(e.target.className.indexOf('focusable')==-1){
                 search_box.focus();
-                default_handler(character, modifiers, e);
             }
-        };
+        });
         if(this.pattern)
             this.search(1);
     },
