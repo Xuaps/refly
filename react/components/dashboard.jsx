@@ -33,8 +33,8 @@ module.exports = React.createClass({
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <ul className="nav navbar-nav navbar-right">
-                                                <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings", true); return false;}.bind(this)}>Settings</a></li>
-                                                <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal", true); return false;}.bind(this)}>Legal</a></li>
+                                                <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
+                                                <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
                                                 <li><ContactButton ref="btncontact"/></li>
                                                 <li><SignButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
                                             </ul>
@@ -54,8 +54,8 @@ module.exports = React.createClass({
                                 </div>
                                 <div className="footer sidebar-panel visible-xs">
                                         <ul className="nav nav-pills">
-                                            <li><a href="/settings" onClick={function(){this.navigateWithTransition("settings", true); return false;}.bind(this)}>Settings</a></li>
-                                            <li><a href="/legal" onClick={function(){this.navigateWithTransition("legal", true); return false;}.bind(this)}>Legal</a></li>
+                                            <li><a href="/settings" onClick={function(event){event.preventDefault();this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
+                                            <li><a href="/legal" onClick={function(event){event.preventDefault();this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
                                         </ul>
                                 </div>
                             </div>
