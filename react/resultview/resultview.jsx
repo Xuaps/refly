@@ -10,6 +10,7 @@ var actions = require('./actions.js');
 var Breadcrumbs = require('../components/breadcrumbs.jsx');
 var Highlight = require('./highlight.jsx');
 var Welcome = require('../components/welcome.jsx')
+var ProgressBar = require('../progress-bar/progress-bar.jsx')
 
 var ReferenceNotFoundError = require('../errors/reference-not-found.js');
 var PaymentRequiredError = require('../errors/payment-required.js');
@@ -88,7 +89,10 @@ module.exports = React.createClass({
         var normalview = true;
         if(this.state.reference===undefined){
             normalview = false;
-	        content = <Welcome/>;
+            if(!this.props.params.splat)
+                content = <Welcome/>;
+            else
+                content = <ProgressBar percentage="99" />
         }else if(this.state.reference instanceof Error){
             normalview = false;
             if(this.state.reference.name === "PaymentRequiredError"){
