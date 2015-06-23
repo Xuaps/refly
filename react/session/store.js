@@ -6,14 +6,14 @@ var authentication = require('../infrastructure/authentication.js');
 module.exports = Reflux.createStore({
     
     init: function() {
-        this.status = {};
+        this.status = {isAuthenticated: false};
         this.listenToMany(actions);
     },
 
     onInit: function() {
         var token = authentication.getAuth();
         if(token){
-           this._buildUser();
+           this._buildUser(token);
         }else{
            this._cleanStatus();
            this.trigger(this.status);
@@ -22,7 +22,7 @@ module.exports = Reflux.createStore({
 
     onLoginSuccessful: function(token){
         authentication.setAuth(token);
-        return this._buildUser();
+        return this._buildUser(token);
     },
     
     onLogOut: function(){
@@ -41,7 +41,13 @@ module.exports = Reflux.createStore({
         }
     },
 
-    _buildUser: function(){
+    _buildUser: function(token){
+        if(token === this.token){
+            this.trigger(this.status);
+            return;
+        }
+
+        this.token = token;
         return data.getCurrentUser()
             .then(function(user){
                 this.status.user = user;
@@ -52,6 +58,7 @@ module.exports = Reflux.createStore({
     },
 
     _cleanStatus: function(){
-      this.status = {isAuthenticated: false};
+      this.status.isAuthenticated = false;
+      this.status.user = undefined;
     }
 });

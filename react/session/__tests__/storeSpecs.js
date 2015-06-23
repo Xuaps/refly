@@ -70,4 +70,43 @@ describe('Session status', function(){
         });
       });
     });
+
+    describe('cache', function(){
+        describe('on init', function(){
+            it("shouldn't load the user if the token dind't change", function(){
+                var cont = 0;
+                authentication.getAuth = jest.genMockFunction().mockReturnValue({token:'test'});
+                data.getCurrentUser = jest.genMockFunction().mockReturnValue(
+                    {
+                        then:function(c){ c(); return {fail: function(){}}}
+                    });
+                actions.init();  
+                actions.init();
+                store.listen(function(status){
+                    if(cont===1){
+                        expect(data.getCurrentUser.mock.calls.length).toEqual(1);
+                    }
+                    cont++;
+                });
+            });
+        });
+
+        describe('on login successful', function(){
+            it("shouldn't load the user if the token dind't change", function(){
+                var cont = 0;
+                data.getCurrentUser = jest.genMockFunction().mockReturnValue(
+                    {
+                        then:function(c){ c(); return {fail: function(){}}}
+                    });
+                actions.loginSuccessful('refly');  
+                actions.loginSuccessful('refly');
+                store.listen(function(status){
+                    if(cont===1){
+                        expect(data.getCurrentUser.mock.calls.length).toEqual(1);
+                    }
+                    cont++;
+                });
+            });
+        });
+    });
 }); 
