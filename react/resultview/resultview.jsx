@@ -90,6 +90,7 @@ module.exports = React.createClass({
             normalview = false;
 	        content = <Welcome/>;
         }else if(this.state.reference instanceof Error){
+            normalview = false;
             if(this.state.reference.name === "PaymentRequiredError"){
                 content = <Page402 onComplete={this.retry}/>;
             }else if(this.state.reference.name === "ReferenceNotFoundError"){
