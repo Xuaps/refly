@@ -98,6 +98,7 @@ var defaultSettings =
 var Reflux = require('reflux');
 var Configry = require('configry');
 var ls = require('local-storage');
+var previousdocsets;
 var Settings = Reflux.createStore({
     init: function() {
         this.config = new Configry(defaultSettings, [WK_DOCSETS]);
@@ -116,7 +117,10 @@ var Settings = Reflux.createStore({
 
     setWorkingDocsets:  function(docsets){
         this.config.set(WK_DOCSETS, docsets, true);
-        this.trigger(docsets);
+        if(previousdocsets != docsets)
+            this.trigger(docsets);
+        else
+           previousdocsets = docsets;
     },
 
     setLocalDocsets:  function(docsets){
