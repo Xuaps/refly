@@ -20,6 +20,7 @@ module.exports = Reflux.createStore({
 
     onCreateSubscription: function(params){
         var that = this;
+        this._cleanErrors();
         Stripe.card.createToken({
             "number": params.number,
             "cvc": params.cvc,
@@ -35,7 +36,7 @@ module.exports = Reflux.createStore({
     },
 
     onAddSubscription: function(params, token){
-        this._cleanState();
+        this._cleanErrors();
         data.createSubscription(token, params.plan)
             .then(this._setSubscription)
             .fail(this.onFail);
@@ -66,8 +67,12 @@ module.exports = Reflux.createStore({
 
     _cleanState: function(){
         this.state.subscription = undefined;
-        this.state.error = undefined;
+        this._cleanErrors();
         this.state.isAuthenticated = true;
+    },
+
+    _cleanErrors: function(){
+        this.state.error = undefined;
     },
 });
 

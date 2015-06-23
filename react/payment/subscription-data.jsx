@@ -19,16 +19,15 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        if(!this.state.store || !this.state.store.subscription || this.state.store.subscription.state!=='active')
+        if(!this.state.store || !this.state.store.subscription || this.state.store.subscription.status!=='active')
             return (<div>
                         <div className="row">
                             <div className="h2 col-xs-12 text-center">You aren't currently subscribed to the awesome Pro plan</div>
-                        </div>
                         <div className="col-xs-12 text-center">
                             <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
                         </div>
-                        <Call/>
-                        
+                    </div>
+                    <Call/>
                 </div>);
 
         if(this.state.store.subscription.cancel_at_period_end){

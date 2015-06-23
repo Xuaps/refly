@@ -5,28 +5,26 @@ module.exports = React.createClass({
         return( <div>
                     <div className="row"><div className="col-xs-12">&nbsp;</div></div>
                     <div className="row">
-                        <div className="col-xs-12">
-                            <div className="col-xs-12 h2 text-center">
-                               Upgrading to Pro you get:
-                            </div>
-                            <div className="col-xs-6">
-                                <div className="panel panel-info">
-                                    <div className="panel-heading">
-                                        <span className="glyphicon glyphicon-time"></span> No more waitings
-                                    </div>
-                                    <div className="panel-body">
-                                        You will be able to query all your favourite docsets and you won't see the stupid clock again.
-                                    </div>
+                        <div className="col-xs-12 h2 text-center">
+                           Upgrading to Pro you get:
+                        </div>
+                        <div className="col-xs-6">
+                            <div className="panel panel-info">
+                                <div className="panel-heading">
+                                    <span className="glyphicon glyphicon-time"></span> No more waitings
+                                </div>
+                                <div className="panel-body">
+                                    You will be able to query all your favourite docsets and you won't see the stupid clock again.
                                 </div>
                             </div>
-                            <div className="col-xs-6">
-                                <div className="panel panel-info">
-                                    <div className="panel-heading">
-                                        <span className="glyphicon glyphicon-transfer"></span> No limits
-                                    </div>
-                                    <div className="panel-body">
-                                        Are you a hard user? Forget about query limits and get the solution to all your questions.
-                                    </div>
+                        </div>
+                        <div className="col-xs-6">
+                            <div className="panel panel-info">
+                                <div className="panel-heading">
+                                    <span className="glyphicon glyphicon-transfer"></span> No limits
+                                </div>
+                                <div className="panel-body">
+                                    Are you a hard user? Forget about query limits and get the solution to all your questions.
                                 </div>
                             </div>
                         </div>

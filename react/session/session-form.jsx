@@ -27,12 +27,16 @@ module.exports = React.createClass({
     render: function (){
         var error;
         if(this.state.status.isAuthenticated){
-            return <div className="row">
-                <div className='col-xs-12 lead'>  
-                    <span className="glyphicon glyphicon-user"></span>  You are logged in as <span className='label label-primary'>{this.state.status.user.email}</span>
-                    <button onClick={actions.logOut} className="btn btn-link">Sign Out</button></div>
-                    {this.props.children}
-            </div>
+            return (
+                    <div>
+                        <div className="row">
+                            <div className='col-xs-12 lead'>  
+                                <span className="glyphicon glyphicon-user"></span>  You are logged in as <span className='label label-primary'>{this.state.status.user.email}</span>
+                                <button onClick={actions.logOut} className="btn btn-link">Sign Out</button>
+                            </div>
+                        </div>
+                        {this.props.children}
+                   </div>);
         }else{
             if(this.props.query.error){
                 error = <div className="col-xs-12">
