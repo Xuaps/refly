@@ -51,12 +51,12 @@ module.exports = React.createClass({
                     <div className="col-xs-12 card-wrapper"/>
                     <div className="col-xs-12">&nbsp;</div>
                     <div className="form-group">
-                        <div className="col-xs-12">
+                        <div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
                           <input id="number" type="text" ref="number" className='focusable form-control' placeholder="Card Number" />
                         </div>
                     </div>
                     <div className="form-group">
-                        <div className="col-xs-12">
+                        <div className="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
                           <input id="cvc" style={{width:"40%", float:"left"}} placeholder="CVC" type="text" ref="cvc" className='focusable form-control'/>
                           <input id="expiry" style={{width:"60%"}} type="text" placeholder="MM/YYYY" ref="expiry" className='focusable form-control' />
                         </div>

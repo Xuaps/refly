@@ -13,7 +13,7 @@ module.exports = React.createClass({
 
     render: function(){
         return <div className="row"> 
-                <div  className="col-xs-12">
+                <div  className="col-xs-12 col-md-6">
                     <div className="panel panel-default">
                       <div className="panel-body">
                         <p className="h1"><strong>$10/yr</strong></p>
@@ -24,7 +24,7 @@ module.exports = React.createClass({
                       </span>
                     </div>
                 </div>
-                <div  className="col-xs-12">
+                <div  className="col-xs-12 col-md-6">
                     <div className="panel panel-default">
                       <div className="panel-body">
                         <p className="h1"><strong>$1/mo</strong></p>
