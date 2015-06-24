@@ -31,16 +31,9 @@ module.exports = Reflux.createStore({
         }.bind(this)).done();
     },
 
-    getUserDocsets: function(){
-        return data.getCurrentUser()
-        .then(function (user) {
-             return data.getUserDocsets(user.email);
-        }.bind(this));
-    },
-
     onGetSettings: function(){
         this._loadDocsets().then(function(response){
-            this.getUserDocsets()
+            data.getUserDocsets()
                 .then(function(userresponse){
                     var mydocsets = userresponse['_embedded']['rl:docsets'];
                     if(mydocsets.length==0){
@@ -50,7 +43,7 @@ module.exports = Reflux.createStore({
                     this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],mydocsets);
                     this.trigger(this.settings);
                 }.bind(this))
-                .catch(function(error){
+                .fail(function(error){
                     if(response != undefined){
                         var mydocsets = settings.getLocalDocsets();
                         this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],mydocsets);
@@ -74,14 +67,14 @@ module.exports = Reflux.createStore({
     },
 
     _setUserDocsets: function(){
-        return data.getCurrentUser()
-        .then(function (user) {
-             var workDocsets = settings.getWorkingDocsets();
-             var activedocsets = workDocsets.map(function(docset){return docset.name});
-             return data.setUserDocsets(activedocsets);
+        var workDocsets = settings.getWorkingDocsets();
+        var activedocsets = workDocsets.map(function(docset){return docset.name});
+        var myprom = data.setUserDocsets(activedocsets);
+        myprom.then(function (user) {
+             return true;
         }.bind(this))
-        .catch(function(error){
-            if(error.name=='AuthenticationRequiredError'){
+        .fail(function(error){
+            if(error.responseText=='Unauthorized'){
                 var workDocsets = settings.getWorkingDocsets();
                 settings.setLocalDocsets(workDocsets);
             }

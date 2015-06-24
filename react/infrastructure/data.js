@@ -41,7 +41,7 @@ Data.getDefaultDocsets = function(){
         });
 };
 
-Data.getUserDocsets = function(user){
+Data.getUserDocsets = function(){
     var token = authentication.getAuth();
     return $.ajax({
             url: '/api/settings',
