@@ -41,26 +41,27 @@ var ReferencesTreeView = React.createClass({
     onDocsetsChange: function(state){
         var components = [];
         state.forEach(function(docset){
-           components.push(<DocsetNode key={docset.name} onClick={this.onDocsetClick} {...docset} 
-              className={docset.marked?'selected':''} />);
+           var doc_comp_children = [];
            if(docset.types) {
-                   var doc_comp = components[components.length-1];
-                   doc_comp.props.children = [];
+                   var type_comp_children = [];
                    docset.types.forEach(function(type){
-                       var node = <TypeNode key={docset.name+'.'+type.name} onClick={this.onTypeClick} {...type}
-                        className={type.marked?'selected':''} />;
-                       doc_comp.props.children.push(node);
                        if(type.references) {
-                           var type_comp = node;
-                           type_comp.props.children = [];
                            type.references.forEach(function(ref){
                                var item = <ReferenceNode key={ref.uri} onClick={this.onReferenceClick} {...ref}
                                     className={ref.marked?'selected':''}/>;
-                               type_comp.props.children.push(item);
+                               type_comp_children.push(item);
                            }.bind(this));
                        };
+                       var node = <TypeNode key={docset.name+'.'+type.name} onClick={this.onTypeClick} {...type}
+                        className={type.marked?'selected':''} >{type_comp_children}</TypeNode>;
+                       doc_comp_children.push(node);
+
                }.bind(this));
            };
+           components.push(
+            <DocsetNode key={docset.name} onClick={this.onDocsetClick} {...docset} 
+              className={docset.marked?'selected':''}>{doc_comp_children}</DocsetNode>
+           );
         }.bind(this));
         this.setState({data: components});
     },
