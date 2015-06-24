@@ -8,10 +8,14 @@ module.exports = Reflux.createStore({
     init: function() {
         this.state = {};
         this.listenToMany(actions);
-        this.listenTo(authentication, this.onInit);
+        this.listenTo(authentication, function(){ this._cleanState(); this.onInit();}.bind(this));
     },
 
     onInit: function(){
+        if(this.state.subscription){
+            this.trigger(this.state);
+            return;
+        }
         this._cleanState();
         data.getSubscription()
             .then(this._setSubscription)

@@ -2,6 +2,7 @@ jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
 jest.dontMock('q');
 jest.dontMock('../../errors/authentication-required.js');
+jest.dontMock('../../infrastructure/authentication.js');
 var AuthenticationError = require('../../errors/authentication-required.js');
 
 var store, actions, data, authentication, subscription;
@@ -15,6 +16,7 @@ describe('Payment state', function(){
         store = require('../store.js');
         actions = require('../actions.js');
         data = require('../../infrastructure/data.js');
+        authentication = require('../../infrastructure/authentication.js');
         subscription = {
                 payment_data: {  
                 last4: 3243,  
@@ -32,7 +34,7 @@ describe('Payment state', function(){
         jest.runAllTimers();
     });
     
-    describe('initial state', function(){
+    describe('initialize', function(){
         describe('user no logged', function(){
             it('should trhow an error', function(){
                 data.getSubscription = jest.genMockFunction()
@@ -78,6 +80,32 @@ describe('Payment state', function(){
                     });
                 });
             });
+        });
+
+        describe('user logged, subscription loaded', function(){
+            it("shouldn't load the subscription again", function(){
+                data.getSubscription = mockCall({ payment_data:  subscription.payment_data});
+                store.listen(function(state){
+                    expect(data.getSubscription.mock.calls.length).toEqual(1);
+                });
+                actions.init();
+                actions.init();
+            });
+       });
+    });
+    
+    describe('user logged changed', function(){
+        it('should reload the subscription', function(){
+                var count = 0;
+                data.getSubscription = mockCall(subscription);
+                store.listen(function(state){
+                   if(count === 1){
+                       expect(data.getSubscription.mock.calls.length).toEqual(2);
+                   }
+                   count++;
+                });
+                authentication.setAuth('test');
+                authentication.setAuth('refly');
         });
     });
 
