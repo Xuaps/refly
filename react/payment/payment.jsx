@@ -4,7 +4,6 @@ var actions = require('./actions.js');
 var store = require('./store.js');
 var SessionForm = require('../session/session-form.jsx'); 
 var CardForm = require('./card.jsx');
-var Loader = require('react-loader');
 var Contact = require('../contact/contact-button.jsx');
 var SubscriptionData = require('./subscription-data.jsx');
 var Call = require('./payment-call.jsx');
@@ -12,9 +11,7 @@ var Call = require('./payment-call.jsx');
 module.exports = React.createClass({
 
     getInitialState: function(){
-        return {
-            loaded: false
-        };
+        return {};
     },
 
     componentWillMount: function(){
@@ -54,22 +51,18 @@ module.exports = React.createClass({
                         {error}
                     </div>
                     <SessionForm title="Before upgrade you need to sign in" query={this.props.query}/>
-                    <Loader loaded={this.state.loaded}>
-                        {return_data}
-                    </Loader>
+                    {return_data}
                     <Call/>
                 </div>;
     },
 
     _sendAction: function(call, params){
-        this.setState({loaded: false});
         call(params); 
     },
 
     _onStatusChange: function(status){
         this.setState({
             store: status,
-            loaded: true
         });
     },
 

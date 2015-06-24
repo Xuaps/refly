@@ -92,7 +92,7 @@ module.exports = React.createClass({
             if(!this.props.params.splat)
                 content = <Welcome/>;
             else
-                content = <ProgressBar percentage="99" />
+                content = <div></div>;
         }else if(this.state.reference instanceof Error){
             normalview = false;
             if(this.state.reference.name === "PaymentRequiredError"){
