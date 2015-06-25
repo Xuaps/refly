@@ -14,7 +14,7 @@ module.exports = React.createClass({
         actions.init();
         this.className = this.props.className || '';
     },
-
+    
     render: function (){
         if(this.state.status.isAuthenticated){
            return <button className={"btn btn-default navbar-btn " + this.className} onClick={this.props.onClickHandler}> 

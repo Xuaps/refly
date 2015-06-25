@@ -26,19 +26,20 @@ module.exports = Reflux.createStore({
     },
     
     onLogOut: function(){
-        data.deleteSession().then(function(){
-            authentication.setAuth('');
-            this._cleanStatus();
-            this.trigger(this.status);
-        }).fail(this.onFail);
+       data.deleteSession().then(function(){
+           authentication.setAuth('');
+           this._cleanStatus();
+           this.trigger(this.status);
+       }.bind(this)).fail(this.onFail);
     },
     
     onFail: function(error){
-        if(error instanceof Error){
-            this.trigger(error);
+        if(error.name === 'AuthenticationRequiredError'){
+            this.status.isAuthenticated = false;
         }else{
-            throw error;
+            this.status.error = error;
         }
+        this.trigger(this.status);
     },
 
     _buildUser: function(token){
@@ -47,17 +48,19 @@ module.exports = Reflux.createStore({
             return;
         }
 
-        this.token = token;
         return data.getCurrentUser()
             .then(function(user){
                 this.status.user = user;
                 this.status.isAuthenticated = true;
+                this.token = token;
                 this.trigger(this.status);
             }.bind(this))
             .fail(this.onFail);    
     },
 
     _cleanStatus: function(){
+      this.token = undefined;
+      this.status.error = undefined;
       this.status.isAuthenticated = false;
       this.status.user = undefined;
     }
