@@ -3,6 +3,7 @@ var Reflux = require('reflux');
 var actions = require('./actions.js');
 var store = require('./store.js');
 var isEqual = require('lodash.isequal');
+var ErrorMessage = require('../error/error.jsx');
 
 module.exports = React.createClass({
     mixins: [Reflux.connect(store, 'status')],
@@ -36,21 +37,12 @@ module.exports = React.createClass({
     },
 
     render: function (){
-        var errorRes;
         var error = this.props.query.error || (this.state.status?this.state.status.error:undefined);
-        if(error){
-            errorRes = <div className="col-xs-12">
-                        <div className="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Error!</strong> {error}
-                        </div>
-                    </div>
-        }
         if(this.state.status && this.state.status.isAuthenticated){
             return (
                     <div>
                         <div className="row">
-                            {errorRes}
+                            <ErrorMessage id="signOutError" error={error}/>
                             <div className='col-xs-12 lead'>  
                                 <span className="glyphicon glyphicon-user"></span>  You are logged in as <span className='label label-primary'>{this.state.status.user.email}</span>
                                 <button id="signOutButton" onClick={this._signOut} className="btn btn-link">Sign Out</button>
@@ -61,7 +53,7 @@ module.exports = React.createClass({
         }else if(this.state.status && !this.state.status.isAuthenticated){
             return <div>
                     <div className="row">
-                        {errorRes}        
+                        <ErrorMessage error={error}/>
                         <div className="col-xs-12">
                             <div className="page-header">
                               <h1>{this.props.title}</h1>
@@ -85,7 +77,7 @@ module.exports = React.createClass({
                     </div>
                 </div>;
         }
-        return <div>{error}</div>;
+        return <div><ErrorMessage error={error}/></div>;
     },
     
     _signOut: function(e){

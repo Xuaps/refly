@@ -7,6 +7,7 @@ var CardForm = require('./card.jsx');
 var Contact = require('../contact/contact-button.jsx');
 var SubscriptionData = require('./subscription-data.jsx');
 var Call = require('./payment-call.jsx');
+var ErrorMessage =require('../error/error.jsx');
 
 module.exports = React.createClass({
 
@@ -28,14 +29,7 @@ module.exports = React.createClass({
 
     render: function(){
         var error, return_data;
-        if(this.state.store && this.state.store.error){
-            error = <div className="col-xs-12">
-                        <div className="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Error!</strong> {this.state.store.error}
-                        </div>
-                    </div>
-        }
+        error = this.state.store?this.state.store.error:undefined;
 
         if(this.state.store){
 
@@ -56,14 +50,14 @@ module.exports = React.createClass({
             }
             return <div>
                         <div className="row">
-                            {error}
+                            <ErrorMessage error={error}/>
                         </div>
                         <SessionForm title="Before upgrade you need to sign in" query={this.props.query}/>
                         {return_data}
                     </div>;
         }
 
-        return <div>{error}</div>;
+        return <div><ErrorMessage error={error}/></div>;
     },
 
     _sendAction: function(call, params){

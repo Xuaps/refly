@@ -32,6 +32,12 @@ module.exports = React.createClass({
             this._setCardValues(props); 
     },
 
+    componentWillUpdate: function(nextProps, nextState){
+        var actionButton =  document.getElementById('actionButton');
+        if(actionButton)
+            actionButton.disabled = false;
+    },
+
     _setCardValues: function(props){
         var cvc = this.refs.cvc.getDOMNode();
         var expiry = this.refs.expiry.getDOMNode();
@@ -65,7 +71,7 @@ module.exports = React.createClass({
                <div className="col-xs-12">&nbsp;</div>
                <Plans onChange={this._planSetted}/>
                <div  className="col-xs-12 text-center">
-                    <button onClick={this._onSubmit} className="btn-lg btn-success">Upgrade Now</button>
+                    <button onClick={this._onSubmit} id='actionButton' className="btn-lg btn-success">Upgrade Now</button>
                </div>
          </div>
     },
@@ -76,6 +82,7 @@ module.exports = React.createClass({
 
     _onSubmit: function(e){
         event.preventDefault();
+        document.getElementById('actionButton').disabled = true;
         if(this.props.readonly){
             this.props.onSubmit({plan: this.plan});
         }else{
