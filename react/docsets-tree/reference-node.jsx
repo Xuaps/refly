@@ -16,6 +16,7 @@ var ReferenceNode = React.createClass({
         var className = this.props.className.replace('selected', '');
         className = 'type-icon type-'+item.type
         if (this.isSelected()){
+            this.marked = true;
             className += ' selected';
         }
         return ( 
