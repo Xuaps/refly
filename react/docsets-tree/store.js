@@ -12,7 +12,6 @@ module.exports = Reflux.createStore({
         this.listenTo(TreeviewActions.load, this.onGetActiveDocsets);
         this.listenTo(TreeviewActions.selectDocset, this.onGetTypes);
         this.listenTo(TreeviewActions.selectType, this.onSearchReferences);
-        this.listenTo(TreeviewActions.selectReference, this.onMarkReference);
         this.listenTo(settings, this.onGetActiveDocsets);
         this.listenTo(authentication, this.onGetActiveDocsets);
     },
@@ -26,7 +25,6 @@ module.exports = Reflux.createStore({
     onGetTypes: function(docset){
         var active_docset = this.docsets
             .filter(function(doc){ return doc.name === docset; })[0];
-        this.flatten_elements.forEach(function(el){ el.marked = (el.name === docset) });
         if(active_docset.types){
             this.trigger(this.docsets);
             return;
@@ -44,7 +42,6 @@ module.exports = Reflux.createStore({
             .filter(function(doc){ return doc.name === docset;})[0]
             .types.filter(function(type){ return type.name === type_name; })[0];
         if(!page){
-            this.flatten_elements.forEach(function(el){ el.marked = (el.name === type_name && el.docset ===docset) });
             if(node.references){
                 this.trigger(this.docsets);
                 return;
@@ -59,12 +56,5 @@ module.exports = Reflux.createStore({
 
             return response['_links'].next?this.onSearchReferences(docset, type_name, page+1):undefined;
         }.bind(this)).done();
-    },
-
-    onMarkReference: function(ref){
-        this.flatten_elements.forEach(function(elem){
-            elem.marked = (elem.uri === ref.uri);
-        });
-        this.trigger(this.docsets);
     },
 });

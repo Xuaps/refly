@@ -43,8 +43,8 @@ var ReferencesTreeView = React.createClass({
         state.forEach(function(docset){
            var doc_comp_children = [];
            if(docset.types) {
-                   var type_comp_children = [];
                    docset.types.forEach(function(type){
+                    var type_comp_children = [];
                        if(type.references) {
                            type.references.forEach(function(ref){
                                var item = <ReferenceNode key={ref.uri} onClick={this.onReferenceClick} {...ref}
