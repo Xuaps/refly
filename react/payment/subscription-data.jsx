@@ -19,42 +19,49 @@ module.exports = React.createClass({
     },
 
     render: function(){
-        if(!this.state.store || !this.state.store.subscription || this.state.store.subscription.status!=='active')
-            return (<div>
-                        <div className="row">
-                                <div className="h2 col-xs-12 text-center">You aren't currently subscribed to the awesome Pro plan</div>
-                            <div className="col-xs-12 text-center">
-                                <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
+        if(this.state.store && this.state.store.subscription){
+            if(this.state.store.subscription.status!=='active'){
+                return (<div>
+                            <div className="row">
+                                    <div className="h2 col-xs-12 text-center">You aren't currently subscribed to the awesome Pro plan</div>
+                                <div className="col-xs-12 text-center">
+                                    <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
+                                </div>
                             </div>
-                        </div>
-                        <Call/>
-                </div>);
+                            <Call/>
+                    </div>);
+            }
 
-        if(this.state.store.subscription.cancel_at_period_end){
-            return (<div className="row">
-                        <div className='col-xs-12 h1 text-center'>
-                            Your subscription is going to finalize on   
-                        </div>
-                        <div className="col-xs-12 h1 text-center">
-                            <strong>{new Date(this.state.store.subscription.current_period_end*1000).toDateString()}</strong> 
-                        </div>
-                     </div>);
-        }else{
-            return (<div className="row">
+            if(this.state.store.subscription.cancel_at_period_end){
+                return (<div className="row">
                             <div className='col-xs-12 h1 text-center'>
-                                You are currently subscribed to  
+                                Your subscription is going to finalize on   
                             </div>
                             <div className="col-xs-12 h1 text-center">
-                                <strong>{this.state.store.subscription.plan}</strong> plan 
-                            </div>
-                            <div className='col-xs-12 text-center lead'>
-                                We expect you are enjoying refly otherwise, you can cancel your subscription whenever you want. However, before your depart, please let us know what is making you so unhappy.
-                            </div>
-                            <div className='col-xs-12 text-center' >
-                                <Contact/> <button type="button" className="btn btn-link" onClick={this._cancel}>Cancel subscription</button>
+                                <strong>{new Date(this.state.store.subscription.current_period_end*1000).toDateString()}</strong> 
                             </div>
                          </div>);
+            }
+
+            if(this.state.store.subscription.status==='active'){
+                return (<div className="row">
+                                <div className='col-xs-12 h1 text-center'>
+                                    You are currently subscribed to  
+                                </div>
+                                <div className="col-xs-12 h1 text-center">
+                                    <strong>{this.state.store.subscription.plan}</strong> plan 
+                                </div>
+                                <div className='col-xs-12 text-center lead'>
+                                    We expect you are enjoying refly otherwise, you can cancel your subscription whenever you want. However, before your depart, please let us know what is making you so unhappy.
+                                </div>
+                                <div className='col-xs-12 text-center' >
+                                    <Contact/> <button type="button" className="btn btn-link" onClick={this._cancel}>Cancel subscription</button>
+                                </div>
+                             </div>);
+            }
         }
+
+        return <div></div>;
     },
 
     _cancel: function(){

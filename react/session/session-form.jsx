@@ -85,7 +85,7 @@ module.exports = React.createClass({
                     </div>
                 </div>;
         }
-        return <div></div>;
+        return <div>{error}</div>;
     },
     
     _signOut: function(e){
