@@ -30,20 +30,23 @@ module.exports = React.createClass({
 
     render: function(){
         var error = (this.state.store && this.manageErrors)?this.state.store.error:undefined;
-        if(this.state.store && this.state.store.subscription){
-            if(this.state.store.subscription.status!=='active'){
-                return (<div>
-                            <ErrorMessage id="cancelError" error={error}/>
-                            <div className="row">
-                                    <div className="h2 col-xs-12 text-center">You aren't currently subscribed to the awesome Pro plan</div>
-                                <div className="col-xs-12 text-center">
-                                    <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
-                                </div>
-                            </div>
-                            <Call/>
-                    </div>);
-            }
+        if(!this.state.store)
+            return <div><ErrorMessage id="cancelError" error={error}/></div>;
 
+        if(!this.state.store.subscription || this.state.store.subscription.status!=='active'){
+            return (<div>
+                        <ErrorMessage id="cancelError" error={error}/>
+                        <div className="row">
+                                <div className="h2 col-xs-12 text-center">You aren't currently subscribed to the awesome Pro plan</div>
+                            <div className="col-xs-12 text-center">
+                                <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
+                            </div>
+                        </div>
+                        <Call/>
+                </div>);
+        }
+            
+        if(this.state.store.subscription){
             if(this.state.store.subscription.cancel_at_period_end){
                 return (<div className="row">
                             <ErrorMessage id="cancelError" error={error}/>
@@ -75,7 +78,6 @@ module.exports = React.createClass({
             }
         }
 
-        return <div><ErrorMessage id="cancelError" error={error}/></div>;
     },
 
     _cancel: function(){
