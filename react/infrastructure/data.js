@@ -90,9 +90,9 @@ Data.getTypes = function(docset){
 	    });
 };
 
-Data.getReferences = function(docset, type, page){
+Data.getReferences = function(docset, type, page, pagesize){
     return $.ajax({
-	        url: '/api/references?docsets={0}&types={1}&page={2}'.format(docset, type, page),
+	        url: '/api/references?docsets={0}&types={1}&page={2}&pagesize={3}'.format(docset, type, page, pagesize),
 	        method: 'GET',
             headers: getHeaders()
 	    });

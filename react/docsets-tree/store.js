@@ -2,7 +2,7 @@ var Reflux = require('reflux');
 var TreeviewActions = require('./actions.js');
 var data = require('../infrastructure/data.js');
 var settings = require('../infrastructure/settings.js');
-
+var PAGE_SIZE = 300;
 module.exports = Reflux.createStore({
 
     init: function() {
@@ -46,9 +46,9 @@ module.exports = Reflux.createStore({
                 this.trigger(this.docsets);
                 return;
             }
-        } 
+        }
         page = page || 1;
-        data.getReferences(docset, type_name, page).then(function (response){
+        data.getReferences(docset, type_name, page, PAGE_SIZE).then(function (response){
             node.references = node.references || [];
             node.references = node.references.concat(response['_embedded']['rl:references']);
             this.flatten_elements = this.flatten_elements.concat(node.references);
