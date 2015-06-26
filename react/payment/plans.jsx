@@ -27,7 +27,7 @@ module.exports = React.createClass({
                 <div  className="col-xs-12 col-md-6">
                     <div className="panel panel-default">
                       <div className="panel-body">
-                        <p className="h1"><strong>$1/mo</strong></p>
+                        <p className="h1"><strong>$2/mo</strong></p>
                         <p>Cancel or get a refund anytime.</p>
                       </div>
                       <span className="input-group-addon">
