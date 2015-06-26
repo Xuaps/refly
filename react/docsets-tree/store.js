@@ -2,7 +2,7 @@ var Reflux = require('reflux');
 var TreeviewActions = require('./actions.js');
 var data = require('../infrastructure/data.js');
 var settings = require('../infrastructure/settings.js');
-var PAGE_SIZE = 300;
+var PAGE_SIZE = 800;
 module.exports = Reflux.createStore({
 
     init: function() {
