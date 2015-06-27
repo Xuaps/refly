@@ -17,10 +17,11 @@ module.exports = React.createClass({
                     <div className="panel panel-default">
                       <div className="panel-body">
                         <p className="h1"><strong>$10/yr</strong></p>
-                        <p>16% dicount compared to the monthly plan</p>
+                        <p className="h3">Special Launch Offer! <small>(normal price $20)</small></p>
+                        <p>58% dicount compared to the monthly plan</p>
                       </div>
                       <span className="input-group-addon">
-                        <input type="radio" ref='r1' aria-label="Monthly plan" name="plan" value="refly_yearly" onClick={this._click} defaultChecked /> Yearly
+                        <input type="radio" ref='r1' aria-label="Yearly plan" name="plan" value="refly_yearly_offer" onClick={this._click} defaultChecked /> Yearly
                       </span>
                     </div>
                 </div>
@@ -31,7 +32,7 @@ module.exports = React.createClass({
                         <p>Cancel or get a refund anytime.</p>
                       </div>
                       <span className="input-group-addon">
-                        <input type="radio" ref='r2' aria-label="Yearly plan" name="plan" onClick={this._click} value="refly_monthly" /> Monthly
+                        <input type="radio" ref='r2' aria-label="Monthly plan" name="plan" onClick={this._click} value="refly_monthly" /> Monthly
                       </span>
                     </div>
                 </div>
