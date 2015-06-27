@@ -32,6 +32,15 @@ module.exports = React.createClass({
                     <div className="row"><div className="col-xs-12">&nbsp;</div></div>
                     <div className="row">
                         <div className="col-xs-12 h2 text-center">
+                            30 days of happiness or money back. 
+                        </div>
+                        <div className="col-xs-12 text-center">
+                          Not happy? We’ll fully refund your money, no questions asked. You have nothing to loose. Find the right plan for you and start your trial today.  
+                        </div>
+                    </div>
+                    <div className="row"><div className="col-xs-12">&nbsp;</div></div>
+                    <div className="row">
+                        <div className="col-xs-12 h2 text-center">
                             Where is your money going when you pay $10 for Refly? 
                         </div>
                         <div className="col-xs-12">
