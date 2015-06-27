@@ -43,34 +43,24 @@ Data.getDefaultDocsets = function(){
 
 Data.getUserDocsets = function(){
     var token = authentication.getAuth();
+    var deferred = Q.defer();
     return $.ajax({
             url: '/api/settings',
             method: 'GET',
             headers: getHeaders(),
-            statusCode: {
-                401: function(){
-                    deferred.reject(new AuthenticationError());
-                },
-                400: function(){
-                    deferred.reject(new AuthenticationError());
-                }
-            }
+            statusCode: statusCodeHandlers(deferred),
             });
 };
 
 Data.setUserDocsets = function(docsets){
     var token = authentication.getAuth();
-
+    var deferred = Q.defer();
     return $.ajax({
             url:'/api/settings?'
             + 'docsets=' + docsets.join(','),
             method: 'PUT',
             headers: getHeaders(),
-            statusCode: {
-                401: function(){
-                    deferred.reject(new AuthenticationError());
-                }
-            }
+            statusCode: statusCodeHandlers(deferred),
             });
 };
 
