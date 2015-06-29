@@ -2,6 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var actions = require('./actions.js');
 var store = require('./store.js');
+var Ladda = require('ladda');
 var isEqual = require('lodash.isequal');
 var ErrorMessage = require('../error/error.jsx');
 
@@ -45,7 +46,7 @@ module.exports = React.createClass({
                             <ErrorMessage id="signOutError" error={error}/>
                             <div className='col-xs-12 lead'>  
                                 <span className="glyphicon glyphicon-user"></span>  You are logged in as <span className='label label-primary'>{this.state.status.user.email}</span>
-                                <button id="signOutButton" onClick={this._signOut} className="btn btn-link">Sign Out</button>
+                                <button id="signOutButton" onClick={this._signOut} className="ladda-button btn btn-link" data-spinner-color="#2780E3" data-style="expand-right"><span className="ladda-label">Sign Out</span></button>
                             </div>
                         </div>
                         {this.props.children}
@@ -80,9 +81,11 @@ module.exports = React.createClass({
         return <div><ErrorMessage error={error}/></div>;
     },
     
-    _signOut: function(e){
+    _signOut: function(){
         actions.logOut();
         document.getElementById('signOutButton').disabled = true;
+        var l = Ladda.create( document.querySelector( '#signOutButton' ) );
+        l.start();
     }
 });
 

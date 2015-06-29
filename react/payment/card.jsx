@@ -1,5 +1,6 @@
 var React = require('react');
 var Plans = require('./plans.jsx');
+var Ladda = require('ladda');
 
 module.exports = React.createClass({
     getDefaultProps: function(){
@@ -71,7 +72,7 @@ module.exports = React.createClass({
                <div className="col-xs-12">&nbsp;</div>
                <Plans onChange={this._planSetted}/>
                <div  className="col-xs-12 text-center">
-                    <button onClick={this._onSubmit} id='actionButton' className="btn-lg btn-success">Upgrade Now</button>
+                    <button id="actionButton" onClick={this._onSubmit} className="ladda-button btn-lg btn-success" data-spinner-color="#FFF" data-style="expand-right"><span className="ladda-label">Upgrade Now</span></button>
                </div>
          </div>
     },
@@ -82,6 +83,8 @@ module.exports = React.createClass({
 
     _onSubmit: function(e){
         event.preventDefault();
+        var l = Ladda.create( document.querySelector( '#actionButton' ) );
+        l.start();
         document.getElementById('actionButton').disabled = true;
         if(this.props.readonly){
             this.props.onSubmit({plan: this.plan});
