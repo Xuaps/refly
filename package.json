@@ -17,6 +17,7 @@
     "express-hal": "0.0.1",
     "jade": "^1.9.1",
     "knex": "^0.6.16",
+    "ladda": "^0.9.8",
     "mandrill-api": "^1.0.45",
     "morgan": "^1.5.1",
     "node-uuid": "^1.4.3",

@@ -3,6 +3,7 @@ var Reflux = require('reflux');
 var actions = require('./actions.js');
 var store = require('./store.js');
 var Contact = require('../contact/contact-button.jsx');
+var Ladda = require('ladda');
 var Call = require('./payment-call.jsx');
 var Router = require('react-router');
 var ErrorMessage = require('../error/error.jsx');
@@ -37,7 +38,7 @@ module.exports = React.createClass({
             return (<div>
                         <ErrorMessage id="cancelError" error={error}/>
                         <div className="row">
-                                <div className="h2 col-xs-12 text-center">You aren't currently subscribed to the awesome Pro plan</div>
+                                <div className="h2 col-xs-12 text-center">You aren&apos;t currently subscribed to the awesome Pro plan</div>
                             <div className="col-xs-12 text-center">
                                 <button className='btn-lg btn-success' onClick={this._upgrade}>Upgrade to PRO</button>
                             </div>
@@ -72,7 +73,8 @@ module.exports = React.createClass({
                                     We expect you are enjoying refly otherwise, you can cancel your subscription whenever you want. However, before your depart, please let us know what is making you so unhappy.
                                 </div>
                                 <div className='col-xs-12 text-center' >
-                                    <Contact/> <button type="button" id='cancelButton' className="btn btn-link" onClick={this._cancel}>Cancel subscription</button>
+                                    <Contact/>
+                                    <button id="cancelButton" onClick={this._cancel} className="ladda-button btn btn-link" data-spinner-color="#2780E3" data-style="expand-right"><span className="ladda-label">Cancel subscription</span></button>
                                 </div>
                              </div>);
             }
@@ -82,6 +84,8 @@ module.exports = React.createClass({
 
     _cancel: function(){
         document.getElementById('cancelButton').disabled = true;
+        var l = Ladda.create( document.querySelector( '#cancelButton' ) );
+        l.start();
         actions.cancelSubscription();
     },
 
