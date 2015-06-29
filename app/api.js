@@ -330,7 +330,6 @@ var send = function(name, email, message){
     var async = false;
     return mandrill_client.messages.send({"message": message, "async": async},
         function(result) {
-            console.log(result);
     }, function(e) {
         // Mandrill returns the error as an object with name and message keys
         airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
