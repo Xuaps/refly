@@ -5,11 +5,12 @@
 }
 
 .tree-view {
-    margin-top:10px;
+    margin-top:5px;
     white-space: nowrap;
 }
 .tree-view div {
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tree-view_children {
@@ -18,6 +19,7 @@
 }
 .tree-view_children-collapsed {
       height: 0px;
+      color: #222;
 
 }
 .tree-view_arrow {
@@ -28,9 +30,9 @@
       -ms-user-select: none;
       user-select: none;
       float: left;
-      margin-top: -4px;
-      margin-right: 15px;
-      font-size: 160%;
+      margin-right: 10px;
+      font-size: 100%;
+      color: #222;
 }
 
 /* rotate the triangle to close it */
@@ -39,10 +41,11 @@
     -moz-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
+    color: #666;
 }
 .docset-icon{
     cursor: pointer;
-    font-size: 135%;
+    font-size: 90%;
 }
 /* tree-view icons */
 .docset-icon:before {
@@ -53,7 +56,7 @@
     content: '';
     float:left;
     margin-right:2px;
-    margin-top:3px;
+    margin-top:0px;
 }
 
 .docsets-dotnet:before {
@@ -243,7 +246,7 @@
 }
 .type-icon{
     cursor: pointer;
-    font-size: 135%;
+    font-size: 90%;
 }
 .type-icon:before {
     background-image: url('../img/types.png');
@@ -252,8 +255,8 @@
     display: block;
     content: '';
     float: left;
-    margin: 4px 7px 20px 0px;
-    font-size: 135%;
+    margin: 3px 7px 10px 0px;
+    font-size: 90%;
 }
 .type-class:before {
     background-position: 0 0;

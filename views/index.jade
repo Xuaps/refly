@@ -25,6 +25,10 @@ html
     |     
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     |    
+    script(type='text/javascript', src=assetFingerprint('/js/spin.min.js'))
+    |    
+    script(type='text/javascript', src=assetFingerprint('/js/ladda.min.js'))
+    |    
     script(type='text/javascript', src=assetFingerprint('/js/card.js'))
     |    
     script(type='text/javascript', src=assetFingerprint('/js/jquery.cookiesdirective.js'))
@@ -39,7 +43,7 @@ html
 
     script.
       Stripe.setPublishableKey('#{stripe_pk}');
-    
+
     script.
       $(document).ready(function() {
       $.cookiesDirective({
