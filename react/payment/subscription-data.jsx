@@ -52,7 +52,7 @@ module.exports = React.createClass({
                 return (<div className="row">
                             <ErrorMessage id="cancelError" error={error}/>
                             <div className='col-xs-12 h1 text-center'>
-                                Your subscription is going to finalize on   
+                                Your subscription will finish on   
                             </div>
                             <div className="col-xs-12 h1 text-center">
                                 <strong>{new Date(this.state.store.subscription.current_period_end*1000).toDateString()}</strong> 
@@ -70,7 +70,7 @@ module.exports = React.createClass({
                                     <strong>{this.state.store.subscription.plan}</strong> plan 
                                 </div>
                                 <div className='col-xs-12 text-center lead'>
-                                    We expect you are enjoying refly otherwise, you can cancel your subscription whenever you want. However, before your depart, please let us know what is making you so unhappy.
+                                    We expect you to be enjoying refly, otherwise you can cancel the subscription whenever you want. However, before your depart, please let us know what is making you so unhappy.
                                 </div>
                                 <div className='col-xs-12 text-center' >
                                     <Contact/>

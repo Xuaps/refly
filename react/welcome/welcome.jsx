@@ -12,7 +12,7 @@ module.exports = React.createClass({
         return (<div className="_welcome">
         	    <div className="mainhead">
         	    <div id="header"><h1>Refly.co</h1>
-        	    <p>Refly.co is an API documentation browser, a hub build from the original sources documentation</p>
+        	    <p>Refly.co is an API documentation browser, a hub built from the original sources documentation</p>
         	    </div></div>
         	    <div>
                     <h2>Howto</h2>
@@ -25,7 +25,7 @@ module.exports = React.createClass({
                     </ul>
                     </div>
                     <blockquote>
-                    <div>Our labour: keeping documentations up-to-date; Yours: Enjoy the experience of solving all your doubts in one centered place.</div>
+                    <div>Our labour: keeping documentations up-to-date; Yours: Enjoy the experience of solving all your doubts in one concentrated place.</div>
                     </blockquote>
                     <p className="center">{button}</p>
                 </div>

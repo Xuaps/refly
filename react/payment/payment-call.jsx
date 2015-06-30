@@ -14,7 +14,7 @@ module.exports = React.createClass({
                                     <span className="glyphicon glyphicon-time"></span> No more waitings
                                 </div>
                                 <div className="panel-body">
-                                    You will be able to query all your favourite docsets and you won't see the stupid clock again.
+                                    Query all your favourite docsets and avoid the annoying clock.
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@ module.exports = React.createClass({
                             30 days of happiness or money back. 
                         </div>
                         <div className="col-xs-12 text-center">
-                          Not happy? We’ll fully refund your money, no questions asked. You have nothing to loose. Find the right plan for you and start your trial today.  
+                          Not happy? We&quot;ll fully refund your money, no questions. You have nothing to lose. Find the right plan for you and start your trial today.
                         </div>
                     </div>
                     <div className="row"><div className="col-xs-12">&nbsp;</div></div>

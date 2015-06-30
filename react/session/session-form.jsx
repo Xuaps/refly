@@ -58,7 +58,7 @@ module.exports = React.createClass({
                         <div className="col-xs-12">
                             <div className="page-header">
                               <h1>{this.props.title}</h1>
-                            </div>
+                            </div> 
                         </div>
                         <div className="col-xs-12">
                             <div className="panel panel-default">

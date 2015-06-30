@@ -29,7 +29,7 @@ module.exports = React.createClass({
                     <div className="panel panel-default">
                       <div className="panel-body">
                         <p className="h1"><strong>$2/mo</strong></p>
-                        <p>Cancel or get a refund anytime.</p>
+                        <p>Cancel or get a refund at anytime.</p>
                       </div>
                       <span className="input-group-addon">
                         <input type="radio" ref='r2' aria-label="Monthly plan" name="plan" onClick={this._click} value="refly_monthly" /> Monthly
