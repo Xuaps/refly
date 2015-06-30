@@ -26,10 +26,10 @@ module.exports = Reflux.createStore({
             this.trigger(this.docsets);
             return;
         }
-        setTimeout(function(){data.getTypes(docset).then(function(response){ 
+        data.getTypes(docset).then(function(response){ 
             active_docset.types = response['_embedded']['rl:types']; 
             this.trigger(this.docsets);
-        }.bind(this)).done()}.bind(this));
+        }.bind(this)).done();
     },
 
     onSearchReferences: function(docset, type_name, page){
@@ -43,12 +43,12 @@ module.exports = Reflux.createStore({
             }
         }
         page = page || 1;
-        setTimeout(function(){data.getReferences(docset, type_name, page, PAGE_SIZE).then(function (response){
+        data.getReferences(docset, type_name, page, PAGE_SIZE).then(function (response){
             node.references = node.references || [];
             node.references = node.references.concat(response['_embedded']['rl:references']);
             this.trigger(this.docsets);    
 
-            return response['_links'].next?this.onSearchReferences(docset, type_name, page+1):undefined;
-        }.bind(this)).done()}.bind(this),0);
+            return response['_links'].next?setTimeout(function(){this.onSearchReferences(docset, type_name, page+1)}.bind(this),0):undefined;
+        }.bind(this)).done();
     },
 });
