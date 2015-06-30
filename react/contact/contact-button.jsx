@@ -46,7 +46,7 @@ var Contact = React.createClass({
                            </fieldset>);
         return (<span>
                     <button type="button" className={"btn btn-default navbar-btn " + this.className} onClick={this.reDraw} data-toggle="modal" data-backdrop="false" data-target="#myModal">
-                      <span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                      {this.props.text}&nbsp;&nbsp;<span className="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                     </button>
                     <div className="modal fade" ref="MyModal" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div className="modal-dialog">
