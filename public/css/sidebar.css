@@ -72,3 +72,7 @@
 #search-results{
     overflow-y:auto;
 }
+
+.searchref-icon-clean{
+  width: 150px;
+}
