@@ -33,9 +33,7 @@ module.exports = React.createClass({
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <ul className="nav navbar-nav navbar-right">
-                                                <li><a href="/settings" onClick={function(e){e.preventDefault();this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
-                                                <li><a href="/legal" onClick={function(e){e.preventDefault();this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
-                                                <li><ContactButton ref="btncontact"/></li>
+                                                <li><ContactButton text="Contact" ref="btncontact"/></li>
                                                 <li><SignButton onClickHandler={function(e){this.navigation('session');}.bind(this)}/></li>
                                             </ul>
                                          </div>
