@@ -115,6 +115,7 @@ CREATE TABLE temp_refs
   type text NOT NULL,
   content text,
   parent text,
+  content_anchor text,
   uri text NOT NULL
 )
 WITH (
@@ -147,6 +148,7 @@ CREATE TABLE users
   auth_token text,
   profile_id numeric,
   profile_provider text,
+  stripe_id text,
   CONSTRAINT users_pkey PRIMARY KEY (id),
   CONSTRAINT profile_unique UNIQUE (profile_id, profile_provider)
 )
@@ -185,5 +187,5 @@ WITH (
 ALTER TABLE docsetsxuser
   OWNER TO postgres;
 
-INSERT INTO meta  values('17');
+INSERT INTO meta  values('18');
 
