@@ -41,7 +41,7 @@ module.exports = React.createClass({
                       </span>
                       <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
                       <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback searchref-icon-clean" onClick={this.emptySearch}></span>
-                      <span className="input-group-addon"><SettingsButton ref="settingsbutton"></SettingsButton></span>
+                      <span className="input-group-addon btn-setting-container"><SettingsButton ref="settingsbutton"></SettingsButton></span>
                     </div>
                     <div id="search-results" ref='search-results'>
                         {content}

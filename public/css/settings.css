@@ -31,8 +31,16 @@
 
 .btn-settings{
     color: #222;
+    border: 0;
+    padding: 0;
+	width: 50px;
+	height: 100%;
 }
 
 .btn-settings:hover{
     color: #666;
+}
+
+.btn-setting-container{
+	padding: 0;
 }
