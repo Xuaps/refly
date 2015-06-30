@@ -62,14 +62,14 @@ module.exports = React.createClass({
                         </div>
                         <div className="col-xs-12">
                             <div className="panel panel-default">
-                            <div className="panel-heading">Use your favourite service</div>
+                            <div className="panel-heading">Use your favourite service dolor</div>
                             <div className="panel-body text-center">
                                 <div className="btn-group" role="group">
                                     <a href="/auth/google" className="btn btn-default">
-                                     <i className="icon-google-plus"></i> Google
+                                     <em className="icon-google-plus"></em> Google
                                     </a>
                                     <a href="/auth/github" className="btn btn-default">
-                                        <i className="icon-github"></i> GitHub
+                                        <em className="icon-github"></em> GitHub
                                     </a>
                                 </div>
                             </div>
