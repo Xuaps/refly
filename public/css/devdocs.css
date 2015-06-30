@@ -5,7 +5,7 @@
  * Public License, v. 2.0, a copy of which may be obtained at:
  * http://mozilla.org/MPL/2.0/
  */
-._list-link:after, ._page a[href^="http:"]:after, ._page a[href^="https:"]:after, ._search:before, ._search-clear:before, ._notif-close:before, ._list-item:before, ._list-arrow:before, ._sidebar-footer-link:before, ._docs-name:before, ._path-item:first-child:before, ._path-item + ._path-item:after, ._home-link:before, ._menu-link:before {
+._search:before, ._search-clear:before, ._notif-close:before, ._list-item:before, ._list-arrow:before, ._sidebar-footer-link:before, ._docs-name:before, ._path-item:first-child:before, ._path-item + ._path-item:after, ._home-link:before, ._menu-link:before {
   content: '';
   display: block;
   width: 1rem;
@@ -14,16 +14,13 @@
   background-size: 10rem 8rem; }
 
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-  ._list-link:after, ._page a[href^="http:"]:after, ._page a[href^="https:"]:after, ._search:before, ._search-clear:before, ._notif-close:before, ._list-item:before, ._list-arrow:before, ._sidebar-footer-link:before, ._docs-name:before, ._path-item:first-child:before, ._path-item + ._path-item:after, ._home-link:before, ._menu-link:before {
+  ._search:before, ._search-clear:before, ._notif-close:before, ._list-item:before, ._list-arrow:before, ._sidebar-footer-link:before, ._docs-name:before, ._path-item:first-child:before, ._path-item + ._path-item:after, ._home-link:before, ._menu-link:before {
     background-image: image-url("icons@2x.png"); } }
 ._list-arrow:before {
   background-position: 0 0; }
 
 ._search:before {
   background-position: -1rem 0; }
-
-._list-link:after, ._page a[href^="http:"]:after, ._page a[href^="https:"]:after {
-  background-position: -2.25rem -.25rem; }
 
 ._search-clear:before {
   background-position: -3rem 0; }
@@ -384,12 +381,10 @@ pre, ._redis > .example, ._toc, ._docs-links, ._mobile-nav {
   background: #fed5d3;
   border-color: #dc7874; }
 
-._list-link:after, ._page a[href^="http:"]:after, ._page a[href^="https:"]:after {
-  display: inline-block;
-  width: .5rem;
-  height: .4375rem;
-  margin: .125rem 0 0 .0625rem;
-  vertical-align: top; }
+._list-link, ._page a[href^="http:"], ._page a[href^="https:"] {
+  background: url(../img/icon_external_link.png) center right no-repeat;
+  padding-right: 13px;
+  padding-top: 10px; }
 
 ._toc-link:after, ._links-link:after, ._attribution-link:after, ._jquery .name > a:after,
 ._jquery .version-details > a:after, ._mdn .syntaxbox a:after,
