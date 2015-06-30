@@ -50,12 +50,6 @@ module.exports = React.createClass({
                                     <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
                                     {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigateWithTransition} />:undefined}
                                 </div>
-                                <div className="footer sidebar-panel visible-xs">
-                                        <ul className="nav nav-pills">
-                                            <li><a href="/settings" onClick={function(e){e.preventDefault();this.navigateWithTransition("settings", true);}.bind(this)}>Settings</a></li>
-                                            <li><a href="/legal" onClick={function(e){e.preventDefault();this.navigateWithTransition("legal", true);}.bind(this)}>Legal</a></li>
-                                        </ul>
-                                </div>
                             </div>
                             <article className="col-xs-12 col-sm-8 col-md-9">
                                 <RouterHandler key="resultviewcomp" onNavigation={this.navigation} />

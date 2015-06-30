@@ -68,24 +68,6 @@
   }
 }
 
-
-/* sidebar footer */
-.footer {
-  bottom: 0;
-  background-color: #222222;
-  width:70%;
-  margin: 0.1em 0 0 0;
-}
-
-.footer a {
-  color:#FFFFFF;
-}
-
-.footer .nav > li > a:focus, .footer .nav > li > a:hover {
-    text-decoration: none;
-    background-color: black;
-}
-
 /*search*/
 #search-results{
     overflow-y:auto;
