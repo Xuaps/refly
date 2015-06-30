@@ -29,3 +29,10 @@
 	margin-left: 3%;
 }
 
+.btn-settings{
+    color: #222;
+}
+
+.btn-settings:hover{
+    color: #666;
+}

@@ -2,6 +2,7 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var store = require('./store.js');
 var actions = require('./actions.js');
+var SettingsButton = require('../settings/settings-button.jsx');
 var InfiniteScroll = require('react-infinite-scroll')(React);
 var Reflux = require('reflux');
 var DbPromise = require('../infrastructure/debounce-promise.js');
@@ -39,7 +40,8 @@ module.exports = React.createClass({
                         <span className="glyphicon glyphicon-search" aria-hidden="true"/>
                       </span>
                       <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
-                      <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback" onClick={this.emptySearch}></span>
+                      <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback searchref-icon-clean" onClick={this.emptySearch}></span>
+                      <span className="input-group-addon"><SettingsButton ref="settingsbutton"></SettingsButton></span>
                     </div>
                     <div id="search-results" ref='search-results'>
                         {content}
