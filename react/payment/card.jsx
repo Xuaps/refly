@@ -91,6 +91,7 @@ module.exports = React.createClass({
         }else{
             if(this.refs.expiry.getDOMNode().value=='')
                 var expiry = ['','']
+                l.stop();
             else
                 var expiry = this.refs.expiry.getDOMNode().value.split('/');
             this.props.onSubmit({
@@ -102,7 +103,7 @@ module.exports = React.createClass({
                     });
 
         }
-        l.stop();
+        setTimeout(function(){l.stop()},3000);
     },
 });
 
