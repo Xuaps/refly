@@ -8,13 +8,13 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                    return db_mock.mock.tableInitialvalue('users', [
-                        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'email@refly.co'} 
+                        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'email@refly.xyz'} 
                        ]);
                 })
                 .then(function(){
                     var users = new Users();        
                     users
-                        .findOrCreate({profile_id:3456, profile_provider:'github', auth_token:'abbb', email:'email@refly.co'})
+                        .findOrCreate({profile_id:3456, profile_provider:'github', auth_token:'abbb', email:'email@refly.xyz'})
                         .then(function(user){
                             db_mock('users').count('id as count').then(function(result){
                                 expect(result[0].count).toBe(2);
@@ -28,13 +28,13 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                    return db_mock.mock.tableInitialvalue('users', [
-                        {id:123, profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.co'} 
+                        {id:123, profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.xyz'} 
                        ]);
                 })
                 .then(function(){
                     var users = new Users();        
                     users
-                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.co'})
+                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.xyz'})
                         .then(function(user){
                             expect(user.profile_id).toBe(2345);
                             expect(user.profile_provider).toBe('github');
@@ -47,16 +47,16 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                    return db_mock.mock.tableInitialvalue('users', [
-                        {id:123, profile_id:2345, profile_provider:'google', auth_token:'aabb', email:'old_email@refly.co'} 
+                        {id:123, profile_id:2345, profile_provider:'google', auth_token:'aabb', email:'old_email@refly.xyz'} 
                        ]);
                 })
                 .then(function(){
                     var users = new Users();        
                     users
-                        .findOrCreate({profile_id:2345, profile_provider: 'google', auth_token:'aaaa', email:'email@refly.co'})
+                        .findOrCreate({profile_id:2345, profile_provider: 'google', auth_token:'aaaa', email:'email@refly.xyz'})
                         .then(function(user){
                             expect(user.auth_token).toBe('aaaa');
-                            expect(user.email).toBe('email@refly.co');
+                            expect(user.email).toBe('email@refly.xyz');
                             done();
                         });
                 });
@@ -69,7 +69,7 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                     return db_mock.mock.tableInitialvalue('users', [
-                        {id: 123, profile_id: 1234, auth_token: 'swert', email: 'email@refly.co'}
+                        {id: 123, profile_id: 1234, auth_token: 'swert', email: 'email@refly.xyz'}
                         ]);
                 })
                 .then(function(){
@@ -87,7 +87,7 @@ describe('users repository', function(){
             db_mock.mock.init()
                 .then(function(){
                     return db_mock.mock.tableInitialvalue('users', [
-                        {id: 123, profile_id: 1234, auth_token: 'swert', email: 'email@refly.co'}
+                        {id: 123, profile_id: 1234, auth_token: 'swert', email: 'email@refly.xyz'}
                         ]);
                 })
                 .then(function(){

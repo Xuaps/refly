@@ -6,7 +6,7 @@ describe('Settings store', function(){
     beforeEach(function(){
         settings = require('../../infrastructure/settings.js');
         data = require('../../infrastructure/data.js');
-        data.prototype._users = [{email: 'test@refly.co'}];
+        data.prototype._users = [{email: 'test@refly.xyz'}];
         data.prototype._userDocsets = {'_embedded': {'rl:docsets': []}};
         data.prototype._docsets = {'_embedded': {'rl:docsets': [{name: 'java'}, {name: 'javascript'},
             {name: 'require'}, {name: 'angular'}]}};

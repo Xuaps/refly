@@ -26,7 +26,7 @@ var _newReference={
         curies: [
             {
                 name: "rl",
-                href: "http://refly.co/rels/{rel}",
+                href: "http://refly.xyz/rels/{rel}",
                 templated: true
             }
         ],

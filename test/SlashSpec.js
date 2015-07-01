@@ -222,7 +222,7 @@ describe('Settings', function(){
             db_mock.mock.init()
                 .then(function(){
                    db_mock.mock.tableInitialvalue('users', [
-                        {id:1, profile_id:2345, profile_provider:'github', auth_token:'yag_Rxg', email:'testemail@refly.co'} 
+                        {id:1, profile_id:2345, profile_provider:'github', auth_token:'yag_Rxg', email:'testemail@refly.xyz'} 
                        ]);
                    db_mock.mock.tableInitialvalue('docsets', [
                         {id:1, docset:'Chai', default_uri:'/chai', update_date:'12/03/2014', label:'', active: true},
@@ -248,7 +248,7 @@ describe('Settings', function(){
            db_mock.mock.init()
                 .then(function(){
                    db_mock.mock.tableInitialvalue('users', [
-                        {id:1, profile_id:2345, profile_provider:'github', auth_token:'yag_Rxg', email:'testemail@refly.co'} 
+                        {id:1, profile_id:2345, profile_provider:'github', auth_token:'yag_Rxg', email:'testemail@refly.xyz'} 
                        ]);
                    db_mock.mock.tableInitialvalue('docsets', [
                         {id:1, docset:'Chai', default_uri:'/chai', update_date:'12/03/2014', label:'', active: true},

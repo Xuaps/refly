@@ -29,13 +29,13 @@ describe('Session status', function(){
 
         describe('token available', function(){
             it('should be authenticated and has user data', function(){
-                data.prototype._users = [{email: 'test@refly.co'}];
+                data.prototype._users = [{email: 'test@refly.xyz'}];
                 authentication.getAuth = jest.genMockFunction().mockReturnValue({token:'test'});
 
                 actions.init();  
                 store.listen(function(status){
                     expect(status.isAuthenticated).toBe(true);
-                    expect(status.user.email).toBe('test@refly.co');
+                    expect(status.user.email).toBe('test@refly.xyz');
                 });
             });
         });
@@ -44,11 +44,11 @@ describe('Session status', function(){
     describe('after successful login', function(){
       it('should be authenticated and has user data', function(){
         var token = '12345-12222-112222-12233';
-        data.prototype._users = [{email: 'test@refly.co'}];
+        data.prototype._users = [{email: 'test@refly.xyz'}];
         actions.loginSuccessful(token);  
         store.listen(function(status){
             expect(status.isAuthenticated).toBe(true);
-            expect(status.user.email).toBe('test@refly.co');
+            expect(status.user.email).toBe('test@refly.xyz');
         });
       });
     });
@@ -56,7 +56,7 @@ describe('Session status', function(){
     describe('after logout', function(){
       it('should be unauthenticated and doesnt have a user defined', function(){
         var cont = 0;
-        data.prototype._users = [{email: 'test@refly.co'}];
+        data.prototype._users = [{email: 'test@refly.xyz'}];
         data.deleteSession = jest.genMockFunction().mockReturnValue(Q.fcall(function(){return;}));
         actions.loginSuccessful('test');  
         actions.logOut();

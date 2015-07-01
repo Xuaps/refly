@@ -29,7 +29,7 @@ module.exports = React.createClass({
                                             </a>
                                             <ContactButton className="navbar-toggle" ref="btncontact"/>
                                             <SignButton className="navbar-toggle" onClickHandler={function(e){e.preventDefault();this.navigation('session');}.bind(this)}/>
-                                            <a className="navbar-brand" href="/" alt="Refly.co">Refly</a>
+                                            <a className="navbar-brand" href="/" alt="Refly.xyz">Refly</a>
                                         </div>
                                         <div className="navbar-collapse hidden-xs">
                                             <ul className="nav navbar-nav navbar-right">
