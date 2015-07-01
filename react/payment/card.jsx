@@ -89,11 +89,12 @@ module.exports = React.createClass({
         if(this.props.readonly){
             this.props.onSubmit({plan: this.plan});
         }else{
-            if(this.refs.expiry.getDOMNode().value=='')
+            if(this.refs.expiry.getDOMNode().value==''){
                 var expiry = ['','']
                 l.stop();
-            else
+            }else{
                 var expiry = this.refs.expiry.getDOMNode().value.split('/');
+            }
             this.props.onSubmit({
                     plan: this.plan, 
                     number: this.refs.number.getDOMNode().value, 
