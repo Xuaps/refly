@@ -82,14 +82,17 @@ module.exports = React.createClass({
     },
 
     _onSubmit: function(e){
-        event.preventDefault();
+        e.preventDefault();
         var l = Ladda.create( document.querySelector( '#actionButton' ) );
         l.start();
         document.getElementById('actionButton').disabled = true;
         if(this.props.readonly){
             this.props.onSubmit({plan: this.plan});
         }else{
-            var expiry = this.refs.expiry.getDOMNode().value.split('/');
+            if(this.refs.expiry.getDOMNode().value=='')
+                var expiry = ['','']
+            else
+                var expiry = this.refs.expiry.getDOMNode().value.split('/');
             this.props.onSubmit({
                     plan: this.plan, 
                     number: this.refs.number.getDOMNode().value, 
@@ -99,6 +102,7 @@ module.exports = React.createClass({
                     });
 
         }
-    }
+        l.stop();
+    },
 });
 
