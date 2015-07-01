@@ -19,7 +19,7 @@ module.exports.entry = function(){
             curies: [
                 {
                     name: "rl",
-                    href: "http://refly.co/rels/{rel}",
+                    href: "http://refly.xyz/rels/{rel}",
                     templated: true
                 }
             ],
@@ -320,7 +320,7 @@ var send = function(name, email, message){
         "from_name": name,
         "to": [{
                 "email": config.contact.recipient,
-                "name": "refly.co administrator",
+                "name": "refly.xyz administrator",
                 "type": "to"
             }],
         "headers": {
@@ -398,7 +398,7 @@ var getCuries = function(){
     return [
                 {
                     name: "rl",
-                    href: "http://refly.co/rels/{rel}",
+                    href: "http://refly.xyz/rels/{rel}",
                     templated: true
                 }
             ]; 

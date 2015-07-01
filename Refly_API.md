@@ -20,7 +20,7 @@ This resource offers the initial API affordances in the form of HAL links.
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ],
@@ -60,7 +60,7 @@ The Reference resource has the following attributes:
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ],
@@ -106,7 +106,7 @@ The References Collection resource  **embeds* *Reference Resources* in the Refly
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ]
@@ -157,7 +157,7 @@ A collection of Reference's hierarchy.
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ]
@@ -202,7 +202,7 @@ A collection of Reference's children and brothers.
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ]
@@ -245,7 +245,7 @@ The Type Collection resource  **embeds* *Types* in the Refly API.
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ]
@@ -329,7 +329,7 @@ The Docsets collection resource  **embeds* *Docset Resources* in the Refly API.
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ]
@@ -379,7 +379,7 @@ The User resource has the following attributes:
                "_links": {
                    "self": { "href": "/api/users/current" }
                },
-               "email": "test@refly.co"
+               "email": "test@refly.xyz"
             }
 
 ### Retrieve Current User [GET]
@@ -443,7 +443,7 @@ Application settings resource in *Refly API*
                     "curies": [
                         { 
                             "name": "rl",
-                            "href": "http://refly.co/rels/{rel}",
+                            "href": "http://refly.xyz/rels/{rel}",
                             "templated": true
                         }
                     ]
@@ -510,7 +510,7 @@ subscription. The subscription object has the following attributes:
                             "curies": [
                                 { 
                                     "name": "rl",
-                                    "href": "http://refly.co/rels/{rel}",
+                                    "href": "http://refly.xyz/rels/{rel}",
                                     "templated": true
                                 }
                             ],
