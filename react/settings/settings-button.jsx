@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
     render: function(){
         return(<span>
-               <button id="btnsettings" className="ladda-button btn-settings" data-spinner-color="#222" data-style="zoom-in" data-size="xs" onClick={function(e){e.preventDefault();this.navigation("settings");}.bind(this)}><span className="ladda-label"><span className="glyphicon glyphicon-filter" aria-hidden="true"></span></span></button>
+               <button id="btnsettings" className="ladda-button btn-settings" data-spinner-color="#222" data-style="zoom-in" data-size="xs" onClick={function(e){e.preventDefault();this.navigation("settings");}.bind(this)}><span className="ladda-label"><em className="icon-list"></em></span></button>
                </span>);
     },
 
