@@ -12,6 +12,7 @@ module.exports = Reflux.createStore({
         this.listenTo(SettingsActions.getSettings, this.onGetSettings);
         this.listenTo(SettingsActions.docsetSelectionChanged, this.onDocsetsSelectionChanged);
         this.listenTo(SettingsActions.searchDocset, this.onSearchDocset);
+        this.listenTo(SettingsActions.unselectAll, this.onUnselectAll);
         this.listenTo(authentication, this.onGetSettings);
     },
 
@@ -54,6 +55,16 @@ module.exports = Reflux.createStore({
         }.bind(this)).done();
     },
 
+    onUnselectAll: function(){
+        this._loadDocsets().then(function(){
+            var wkd = [];
+            settings.setWorkingDocsets(wkd);
+            this._setUserDocsets();
+            this.settings.docsets = this._markactiveDocsets(this.settings.docsets, wkd);
+            this.trigger(this.settings);
+        }.bind(this)).done();
+    },
+
     onSearchDocset: function(searchtext){
         var newdocsets = this.settings.docsets.filter(function(docset){if(docset.name.toLowerCase().indexOf(searchtext.toLowerCase()) != -1){return docset;}});
         this.trigger({docsets: newdocsets});
@@ -64,6 +75,10 @@ module.exports = Reflux.createStore({
             return Q.fcall(function(){return {'_embedded':{'rl:docsets': this.settings.docsets}}}.bind(this));
 
         return data.getActiveDocsets()
+    },
+
+    onUnSelectAll: function(){
+        var workDocsets = [];
     },
 
     _setUserDocsets: function(){
