@@ -1,3 +1,4 @@
+require('newrelic');
 var express = require('express')
   , bodyParser = require('body-parser')
   , favicon = require('serve-favicon')
