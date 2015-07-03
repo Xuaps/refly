@@ -96,19 +96,13 @@ module.exports = function (grunt) {
     browserify: {
       dist: {
           options: {
-            transform:  [ 'babelify' ]
+            plugin: [ ['minifyify', {map: 'bundle.map.json', output: 'public/js/bundle.map.json'}]],
+            transform:  [ 'babelify'],
+            browserifyOptions: {
+                 debug: true
+              }
           },
           files: { 'public/js/bundle.js': ['react/components/*.jsx'] }
-        }
-    },
-    uglify: {
-        bundle: {
-          options: {
-            report: 'gzip'
-          },
-          files: {
-            'build/release/public/js/bundle.js': ['build/release/public/js/bundle.js']
-          }
         }
     },
     cssmin:{
@@ -117,7 +111,7 @@ module.exports = function (grunt) {
                 'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css', 'public/css/devdocs.css','public/css/ladda-themeless.min.css']
                 }
          }
-    }
+    },
   });
 
   grunt.config.requires('watch.server.files');
@@ -141,8 +135,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config']);
 
-  grunt.registerTask('default', ['browserify', 'develop', 'watch']);
+  grunt.registerTask('default', ['cssmin', 'browserify', 'develop', 'watch']);
   grunt.registerTask('test', ['jasmine_node']);
   grunt.registerTask('testc', ['jest']);
-  grunt.registerTask('release', ['copy-config-files','clean:release', 'copy:app', 'uglify:bundle', 'clean:tmp']);
+  grunt.registerTask('release', ['cssmin','browserify','copy-config-files','clean:release', 'copy:app', 'clean:tmp']);
 };
