@@ -20,6 +20,7 @@ module.exports = React.createClass({
         l.start();
         this.transitionTo(uri);
         setTimeout(function(){l.stop()},2000);
+        $('.row-offcanvas').toggleClass('active');
     },
 
 });
