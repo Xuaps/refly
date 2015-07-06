@@ -76,12 +76,14 @@ module.exports = function (grunt) {
       app: {
         files: [
           { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/treeview.css', '!public/css/sidebar.css', '!public/css/welcome.css', '!public/css/settings.css', '!public/css/devdocs.css', '!public/css/ladda-themeless.min.css'], dest: 'build/release/'},
-          { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'}
+          { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'},
+          { expand:true, flatten:true, src:['build/tmp/newrelic.js'], dest: 'build/release/'}
         ]
       },
       config:{
         files: [
           { expand: true, flatten:true, src: ['build/release/config/production.json', 'build/release/config/stage.json'], dest: 'build/tmp/config/', filter: 'isFile'},
+          { expand: true, flatten:true, src: ['build/release/newrelic.js'], dest: 'build/tmp/', filter: 'isFile'},
         ]
       }
     },
