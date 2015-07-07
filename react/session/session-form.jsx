@@ -74,7 +74,7 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                             </div>
-                            <div><p className="h4 lead"><small>Learn more about our <a href="/legal">Privacy policy</a>.</small></p></div>
+                            <div><p className="h4 lead"><small>Learn more about our <a href="/privacy">Privacy policy</a>.</small></p></div>
                         </div>
                     </div>
                 </div>;

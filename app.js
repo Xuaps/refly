@@ -58,6 +58,12 @@ app.use(users_router);
 app.use(subscription_router);
 
 /* general */
+app.use('/cookies', function(req, res){
+    res.render('cookies');
+});   
+app.use('/privacy', function(req, res){
+    res.render('privacy');
+});   
 app.use('/', function(req, res){
     res.render('index', {environment: env, stripe_pk: config.stripe.public_key});
 });   
