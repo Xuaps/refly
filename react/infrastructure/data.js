@@ -32,7 +32,8 @@ var getHeaders = function(){
         authorization: token?'Bearer {0}'.format(token):''
     };
 };
-   
+
+//TODO THIS IS REPEATED   
 Data.getDefaultDocsets = function(){
     return $.ajax({
 	        url:'/api/docsets?active=true',  
@@ -66,8 +67,15 @@ Data.setUserDocsets = function(docsets){
 
 Data.getActiveDocsets = function(){
     return $.ajax({
-	        url:'/api/docsets?active=true',  
-	        method: 'GET',
+            url:'/api/docsets?active=true',  
+            method: 'GET',
+            headers: getHeaders(),
+        });
+};
+Data.getSingleDocset = function(docset){
+    return $.ajax({
+            url:'/api/docsets/{0}'.format(docset),  
+            method: 'GET',
             headers: getHeaders(),
         });
 };
@@ -102,12 +110,12 @@ Data.mailSending = function(name, email, message){
         });
 };
 
-Data.searchReference = function(pattern, page){
+Data.searchReference = function(pattern, page, docsets){
     return $.ajax({
 	        url: '/api/references' 
                 +'?name=' + pattern
                 +'&page=' + page
-                + settings.getWorkingDocsets().reduce(function(prev, current){
+                + docsets.reduce(function(prev, current){
                     return prev + '&docsets='+current.name;
                 },''),
 	        method: 'GET',

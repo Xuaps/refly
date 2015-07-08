@@ -105,8 +105,9 @@ var breadcrumbs = function(uri, breadcrumb_collection){
 
 var get_docset = function(name){
 	docsets = new Docsets();
+    name = name.charAt(0).toUpperCase() + name.slice(1);
     return docsets
-        .filter('docset', filters.operators.EQUALS, name) 
+        .filter('docset', filters.operators.START_WITH, name)
         .execute().then(function(docsets){
             return (docsets.length > 0) ? docsets[0] : null;   
         });

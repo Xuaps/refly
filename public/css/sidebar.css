@@ -77,3 +77,21 @@
   width: 50px;
   margin-right: 50px;
 }
+
+.docset-selector{
+  height: 50px;
+  margin-right: 93%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  display: block;
+  width: 15px;
+  line-height: 104px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.docset-selector-item{
+  background-color: #EEE;
+}

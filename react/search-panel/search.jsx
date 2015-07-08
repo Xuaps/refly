@@ -2,6 +2,7 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var store = require('./store.js');
 var actions = require('./actions.js');
+var DocsetSelector = require('./docset_selector.jsx');
 var SettingsButton = require('../settings/settings-button.jsx');
 var InfiniteScroll = require('react-infinite-scroll')(React);
 var Reflux = require('reflux');
@@ -11,7 +12,7 @@ var NOT_FOUND = 'Reference not found!', LOADING = 'Loading...';
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {data: {results: [], reached_end:true}, message:''};
+        return {data: {results: [], reached_end:true, docsets:[]}, message:''};
     },
     
     getDefaultProps: function() {
@@ -36,9 +37,7 @@ module.exports = React.createClass({
         return(
                 <div>
                     <div className="input-group has-feedback">
-                      <span className="input-group-addon" id="basic-addon1">
-                        <span className="glyphicon glyphicon-search" aria-hidden="true"/>
-                      </span>
+                      <DocsetSelector docset={this.state.docset} ref="docselector"></DocsetSelector>
                       <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
                       <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback searchref-icon-clean" onClick={this.emptySearch}></span>
                       <span className="input-group-addon btn-setting-container"><SettingsButton ref="settingsbutton"></SettingsButton></span>
@@ -89,10 +88,11 @@ module.exports = React.createClass({
                 search_box.focus();
             }
         });
+
         if(this.pattern)
             this.search(1);
     },
-    
+
     calculateHeight: function(){
         var footer = (window.document.body.clientWidth<768?44:0);
         this.refs['search-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - footer - 108 +'px';        

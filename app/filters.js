@@ -4,6 +4,8 @@ exports.operators = {
 
     IN: 'IN',
 
+    START_WITH: 'START_WITH',
+
     CONTAINS: 'CONTAINS'
 
 };
