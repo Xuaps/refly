@@ -17,7 +17,6 @@ module.exports = Reflux.createStore({
             }.bind(this))
             .fail(function(error){
                 var p = error;
-                console.log(error);
             });
         }else{
             this.trigger(null);
