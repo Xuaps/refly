@@ -58,8 +58,14 @@ app.use(users_router);
 app.use(subscription_router);
 
 /* general */
+app.use('/info', function(req, res){
+    res.render('info');
+});   
 app.use('/cookies', function(req, res){
     res.render('cookies');
+});   
+app.use('/terms', function(req, res){
+    res.render('terms');
 });   
 app.use('/privacy', function(req, res){
     res.render('privacy');
