@@ -87,11 +87,18 @@
   z-index: 3;
   display: block;
   width: 15px;
-  line-height: 104px;
+  line-height: 43px;
   text-align: center;
   pointer-events: none;
 }
 
 .docset-selector-item{
   background-color: #EEE;
+}
+
+.longdocset{
+  padding-left: 80px;
+}
+.shortdocset{
+  padding-left: 25px;
 }

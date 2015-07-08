@@ -43,10 +43,16 @@ module.exports = React.createClass({
     componentWillUnmount: function(){
         this.unsubscribe();
     },
+    
+    componentDidUpdate: function(){
+        // var offsetwidth = (this.state.docset.length*12);
+        var offsetwidth = (document.getElementById('docset-selector-item').offsetWidth + 4) || 0;
+        document.getElementById("txtreference").style.paddingLeft = offsetwidth + "px";
+    },
 
     render: function() {
         var content;
-        content = (<span className="docset-selector"><span className="docset-selector-item">{this.state.docset}</span></span>)
+        content = (<span className="docset-selector"><span id="docset-selector-item" className="docset-selector-item">{this.state.docset}</span></span>)
         return (content);
     },
 });
