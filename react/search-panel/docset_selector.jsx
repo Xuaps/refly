@@ -34,7 +34,7 @@ module.exports = React.createClass({
 
     selectDocset: function(data){
         actions.setDocsets(data);
-        if(data!=null)
+        if(data!=null && data.name!=undefined)
             this.setState({docset: data.name.replace(' ', '_')});
         else
             this.setState({docset: ''});
@@ -45,7 +45,6 @@ module.exports = React.createClass({
     },
     
     componentDidUpdate: function(){
-        // var offsetwidth = (this.state.docset.length*12);
         var offsetwidth = (document.getElementById('docset-selector-item').offsetWidth + 4) || 0;
         document.getElementById("txtreference").style.paddingLeft = offsetwidth + "px";
     },

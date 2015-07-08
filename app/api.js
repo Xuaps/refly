@@ -153,6 +153,8 @@ module.exports.get_types = function(main_url, docset){
 module.exports.get_docset = function(main_url, name){
     return slash.get_docset(name)
         .then(function(docset) {
+            if(docset==null)
+                return {};
             return { 
                 links: {
                     self: '/api/docsets/' + docset.docset 
