@@ -37,7 +37,7 @@ module.exports = React.createClass({
         return(
                 <div>
                     <div className="input-group has-feedback">
-                      <DocsetSelector ref="docselector"></DocsetSelector>
+                      <DocsetSelector setFocus={this._setFocus} ref="docselector"></DocsetSelector>
                       <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
                       <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback searchref-icon-clean" onClick={this.emptySearch}></span>
                       <span className="input-group-addon btn-setting-container"><SettingsButton ref="settingsbutton"></SettingsButton></span>
@@ -49,6 +49,11 @@ module.exports = React.createClass({
         );
     },
     
+    _setFocus: function(){
+        var search_box = this.refs.searchbox.getDOMNode('#txtreference');
+        search_box.focus();
+    },
+
     onClickHandler: function(uri){
         actions.markReference(uri);
         this.props.onClick(uri, true);

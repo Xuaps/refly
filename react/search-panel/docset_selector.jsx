@@ -13,16 +13,18 @@ module.exports = React.createClass({
         this.mousetrap = new Mousetrap(document.documentElement);
         this.mousetrap.bind('tab',function(e){
             var searchfield = document.getElementById('txtreference');
-            this.lookForDocset(searchfield.value);
-            searchfield.value = '';
-            searchfield.focus();
+            console.log(this.refs);
+            if(searchfield.value!='' && document.activeElement == searchfield){
+                this.lookForDocset(searchfield.value);
+                searchfield.value = '';
+            }
         }.bind(this));
         this.mousetrap.bind('backspace',function(e){
             var searchfield = document.getElementById('txtreference');
-            searchfield.focus();
-            if(searchfield.value==''){
+            if(searchfield.value=='' && document.activeElement == searchfield){
                 this.setState({docset: ''});
                 this.lookForDocset(null);
+                React.findDOMNode(this.refs.myTextInput).focus();
             }
         }.bind(this));
         this.unsubscribe = store.listen(this.selectDocset);
@@ -47,6 +49,7 @@ module.exports = React.createClass({
     componentDidUpdate: function(){
         var offsetwidth = (document.getElementById('docset-selector-item').offsetWidth + 4) || 0;
         document.getElementById("txtreference").style.paddingLeft = offsetwidth + "px";
+        this.props.setFocus();
     },
 
     render: function() {
