@@ -24,25 +24,30 @@ var Contact = React.createClass({
           var statusinfo = (<span></span>);
         }
         if(this.state.status.isAuthenticated){
-            var inputName = (<input type="text" disabled="disabled" className="form-control focusable" ref="namebox" id="inputName" name="txtname"/>);
-            var inputEmail = (<input type="text" disabled="disabled" className="form-control focusable" ref="emailbox" id="inputEmail" name="txtemail"/>);
+            var inputName = (<span><input type="hidden" ref="namebox" id="inputName"/></span>);
+            var inputEmail = (<span><input type="hidden" ref="emailbox" id="inputEmail"/></span>);
+            var inputMessage = (<div className="form-group">
+                                 <label htmlFor="txtmessage" className="control-label">Message:</label>
+                                 <div><textarea className="form-control focusable" rows="6" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
+                              </div>);
         }else{
-            var inputName = (<input type="text" className="form-control focusable" ref="namebox" id="inputName" name="txtname" placeholder="Name"/>);
-            var inputEmail = (<input type="text" className="form-control focusable" ref="emailbox" id="inputEmail" name="txtemail" placeholder="Email"/>);
-        }
-        var contactinfo =  (<fieldset>
-                              <div className="form-group">
+            var inputName = (<div className="form-group">
                                  <label htmlFor="txtname" className="control-label">Name:</label>
-                                 <div>{inputName}</div>
-                              </div>
-                              <div className="form-group">
+                                 <div><input type="text" className="form-control focusable" ref="namebox" id="inputName" name="txtname" placeholder="Name"/></div>
+                              </div>);
+            var inputEmail = (<div className="form-group">
                                  <label htmlFor="txtemail" className="control-label">Email:</label>
-                                 <div>{inputEmail}</div>
-                              </div>
-                              <div className="form-group">
+                                 <div><input type="text" className="form-control focusable" ref="emailbox" id="inputEmail" name="txtemail" placeholder="Email"/></div>
+                              </div>);
+            var inputMessage = (<div className="form-group">
                                  <label htmlFor="txtmessage" className="control-label">Message:</label>
                                  <div><textarea className="form-control focusable" rows="3" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
-                              </div>
+                              </div>);
+        }
+        var contactinfo =  (<fieldset>
+                              {inputName}
+                              {inputEmail}
+                              {inputMessage}
                            </fieldset>);
         return (<span>
                     <button type="button" className={"btn btn-default navbar-btn " + this.className} onClick={this.reDraw} data-toggle="modal" data-backdrop="false" data-target="#myModal">
