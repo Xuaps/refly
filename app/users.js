@@ -1,6 +1,7 @@
 var db = require('./db');
 var config = require('config');
 var stripe = require('stripe')(config.stripe.secret_key);
+var mandrillappMailer = require('./mandrillapp-mailer.js');
 
 function Users(){
 } 
@@ -27,7 +28,7 @@ Users.prototype.revokeAccessToken = function(values){
     return db('users')
         .update({auth_token: undefined})
         .where(values);
-};
+}; 
 
 Users.prototype.findOrCreate = function(user){
     var _that = this;
@@ -48,10 +49,12 @@ Users.prototype._getByProfile = function (profile_id, profile_provider){
 };
 
 Users.prototype.add = function (user){
+    mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
     return db('users')
         .insert(user, 'id')
         .into('users')
-        .then(function(ids){ 
+        .then(function(ids){
+            console.log(user);
             return user; 
     });
 };
