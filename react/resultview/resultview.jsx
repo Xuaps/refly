@@ -106,6 +106,7 @@ module.exports = React.createClass({
         if(normalview){
         return (
                <div>
+                    <link href="/css/docs.css?v=2lbj-1b92uld" rel="stylesheet" type="text/css"></link>
                     <Breadcrumbs key="breadcrumbscomp" ref="breadcrumbs" params={{docset:this.props.params.docset, uri: this.props.params.splat}}/>
                     <div className="row">
                         <div className="col-xs-12">
