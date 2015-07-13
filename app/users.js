@@ -54,7 +54,6 @@ Users.prototype.add = function (user){
         .insert(user, 'id')
         .into('users')
         .then(function(ids){
-            console.log(user);
             return user; 
     });
 };

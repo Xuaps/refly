@@ -103,6 +103,8 @@ describe('References', function() {
                 .execute()
                 .then(function(rows){
                     references.filter('reference', filters.operators.EQUALS, 'search')
+                    //For avoiding results from another docsets
+                    references.filter('docset', filters.operators.EQUALS, 'slash')
                         .execute()
                         .then(function(rows){
                             results=rows;
