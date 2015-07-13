@@ -6,7 +6,7 @@ var actions = require('./actions.js');
 var Contact = React.createClass({
     mixins: [Reflux.connect(store, 'status')],
     getInitialState: function(){
-       return {status:{}};
+       return {status:{isAuthenticated: false}};
     },
 
     componentWillMount: function(){
