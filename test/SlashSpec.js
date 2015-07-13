@@ -265,7 +265,7 @@ describe('Settings', function(){
                     var token = 'yag_Rxg';
                     slashdocsetsxuser.savedocsetxuser(token,'AngularJS,Chai,Cpp').then(function() {
                         slashdocsetsxuser.get_docsetsbyuser(token).then(function(docsets) {
-                            expect(dgit statusocsets.length).toBe(3);
+                            expect(docsets.length).toBe(3);
                             done();
                         });
 
