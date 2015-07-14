@@ -1,0 +1,38 @@
+#offer{
+    background-image: url("../img/code.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.white-row{
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.black-row{
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+.totalwhite-row{
+    background-color: white;
+}
+
+.totalblack-row{
+    background-color: #303030;
+    color: white;
+}
+
+.landing-row{
+}
+
+.v-center {
+    display:table;
+    height:300px;
+}
+
+.content {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+}
+
