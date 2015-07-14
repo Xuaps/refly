@@ -110,7 +110,7 @@ module.exports = function (grunt) {
     cssmin:{
         target: {
             files: {
-                'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css','public/css/ladda-themeless.min.css']
+                'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css','public/css/ladda-themeless.min.css'],
                 'public/css/docs.css': ['public/css/devdocs.css']
                 }
          }
