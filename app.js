@@ -79,8 +79,9 @@ if ('development' == env) {
     app.use(errorhandler());
 }else{
     app.use(function(err, req, res, next) {
+        airbrake.notify(err);
         res.status(err.status || 500);
-        res.render('error', {
+        res.render('500', {
             message: err.message,
             error: {}
         });
