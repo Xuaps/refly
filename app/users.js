@@ -17,6 +17,7 @@ Users.prototype.find = function(values){
 
             return stripe.customers.retrieve(users[0].stripe_id)
                 .then(function(customer){
+                    console.log(customer);
                     var activePlan = customer.subscriptions.data[0] && (customer.subscriptions.data[0].status === 'active');
                     users[0].haveActivePlan = activePlan;
                     return users;
@@ -32,7 +33,11 @@ Users.prototype.revokeAccessToken = function(values){
 
 Users.prototype.findOrCreate = function(user){
     var _that = this;
+
     return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){
+        if(user.email=='')
+            user.email = user.profile_provider + '-user' + Math.ceil(Math.random() * (999999 - 100000) + 100000) + '@refly.xyz';
+
         if(users.length===0)
             return _that.add(user);
         if(_that._haveChanges(users[0], user)){
@@ -49,7 +54,8 @@ Users.prototype._getByProfile = function (profile_id, profile_provider){
 };
 
 Users.prototype.add = function (user){
-    mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
+    if(user.email.indexOf('@')!=-1)
+        mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
     return db('users')
         .insert(user, 'id')
         .into('users')
