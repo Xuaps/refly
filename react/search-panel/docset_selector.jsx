@@ -13,6 +13,7 @@ module.exports = React.createClass({
         this.mousetrap = new Mousetrap(document.documentElement);
         this.mousetrap.bind('tab',function(e){
             var searchfield = document.getElementById('txtreference');
+            this.props.setFocus();
             console.log(this.refs);
             if(searchfield.value!='' && document.activeElement == searchfield){
                 this.lookForDocset(searchfield.value);
@@ -24,7 +25,7 @@ module.exports = React.createClass({
             if(searchfield.value=='' && document.activeElement == searchfield){
                 this.setState({docset: ''});
                 this.lookForDocset(null);
-                React.findDOMNode(this.refs.myTextInput).focus();
+                this.props.setFocus();
             }
         }.bind(this));
         this.unsubscribe = store.listen(this.selectDocset);
