@@ -58,6 +58,9 @@ app.use(users_router);
 app.use(subscription_router);
 
 /* general */
+app.use('/imprint', function(req, res){
+    res.render('imprint');
+});   
 app.use('/info', function(req, res){
     res.render('info');
 });   
