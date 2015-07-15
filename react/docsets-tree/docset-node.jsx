@@ -21,11 +21,11 @@ var DocsetNode = React.createClass({
     render: function(){
         var item=this.props;
         var label = 
-            <div className={"docset-icon docsets-" + item.name +' '+this.props.className} onClick={this.onClickHandler}>
+            <div className={"docset-icon docsets-" + item.name.replace(' ', '-') +' '+this.props.className} onClick={this.onClickHandler}>
                 {item.name}
             </div>;
         return ( 
-            <TreeView key={item.name} onClick={this.onClickHandler} nodeLabel={label} collapsed={this.state.collapsed}>
+            <TreeView key={item.name.replace(' ', '-')} onClick={this.onClickHandler} nodeLabel={label} collapsed={this.state.collapsed}>
                 {this.props.children}
             </TreeView>
         );

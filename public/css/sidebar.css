@@ -5,7 +5,6 @@
 .sidebar-panel{
   width: 22.5%;
   position: fixed;
-  padding-left:20px;
 }
 
 @media screen and (max-width: 991px) {
@@ -78,9 +77,10 @@
   margin-right: 50px;
 }
 
-.docset-selector{
+.docset-selector{ 
   height: 50px;
   margin-right: 93%;
+  margin-top: 4%;
   position: absolute;
   top: 0;
   right: 0;

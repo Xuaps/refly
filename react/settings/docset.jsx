@@ -6,8 +6,8 @@ var Docset = React.createClass({
         return (
             <li>
                 <div className="_settings item">
-                <input type='checkbox' className="docset-checkbox" name={item.name} id={item.name} value={item.name} defaultChecked={item.active} onClick={this.onClickHandler} />
-                <label className={"docset-icon docsets-" + item.name} htmlFor={item.name}>{item.name}</label>
+                <input type='checkbox' className="docset-checkbox" name={item.name.replace(' ', '-')} id={item.name.replace(' ', '-')} value={item.name.replace(' ', '-')} defaultChecked={item.active} onClick={this.onClickHandler} />
+                <label className={"docset-icon docsets-" + item.name.replace(' ', '-')} htmlFor={item.name.replace(' ', '-')}>{item.name}</label>
                 </div>
             </li>
             );

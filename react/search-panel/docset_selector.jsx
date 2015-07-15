@@ -37,7 +37,7 @@ module.exports = React.createClass({
     selectDocset: function(data){
         actions.setDocsets(data);
         if(data!=null && data.name!=undefined)
-            this.setState({docset: data.name.replace(' ', '_')});
+            this.setState({docset: data.name.replace(' ', '-')});
         else
             this.setState({docset: ''});
     },
@@ -47,14 +47,17 @@ module.exports = React.createClass({
     },
     
     componentDidUpdate: function(){
-        var offsetwidth = (document.getElementById('docset-selector-item').offsetWidth + 4) || 0;
+        var offsetwidth = (document.getElementById('docset-selector-item').offsetWidth + 30) || 0;
         document.getElementById("txtreference").style.paddingLeft = offsetwidth + "px";
         this.props.setFocus();
     },
 
     render: function() {
         var content;
-        content = (<span className="docset-selector"><span id="docset-selector-item" className="docset-selector-item">{this.state.docset}</span></span>)
+        var marker = '';
+        if(this.state.docset!='')
+            marker = (<span className={"docset-icon docsets-" + this.state.docset}></span>)
+        content = (<span className="docset-selector"><span id="docset-selector-item" className="docset-selector-item">{marker}</span></span>)
         return (content);
     },
 });
