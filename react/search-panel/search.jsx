@@ -12,7 +12,7 @@ var NOT_FOUND = 'Reference not found!', LOADING = 'Loading...';
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {data: {results: [], reached_end:true, docsets:[]}, message:''};
+        return {data: {results: [], reached_end:true, docset:null}, message:''};
     },
     
     getDefaultProps: function() {
@@ -22,6 +22,12 @@ module.exports = React.createClass({
       },
 
     render: function(){
+       var docset = '';
+       var selectorclass = '';
+       if(this.state.data.docset!=null){
+           selectorclass = 'input-search-selector';
+           docset = (<span className="docset-selector"><span className={"docset-icon docsets-" + this.state.data.docset.name.replace(' ', '-')}></span></span>);
+       }
        var result_rows = this.state.data.results.map(function(r){
                     return <SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.onClickHandler}
 	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
@@ -37,8 +43,8 @@ module.exports = React.createClass({
         return(
                 <div>
                     <div className="input-group has-feedback">
-                      <DocsetSelector setFocus={this._setFocus} ref="docselector"></DocsetSelector>
-                      <input id="txtreference" ref="searchbox" type="text" className="form-control" placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
+                      {docset}
+                      <input id="txtreference" ref="searchbox" type="text" className={'form-control ' + selectorclass} placeholder="Search for..." onKeyUp={this.onKeyUp} aria-describedby="basic-addon1" />
                       <span className="clearer glyphicon glyphicon-remove-circle form-control-feedback searchref-icon-clean" onClick={this.emptySearch}></span>
                       <span className="input-group-addon btn-setting-container"><SettingsButton ref="settingsbutton"></SettingsButton></span>
                     </div>
@@ -47,11 +53,6 @@ module.exports = React.createClass({
                     </div>
                 </div>
         );
-    },
-    
-    _setFocus: function(){
-        var search_box = this.refs.searchbox.getDOMNode('#txtreference');
-        search_box.focus();
     },
 
     onClickHandler: function(uri){
@@ -93,9 +94,28 @@ module.exports = React.createClass({
                 search_box.focus();
             }
         });
+        this.mousetrap.bind('tab',function(e){
+            e.preventDefault();
+            var search_box = this.refs.searchbox.getDOMNode('#txtreference');
+            if(search_box.value!='' && document.activeElement == search_box){
+                this.lookForDocset(search_box.value);
+                search_box.value = '';
+                search_box.focus();
+            }
+        }.bind(this));
+        this.mousetrap.bind('backspace',function(e){
+            var search_box = this.refs.searchbox.getDOMNode('#txtreference');
+            if(search_box.value=='' && document.activeElement == search_box){
+                this.lookForDocset(null);
+            }
+        }.bind(this));
 
         if(this.pattern)
             this.search(1);
+    },
+
+    lookForDocset: function(txtdocset){
+        actions.searchDocset(txtdocset);
     },
 
     calculateHeight: function(){
@@ -135,12 +155,12 @@ module.exports = React.createClass({
     },
 
     cleanResults: function(){
-        this.setState({data:{results:[], reached_end:true}, message: ''});
+        this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: ''});
     },
 
 	search: function(page){
         if(page===1)
-            this.setState({message: LOADING});
+            this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: LOADING});
         actions.searchReference(this.pattern, page);
 	},
 });

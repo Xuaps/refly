@@ -80,20 +80,20 @@
 .docset-selector{ 
   height: 50px;
   margin-right: 93%;
-  margin-top: 4%;
+  margin-top: 0.65rem;
   position: absolute;
   top: 0;
   right: 0;
   z-index: 3;
   display: block;
-  width: 15px;
-  line-height: 43px;
+  width: 1rem;
+  line-height: 0;
   text-align: center;
   pointer-events: none;
 }
 
-.docset-selector-item{
-  background-color: #EEE;
+.input-search-selector{
+  padding-left: 1.5rem;
 }
 
 .longdocset{

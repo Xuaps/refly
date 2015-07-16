@@ -1,6 +1,5 @@
 var Reflux = require('reflux');
 var ReferencesActions = require('./actions.js');
-var DocsetsActions = require('./actions_docset_selector.js');
 var Data = require('../infrastructure/data.js');
 var settings = require('../infrastructure/settings.js');
 
@@ -12,7 +11,7 @@ module.exports = Reflux.createStore({
         this.docsets = [];
         this.listenTo(ReferencesActions.searchReference, this.onSearch);
         this.listenTo(ReferencesActions.markReference, this.onMarkReference);
-        this.listenTo(DocsetsActions.setDocsets, this.onSetDocsets);
+        this.listenTo(ReferencesActions.searchDocset, this.onSearchDocset);
     },
 
     onMarkReference: function(uri){
@@ -41,14 +40,19 @@ module.exports = Reflux.createStore({
                 this.trigger(this._getResult());}.bind(this))
             .done();
     },
-
-    onSetDocsets: function(docset){
-        if(docset == null){
-            this.docsets = settings.getWorkingDocsets();
+    onSearchDocset: function(docsetsearch){
+        if(docsetsearch!=null){
+            Data.getSingleDocset(docsetsearch)
+            .then(function(docset){
+                this.docsets = [docset];
+                this.trigger(this._getResult());
+            }.bind(this));
         }else{
-            this.docsets = [docset];
+            this.docsets = [];
+            this.trigger(this._getResult());
         }
     },
+
 
     _getDocsets: function(){
         if(this.docsets == []){
@@ -72,7 +76,7 @@ module.exports = Reflux.createStore({
     },
 
     _getResult: function(){
-        return { results: this.results, reached_end: this.search_history.reached_end };
+        return { results: this.results, reached_end: this.search_history.reached_end, docset: this.docsets[0] || null };
     },
 
 });

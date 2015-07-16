@@ -17,7 +17,6 @@ Users.prototype.find = function(values){
 
             return stripe.customers.retrieve(users[0].stripe_id)
                 .then(function(customer){
-                    console.log(customer);
                     var activePlan = customer.subscriptions.data[0] && (customer.subscriptions.data[0].status === 'active');
                     users[0].haveActivePlan = activePlan;
                     return users;
