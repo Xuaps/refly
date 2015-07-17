@@ -44,8 +44,11 @@ module.exports = Reflux.createStore({
         if(docsetsearch!=null){
             Data.getSingleDocset(docsetsearch)
             .then(function(docset){
-                this.docsets = [docset];
-                this.trigger(this._getResult());
+                if(docset.name!=undefined)
+                    this.docsets = [docset]
+                else
+                    this.docsets = [];
+                    this.trigger(this._getResult());
             }.bind(this));
         }else{
             this.docsets = [];
