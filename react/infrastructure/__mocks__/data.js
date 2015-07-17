@@ -35,6 +35,7 @@ Data.getUserDocsets = function(){
 };
 
 Data.setUserDocsets = function(docsets){
+    return this.wrapInPromise({message: "Selection saved"});
 };
 
 Data.wrapInPromise = function(collection){

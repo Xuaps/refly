@@ -1,6 +1,6 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
-var docsets, actions, store, data, settings;
+var docsets, actions, store, data, settings, countdeselection, countselection;
 
 describe('Settings store', function(){
     beforeEach(function(){
@@ -12,7 +12,9 @@ describe('Settings store', function(){
             {name: 'require'}, {name: 'angular'}]}};
         settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
         actions = require('../actions.js');
-        store = require('../store.js'); 
+        store = require('../store.js');
+        countdeselection = 0;
+        countselection = 0;
     }); 
 
     it('should load working docsets preferences', function(){
@@ -32,8 +34,12 @@ describe('Settings store', function(){
             actions.docsetSelectionChanged({name: 'java'}); 
 
             store.listen(function(state){
-                expect(state.docsets.filter(function(d){ return d.name==='java' })[0].active).toBe(false);
-                expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'angular'}]);
+                if(countdeselection>0){
+                    console.log(state);
+                    expect(state.docsets.filter(function(d){ return d.name==='java' })[0].active).toBe(false);
+                    expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'angular'}]);
+                    countdeselection++;
+                }
             });
             
             jest.runAllTimers();
@@ -42,10 +48,13 @@ describe('Settings store', function(){
         it('should add selected working docsets', function(){
             actions.getSettings();
             actions.docsetSelectionChanged({name: 'javascript'}); 
-
             store.listen(function(state){
-                expect(state.docsets.filter(function(d){ return d.name==='javascript' })[0].active).toBe(true);
-                expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'java'}, {name: 'angular'}, {name: 'javascript'}]);
+                if(countselection>0){
+                    console.log(state);
+                    expect(state.docsets.filter(function(d){ return d.name==='javascript' })[0].active).toBe(true);
+                    expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'java'}, {name: 'angular'}, {name: 'javascript'}]);
+                    countselection++;
+                }
             });
             
             jest.runAllTimers();
