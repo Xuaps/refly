@@ -8,7 +8,7 @@ module.exports = React.createClass({
     render: function(){
         return (
                 <a onClick={this.onClickHandler} className={"list-group-item type-icon type-"+ this.props.type + ((this.props.marked)?' selected':'')} >
-                    <span className={"docset-icon docsets-" + this.props.docset}></span>
+                    <span className={"docset-icon docsets-" + this.props.docset.replace(' ', '-')}></span>
                     {this.props.reference}
                 </a>
                );
