@@ -11,7 +11,9 @@ Data.getActiveDocsets =function(){
 Data.getTypes = function(docset){
     return this.wrapInPromise(Data.prototype._types);
 };
-
+Data.getSingleDocset = function(docset){
+    return this.wrapInPromise(Data.prototype._docsets);
+};
 Data.getReferences = function(docset, type, page){
     return this.wrapInPromise(Data.prototype._references);
 };

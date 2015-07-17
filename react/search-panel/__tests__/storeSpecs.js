@@ -1,20 +1,24 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
 
-var store, actions, data, mocked_results, mocked_empty_results, count;
+var store, actions, data, mocked_results, mocked_empty_results, count, singledocsetcount;
 
 describe('Search panel store', function(){
     beforeEach(function(){
         data = require('../../infrastructure/data.js');
         actions = require('../actions.js');
         store = require('../store.js');
-
         mocked_last_page_results = 
             {'_embedded': {'rl:references': [{name: 'aaa', uri: 'aaa'}, {name: 'bbb', uri: 'bbb'}]}, '_links': { } };
         mocked_results = 
             {'_embedded': {'rl:references': [{name: 'aaa', uri: 'aaa'}, {name: 'bbb', uri: 'bbb'}]}, '_links': { next: 'next_link'}};
+        mocked_results_single_docset = 
+            {'_embedded': {'rl:references': [{name: 'aaa', uri: 'aaa'},{name: 'aaa2', uri: 'aaa2'}]}, '_links': { next: 'next_link'}};
+        mocked_docsets = {name: 'a'};
+        data.prototype._docsets = mocked_docsets;
         data.prototype._references = mocked_results;
         count = 1;
+        singledocsetcount = 0;
     });
     
     afterEach(function(){
@@ -38,6 +42,20 @@ describe('Search panel store', function(){
                 store.listen(function(status){
                     expect(status.results.length).toBe(2*count);
                     count += 1;
+                });
+            });
+
+
+            it('should return only results from a single docset', function(){
+                data.prototype._references = mocked_results_single_docset;
+                actions.searchDocset('a');
+                actions.searchReference('a',1);
+                store.listen(function(status){
+                    if(singledocsetcount>0){
+                        singledocsetcount++;
+                        expect(status.results.length).toBe(2);
+                        expect(status.docset.name).toBe('a');
+                    }
                 });
             });
 
