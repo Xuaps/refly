@@ -53,7 +53,7 @@ Users.prototype._getByProfile = function (profile_id, profile_provider){
 };
 
 Users.prototype.add = function (user){
-    if(user.email.indexOf('github-user')!=-1)
+    if(user.email.indexOf('github-user')==-1)
         mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
     return db('users')
         .insert(user, 'id')

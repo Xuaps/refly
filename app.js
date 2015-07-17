@@ -6,6 +6,7 @@ var express = require('express')
   , users_router = require('./routes/users.js')
   , references_router = require('./routes/references.js')
   , authentication_router = require('./routes/authentication.js')
+  , feedback_router = require('./routes/feedback.js')
   , http = require('http')
   , path = require('path')
   , morgan = require('morgan')
@@ -56,6 +57,7 @@ app.use(authentication_router);
 app.use(references_router);
 app.use(users_router);
 app.use(subscription_router);
+app.use(feedback_router);
 
 /* general */
 app.use('/imprint', function(req, res){

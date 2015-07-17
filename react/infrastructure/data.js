@@ -99,7 +99,7 @@ Data.getReferences = function(docset, type, page, pagesize){
 Data.mailSending = function(name, email, message){
     var token = authentication.getAuth();
     return $.ajax({
-            url: '/api/message/send',
+            url: '/message/send',
             method: 'POST',
             headers: {
                 name: name,

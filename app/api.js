@@ -4,7 +4,6 @@ var Users = require('./users.js');
 var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
-var mandrillappMailer = require('./mandrillapp-mailer.js');
 var config = require('config');
 var stripe = require('stripe')(config.stripe.secret_key);
 var Subscription = require('./subscription.js');
@@ -307,10 +306,6 @@ module.exports.cancelSubscription = function(user){
                     return mapSusbcription(Subscription.create(user, customer, canceled_subscription));
                 });
         }).catch(manageStripeErrors);
-};
-
-module.exports.sendMail = function(name, email, message){
-    mandrillappMailer.sendMail(name, email, config.contact.subject, message);
 };
 
 var mapSusbcription = function(subscription){
