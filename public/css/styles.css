@@ -20,7 +20,11 @@ article{
     padding-top: 10px;
     background: white;
 }
-
+._phpunit .screen{
+    background: #eaeef3;
+    padding: 0.5em;
+    border: 1px solid #d8d8d8;
+}
 .clearer{
     pointer-events:auto;
 }
@@ -34,4 +38,25 @@ a.broken{
   background: url(../img/icon_broken_link.png)center right no-repeat;
   padding-right: 11px;
   padding-top: 10px;
+}
+
+/* overwrites bootstrap styles */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 80%;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.error-icon{
+    padding-right: .5rem;
+    padding-top: .3rem;
+    top: 0.15rem;
 }

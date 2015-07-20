@@ -11,10 +11,10 @@ module.exports = Reflux.createStore({
         this.listenToMany(actions);
         var token = authentication.getAuth();
         if(token!='' && token!=null){
-            this.status.isAuthenticated = true;
+            this.status = {isAuthenticated: true, sent: false, errors: []};
             this.trigger(this.status);
         }else{
-            this.status.isAuthenticated = false;
+            this.status = {isAuthenticated: false, sent: false, errors: []};
             this.trigger(this.status);
         }
     },
@@ -24,7 +24,7 @@ module.exports = Reflux.createStore({
             this.blocked = true;
             data.mailSending(name, email, message).then(function(response){
                 if(response.message == 'message sent'){
-                    this.status.sent = true;
+                    this.status = {isAuthenticated: this.status.isAuthenticated, sent: true, errors: []};
                     this.trigger(this.status);
                     this.blocked = false;
                 }
@@ -34,7 +34,7 @@ module.exports = Reflux.createStore({
     },
 
     _cleanStatus: function(){
-      this.status = {isAuthenticated: false};
+      this.status = {isAuthenticated: false, sent: false, errors: []};
       this.trigger(this.status);
     },
 
