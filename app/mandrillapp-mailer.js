@@ -22,6 +22,7 @@ module.exports.sendMailTemplated = function(email, template_config){
         // Mandrill returns the error as an object with name and message keys
         airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
         console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+        return false;
         // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
     });
 };
@@ -45,10 +46,12 @@ module.exports.sendMail = function(name, email, subject, body){
     var async = false;
     return mandrill_client.messages.send({"message": message, "async": async},
         function(result) {
+            return true;
     }, function(e) {
         // Mandrill returns the error as an object with name and message keys
         airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
         console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+        return false;
         // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
     });
 };
