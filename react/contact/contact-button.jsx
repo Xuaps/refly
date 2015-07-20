@@ -12,8 +12,21 @@ var Contact = React.createClass({
     componentWillMount: function(){
         actions.init();
         this.className = this.props.className || '';
+        this.unsubscribe = store.listen(this.storeUpdated);
     },
 
+    componentDidUpdate: function(){
+        if(this.state.status.errors.indexOf('notvalidemail')!=-1)
+            var idinputwithfocus = '#txtemail';
+        else if(this.state.status.errors.indexOf('emptymessage')!=-1)
+            var idinputwithfocus = '#txtmessage'
+        var input_to_focus = this.refs.emailbox.getDOMNode(idinputwithfocus);
+        input_to_focus.focus();
+    },
+
+    componentWillUnmount: function(){
+        this.unsubscribe();
+    },
     render: function(){
         var txterrors, emailerrorclass = '', messageerrorclass = '';
         var listerrors=[];
@@ -27,20 +40,21 @@ var Contact = React.createClass({
         }else if(this.state.status.errors.length>0){
 
             this.state.status.errors.forEach(function(item){
-                if(item=='notvalidemail'){
-                  emailerrorclass = 'has-error';
-                  listerrors.push(<div><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
-                                      <span className="sr-only">Error:</span>
-                                      Enter a valid email address
-                                  </div>);
-                }
                 if(item=='emptymessage'){
                     messageerrorclass = 'has-error';
-                    listerrors.push(<div><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
+                    listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
                                         <span className="sr-only">Error:</span>
                                         Don&#39;t be shy! Write a message.
                                     </div>);
                 }
+                if(item=='notvalidemail'){
+                    emailerrorclass = 'has-error';
+                    listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
+                                      <span className="sr-only">Error:</span>
+                                      Enter a valid email address
+                                  </div>);
+                }
+
                 txterrors = <div>{listerrors}</div>
             });
             var statusinfo = (<div className="alert alert-danger messagefail"  role="alert">                                                                        
@@ -105,27 +119,16 @@ var Contact = React.createClass({
                 </span>);
     },
 
-
-    validate: function(){
-        var email_box = this.refs.emailbox.getDOMNode('#txtemail');
-        var message_box = this.refs.messagebox.getDOMNode('#txtmessage');
-        var errors = [];
-        var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-        if(message_box.value==''){
-            errors.push('emptymessage');
-            message_box.focus();
-        }
-        if((email_box.value == '' || !re.test(email_box.value)) && !this.state.status.isAuthenticated){
-          errors.push('notvalidemail');
-          email_box.focus();
-        }
-        return errors;
-    },
-
     reDraw: function(){
         actions.init();
     },
 
+    storeUpdated: function(data){
+        if(data.sent===true){
+            var self = this;
+            setTimeout(function(){self.closeModal();},2000);
+        }
+    },
     onClickHandler: function(){
         var name_box = this.refs.namebox.getDOMNode('#txtname');
         var email_box = this.refs.emailbox.getDOMNode('#txtemail');
@@ -133,15 +136,9 @@ var Contact = React.createClass({
         var name = name_box.value;
         var email = email_box.value;
         var content = message_box.value;
-        var errors = this.validate();
-        if(errors.length==0){
-            actions.sendMail(name, email, content);
-            var self = this;
-            setTimeout(function(){self.closeModal();},2000);
-        }else{
-            this.setState({status:{isAuthenticated: this.state.status.isAuthenticated, sent: false, errors: errors}});
-        }
+        actions.sendMail(name, email, content);
     },
+
     closeModal: function(){
         var name_box = this.refs.namebox.getDOMNode('#txtname');
         var email_box = this.refs.emailbox.getDOMNode('#txtemail');
@@ -149,7 +146,7 @@ var Contact = React.createClass({
         name_box.value = '';
         email_box.value = '';
         message_box.value = '';      
-        $(this.refs.MyModal.getDOMNode('#myModal')).modal('toggle');
+        $(this.refs.MyModal.getDOMNode('#myModal')).modal('hide');
     }
 });
 

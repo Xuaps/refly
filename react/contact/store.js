@@ -19,23 +19,41 @@ module.exports = Reflux.createStore({
         }
     },
 
+    validate: function(email, message){
+        var errors = [];
+        var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if(message==''){
+            errors.push('emptymessage');
+        }
+        if((email == '' || !re.test(email)) && !this.status.isAuthenticated){
+          errors.push('notvalidemail');
+        }
+        return errors;
+    },
     onSendMail: function(name, email, message){
-        if(!this.blocked){
-            this.blocked = true;
-            data.mailSending(name, email, message).then(function(response){
-                if(response.message == 'message sent'){
-                    this.status = {isAuthenticated: this.status.isAuthenticated, sent: true, errors: []};
-                    this.trigger(this.status);
-                    this.blocked = false;
-                }
-            }.bind(this))
-            .fail(this.onFail);
+        var errors = this.validate(email, message);
+        if(errors.length==0){
+            if(!this.blocked){
+                this.blocked = true;
+                data.mailSending(name, email, message).then(function(response){
+                    if(response.message == 'message sent'){
+                        this.status = {isAuthenticated: this.status.isAuthenticated, sent: true, errors: []};
+                        this.trigger(this.status);
+                        this.blocked = false;
+                        this._cleanStatus();
+                    }
+                }.bind(this))
+                .fail(this.onFail);
+            }
+        }else{
+            this.status = {isAuthenticated: this.status.isAuthenticated, sent: false, errors: errors};
+            this.trigger(this.status);
+            this.blocked = false;
         }
     },
 
     _cleanStatus: function(){
       this.status = {isAuthenticated: false, sent: false, errors: []};
-      this.trigger(this.status);
     },
 
     onFail: function(error){
