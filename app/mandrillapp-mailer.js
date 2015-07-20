@@ -17,7 +17,7 @@ module.exports.sendMailTemplated = function(email, template_config){
     var async = false;
     return mandrill_client.messages.sendTemplate({"template_name": template_config.template_name, "template_content": template_config.template_content, "message": message, "async": async},
         function(result) {
-            console.log(result);
+            return true;
     }, function(e) {
         // Mandrill returns the error as an object with name and message keys
         airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
@@ -31,7 +31,6 @@ module.exports.sendMail = function(name, email, subject, body){
     re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
     if(email == '' || !re.test(email))
         email = 'anonymous-contact@refly.xyz'
-    console.log('mi email es: ' + email);
     var message = {
         "text": body,
         "subject": subject,
