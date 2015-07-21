@@ -28,20 +28,20 @@ var Contact = React.createClass({
             var inputEmail = (<span><input type="hidden" ref="emailbox" id="inputEmail"/></span>);
             var inputMessage = (<div className="form-group">
                                  <label htmlFor="txtmessage" className="control-label">Message:</label>
-                                 <div><textarea className="form-control focusable" rows="6" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
-                              </div>);
+                                 <div><textarea tabIndex="1" className="form-control focusable" rows="6" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
+                                </div>);
         }else{
             var inputName = (<div className="form-group">
                                  <label htmlFor="txtname" className="control-label">Name:</label>
-                                 <div><input type="text" className="form-control focusable" ref="namebox" id="inputName" name="txtname" placeholder="Name"/></div>
+                                 <div><input type="text" tabIndex="1" className="form-control focusable" ref="namebox" id="inputName" name="txtname" placeholder="Name"/></div>
                               </div>);
             var inputEmail = (<div className="form-group">
                                  <label htmlFor="txtemail" className="control-label">Email:</label>
-                                 <div><input type="text" className="form-control focusable" ref="emailbox" id="inputEmail" name="txtemail" placeholder="Email"/></div>
+                                 <div><input type="text" tabIndex="2" className="form-control focusable" ref="emailbox" id="inputEmail" name="txtemail" placeholder="Email"/></div>
                               </div>);
             var inputMessage = (<div className="form-group">
                                  <label htmlFor="txtmessage" className="control-label">Message:</label>
-                                 <div><textarea className="form-control focusable" rows="3" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
+                                 <div><textarea tabIndex="3" className="form-control focusable" rows="3" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
                               </div>);
         }
         var contactinfo =  (<fieldset>
@@ -58,7 +58,7 @@ var Contact = React.createClass({
                         <div className="well">
                           <div className="modal-header">
                             {statusinfo}
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" tabIndex="-1" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 className="modal-title" id="myModalLabel">Contact us!</h4>
                           </div>
                           <form name="frmcontact">
@@ -66,8 +66,8 @@ var Contact = React.createClass({
                             {contactinfo}
                           </div>
                           <div className="modal-footer">
-                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" onClick={this.onClickHandler} className="btn btn-primary">Send Message</button>
+                            <button type="button" tabIndex="5" onClick={this.reDraw} className="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" tabIndex="4" onClick={this.onClickHandler} className="btn btn-primary">Send Message</button>
                           </div>
                           </form>
                         </div>
