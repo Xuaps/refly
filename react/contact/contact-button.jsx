@@ -111,11 +111,14 @@ var Contact = React.createClass({
         var message_box = this.refs.messagebox.getDOMNode('#txtmessage');
         var errors = [];
         var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+        if(message_box.value==''){
+            errors.push('emptymessage');
+            message_box.focus();
+        }
         if((email_box.value == '' || !re.test(email_box.value)) && !this.state.status.isAuthenticated){
           errors.push('notvalidemail');
+          email_box.focus();
         }
-        if(message_box.value=='')
-            errors.push('emptymessage');
         return errors;
     },
 
