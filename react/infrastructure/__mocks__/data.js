@@ -34,8 +34,12 @@ Data.getUserDocsets = function(){
     return this.wrapInPromise(Data.prototype._userDocsets);
 };
 
-Data.setUserDocsets = function(docsets){
+Data.setUserDocsets = function(name, email, message){
     return this.wrapInPromise({message: "Selection saved"});
+};
+
+Data.mailSending = function(docsets){
+    return this.wrapInPromise({"message":"message sent"});
 };
 
 Data.wrapInPromise = function(collection){
