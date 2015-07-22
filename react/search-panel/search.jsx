@@ -2,7 +2,6 @@ var React = require('react');
 var SearchResultRow = require('./search_result_row.jsx');
 var store = require('./store.js');
 var actions = require('./actions.js');
-var DocsetSelector = require('./docset_selector.jsx');
 var SettingsButton = require('../settings/settings-button.jsx');
 var InfiniteScroll = require('react-infinite-scroll')(React);
 var Reflux = require('reflux');
