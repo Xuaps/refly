@@ -34,7 +34,7 @@ Users.prototype.findOrCreate = function(user){
     var _that = this;
     var sendmail = true;
     return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){
-        re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+        re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if(user.email == '' || !re.test(user.email)){
             user.email = user.profile_provider + '-user' + Math.ceil(Math.random() * (999999 - 100000) + 100000) + '@refly.xyz';
             sendmail = false;
