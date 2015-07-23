@@ -96,6 +96,15 @@ module.exports = function (grunt) {
         }
     },
     browserify: {
+      dev: {
+          options: {
+            transform:  [ 'babelify'],
+            browserifyOptions: {
+                 debug: true
+              }
+          },
+          files: { 'public/js/bundle.js': ['react/components/*.jsx'] }
+      },
       dist: {
           options: {
             plugin: [ ['minifyify', {map: 'bundle.map.json', output: 'public/js/bundle.map.json'}]],
@@ -138,8 +147,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config']);
 
-  grunt.registerTask('default', ['cssmin', 'browserify', 'develop', 'watch']);
+  grunt.registerTask('default', ['cssmin', 'browserify:dev', 'develop', 'watch']);
   grunt.registerTask('test', ['jasmine_node']);
   grunt.registerTask('testc', ['jest']);
-  grunt.registerTask('release', ['cssmin','browserify','copy-config-files','clean:release', 'copy:app', 'clean:tmp']);
+  grunt.registerTask('release', ['cssmin','browserify:dist','copy-config-files','clean:release', 'copy:app', 'clean:tmp']);
 };
