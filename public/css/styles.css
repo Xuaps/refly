@@ -53,6 +53,12 @@ a.broken{
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+.alert-danger a{
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  text-decoration: underline;
+}
 
 .error-icon{
     padding-right: .5rem;

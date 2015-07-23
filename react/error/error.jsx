@@ -20,7 +20,7 @@ module.exports = React.createClass({
                    <div>
                        <span className="glyphicon glyphicon-envelope error-icon" aria-hidden="true"></span>
                        <span className="sr-only"></span>
-                       <a onClick={this.contact} href="#">Contact the administrator</a>
+                       <span className="alert-danger"><a onClick={this.contact} href="#">Contact the administrator</a></span>
                    </div>
                </div>;
     },
