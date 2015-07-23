@@ -7,6 +7,7 @@ var URI = require ('URIjs');
 var Router = require('react-router');
 var RouterHandler = Router.RouteHandler;
 var Link = Router.Link;
+var GoogleAnalytics = require('react-g-analytics');
 
 module.exports = React.createClass({
     mixins: [ Router.State, Router.Navigation ],
@@ -52,6 +53,7 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                             <article className="col-xs-12 col-sm-8 col-md-9">
+                                <GoogleAnalytics id="UA-51748976-3"/>
                                 <RouterHandler key="resultviewcomp" onNavigation={this.navigation} />
                             </article>
                         </div>                        
