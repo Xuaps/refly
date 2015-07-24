@@ -46,7 +46,7 @@ module.exports = function (grunt) {
       },
       react: {
         files: ['react/**/*.jsx', 'react/**/*.js'],
-        tasks: ['browserify'],
+        tasks: ['browserify:dev'],
         options: {
           livereload: reloadPort
         }
