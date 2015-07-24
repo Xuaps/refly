@@ -75,7 +75,7 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/offer.css', '!public/css/treeview.css', '!public/css/sidebar.css', '!public/css/welcome.css', '!public/css/settings.css', '!public/css/devdocs.css', '!public/css/ladda-themeless.min.css'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/offer.css', '!public/css/treeview.css', '!public/css/sidebar.css', '!public/css/welcome.css', '!public/css/settings.css', '!public/css/devdocs.css', '!public/css/ladda-themeless.min.css', '!public/css/errors.css'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'},
           { expand:true, flatten:true, src:['build/tmp/newrelic.js'], dest: 'build/release/'}
         ]
@@ -96,6 +96,15 @@ module.exports = function (grunt) {
         }
     },
     browserify: {
+      dev: {
+          options: {
+            transform:  [ 'babelify'],
+            browserifyOptions: {
+                 debug: true
+              }
+          },
+          files: { 'public/js/bundle.js': ['react/components/*.jsx'] }
+      },
       dist: {
           options: {
             plugin: [ ['minifyify', {map: 'bundle.map.json', output: 'public/js/bundle.map.json'}]],
@@ -110,7 +119,7 @@ module.exports = function (grunt) {
     cssmin:{
         target: {
             files: {
-                'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css','public/css/ladda-themeless.min.css', 'public/css/offer.css'],
+                'public/css/refly.css': ['public/css/styles.css', 'public/css/treeview.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css','public/css/ladda-themeless.min.css', 'public/css/errors.css', 'public/css/offer.css'],
                 'public/css/docs.css': ['public/css/devdocs.css']
                 }
          }
@@ -138,8 +147,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('copy-config-files', ['mkdir:tmp', 'copy:config']);
 
-  grunt.registerTask('default', ['cssmin', 'browserify', 'develop', 'watch']);
+  grunt.registerTask('default', ['cssmin', 'browserify:dev', 'develop', 'watch']);
   grunt.registerTask('test', ['jasmine_node']);
   grunt.registerTask('testc', ['jest']);
-  grunt.registerTask('release', ['cssmin','browserify','copy-config-files','clean:release', 'copy:app', 'clean:tmp']);
+  grunt.registerTask('release', ['cssmin','browserify:dist','copy-config-files','clean:release', 'copy:app', 'clean:tmp']);
 };

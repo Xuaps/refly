@@ -32,13 +32,16 @@ Users.prototype.revokeAccessToken = function(values){
 
 Users.prototype.findOrCreate = function(user){
     var _that = this;
-
+    var sendmail = true;
     return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){
-        if(user.email=='')
+        re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if(user.email == '' || !re.test(user.email)){
             user.email = user.profile_provider + '-user' + Math.ceil(Math.random() * (999999 - 100000) + 100000) + '@refly.xyz';
+            sendmail = false;
+        }
 
         if(users.length===0)
-            return _that.add(user);
+            return _that.add(user, sendmail);
         if(_that._haveChanges(users[0], user)){
             return _that.update(user);
         }
@@ -52,8 +55,8 @@ Users.prototype._getByProfile = function (profile_id, profile_provider){
         .andWhere('users.profile_provider', profile_provider);
 };
 
-Users.prototype.add = function (user){
-    if(user.email.indexOf('github-user')==-1)
+Users.prototype.add = function (user,sendmail){
+    if(sendmail)
         mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
     return db('users')
         .insert(user, 'id')

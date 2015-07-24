@@ -1,6 +1,8 @@
 var proxyquire = require('proxyquire');
 var db_mock = require('./stubs/db.js');
-var Users = proxyquire('../app/users.js', {'./db': db_mock});
+var mockMandrill = require('./stubs/mandrillapp.js');
+var Users = proxyquire('../app/users.js', {'./db': db_mock, './mandrillapp-mailer.js': mockMandrill});
+
 
 describe('users repository', function(){
     describe('find or create user', function(){
@@ -32,7 +34,7 @@ describe('users repository', function(){
                        ]);
                 })
                 .then(function(){
-                    var users = new Users();        
+                    var users = new Users();     
                     users
                         .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.xyz'})
                         .then(function(user){
@@ -43,6 +45,41 @@ describe('users repository', function(){
                 });
         });
 
+        it('should have a generated email if the email is not valid', function(done){
+            db_mock.mock.init()
+                .then(function(){
+                   return db_mock.mock.tableInitialvalue('users', [
+                        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'email@refly.xyz'} 
+                       ]);
+                })
+                .then(function(){
+                    var users = new Users();
+                    users
+                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'hjjhghj'})
+                        .then(function(user){
+                            expect(user.email.substring(0, 11)).toBe('github-user');
+                            done();
+                        });
+                });
+        });
+        it('should send a welcome email', function(done){
+            db_mock.mock.init()
+                .then(function(){
+                   return db_mock.mock.tableInitialvalue('users', [
+                        {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'email@refly.xyz'} 
+                       ]);
+                })
+                .then(function(){
+                    var users = new Users();
+                    users
+                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.xyz'})
+                        .then(function(user){
+                            expect(mockMandrill.sent_template).toBe(true);
+                            expect(mockMandrill.template.template_name).toBe('reply-welcome-mail');
+                            done();
+                        });
+                });
+        });
         it('should return a user with a valid email', function(done){
             db_mock.mock.init()
                 .then(function(){
