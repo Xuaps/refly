@@ -40,8 +40,11 @@ Users.prototype.findOrCreate = function(user){
             sendmail = false;
         }
 
-        if(users.length===0)
-            return _that.add(user, sendmail);
+        if(users.length===0){
+            if(sendmail)
+                mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
+            return _that.add(user);
+        }
         if(_that._haveChanges(users[0], user)){
             return _that.update(user);
         }
@@ -55,9 +58,7 @@ Users.prototype._getByProfile = function (profile_id, profile_provider){
         .andWhere('users.profile_provider', profile_provider);
 };
 
-Users.prototype.add = function (user,sendmail){
-    if(sendmail)
-        mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
+Users.prototype.add = function (user){
     return db('users')
         .insert(user, 'id')
         .into('users')
