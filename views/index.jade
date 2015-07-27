@@ -34,7 +34,14 @@ html
     script(type='text/javascript', src=assetFingerprint('/js/airbrake-shim.js'), data-airbrake-project-id='refly', data-airbrake-project-key="0eb2891adfa08afa30a7526ca1173596" data-airbrake-environment-name="#{environment}")
     |     
     script(type="text/javascript", src=assetFingerprint("https://js.stripe.com/v2/") )
-    |     
+
+    script.
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KM2N4P');
+
     script(type="text/javascript", src=assetFingerprint("/js/bundle.js") )
 
     script.
