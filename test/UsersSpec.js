@@ -55,7 +55,7 @@ describe('users repository', function(){
                 .then(function(){
                     var users = new Users();
                     users
-                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'hjjhghj'})
+                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'notvalidemail'})
                         .then(function(user){
                             expect(user.email.substring(0, 11)).toBe('github-user');
                             done();
@@ -94,7 +94,7 @@ describe('users repository', function(){
                         .then(function(user){
                             expect(user.profile_id).toBe(2345);
                             expect(user.profile_provider).toBe('github');
-                            expect(user.email).not.toBe('');
+                            expect(user.email.substring(0, 11)).toBe('github-user');
                             done();
                         });
                 });

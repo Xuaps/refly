@@ -19,6 +19,17 @@ module.exports = Reflux.createStore({
         }
     },
 
+    authenticate: function(){
+        var token = authentication.getAuth();
+        if(token!='' && token!=null){
+            this.status = {isAuthenticated: true, sent: false, errors: []};
+            this.trigger(this.status);
+        }else{
+            this.status = {isAuthenticated: false, sent: false, errors: []};
+            this.trigger(this.status);
+        }
+    },
+    
     validate: function(email, message){
         var errors = [];
         var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;

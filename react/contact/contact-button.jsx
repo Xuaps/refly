@@ -120,7 +120,7 @@ var Contact = React.createClass({
     },
 
     reDraw: function(){
-        actions.init();
+        actions.authenticate();
     },
 
     storeUpdated: function(data){
