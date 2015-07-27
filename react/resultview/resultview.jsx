@@ -99,6 +99,7 @@ module.exports = React.createClass({
             }else if(this.state.reference.name === "ReferenceNotFoundError"){
                 content = <Page404 goHome={this.goHome}/>;
             }
+            dataLayer.push({ 'event':'error', 'name': this.state.reference.name});
         }else{
             content = <Highlight innerHTML={true} selector="pre" > {this.state.reference.content} </Highlight>;
 		}

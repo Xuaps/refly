@@ -153,6 +153,7 @@ module.exports = React.createClass({
     },
     bindKeys: function(){
         this.mousetrap.bind('tab',function(e){
+            dataLayer.push({'event': 'specific'});
             e.preventDefault();
             this.selectDocset();
         }.bind(this));

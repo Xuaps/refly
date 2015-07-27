@@ -9,7 +9,7 @@ module.exports = React.createClass({
         if (this.isSelected()){
             className += ' selected';
         }
-        return <a id={"node-" + this.props.result_index} className={"list-group-item wrap-text type-icon type-" + this.props.reference.type + className} onClick={this.props.onClickReference} key={this.props.nodeKey} href={this.props.reference.uri}><span className={"docset-icon docsets-" + this.props.selected_docset.name}></span> {this.props.reference.name}</a>;
+        return <a id={"node-" + this.props.result_index} className={"list-group-item wrap-text type-icon type-" + this.props.reference.type + className} onClick={this.onClickHandler} key={this.props.nodeKey} href={this.props.reference.uri}><span className={"docset-icon docsets-" + this.props.selected_docset.name}></span> {this.props.reference.name}</a>;
     },
 
     isLoaded: function(){
@@ -20,6 +20,10 @@ module.exports = React.createClass({
 
     isSelected: function(){
         return this.props.reference.marked;
-    }
+    },
 
+    onClickHandler: function(e) {
+        this.props.onClickReference(e);
+        dataLayer.push({'event': 'treeview', 'docset': this.docset_name});
+    },
 });

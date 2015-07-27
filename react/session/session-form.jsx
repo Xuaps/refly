@@ -65,10 +65,10 @@ module.exports = React.createClass({
                             <div className="panel-heading">Use your favourite service</div>
                             <div className="panel-body text-center">
                                 <div className="btn-group" role="group">
-                                    <a href="/auth/google" className="btn btn-default">
+                                    <a href="/auth/google" onClick={function(){ dataLayer.push({'event': 'register', provider: 'google'}); }} className="btn btn-default">
                                      <em className="icon-google-plus"></em> Google
                                     </a>
-                                    <a href="/auth/github" className="btn btn-default">
+                                    <a href="/auth/github" onClick={function(){ dataLayer.push({'event': 'register', provider: 'github'}); }} className="btn btn-default">
                                         <em className="icon-github"></em> GitHub
                                     </a>
                                 </div>
