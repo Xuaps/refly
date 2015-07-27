@@ -79,7 +79,7 @@
 
 .docset-selector{ 
   height: 50px;
-  margin-right: 93%;
+  margin-right: 91%;
   margin-top: 0.65rem;
   position: absolute;
   top: 0;
@@ -93,12 +93,5 @@
 }
 
 .input-search-selector{
-  padding-left: 1.5rem;
-}
-
-.longdocset{
-  padding-left: 80px;
-}
-.shortdocset{
-  padding-left: 25px;
+  padding-left: 27px;
 }

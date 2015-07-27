@@ -3,9 +3,7 @@ body {
     height: 100%;
     font-size: 1em;
 }
-.overflowed{
-
-}
+html {-webkit-text-size-adjust:none;}
 body {
     padding-top: 70px;
     background-color:#F5F5F5;
