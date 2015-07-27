@@ -56,6 +56,7 @@ module.exports = React.createClass({
 
     onClickHandler: function(uri){
         actions.markReference(uri);
+        dataLayer.push({'event': 'found', 'patternSearched': this.pattern});
         this.props.onClick(uri, true);
     },
 
@@ -147,6 +148,7 @@ module.exports = React.createClass({
                 this.cleanResults();
             }else{
                 this.pattern = event.target.value;
+                dataLayer.push({'event': 'search', 'patternSearched': this.pattern});
                 this.search(1);
             }
 
