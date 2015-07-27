@@ -41,3 +41,6 @@ public/js/bundle.js
 public/js/bundle.map.json
 public/css/refly.css
 public/css/docs.css
+
+# flow
+.flowconfig
