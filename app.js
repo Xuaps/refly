@@ -14,12 +14,12 @@ var express = require('express')
   , staticAsset = require('static-asset')
   , config = require('config')
   , airbrake = require('airbrake').createClient(config.airbrake.key)
-  , DomainRedirect = require('./routes/domain-redirect.js')
   , passport = require('passport')
   , AnonymousStrategy = require('passport-anonymous')
   , BearerStrategyFactory = require('./app/auth_strategies/bearer.js')
   , hal = require('express-hal')
   , session = require('cookie-session')  
+  , redirect = require('./routes/redirect.js')
   , cacheResponseDirective = require('express-cache-response-directive');
 
 var app = express();
@@ -33,15 +33,14 @@ app.set('ipaddr', config.serverConfig.ip);
 app.set('views', './views');
 app.set('view engine', 'jade');
 
+/** redircetion to canonical name **/
+app.use(redirect);
 /*** static resources ***/
 app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 
 /* middlewares */
-if('development' != env) {
-    app.use(new DomainRedirect().https_redirect());
-}
 app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
