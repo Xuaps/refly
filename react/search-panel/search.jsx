@@ -11,7 +11,7 @@ var NOT_FOUND = 'Reference not found!', LOADING = 'Loading...';
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {data: {results: [], reached_end:true, docset:null}, message:''};
+        return {data: {results: [], reached_end:true, docset:null}, message:'', current_index: -1};
     },
     
     getDefaultProps: function() {
@@ -27,8 +27,13 @@ module.exports = React.createClass({
            selectorclass = 'input-search-selector';
            docset = (<span className="docset-selector"><span className={"docset-icon docsets-" + this.state.data.docset.name.replace(' ', '-')}></span></span>);
        }
-       var result_rows = this.state.data.results.map(function(r){
-                    return <SearchResultRow key={'SRR' + r.docset + r.ref_uri} onClick={this.onClickHandler}
+
+       var result_rows = this.state.data.results.map(function(r,index){
+                    if(this.state.current_index==index)
+                        r.marked = true;
+                    else
+                        r.marked = false;
+                    return <SearchResultRow result_index={index} key={'SRR' + r.docset + r.ref_uri} onClick={this.onClickHandler}
 	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
                 }.bind(this));
        var content;
@@ -55,9 +60,7 @@ module.exports = React.createClass({
     },
 
     onClickHandler: function(uri){
-        actions.markReference(uri);
-        dataLayer.push({'event': 'found', 'patternSearched': this.pattern});
-        this.props.onClick(uri, true);
+        loadReference(uri);
     },
 
     _hasMore: function(){
@@ -78,6 +81,12 @@ module.exports = React.createClass({
     componentWillUnmount: function(){
         window.removeEventListener('resize', this.calculateHeight, false);
         this.unsubscribe();
+    },
+
+    componentDidUpdate: function(){
+        if(this.state.data.results.length>0 && this.state.current_index<this.state.data.results.length){
+            $("#search-results").scrollTop($("#result-"+ this.state.current_index).offset().top - $("#result-0").offset().top - 40);
+        }
     },
 
     componentDidMount: function(){
@@ -109,11 +118,41 @@ module.exports = React.createClass({
                 this.lookForDocset(null);
             }
         }.bind(this));
+        this.mousetrap.bind('down',function(e){
+            if(this.state.data.results.length>0){
+                if(this.state.current_index>=this.state.data.results.length)
+                    var current_index = this.state.data.results.length-1;
+                else
+                    var current_index = this.state.current_index + 1;
+                this.setState({current_index: current_index});
+            }
+        }.bind(this));
+        this.mousetrap.bind('up',function(e){
+            if(this.state.data.results.length>0){
+                if(this.state.current_index<-1)
+                    var current_index = -1;
+                else
+                    var current_index = this.state.current_index - 1;
+                this.setState({current_index: current_index});
+            }
+        }.bind(this));
+        this.mousetrap.bind('enter',function(e){
+            if(this.state.data.results[this.state.current_index]!= undefined){
+                var uri = this.state.data.results[this.state.current_index].uri;
+                this.loadReference(uri);
+            }
+
+        }.bind(this));
 
         if(this.pattern)
             this.search(1);
     },
 
+    loadReference: function(uri){
+        actions.markReference(uri);
+        dataLayer.push({'event': 'found', 'patternSearched': this.pattern});
+        this.props.onClick(uri, true);
+    },
     lookForDocset: function(txtdocset){
         actions.searchDocset(txtdocset);
     },
@@ -156,12 +195,12 @@ module.exports = React.createClass({
     },
 
     cleanResults: function(){
-        this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: ''});
+        this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: '', current_index: -1});
     },
 
 	search: function(page){
         if(page===1)
-            this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: LOADING});
+            this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: LOADING, current_index: -1});
         actions.searchReference(this.pattern, page);
 	},
 });
