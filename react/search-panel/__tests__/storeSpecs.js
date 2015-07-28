@@ -1,7 +1,7 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
 
-var store, actions, data, mocked_results, mocked_empty_results, count, singledocsetcount;
+var store, actions, data, mocked_results, mocked_empty_results, count, singledocsetcount, unselectsingledocsetcount;
 
 describe('Search panel store', function(){
     beforeEach(function(){
@@ -19,6 +19,7 @@ describe('Search panel store', function(){
         data.prototype._references = mocked_results;
         count = 1;
         singledocsetcount = 0;
+        unselectsingledocsetcount = 0;
     });
     
     afterEach(function(){
@@ -56,6 +57,23 @@ describe('Search panel store', function(){
                         expect(status.results.length).toBe(2);
                         expect(status.docset.name).toBe('a');
                     }
+                });
+            });
+
+            it('should return results from all the docsets after cleaning a one docset search', function(){
+                actions.searchDocset('a');
+                actions.searchDocset(null);
+                actions.searchReference('test',1);
+                store.listen(function(status){
+                    if(unselectsingledocsetcount == 0){
+                        expect(status.docset).toEqual({ name: 'a' });
+                    }else if(unselectsingledocsetcount == 1){
+                        expect(status.docset).toBe(null);
+                    }else if(unselectsingledocsetcount == 2){
+                        expect(status.docset).toBe(null);
+                        expect(status.results).toEqual(mocked_results['_embedded']['rl:references']);
+                    }
+                    unselectsingledocsetcount++;
                 });
             });
 
