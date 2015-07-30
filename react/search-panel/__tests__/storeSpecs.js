@@ -1,11 +1,12 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
 
-var store, actions, data, mocked_results, mocked_empty_results, count, singledocsetcount;
+var store, actions, settings, data, mocked_results, mocked_empty_results, count, singledocsetcount;
 
 describe('Search panel store', function(){
     beforeEach(function(){
         data = require('../../infrastructure/data.js');
+        settings = require('../../infrastructure/settings.js');
         actions = require('../actions.js');
         store = require('../store.js');
         mocked_last_page_results = 
@@ -59,11 +60,18 @@ describe('Search panel store', function(){
                 });
             });
 
-            it('should return results from all the active docsets', function(){
+            it('should return all the active docsets', function(){
+                var mocked_local_docsets = [
+                        { name: 'aaa'},
+                        { name: 'bbb' } ];
+                settings.getWorkingDocsets.mockReturnValue(mocked_local_docsets);
+                data.searchReference = jest.genMockFunction().mockImplementation(function(pattern, page, docsets) {
+                    return this.wrapInPromise(data.prototype._references);
+                });
                 actions.searchReference('test',1);
+                
                 store.listen(function(status){
-                    expect(status.docset).toBe(null);
-                    expect(status.results).toEqual(mocked_results['_embedded']['rl:references']);
+                    expect(data.searchReference.mock.calls[0][2].length).toBe(2);
                 });
             });
 
