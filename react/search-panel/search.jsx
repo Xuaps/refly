@@ -84,7 +84,7 @@ module.exports = React.createClass({
     },
 
     componentDidUpdate: function(){
-        if(this.state.data.results.length>0 && this.state.current_index<this.state.data.results.length){
+        if(this.state.data.results.length>0 && this.state.current_index<this.state.data.results.length && this.state.current_index>-1){
             $("#search-results").scrollTop($("#result-"+ this.state.current_index).offset().top - $("#result-0").offset().top - 40);
         }
     },
@@ -180,18 +180,21 @@ module.exports = React.createClass({
 
     onKeyUp: function(event){
 		event.persist();
-        $(event.target).next('span').toggle(Boolean(event.target.value));
-        this.dbpromise.debounce().then(function () {
-            this.props.onKeyUpEvent(event);
-            if(!event.target.value){
-                this.cleanResults();
-            }else{
-                this.pattern = event.target.value;
-                dataLayer.push({'event': 'search', 'patternSearched': this.pattern});
-                this.search(1);
-            }
+        var notdebounce_characters = [13, 37, 38, 39, 40];
+        if(notdebounce_characters.indexOf(event.keyCode)==-1){
+            $(event.target).next('span').toggle(Boolean(event.target.value));
+            this.dbpromise.debounce().then(function () {
+                this.props.onKeyUpEvent(event);
+                if(!event.target.value){
+                    this.cleanResults();
+                }else{
+                    this.pattern = event.target.value;
+                    dataLayer.push({'event': 'search', 'patternSearched': this.pattern});
+                    this.search(1);
+                }
 
-        }.bind(this)).done();
+            }.bind(this)).done();
+        }
     },
 
     cleanResults: function(){
