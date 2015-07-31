@@ -60,7 +60,7 @@ describe('Search panel store', function(){
                 });
             });
 
-            it('should return all the active docsets', function(){
+            it('should search all the active docsets', function(){
                 var mocked_local_docsets = [
                         { name: 'aaa'},
                         { name: 'bbb' } ];
