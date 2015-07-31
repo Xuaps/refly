@@ -4,7 +4,6 @@ module.exports = React.createClass({
     getDefaultProps: function(){
         return {error: undefined};
     },
-
     render: function(){
         if(!this.props.error){
             return <div></div>;
@@ -15,7 +14,7 @@ module.exports = React.createClass({
                    <div>
                        <span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
                        <span className="sr-only">Error:</span>
-                       {this.props.error.message}
+                       {this.props.error}
                    </div>
                    <div>
                        <span className="glyphicon glyphicon-envelope error-icon" aria-hidden="true"></span>
