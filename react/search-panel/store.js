@@ -30,7 +30,13 @@ module.exports = Reflux.createStore({
         Data.searchReference(searchtext, page, docsets)
             .then(function(results){
                 var is_new_search = (this.search_history.search!==searchtext || this.search_history.docsets!==docsets);
-                this.search_history = (!is_new_search)? this.search_history : {search: searchtext, docsets: docsets}; this.search_history.pages = this.search_history.pages || [];
+                if(!is_new_search){
+                    this.search_history = this.search_history
+                }else{
+                    this.search_history.docsets = docsets;
+                    this.search_history = {search: searchtext};
+                    this.search_history.pages = this.search_history.pages || [];
+                }
                 this.search_history.pages.push(page);
                 this.search_history.reached_end = !results['_links'].next;
                 this.results = (!is_new_search)?this.results: [];
@@ -58,7 +64,7 @@ module.exports = Reflux.createStore({
 
 
     _getDocsets: function(){
-        if(this.docsets == []){
+        if(this.docsets.length==0){
             return settings.getWorkingDocsets();
         }else{
             return this.docsets;

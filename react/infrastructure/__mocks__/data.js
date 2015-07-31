@@ -22,7 +22,7 @@ Data.getReference = function(docset, uri){
     return this.wrapInPromise(Data.prototype._references[0]);
 };
 
-Data.searchReference = function(pattern, page){
+Data.searchReference = function(pattern, page, docsets){
     return this.wrapInPromise(Data.prototype._references);
 };
 
