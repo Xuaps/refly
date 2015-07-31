@@ -60,7 +60,7 @@ module.exports = React.createClass({
     },
 
     onClickHandler: function(uri){
-        loadReference(uri);
+        this.loadReference(uri);
     },
 
     _hasMore: function(){
