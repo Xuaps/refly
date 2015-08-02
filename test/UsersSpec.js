@@ -45,6 +45,26 @@ describe('users repository', function(){
                 });
         });
 
+        it('should not update email with an invalid email', function(done){
+            db_mock.mock.init()
+                .then(function(){
+                   return db_mock.mock.tableInitialvalue('users', [
+                        {id:123, profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'previousemail@refly.xyz'} 
+                       ]);
+                })
+                .then(function(){
+                    var users = new Users();     
+                    users
+                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'invalid'})
+                        .then(function(user){
+                            expect(user.profile_id).toBe(2345);
+                            expect(user.email).toBe('previousemail@refly.xyz');
+                            expect(user.profile_provider).toBe('github');
+                            done();
+                        });
+                });
+        });
+
         it('should have a generated email if the email is not valid', function(done){
             db_mock.mock.init()
                 .then(function(){
@@ -108,7 +128,8 @@ describe('users repository', function(){
                        ]);
                 })
                 .then(function(){
-                    var users = new Users();        
+                    var users = new Users();
+                    console.log('updated');
                     users
                         .findOrCreate({profile_id:2345, profile_provider: 'google', auth_token:'aaaa', email:'email@refly.xyz'})
                         .then(function(user){

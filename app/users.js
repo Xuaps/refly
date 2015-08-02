@@ -33,23 +33,42 @@ Users.prototype.revokeAccessToken = function(values){
 Users.prototype.findOrCreate = function(user){
     var _that = this;
     var sendmail = true;
+    var fakemail;
     return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){
-        re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        if(user.email == '' || !re.test(user.email)){
-            user.email = user.profile_provider + '-user' + Math.ceil(Math.random() * (999999 - 100000) + 100000) + '@refly.xyz';
+        if(!_that._validEmail(user.email)){
+            console.log('mail: ' + '"' + user.email+ '"');
+            fakemail = user.profile_provider + '-user' + Math.ceil(Math.random() * (999999 - 100000) + 100000) + '@refly.xyz';
             sendmail = false;
+            console.log(fakemail);
         }
 
         if(users.length===0){
+            if(fakemail){
+                user.email = fakemail;
+            }
             if(sendmail)
                 mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
             return _that.add(user);
+        }else{
+            if(fakemail)
+                if(!_that._validEmail(users[0].email))
+                    user.email = fakemail;
+                else
+                    user.email = users[0].email;
+            else
+                users[0] = user.email;
+
+            if(_that._haveChanges(users[0], user)){
+                return _that.update(user);
+            }
+            return users[0];
         }
-        if(_that._haveChanges(users[0], user)){
-            return _that.update(user);
-        }
-        return users[0];
     });
+};
+
+Users.prototype._validEmail = function(email){
+    re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(email);
 };
 
 Users.prototype._getByProfile = function (profile_id, profile_provider){
