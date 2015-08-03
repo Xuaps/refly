@@ -1,6 +1,5 @@
 var mandrill = require('mandrill-api/mandrill');
 var config = require('config');
-var airbrake = require('airbrake').createClient(config.airbrake.key);
 
 module.exports.sendMailTemplated = function(email, template_config){
     var mandrill_client = new mandrill.Mandrill(config.mandrillapp.API_KEY);
@@ -20,7 +19,6 @@ module.exports.sendMailTemplated = function(email, template_config){
             return true;
     }, function(e) {
         // Mandrill returns the error as an object with name and message keys
-        airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
         console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
         return false;
         // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
@@ -49,7 +47,6 @@ module.exports.sendMail = function(name, email, subject, body){
             return true;
     }, function(e) {
         // Mandrill returns the error as an object with name and message keys
-        airbrake.notify('A mandrill error occurred: ' + e.name + ' - ' + e.message + 'from: ' + email + ' message: #' + message +'#');
         console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
         return false;
         // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'

@@ -13,7 +13,6 @@ var express = require('express')
   , errorhandler = require('errorhandler')
   , staticAsset = require('static-asset')
   , config = require('config')
-  , airbrake = require('airbrake').createClient(config.airbrake.key)
   , passport = require('passport')
   , AnonymousStrategy = require('passport-anonymous')
   , BearerStrategyFactory = require('./app/auth_strategies/bearer.js')
@@ -44,7 +43,6 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
-app.use(airbrake.expressHandler());
 var bearer_auth = BearerStrategyFactory.create();
 passport.use(bearer_auth);
 passport.use(new AnonymousStrategy());
@@ -83,7 +81,6 @@ if ('development' == env) {
     app.use(errorhandler());
 }else{
     app.use(function(err, req, res, next) {
-        airbrake.notify(err);
         res.status(err.status || 500);
         res.render('errors/500', {
             message: err.message,
