@@ -101,22 +101,14 @@ describe('users repository', function(){
                 });
         });
         it('should return a user with a valid email', function(done){
-            db_mock.mock.init()
-                .then(function(){
-                   return db_mock.mock.tableInitialvalue('users', [
-                        {id:123, profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:''} 
-                       ]);
-                })
-                .then(function(){
-                    var users = new Users();        
-                    users
-                        .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:''})
-                        .then(function(user){
-                            expect(user.profile_id).toBe(2345);
-                            expect(user.profile_provider).toBe('github');
-                            expect(user.email.substring(0, 11)).toBe('github-user');
-                            done();
-                        });
+            var users = new Users();
+            users
+                .findOrCreate({profile_id:6345, profile_provider:'github', auth_token:'aaaa', email:''})
+                .then(function(user){
+                    expect(user.profile_id).toBe(6345);
+                    expect(user.profile_provider).toBe('github');
+                    expect(user.email.substring(0, 11)).toBe('github-user');
+                    done();
                 });
         });
 

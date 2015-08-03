@@ -36,10 +36,8 @@ Users.prototype.findOrCreate = function(user){
     var fakemail;
     return _that._getByProfile(user.profile_id, user.profile_provider).then(function(users){
         if(!_that._validEmail(user.email)){
-            console.log('mail: ' + '"' + user.email+ '"');
             fakemail = user.profile_provider + '-user' + Math.ceil(Math.random() * (999999 - 100000) + 100000) + '@refly.xyz';
             sendmail = false;
-            console.log(fakemail);
         }
 
         if(users.length===0){
@@ -51,12 +49,7 @@ Users.prototype.findOrCreate = function(user){
             return _that.add(user);
         }else{
             if(fakemail)
-                if(!_that._validEmail(users[0].email))
-                    user.email = fakemail;
-                else
-                    user.email = users[0].email;
-            else
-                users[0] = user.email;
+                user.email = users[0].email;
 
             if(_that._haveChanges(users[0], user)){
                 return _that.update(user);
