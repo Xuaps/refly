@@ -14,7 +14,7 @@ module.exports = React.createClass({
 				                    Sorry, an error has occured, Requested page not found!
 				                </div>
 				                <div className="error-actions">
-				                    <a href="http://www.refly.xyz" className="btn btn-primary btn-lg"><span className="glyphicon glyphicon-home"></span>
+				                    <a href="/" onClick={this.goHome} className="btn btn-primary btn-lg"><span className="glyphicon glyphicon-home"></span>
 				                        <span className="button-text">Take Me Home</span></a><button onClick={this.goBack} className="btn btn-default btn-lg"><span className="glyphicon glyphicon-menu-left"></span><span className="button-text">Go Back </span></button>
 				                </div>
 				            </div>
@@ -24,7 +24,9 @@ module.exports = React.createClass({
     },
 
     goHome: function(){
+    	this.props.goHome();
         this.transitionTo('/');
+
     },
 
     goBack: function(){

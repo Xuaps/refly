@@ -98,7 +98,7 @@ module.exports = React.createClass({
             if(this.state.reference.name === "PaymentRequiredError"){
                 content = <Page402 onComplete={this.retry}/>;
             }else if(this.state.reference.name === "ReferenceNotFoundError"){
-                content = <Page404/>;
+                content = <Page404 goHome={this.goHome}/>;
             }
         }else{
             content = <Highlight innerHTML={true} selector="pre" > {this.state.reference.content} </Highlight>;
@@ -127,6 +127,9 @@ module.exports = React.createClass({
         this.loadRef(this.props.params);
     },
 
+    goHome: function(){
+        this.setState({reference: undefined});
+    },
     unBlock: function(){
         actions.onCompleteBlockingPeriod();
     },
