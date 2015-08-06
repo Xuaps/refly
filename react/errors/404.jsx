@@ -2,7 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 module.exports = React.createClass({
     render: function(){
-        return <div className="container error404">
+        return <div className="error404">
 				    <div className="row">
 				        <div className="col-md-12">
 				            <div className="error-template">
