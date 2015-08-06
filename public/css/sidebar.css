@@ -78,12 +78,12 @@
 }
 
 .docset-selector{ 
-  height: 50px;
-  margin-right: 91%;
+  height: 1rem;
+  margin-left: 0.5rem;
   margin-top: 0.65rem;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   z-index: 3;
   display: block;
   width: 1rem;
