@@ -14,12 +14,6 @@
     }
   },
 
-
-
-  "cookies": {
-      "secret": "lJthXcFVOitYFpSkUA"
-  },
-
   "auth": {
       "host": "http://localhost:3000",
       "providers": {
@@ -32,6 +26,29 @@
                 "clientSecret": ""
           }
       }
+  },
+
+  "mandrillapp": {
+      "API_KEY": ""
+  },
+
+  "contact": {
+      "recipient": "",
+      "subject": "contact email from refly"
+  },
+
+  "templates": {
+      "welcome": {
+          "template_name": "reply-welcome-mail",
+          "template_content": {},
+          "from_email": "averdion@gmail.com",
+          "from_name" : "Refly Team",
+          "subject": "welcome to Refly"
+      }
+  },
+
+  "cookies": {
+      "secret": "lJthXcFVOitYFpSkUA"
   },
 
   "stripe": {
