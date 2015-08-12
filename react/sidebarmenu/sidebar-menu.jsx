@@ -47,28 +47,47 @@ module.exports = React.createClass({
     render: function(){
         if(this.state.types != undefined){
             var groupoftypelinks = this.state.types.map(function(type){
-                return <div key={"type"+type.name}><a onClick={this.ClickHandler} key={"typelink"+type.name} href={"/" + this.props.docset.toLowerCase() + "?type=" + type.name} >{type.name}</a></div>
+                return <div key={"type"+type.name}><a className="list-group-item" onClick={this.onClickType.bind(this,type.name, this.state.selected_docset.name)} key={"typelink-"+type.name} href={"/" + this.state.selected_docset.name.toLowerCase() + "?type=" + type.name} >{type.name}</a></div>
             }.bind(this));
-            return (<div><a onClick={this.ClickHandler} href="/"> &lt; All docsets</a>
+            return (<div  className="list-group"><a className="list-group-item active" onClick={this.onClickHome} href="/"> &lt; All docsets</a>
                     <div>{groupoftypelinks}</div></div>);
         }else if(this.state.references!= undefined){
             var referencelinks = this.state.references.map(function(ref){
-                return <div className="" key={"refbytype-"+ref.type + ref.uri}><a onClick={this.ClickHandler} key={"refbytypelink-"+ref.type + ref.uri} href={ref.uri}>{ref.name}</a></div>
+                return <a className="list-group-item" onClick={this.onClickReference.bind(this,ref.uri, this.state.selected_docset.name)} key={"refbytypelink-"+ref.type + ref.uri} href={ref.uri}>{ref.name}</a>
             }.bind(this));
-            return (<div><a onClick={this.ClickHandler} href={'/' + this.props.docset}> &lt; All Types</a>
+            return (<div className="list-group"><a className="list-group-item active" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}> &lt; All Types</a>
                     <div>{referencelinks}</div></div>);
         }else if(this.state.docsets!= undefined){
             var docsetslinks = this.state.docsets.map(function(docset){
-                return <div className="" key={"docset-"+docset.name}><a onClick={this.ClickHandler} key={"docset-"+docset.name} href={"/" + docset.name.toLowerCase() + "/"}>{docset.name}</a></div>
+                return <div  key={"docsetitem-"+docset.name} className={"docset-icon docsets-" + docset.name.replace(' ','-')}><a className="list-group-item" onClick={this.onClickDocset.bind(this,docset.name)} key={"docsetlink-"+docset.name} href={"/" + docset.name.replace(' ','-').toLowerCase() + "/"}>{docset.name}</a></div>
             }.bind(this));
-            return (<div>{docsetslinks}</div>);
+            return (<div className="list-group"><div>{docsetslinks}</div></div>);
         }else {
             return <div></div>;
         }
     },
 
-    ClickHandler: function(e){
+    onClickDocset: function(docset, e){
         e.preventDefault();
-        this.transitionTo(e.currentTarget.attributes.href.nodeValue);
+        MenuActions.loadTypes(docset);
+        // this.transitionTo(e.currentTarget.attributes.href.nodeValue);
+    },
+
+
+    onClickType: function(type, docset, e){
+        e.preventDefault();
+        MenuActions.loadReferencesByType(docset, type);
+        // this.transitionTo(e.currentTarget.attributes.href.nodeValue);
+    },
+    onClickReference: function(reference, docset, e){
+        e.preventDefault();
+        $('.row-offcanvas').toggleClass('active');
+        this.transitionTo(reference);
+    },
+
+    onClickHome: function(e){
+        e.preventDefault();
+        MenuActions.loadDocsets();
+        // this.transitionTo(e.currentTarget.attributes.href.nodeValue);
     }
 });
