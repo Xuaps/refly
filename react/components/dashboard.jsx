@@ -1,6 +1,7 @@
 var React = require('react');
 var Search = require('../search-panel/search.jsx');
 var TreeView = require('../docsets-tree/treeview.jsx');
+var SidebarMenu = require('../sidebarmenu/sidebar-menu.jsx');
 var SignButton = require('../session/session-button.jsx');
 var ContactButton = require('../contact/contact-button.jsx');
 var URI = require ('URIjs');
@@ -15,6 +16,9 @@ module.exports = React.createClass({
     },
 
     render: function(){
+        var docsetParams = this.getParams().docset || this.getParams().splat || undefined;
+        var referenceParams = (this.getParams().docset) ? this.getParams().splat || undefined : undefined;
+        var typeParams = this.getQuery().type || undefined;
         return(
                 <div>
                     <header>
@@ -48,7 +52,7 @@ module.exports = React.createClass({
                             <div className="col-sm-4 col-md-3 sidebar-offcanvas">
                                 <div className="sidebar-panel">
                                     <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
-                                    {!this.searchVisible()?<TreeView key="treeviewcomp" onNodeClick={this.navigateWithTransition} />:undefined}
+                                    {!this.searchVisible()?<SidebarMenu docset={docsetParams} reference={referenceParams} type={typeParams}></SidebarMenu>:undefined}
                                 </div>
                             </div>
                             <article className="col-xs-12 col-sm-8 col-md-9">
