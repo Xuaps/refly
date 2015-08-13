@@ -18,7 +18,8 @@ var express = require('express')
   , BearerStrategyFactory = require('./app/auth_strategies/bearer.js')
   , hal = require('express-hal')
   , session = require('cookie-session')  
-  , redirect = require('./routes/redirect.js')
+  , canonicalRedirect = require('./routes/canonical-redirect.js')
+  , SSLRedirect = require('./routes/ssl-redirect.js')
   , cacheResponseDirective = require('express-cache-response-directive');
 
 var app = express();
@@ -32,12 +33,17 @@ app.set('ipaddr', config.serverConfig.ip);
 app.set('views', './views');
 app.set('view engine', 'jade');
 
-/** redircetion to canonical name **/
-app.use(redirect);
 /*** static resources ***/
 app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
+
+/** redircetion to canonical name **/
+app.use(canonicalRedirect);
+/** redirect to https **/
+if('development' != env) {
+    app.use(new SSLRedirect().https_redirect());
+}
 
 /* middlewares */
 app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
