@@ -13,7 +13,7 @@ module.exports = Reflux.createStore({
         this.reached_end = true;
     },
 
-    loadDocsets: function(docset){
+    loadDocsets: function(){
         var docsets = JSON.parse(JSON.stringify(settings.getWorkingDocsets()));
         this.trigger({types: undefined, references: undefined, docsets: docsets, selected_docset: this.docset, selected_type: this.type, reached_end: this.reached_end});
     },
