@@ -4,6 +4,12 @@
     text-align: center;
     font-weight: bold;
 }
+.left-arrow{
+    float: left;
+}
+.right-arrow{
+    float: right;
+}
 #menu-results{
     overflow-y: auto;
     overflow-x: hidden;
@@ -13,6 +19,7 @@
 }
 .back-link{
     font-weight: bold;
+    padding-left: 2rem;
 }
 /* menu icons */
 .docset-icon:before {

@@ -63,7 +63,7 @@ module.exports = React.createClass({
                 return <a className={"list-group-item type-icon type-" + type.name} onClick={this.onClickType.bind(this,type.name, this.state.selected_docset.name)} key={"typelink-"+type.name} href={"/" + this.state.selected_docset.name.toLowerCase() + "?type=" + type.name} >{type.name}</a>
             }.bind(this));
             content = (<div id="menu-bar" ref="menu-bar" className="panel panel-default">
-                           <div className="panel-heading"><a className="back-link" onClick={this.onClickHome} href="/"> <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span> All Docsets</a></div>
+                           <div className="panel-heading"><a className="back-link" onClick={this.onClickHome} href="/"> <span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span> All Docsets</a></div>
                            <div className="list-group-item panel-heading header-menu">{this.state.selected_docset.name}</div>
                            <div id="menu-results" ref="menu-results">{groupoftypelinks}</div>
                        </div>);
@@ -76,7 +76,7 @@ module.exports = React.createClass({
                         {referencelinks}
                       </InfiniteScroll>;
             return (<div id='menu-bar' ref='menu-bar' className="panel panel-default menu-list">
-                        <div className="panel-heading"><a className="back-link" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}> <span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span> All Types</a></div>
+                        <div className="panel-heading"><a className="back-link" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span> All Types</a></div>
                         <div className="list-group-item panel-heading header-menu">{this.state.selected_docset.name} / {this.state.selected_type}</div>
                         <div id="menu-results" ref="menu-results">{content}</div>
                     </div>);
@@ -85,7 +85,7 @@ module.exports = React.createClass({
                 return <a className={" list-group-item docset-icon docsets-" + docset.name.replace(' ','-')} onClick={this.onClickDocset.bind(this,docset.name)} key={"docsetlink-"+docset.name} href={"/" + docset.name.replace(' ','-').toLowerCase() + "/"}>{docset.name}</a>
             }.bind(this));
             if(this.state.selected_docset)
-                var lastdocset_visited = <div className="panel-heading"><a className="back-link" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}> {this.state.selected_docset.name} <span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></div>;
+                var lastdocset_visited = <div className="panel-heading"><a className="back-link" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}> {this.state.selected_docset.name} <span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a></div>;
             else
                 var lastdocset_visited = <div className="panel-heading"></div>;
             content = (<div id="menu-bar" ref="menu-bar" className="panel panel-default menu-list">
