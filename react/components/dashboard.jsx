@@ -1,6 +1,5 @@
 var React = require('react');
 var Search = require('../search-panel/search.jsx');
-var TreeView = require('../docsets-tree/treeview.jsx');
 var SidebarMenu = require('../sidebarmenu/sidebar-menu.jsx');
 var SignButton = require('../session/session-button.jsx');
 var ContactButton = require('../contact/contact-button.jsx');
