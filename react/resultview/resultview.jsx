@@ -69,7 +69,6 @@ module.exports = React.createClass({
         if(anchor){
             var anchor_o=$(anchor.replace(/([!"$%&'()*+,.\/:;<=>?@[\]^`{|}~]{1})/g, '\\$1'));
             if(anchor_o.length === 0){
-                Airbrake.push({name: 'Anchor not found', message: 'Anchor {0} not found in {1}.'.format(anchor, this.state.reference.splat), stack: new Error().stack});
                 return; 
             }
             position = anchor_o.offset().top - 60;
