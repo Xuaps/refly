@@ -74,8 +74,8 @@ module.exports = React.createClass({
                            <div id="menu-results" ref="menu-results">{groupoftypelinks}</div>
                        </div>);
         }else if(this.state.references!= undefined){
-            var referencelinks = this.state.references.map(function(ref){
-                return <a className={"list-group-item type-icon type-" + ref.type} onClick={this.onClickReference.bind(this,ref.uri, this.state.selected_docset.name)} key={"refbytypelink-"+ref.type + ref.uri} href={ref.uri}><span className={"docset-icon docsets-" + this.state.selected_docset.name}></span> {ref.name}</a>
+            var referencelinks = this.state.references.map(function(ref,index){
+                return <a className={"list-group-item type-icon type-" + ref.type} onClick={this.onClickReference.bind(this,ref.uri, this.state.selected_docset.name)} key={"refbytypelink-"+ref.type + index} href={ref.uri}><span className={"docset-icon docsets-" + this.state.selected_docset.name}></span> {ref.name}</a>
             }.bind(this));
 
             content = <InfiniteScroll pageStart={1} className='list-group' loadMore={this.loadMoreReferences} hasMore={this._hasMore()} container='menu-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
