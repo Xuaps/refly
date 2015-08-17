@@ -3,12 +3,16 @@
 .header-menu{
     text-align: center;
     font-weight: bold;
+    padding: 0 15px;
 }
 .left-arrow{
     float: left;
 }
 .right-arrow{
     float: right;
+}
+.menu-title{
+    padding-right: 3rem;
 }
 #menu-results{
     overflow-y: auto;

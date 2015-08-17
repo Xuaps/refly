@@ -63,7 +63,14 @@ module.exports = React.createClass({
                 return <a className={"list-group-item type-icon type-" + type.name} onClick={this.onClickType.bind(this,type.name, this.state.selected_docset.name)} key={"typelink-"+type.name} href={"/" + this.state.selected_docset.name.toLowerCase() + "?type=" + type.name} >{type.name}</a>
             }.bind(this));
             content = (<div id="menu-bar" ref="menu-bar" className="">
-                           <div className="list-group-item panel-heading header-menu"><a title="All Docsets" className="left-arrow" onClick={this.onClickHome} href="/"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>{this.state.selected_docset.name}</div>
+                           <div className="list-group-item panel-heading header-menu">
+                               <span className="left-arrow">
+                                 <a title="All Docsets" className="left-arrow" onClick={this.onClickHome} href="/"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+                               </span>
+                               <span className="menu-title">
+                                 {this.state.selected_docset.name}
+                               </span>
+                           </div>
                            <div id="menu-results" ref="menu-results">{groupoftypelinks}</div>
                        </div>);
         }else if(this.state.references!= undefined){
@@ -75,7 +82,10 @@ module.exports = React.createClass({
                         {referencelinks}
                       </InfiniteScroll>;
             return (<div id='menu-bar' ref='menu-bar' className="menu-list">
-                        <div className="list-group-item panel-heading header-menu"><a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a> {this.state.selected_docset.name} / {this.state.selected_type}</div>
+                        <div className="list-group-item panel-heading header-menu">
+                          <a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a>
+                          <span  className="menu-title">{this.state.selected_docset.name} / {this.state.selected_type}</span>
+                        </div>
                         <div id="menu-results" ref="menu-results">{content}</div>
                     </div>);
         }else if(this.state.docsets!= undefined){
@@ -83,7 +93,9 @@ module.exports = React.createClass({
                 return <a className={" list-group-item docset-icon docsets-" + docset.name.replace(' ','-')} onClick={this.onClickDocset.bind(this,docset.name)} key={"docsetlink-"+docset.name} href={"/" + docset.name.replace(' ','-').toLowerCase() + "/"}>{docset.name}</a>
             }.bind(this));
             if(this.state.selected_docset)
-                var lastdocset_visited = <div className="list-group-item panel-heading header-menu"><a className="back-link" title={"back to " + this.state.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a></div>;
+                var lastdocset_visited = <div className="list-group-item panel-heading header-menu">
+                                           <a className="back-link" title={"back to " + this.state.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
+                                         </div>;
             else
                 var lastdocset_visited = <div className="list-group-item panel-heading header-menu"></div>;
             content = (<div id="menu-bar" ref="menu-bar" className="menu-list">
@@ -117,7 +129,7 @@ module.exports = React.createClass({
 
     calculateHeight: function(){
         var header = (window.document.body.clientWidth<768?84:0);
-        this.refs['menu-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - header - 203 +'px';
+        this.refs['menu-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - header - 148 +'px';
     },
 
     loadMoreReferences: function(page){
