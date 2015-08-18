@@ -40,8 +40,8 @@ describe('Docsets store', function(){
             data.prototype._hierarchy = 
                 {'_embedded': 
                     {'rl:hierarchy': 
-                        [ { uri: '/docset/father', docset_name: 'refly', name: 'father'}, 
-                          {uri: '/docset/father/ref', docset_name: 'refly', name: 'ref'} ]
+                        [ { uri: '/refly/father', docset_name: 'refly', name: 'father'}, 
+                          {uri: '/refly/father/ref', docset_name: 'refly', name: 'ref'} ]
                     }
                 };
             
@@ -63,10 +63,10 @@ describe('Docsets store', function(){
             data.prototype._hierarchy = 
                 {'_embedded': 
                     {'rl:hierarchy': 
-                        [ { uri: '/docset/great', docset_name: 'refly', name: 'great'}, 
-                          { uri: '/docset/great/grandfather', docset_name: 'refly', name: 'grandfather'},
-                          { uri: '/docset/great/grandfather/father', docset_name: 'refly', name: 'father'}, 
-                          { uri: '/docset/great/grandfather/father/ref', docset_name: 'refly', name: 'ref'}]
+                        [ { uri: '/refly/great', docset_name: 'refly', name: 'great'}, 
+                          { uri: '/refly/great/grandfather', docset_name: 'refly', name: 'grandfather'},
+                          { uri: '/refly/great/grandfather/father', docset_name: 'refly', name: 'father'}, 
+                          { uri: '/refly/great/grandfather/father/ref', docset_name: 'refly', name: 'ref'}]
                     }
                 };
             
