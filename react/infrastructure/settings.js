@@ -1,5 +1,5 @@
 var WK_DOCSETS = 'wk_docsets';
-var USER_DOCSETS = 'user_docsets';
+var LOCAL_DOCSETS = 'local_docsets';
 var defaultSettings = 
     {
         wk_docsets: [{
@@ -101,10 +101,13 @@ var ls = require('local-storage');
 var previousdocsets;
 var Settings = Reflux.createStore({
     init: function() {
-        this.config = new Configry(defaultSettings, [WK_DOCSETS]);
-        if(ls.get(USER_DOCSETS)===null){
-            ls.set(USER_DOCSETS, this.config.get(WK_DOCSETS));
-        }
+        if(!ls.get('config'))
+            this.config = new Configry(defaultSettings, [WK_DOCSETS]);
+        else
+            this.config = new Configry(ls.get('config').wk_docsets, [WK_DOCSETS]);
+
+        if(this.config.get(LOCAL_DOCSETS)===undefined)
+            this.config.set(LOCAL_DOCSETS, this.config.get(WK_DOCSETS), true);
     },
     
     getWorkingDocsets:  function(){
@@ -112,7 +115,7 @@ var Settings = Reflux.createStore({
     },
 
     getLocalDocsets:  function(){
-        return ls.get(USER_DOCSETS);
+        return this.config.get(LOCAL_DOCSETS);
     },
 
     setWorkingDocsets:  function(docsets){
@@ -121,7 +124,7 @@ var Settings = Reflux.createStore({
     },
 
     setLocalDocsets:  function(docsets){
-        ls.set(USER_DOCSETS, docsets);
+        this.config.set(LOCAL_DOCSETS, docsets, true);
         this.trigger(docsets);
     }
 });
