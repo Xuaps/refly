@@ -16,6 +16,7 @@ article{
     min-height: 100%;
     padding-top: 10px;
     background: white;
+    overflow-x: auto;
 }
 ._phpunit .screen{
     background: #eaeef3;
