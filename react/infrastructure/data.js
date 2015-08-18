@@ -202,4 +202,18 @@ Data.createSubscription = function(card_token, plan){
 
     return deferred.promise;
 };
+
+Data.getHierarchy = function(ref_id){
+    var deferred = Q.defer();
+    var token = authentication.getAuth();
+    $.ajax({
+        url: '/api/references/{0}/{1}/hierarchy'.format(ref_id.docset, ref_id.uri),
+        method: 'GET',
+        headers: getHeaders(),
+        statusCode: statusCodeHandlers(deferred)
+    }).then(deferred.resolve);
+
+    return deferred.promise;
+};
+
 module.exports = Data;

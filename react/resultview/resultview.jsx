@@ -7,7 +7,7 @@ var DbPromise = require('../infrastructure/debounce-promise.js');
 
 var store = require('./store.js');
 var actions = require('./actions.js');
-var Breadcrumbs = require('../components/breadcrumbs.jsx');
+var Breadcrumbs = require('../breadcrumbs/breadcrumbs.jsx');
 var Highlight = require('./highlight.jsx');
 var Welcome = require('../components/welcome.jsx')
 var ProgressBar = require('../progress-bar/progress-bar.jsx')

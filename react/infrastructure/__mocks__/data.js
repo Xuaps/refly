@@ -42,6 +42,10 @@ Data.mailSending = function(docsets){
     return this.wrapInPromise({"message":"message sent"});
 };
 
+Data.getHierarchy = function(ref_id){
+    return this.wrapInPromise(Data.prototype._hierarchy);
+};
+
 Data.wrapInPromise = function(collection){
     if(collection && collection.then)
         return collection;
