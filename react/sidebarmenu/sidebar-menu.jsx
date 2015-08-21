@@ -2,13 +2,16 @@ var React = require('react');
 var Router = require('react-router');
 var InfiniteScroll = require('react-infinite-scroll')(React);
 var MenuActions = require('./actions.js');
+var DocsetNode = require('./docset_node.jsx')
+var TypeNode = require('./type_node.jsx')
+var ReferenceNode = require('./reference_node.jsx')
 var store = require('./store.js');
 var LOADING = 'loading...';
 module.exports = React.createClass({
     mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function(){
-       return {types: undefined, references: undefined, docsets: undefined, selected_docset: undefined, selected_type: undefined, reached_end: false};
+       return {types: [], references: [], docsets: [], selected_docset: undefined, selected_type: undefined, reached_end: false};
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -27,7 +30,7 @@ module.exports = React.createClass({
     componentWillMount: function(){
         this.unsubscribe = store.listen(this.storeUpdated);
         if(this.props.type){
-            MenuActions.loadReferencesByType(this.props.docset,this.props.type);
+            MenuActions.loadReferencesByType(this.props.docset,this.props.type, 1);
         }else if(this.props.docset){
             if(this.props.reference){
                 if(this.state.selected_type)
@@ -55,54 +58,53 @@ module.exports = React.createClass({
     },
 
     render: function(){
+        var item_rows = [];
+        var panelHeader = "";
+        var typelink_rows = this.state.types.map(function(type, index){
+            return <TypeNode selected_docset={this.state.selected_docset} type={type} onClickType={this.onClickType.bind(this,type.name, this.state.selected_docset.name)} key={"typelink-"+type.name} href={"/" + this.state.selected_docset.parsed_name + "?type=" + type.name}></TypeNode>
+        }.bind(this));
+        
+        var reference_link_rows = this.state.references.map(function(ref,index){
+            return <ReferenceNode reference={ref} key={"refnode" + ref.type + "-" + index} onClickReference={this.onClickReference.bind(this,ref.uri, this.state.selected_docset.name)} selected_docset={this.state.selected_docset}></ReferenceNode>
+        }.bind(this));
+
+        var docset_link_rows = this.state.docsets.map(function(docset, index){
+            return <DocsetNode docset={docset} key={"docsetnode" + docset.parsed_name + "-" + index} onClickDocset={this.onClickDocset.bind(this,docset.name)}></DocsetNode>
+        }.bind(this));
+
         var content = (<div  id="menu-bar" ref="menu-bar">
                           <div id="menu-results" ref="menu-results"></div>
                       </div>);
-        if(this.state.types != undefined){
-            var groupoftypelinks = this.state.types.map(function(type){
-                return <a className={"list-group-item type-icon type-" + type.name} onClick={this.onClickType.bind(this,type.name, this.state.selected_docset.name)} key={"typelink-"+type.name} href={"/" + this.state.selected_docset.name.toLowerCase() + "?type=" + type.name} >{type.name}</a>
-            }.bind(this));
-            content = (<div id="menu-bar" ref="menu-bar" className="">
-                           <div className="list-group-item panel-heading header-menu">
+
+        if(typelink_rows.length>0){
+            var item_rows = typelink_rows;
+            panelHeader = (<div className="list-group-item panel-heading header-menu">
                                <span className="left-arrow">
                                  <a title="All Docsets" className="left-arrow" onClick={this.onClickHome} href="/"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
                                </span>
                                <span className="menu-title">
                                  {this.state.selected_docset.name}
                                </span>
-                           </div>
-                           <div id="menu-results" ref="menu-results">{groupoftypelinks}</div>
-                       </div>);
-        }else if(this.state.references!= undefined){
-            var referencelinks = this.state.references.map(function(ref,index){
-                return <a className={"list-group-item type-icon type-" + ref.type} onClick={this.onClickReference.bind(this,ref.uri, this.state.selected_docset.name)} key={"refbytypelink-"+ref.type + index} href={ref.uri}><span className={"docset-icon docsets-" + this.state.selected_docset.name}></span> {ref.name}</a>
-            }.bind(this));
-
-            content = <InfiniteScroll pageStart={1} className='list-group' loadMore={this.loadMoreReferences} hasMore={this._hasMore()} container='menu-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
-                        {referencelinks}
-                      </InfiniteScroll>;
-            return (<div id='menu-bar' ref='menu-bar' className="menu-list">
-                        <div className="list-group-item panel-heading header-menu">
-                          <a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a>
-                          <span  className="menu-title">{this.state.selected_docset.name} / {this.state.selected_type}</span>
-                        </div>
-                        <div id="menu-results" ref="menu-results">{content}</div>
-                    </div>);
-        }else if(this.state.docsets!= undefined){
-            var docsetslinks = this.state.docsets.map(function(docset){
-                return <a className={" list-group-item docset-icon docsets-" + docset.name.replace(' ','-')} onClick={this.onClickDocset.bind(this,docset.name)} key={"docsetlink-"+docset.name} href={"/" + docset.name.replace(' ','-').toLowerCase() + "/"}>{docset.name}</a>
-            }.bind(this));
+                           </div>);
+        }else if(reference_link_rows.length>0){
+            item_rows = (<InfiniteScroll pageStart={1} className='list-group' loadMore={this.loadMoreReferences} hasMore={this._hasMore()} container='menu-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
+                             {reference_link_rows}
+                         </InfiniteScroll>);
+            panelHeader = (<div ref="panelHeader" className="list-group-item panel-heading header-menu">
+                               <a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a>
+                               <span className="menu-title">{this.state.selected_docset.name} / {this.state.selected_type}</span>
+                           </div>);
+        }else if(docset_link_rows.length>0){
+            item_rows = docset_link_rows;
             if(this.state.selected_docset)
-                var lastdocset_visited = <div className="list-group-item panel-heading header-menu">
-                                           <a className="back-link" title={"back to " + this.state.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
-                                         </div>;
-            else
-                var lastdocset_visited = <div className="list-group-item panel-heading header-menu"></div>;
-            content = (<div id="menu-bar" ref="menu-bar" className="menu-list">
-                           {lastdocset_visited}
-                           <div id="menu-results" ref="menu-results">{docsetslinks}</div>
-                       </div>);
+                var panelHeader = (<div className="list-group-item panel-heading header-menu">
+                                       <a className="back-link" title={"back to " + this.state.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.parsed_name}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
+                                   </div>);
         }
+        content = (<div id="menu-bar" ref="menu-bar" className="menu-list">
+                       {panelHeader}
+                       <div id="menu-results" ref="menu-results">{item_rows}</div>
+                   </div>);
         return content;
     },
 
@@ -128,8 +130,11 @@ module.exports = React.createClass({
     },
 
     calculateHeight: function(){
-        var header = (window.document.body.clientWidth<768?84:0);
-        this.refs['menu-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - header - 148 +'px';
+        var panelHeader = 0;
+        if(this.refs['panelHeader'])
+            panelHeader = 40;
+        var search = (window.document.body.clientWidth<768?44:0);
+        this.refs['menu-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - search - panelHeader - 108 +'px';
     },
 
     loadMoreReferences: function(page){

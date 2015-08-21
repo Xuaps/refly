@@ -23,7 +23,7 @@ module.exports = Reflux.createStore({
         var docsets = JSON.parse(JSON.stringify(settings.getWorkingDocsets()));
         this.docsets = docsets.concat(this.docsets)
         this.currentpanel = "docsets";
-        this.trigger({types: undefined, references: undefined, docsets: docsets, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+        this.trigger({types: [], references: [], docsets: docsets, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
     },
 
     loadTypes: function(docset){
@@ -32,7 +32,7 @@ module.exports = Reflux.createStore({
             data.getTypes(this.docset.name).then(function(response){ 
                 var types = response['_embedded']['rl:types']; 
                 this.currentpanel = "types";
-                this.trigger({types: types, references: undefined, docsets: undefined, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+                this.trigger({types: types, references: [], docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
             }.bind(this)).done();
         }.bind(this));
     },
@@ -43,15 +43,16 @@ module.exports = Reflux.createStore({
             this.docset = docsetresponse;
             data.getReferences(this.docset.name,type, page, PAGE_SIZE).then(function (response){
                 var references = response['_embedded']['rl:references'];
-                if(this.menu_history.docset.name != this.docset.name || this.menu_history.type != this.type){
+                if(this.menu_history.docset.name != this.docset.name || this.menu_history.type != this.type || this.menu_history.page == page){
                     this.menu_history.docset = this.docset;
                     this.menu_history.type = this.type;
+                    this.menu_history.page = page;
                     this.references = [];
                 }
                 this.menu_history.reached_end = !response['_links'].next;
                 this.references = this.references.concat(references);
                 this.currentpanel = "references";
-                this.trigger({types: undefined, references: this.references, docsets: undefined, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+                this.trigger({types: [], references: this.references, docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
             }.bind(this));
         }.bind(this));
     },
@@ -74,7 +75,7 @@ module.exports = Reflux.createStore({
                         this.menu_history.reached_end = !response['_links'].next;
                         this.references = this.references.concat(references);
                         this.currentpanel = "references";
-                        this.trigger({types: undefined, references: this.references, docsets: undefined, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+                        this.trigger({types: [], references: this.references, docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
                     }.bind(this));
             }.bind(this));
         }.bind(this));

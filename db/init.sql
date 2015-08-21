@@ -47,6 +47,7 @@ CREATE TABLE docsets
   update_date timestamp without time zone,
   active boolean,
   label text,
+  parsed_name text;
   CONSTRAINT docsets_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -187,5 +188,5 @@ WITH (
 ALTER TABLE docsetsxuser
   OWNER TO postgres;
 
-INSERT INTO meta  values('18');
+INSERT INTO meta  values('19');
 
