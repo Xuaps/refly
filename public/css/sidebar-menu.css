@@ -479,10 +479,10 @@
 }
 
 .selected {
-    background-color: #73ADED;
-    color: #FFF;
+    background-color: #f5f5f5;
+    color: #000;
 }
 
 .selected span {
-    color: #FFF;
+    color: #000;
 }
