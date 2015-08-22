@@ -8,6 +8,12 @@ body {
     padding-top: 70px;
     background-color:#F5F5F5;
 }
+
+.wrap-text{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 /* conflict with highlighter*/
 dl.function{
 	color: #333333;

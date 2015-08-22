@@ -66,18 +66,15 @@ module.exports = Reflux.createStore({
                     this.type = reference.type;
                     data.getReferences(this.docset.name,reference.type, page, PAGE_SIZE).then(function (response){
                         var references = response['_embedded']['rl:references'];
-                        if(this.menu_history.docset.name != this.docset.name || this.menu_history.uri != this.uri){
-                            this.menu_history.docset = this.docset;
-                            this.menu_history.type = this.type;
-                            this.menu_history.uri = this.uri;
-                            this.references = [];
-                        }
                         this.menu_history.reached_end = !response['_links'].next;
-                        this.references = this.references.concat(references);
+                        this.references = references
                         this.currentpanel = "references";
                         this.trigger({types: [], references: this.references, docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
                     }.bind(this));
-            }.bind(this));
+            }.bind(this))
+            .fail(function(error){
+                this.loadTypes(this.docset.name);
+            }.bind(this))
         }.bind(this));
     }
 });
