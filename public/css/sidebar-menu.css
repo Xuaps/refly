@@ -483,6 +483,23 @@
     color: #000;
 }
 
+a.loaded {
+    background-color: #73ADED;
+    color: #FFF;
+}
+.loaded.selected{
+    background-color: #A4C7EC;
+}
+a.loaded:hover{
+    background-color: #A4C7EC;
+}
+a.loaded:focus{
+    background-color: #73ADED;
+    color: #FFF;
+}
+a.loaded:focus span{
+    color: #FFF;
+}
 .selected span {
     color: #000;
 }

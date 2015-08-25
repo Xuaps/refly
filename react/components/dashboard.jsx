@@ -50,7 +50,7 @@ module.exports = React.createClass({
                         <div className='row row-offcanvas row-offcanvas-left'>
                             <div className="col-sm-4 col-md-3 sidebar-offcanvas">
                                 <div className="sidebar-panel">
-                                    <Search key="searchcomp" onKeyUpEvent={this.search} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
+                                    <Search key="searchcomp" onKeyUpEvent={this.search} searchVisible={this.searchVisible()} onClick={this.navigateWithTransition} search={this.getQuery().ref}/>
                                     {!this.searchVisible()?<SidebarMenu docset={docsetParams} reference={referenceParams} type={typeParams}></SidebarMenu>:undefined}
                                 </div>
                             </div>
