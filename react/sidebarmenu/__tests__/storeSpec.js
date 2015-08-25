@@ -31,7 +31,7 @@ describe('Sidebar menu store', function(){
             it('should return a list of the active docsets', function(){
                 actions.loadDocsets();
                 store.listen(function(status){
-                    expect(status.docsets).toEqual(mocked_docsets);
+                    expect(status.data.results).toEqual(mocked_docsets);
                 });
             });
         });
@@ -42,8 +42,8 @@ describe('Sidebar menu store', function(){
                 var expected_types = [ { name: 'others'}, {name: 'function'}, {name: 'class'}, {name: 'object'} ];
                 actions.loadTypes('javascript');
                 store.listen(function(status){
-                    expect(status.types).toEqual(expected_types);
-                    expect(status.selected_docset).toEqual({name: 'JavaScript'});
+                    expect(status.data.results).toEqual(expected_types);
+                    expect(status.data.selected_docset).toEqual({name: 'JavaScript'});
                 });
             });
         });
@@ -54,9 +54,9 @@ describe('Sidebar menu store', function(){
                 var expected_references = [{name: 'jstest3', uri: 'jstest3', type: 'function'}, {name: 'jstest4', uri: 'jstest4', type: 'function'}];
                 actions.loadReferencesByType('javascript', 'function',1);
                 store.listen(function(status){
-                    expect(status.references).toEqual(expected_references);
-                    expect(status.selected_docset).toEqual({name: 'JavaScript'});
-                    expect(status.selected_type).toEqual('function');
+                    expect(status.data.results).toEqual(expected_references);
+                    expect(status.data.selected_docset).toEqual({name: 'JavaScript'});
+                    expect(status.data.selected_type).toEqual('function');
                 });
             });
             it('should return a list of references with the same type of a selected reference', function(){
@@ -67,9 +67,9 @@ describe('Sidebar menu store', function(){
                 var expected_references = [{name: 'jstest3', uri: 'jstest3', type: 'function'}, {name: 'jstest4', uri: 'jstest4', type: 'function'}];
                 actions.loadReferencesByUri('javascript', 'jstest3',1);
                 store.listen(function(status){
-                        expect(status.references).toEqual(expected_references);
-                        expect(status.selected_docset).toEqual({name: 'JavaScript'});
-                        expect(status.selected_type).toEqual('function');
+                        expect(status.data.results).toEqual(expected_references);
+                        expect(status.data.selected_docset).toEqual({name: 'JavaScript'});
+                        expect(status.data.selected_type).toEqual('function');
                 });
             });
         });
@@ -80,7 +80,7 @@ describe('Sidebar menu store', function(){
                 data.prototype._references = mocked_last_page_results;
                 actions.loadReferencesByType('javascript', 'function',1);
                 store.listen(function(status){
-                    expect(status.reached_end).toBe(true);
+                    expect(status.data.reached_end).toBe(true);
                 });
             });
         });

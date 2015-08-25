@@ -5,21 +5,23 @@ var MenuActions = require('./actions.js');
 var DocsetNode = require('./docset_node.jsx')
 var TypeNode = require('./type_node.jsx')
 var ReferenceNode = require('./reference_node.jsx')
+var Mousetrap = require('mousetrap');
 var store = require('./store.js');
 var LOADING = 'loading...';
+var PANEL_RELATIONS = {'docsets': {forward: 'types', backward: 'types'}, 'types': {forward:'references', backward: 'docsets'}, 'references':{forward: 'references', backward: 'types'}};
 module.exports = React.createClass({
     mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function(){
-       return {types: [], references: [], docsets: [], selected_docset: undefined, selected_type: undefined, reached_end: false};
+       return {data: {results: [], selected_docset: undefined, selected_type: undefined, reached_end: false, currentpanel: 'docsets'}, current_index: -1};
     },
 
     componentWillReceiveProps: function (newProps) {
         if(newProps.type){
             MenuActions.loadReferencesByType(newProps.docset,newProps.type, 1);
         }else if(newProps.docset){
-            if(newProps.reference && this.state.selected_type)
-                MenuActions.loadReferencesByType(newProps.docset,this.state.selected_type, 1);
+            if(newProps.reference && this.state.data.selected_type)
+                MenuActions.loadReferencesByType(newProps.docset,this.state.data.selected_type, 1);
             else
                 MenuActions.loadTypes(newProps.docset);
         }else{
@@ -29,12 +31,13 @@ module.exports = React.createClass({
 
     componentWillMount: function(){
         this.unsubscribe = store.listen(this.storeUpdated);
+        this.mousetrap = new Mousetrap(document.documentElement);
         if(this.props.type){
             MenuActions.loadReferencesByType(this.props.docset,this.props.type, 1);
         }else if(this.props.docset){
             if(this.props.reference){
-                if(this.state.selected_type)
-                    MenuActions.loadReferencesByType(this.props.docset,this.state.selected_type, 1);
+                if(this.state.data.selected_type)
+                    MenuActions.loadReferencesByType(this.props.docset,this.state.data.selected_type, 1);
                 else
                     MenuActions.loadReferencesByUri(this.props.docset, this.props.reference, 1);
             }else{
@@ -45,11 +48,39 @@ module.exports = React.createClass({
         }
     },
 
+    componentWillUnmount: function(){
+       this.mousetrap.unbind('left');
+       this.mousetrap.unbind('right');
+       this.mousetrap.unbind('down');
+       this.mousetrap.unbind('up'); 
+       this.mousetrap.unbind('enter');
+    },
+
     componentDidMount: function(){
         window.addEventListener('resize', this.calculateHeight, false);
         this.calculateHeight();
+        this.bindKeys();
     },
     
+    bindKeys: function(){
+        this.mousetrap.bind('down',function(e){
+            e.preventDefault();
+            this.goDown();
+        }.bind(this));
+        this.mousetrap.bind('up',function(e){
+            e.preventDefault();
+            this.goUp();
+        }.bind(this));
+        this.mousetrap.bind(['enter', 'right'],function(e){
+            e.preventDefault();
+            this.selectResult();
+        }.bind(this));
+        this.mousetrap.bind('left',function(e){
+            e.preventDefault();
+            this.goBackwards();
+        }.bind(this));
+    },
+
     componentDidUpdate: function(){
         this.calculateHeight();
     },
@@ -60,45 +91,35 @@ module.exports = React.createClass({
     render: function(){
         var item_rows = [];
         var panelHeader = "";
-        var typelink_rows = this.state.types.map(function(type, index){
-            return <TypeNode selected_docset={this.state.selected_docset} type={type} onClickType={this.onClickType.bind(this,type.name, this.state.selected_docset.name)} key={"typelink-"+type.name} href={"/" + this.state.selected_docset.parsed_name + "?type=" + type.name}></TypeNode>
-        }.bind(this));
-        
-        var reference_link_rows = this.state.references.map(function(ref,index){
-            return <ReferenceNode reference={ref} key={"refnode" + ref.type + "-" + index} onClickReference={this.onClickReference.bind(this,ref.uri, this.state.selected_docset.name)} selected_docset={this.state.selected_docset}></ReferenceNode>
-        }.bind(this));
-
-        var docset_link_rows = this.state.docsets.map(function(docset, index){
-            return <DocsetNode docset={docset} key={"docsetnode" + docset.parsed_name + "-" + index} onClickDocset={this.onClickDocset.bind(this,docset.name)}></DocsetNode>
+        var item_rows = this.state.data.results.map(function(item, index){
+            return this.buildRows(item,index,this.state.data.currentpanel);
         }.bind(this));
 
         var content = (<div  id="menu-bar" ref="menu-bar">
                           <div id="menu-results" ref="menu-results"></div>
                       </div>);
 
-        if(typelink_rows.length>0){
-            var item_rows = typelink_rows;
-            panelHeader = (<div className="list-group-item panel-heading header-menu">
+        if(this.state.data.currentpanel == "types"){
+            panelHeader = (<div className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
                                <span className="left-arrow">
                                  <a title="All Docsets" className="left-arrow" onClick={this.onClickHome} href="/"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
                                </span>
                                <span className="menu-title">
-                                 {this.state.selected_docset.name}
+                                 {this.state.data.selected_docset.name}
                                </span>
                            </div>);
-        }else if(reference_link_rows.length>0){
+        }else if(this.state.data.currentpanel == "references"){
             item_rows = (<InfiniteScroll pageStart={1} className='list-group' loadMore={this.loadMoreReferences} hasMore={this._hasMore()} container='menu-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
-                             {reference_link_rows}
+                             {item_rows}
                          </InfiniteScroll>);
-            panelHeader = (<div ref="panelHeader" className="list-group-item panel-heading header-menu">
-                               <a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a>
-                               <span className="menu-title">{this.state.selected_docset.name} / {this.state.selected_type}</span>
+            panelHeader = (<div ref="panelHeader" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+                               <a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.data.selected_docset.name)} href={'/' + this.state.data.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a>
+                               <span className="menu-title">{this.state.data.selected_docset.name} / {this.state.data.selected_type}</span>
                            </div>);
-        }else if(docset_link_rows.length>0){
-            item_rows = docset_link_rows;
-            if(this.state.selected_docset)
-                var panelHeader = (<div className="list-group-item panel-heading header-menu">
-                                       <a className="back-link" title={"back to " + this.state.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.selected_docset.name)} href={'/' + this.state.selected_docset.parsed_name}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
+        }else if(this.state.data.currentpanel == "docsets"){
+            if(this.state.data.selected_docset)
+                var panelHeader = (<div className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+                                       <a className="back-link" title={"back to " + this.state.data.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.data.selected_docset.name)} href={'/' + this.state.data.selected_docset.parsed_name}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
                                    </div>);
         }
         content = (<div id="menu-bar" ref="menu-bar" className="menu-list">
@@ -108,25 +129,109 @@ module.exports = React.createClass({
         return content;
     },
 
+    buildRows: function(item, index, panel){
+        if(this.state.current_index==index)
+            item.marked = true;
+        else
+            item.marked = false;
+        if(panel=="types"){
+            item.docset = this.state.data.selected_docset;
+            return <TypeNode result_index={index} type={item} onClickType={this.onClickType.bind(this,item.name, item.docset.name)} key={"typelink-"+item.name} href={"/" + this.state.data.selected_docset.parsed_name + "?type=" + item.name}></TypeNode>;
+        }else if(panel=="docsets"){
+            return <DocsetNode result_index={index} docset={item} key={"docsetnode" + item.parsed_name + "-" + index} onClickDocset={this.onClickDocset.bind(this,item.name)}></DocsetNode>;
+        }else if(panel=="references"){
+            return <ReferenceNode result_index={index} reference={item} key={"refnode" + item.type + "-" + index} onClickReference={this.onClickReference.bind(this,item.uri, this.state.data.selected_docset.name, index)} selected_docset={this.state.data.selected_docset}></ReferenceNode>;
+        }
+    },
+
     onClickDocset: function(docset, e){
         e.preventDefault();
-        MenuActions.loadTypes(docset);
+        this.loadDocset(docset);
     },
 
     onClickType: function(type, docset, e){
         e.preventDefault();
+        this.loadType(docset, type);
+
+    },
+    onClickReference: function(reference, docset, index, e){
+        e.preventDefault();
+        this.loadReference(reference);
+        this.setState({current_index: index});
+
+    },
+    loadDocset: function(docset){
+        this.setState({current_index: -1});
+        MenuActions.loadTypes(docset);
+    },
+    loadType: function(docset, type){
+        this.setState({current_index: -1});
         MenuActions.loadReferencesByType(docset, type, 1);
     },
-
-    onClickReference: function(reference, docset, e){
-        e.preventDefault();
+    loadReference: function(uri){
         $('.row-offcanvas').toggleClass('active');
-        this.transitionTo(reference);
+        this.transitionTo(uri);
     },
-
+    loadDocsets: function(){
+        MenuActions.loadDocsets();
+    },
     onClickHome: function(e){
         e.preventDefault();
-        MenuActions.loadDocsets();
+        this.loadDocsets();
+    },
+    selectResult: function(){
+        if(this.state.current_index==-1){
+            var ref = {docset: this.state.data.selected_docset, type: this.state.data.selected_type};
+            this.showPanel(ref, PANEL_RELATIONS[this.state.data.currentpanel].backward);
+        }else if(this.state.data.results[this.state.current_index]!= undefined){
+            var ref = this.state.data.results[this.state.current_index];
+            this.showPanel(ref, PANEL_RELATIONS[this.state.data.currentpanel].forward);
+        }
+    },
+
+    goUp: function(){
+        if(this.state.data.results.length>0){
+            if(this.state.current_index<=-1)
+                var current_index = -1;
+            else
+                var current_index = this.state.current_index - 1;
+            this.setState({current_index: current_index});
+            this.updateScroll();
+        }
+    },
+    goDown: function(){
+        if(this.state.data.results.length>0){
+            if(this.state.current_index>=this.state.data.results.length-1)
+                var current_index = this.state.data.results.length-1;
+            else
+                var current_index = this.state.current_index + 1;
+            this.setState({current_index: current_index});
+            this.updateScroll();
+        }
+    },
+    goBackwards: function(){
+        if(this.state.data.currentpanel!='docsets'){
+            var ref = {docset: this.state.data.selected_docset, type: this.state.data.selected_type};
+            this.showPanel(ref, PANEL_RELATIONS[this.state.data.currentpanel].backward);
+        }
+    },
+    showPanel: function(item, panel){
+        if(panel=="types"){
+            this.loadDocset(item.name || item.docset.name);
+        }else if(panel=="docsets"){
+            this.loadDocsets();
+        }else if(panel=="references"){
+            if(item.uri)
+                this.loadReference(item.uri);
+            else
+                this.loadType(item.docset.name, item.name || item.type);
+        }
+    },
+
+    updateScroll: function(){
+        if(this.state.data.results.length>0 && this.state.current_index<this.state.data.results.length && this.state.current_index>-1)
+            $("#menu-results").scrollTop($("#node-"+ this.state.current_index).offset().top - $("#node-0").offset().top - 40);
+
     },
 
     calculateHeight: function(){
@@ -138,12 +243,12 @@ module.exports = React.createClass({
     },
 
     loadMoreReferences: function(page){
-        if(this.state.selected_type)
-            MenuActions.loadReferencesByType(this.state.selected_docset.name,this.state.selected_type, page);
+        if(this.state.data.selected_type)
+            MenuActions.loadReferencesByType(this.state.data.selected_docset.name,this.state.data.selected_type, page);
         else
-            MenuActions.loadReferencesByUri(this.state.selected_docset.name, this.props.reference, page);
+            MenuActions.loadReferencesByUri(this.state.data.selected_docset.name, this.props.reference, page);
     },
     _hasMore: function(){
-        return !this.state.reached_end;
+        return !this.state.data.reached_end;
     }
 });

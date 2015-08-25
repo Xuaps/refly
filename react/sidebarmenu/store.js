@@ -23,7 +23,7 @@ module.exports = Reflux.createStore({
         var docsets = JSON.parse(JSON.stringify(settings.getWorkingDocsets()));
         this.docsets = docsets.concat(this.docsets)
         this.currentpanel = "docsets";
-        this.trigger({types: [], references: [], docsets: docsets, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+        this.trigger({data: {results: docsets, currentpanel: this.currentpanel, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end}});
     },
 
     loadTypes: function(docset){
@@ -32,7 +32,7 @@ module.exports = Reflux.createStore({
             data.getTypes(this.docset.name).then(function(response){ 
                 var types = response['_embedded']['rl:types']; 
                 this.currentpanel = "types";
-                this.trigger({types: types, references: [], docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+                this.trigger({data: {results: types, currentpanel: this.currentpanel, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end}});
             }.bind(this)).done();
         }.bind(this));
     },
@@ -52,7 +52,7 @@ module.exports = Reflux.createStore({
                 this.menu_history.reached_end = !response['_links'].next;
                 this.references = this.references.concat(references);
                 this.currentpanel = "references";
-                this.trigger({types: [], references: this.references, docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+                this.trigger({data: {results: this.references, currentpanel: this.currentpanel, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end}});
             }.bind(this));
         }.bind(this));
     },
@@ -69,7 +69,7 @@ module.exports = Reflux.createStore({
                         this.menu_history.reached_end = !response['_links'].next;
                         this.references = references
                         this.currentpanel = "references";
-                        this.trigger({types: [], references: this.references, docsets: [], selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end});
+                        this.trigger({data:{results: this.references, currentpanel: this.currentpanel, selected_docset: this.docset, selected_type: this.type, reached_end: this.menu_history.reached_end}});
                     }.bind(this));
             }.bind(this))
             .fail(function(error){
