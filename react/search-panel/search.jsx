@@ -20,6 +20,10 @@ module.exports = React.createClass({
         };
       },
 
+    componentWillReceiveProps: function (newProps) {
+        if(newProps.searchVisible)
+            this.bindKeys();
+    },
     render: function(){
        var docset = '';
        var selectorclass = '';
@@ -79,20 +83,23 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function(){
+        Mousetrap.unbind('left');
+        Mousetrap.unbind('down');
+        Mousetrap.unbind('up'); 
+        Mousetrap.unbind('enter');
+        Mousetrap.unbind('tab');
+        Mousetrap.unbind('backspace');
         window.removeEventListener('resize', this.calculateHeight, false);
         this.unsubscribe();
     },
 
     componentDidUpdate: function(){
-        if(this.state.data.results.length>0 && this.state.current_index<this.state.data.results.length && this.state.current_index>-1){
-            $("#search-results").scrollTop($("#result-"+ this.state.current_index).offset().top - $("#result-0").offset().top - 40);
-        }
+        this.calculateHeight();
     },
 
     componentDidMount: function(){
         window.addEventListener('resize', this.calculateHeight, false);
         this.calculateHeight();
-
         this.pattern = this.props.search;
 		var search_box = this.refs.searchbox.getDOMNode('#txtreference');
 
@@ -103,46 +110,6 @@ module.exports = React.createClass({
                 search_box.focus();
             }
         });
-        this.mousetrap.bind('tab',function(e){
-            var search_box = this.refs.searchbox.getDOMNode('#txtreference');
-            if(search_box.value!='' && document.activeElement == search_box){
-                e.preventDefault();
-                this.lookForDocset(search_box.value);
-                search_box.value = '';
-                search_box.focus();
-            }
-        }.bind(this));
-        this.mousetrap.bind('backspace',function(e){
-            var search_box = this.refs.searchbox.getDOMNode('#txtreference');
-            if(search_box.value=='' && document.activeElement == search_box){
-                this.lookForDocset(null);
-            }
-        }.bind(this));
-        this.mousetrap.bind('down',function(e){
-            if(this.state.data.results.length>0){
-                if(this.state.current_index>=this.state.data.results.length)
-                    var current_index = this.state.data.results.length-1;
-                else
-                    var current_index = this.state.current_index + 1;
-                this.setState({current_index: current_index});
-            }
-        }.bind(this));
-        this.mousetrap.bind('up',function(e){
-            if(this.state.data.results.length>0){
-                if(this.state.current_index<-1)
-                    var current_index = -1;
-                else
-                    var current_index = this.state.current_index - 1;
-                this.setState({current_index: current_index});
-            }
-        }.bind(this));
-        this.mousetrap.bind('enter',function(e){
-            if(this.state.data.results[this.state.current_index]!= undefined){
-                var uri = this.state.data.results[this.state.current_index].uri;
-                this.loadReference(uri);
-            }
-
-        }.bind(this));
 
         if(this.pattern)
             this.search(1);
@@ -177,7 +144,28 @@ module.exports = React.createClass({
         this.props.onKeyUpEvent({target:{value: ''}});
         this.cleanResults();
     },
-
+    
+    bindKeys: function(){
+        this.mousetrap.bind('tab',function(e){
+            e.preventDefault();
+            this.selectDocset();
+        }.bind(this));
+        this.mousetrap.bind('backspace',function(e){
+            this.cleanSelectedDocset();
+        }.bind(this));
+        this.mousetrap.bind('down',function(e){
+            e.preventDefault();
+            this.goDown();
+        }.bind(this));
+        this.mousetrap.bind('up',function(e){
+            e.preventDefault();
+            this.goUp();
+        }.bind(this));
+        this.mousetrap.bind('enter',function(e){
+            e.preventDefault();
+            this.selectResult();
+        }.bind(this));
+    },
     onKeyUp: function(event){
 		event.persist();
         var notdebounce_characters = [13, 37, 38, 39, 40];
@@ -197,6 +185,11 @@ module.exports = React.createClass({
         }
     },
 
+    updateScroll: function(){
+        if(this.state.data.results.length>0 && this.state.current_index<this.state.data.results.length && this.state.current_index>-1)
+            $("#search-results").scrollTop($("#result-"+ this.state.current_index).offset().top - $("#result-0").offset().top - 40);
+    },
+
     cleanResults: function(){
         this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: '', current_index: -1});
     },
@@ -206,4 +199,48 @@ module.exports = React.createClass({
             this.setState({data:{results:[], reached_end:true, docset: this.state.data.docset}, message: LOADING, current_index: -1});
         actions.searchReference(this.pattern, page);
 	},
+
+    goUp: function(){
+        if(this.state.data.results.length>0){
+            if(this.state.current_index<-1)
+                var current_index = -1;
+            else
+                var current_index = this.state.current_index - 1;
+            this.setState({current_index: current_index});
+            this.updateScroll();
+        }
+    },
+
+    goDown: function(){
+        if(this.state.data.results.length>0){
+            if(this.state.current_index>=this.state.data.results.length)
+                var current_index = this.state.data.results.length-1;
+            else
+                var current_index = this.state.current_index + 1;
+            this.setState({current_index: current_index});
+            this.updateScroll();
+        }
+    },
+
+    selectResult: function(){
+        if(this.state.data.results[this.state.current_index]!= undefined){
+            var uri = this.state.data.results[this.state.current_index].uri;
+            this.loadReference(uri);
+        }
+    },
+    cleanSelectedDocset: function(){
+        var search_box = this.refs.searchbox.getDOMNode('#txtreference');
+        if(search_box.value=='' && document.activeElement == search_box){
+            this.lookForDocset(null);
+        }
+    },
+    selectDocset: function(){
+        var search_box = this.refs.searchbox.getDOMNode('#txtreference');
+        if(search_box.value!='' && document.activeElement == search_box){
+            e.preventDefault();
+            this.lookForDocset(search_box.value);
+            search_box.value = '';
+            search_box.focus();
+        }
+    }
 });
