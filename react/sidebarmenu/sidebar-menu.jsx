@@ -49,11 +49,12 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function(){
-       this.mousetrap.unbind('left');
-       this.mousetrap.unbind('right');
-       this.mousetrap.unbind('down');
-       this.mousetrap.unbind('up'); 
-       this.mousetrap.unbind('enter');
+        Mousetrap.unbind('left');
+        Mousetrap.unbind('right');
+        Mousetrap.unbind('down');
+        Mousetrap.unbind('up'); 
+        Mousetrap.unbind('enter');
+        window.removeEventListener('resize', this.calculateHeight, false);
     },
 
     componentDidMount: function(){
@@ -63,6 +64,11 @@ module.exports = React.createClass({
     },
     
     bindKeys: function(){
+        Mousetrap.unbind('left');
+        Mousetrap.unbind('right');
+        Mousetrap.unbind('down');
+        Mousetrap.unbind('up'); 
+        Mousetrap.unbind('enter');
         this.mousetrap.bind('down',function(e){
             e.preventDefault();
             this.goDown();

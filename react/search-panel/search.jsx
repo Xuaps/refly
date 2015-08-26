@@ -33,13 +33,8 @@ module.exports = React.createClass({
        }
 
        var result_rows = this.state.data.results.map(function(r,index){
-                    if(this.state.current_index==index)
-                        r.marked = true;
-                    else
-                        r.marked = false;
-                    return <SearchResultRow result_index={index} key={'SRR' + r.docset + r.ref_uri} onClick={this.onClickHandler}
-	                reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
-                }.bind(this));
+                             return this.buildRow(r, index);
+                         }.bind(this));
        var content;
        if(result_rows.length>0){
            content = <InfiniteScroll pageStart={1} className='list-group' loadMore={this.search} hasMore={this._hasMore()} container='search-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
@@ -63,7 +58,17 @@ module.exports = React.createClass({
         );
     },
 
-    onClickHandler: function(uri){
+    buildRow: function(r, index){
+        if(this.state.current_index==index)
+            r.marked = true;
+        else
+            r.marked = false;
+        return <SearchResultRow result_index={index} key={'SRR' + r.docset + r.ref_uri} onClickResult={this.onClickHandler.bind(this, r.uri, index)}
+                    reference={r.name} marked={r.marked} type={r.type} docset={r.docset_name} uri={r.uri}/>
+    },
+
+    onClickHandler: function(uri, index, e){
+        this.setState({current_index: index});
         this.loadReference(uri);
     },
 
@@ -202,8 +207,8 @@ module.exports = React.createClass({
 
     goUp: function(){
         if(this.state.data.results.length>0){
-            if(this.state.current_index<-1)
-                var current_index = -1;
+            if(this.state.current_index<1)
+                var current_index = 0;
             else
                 var current_index = this.state.current_index - 1;
             this.setState({current_index: current_index});

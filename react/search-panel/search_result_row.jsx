@@ -1,9 +1,6 @@
 var React = require('react');
 var URI = require('URIjs');
 module.exports = React.createClass({
-    onClickHandler: function(){
-        this.props.onClick(this.props.uri);
-    },
 
     render: function(){
         var className = '';
@@ -14,7 +11,7 @@ module.exports = React.createClass({
             className += ' selected';
         }
         return (
-                <a id={"result-" + this.props.result_index} onClick={this.onClickHandler} className={"list-group-item type-icon type-"+ this.props.type + className} >
+                <a id={"result-" + this.props.result_index} onClick={this.props.onClickResult} className={"list-group-item type-icon type-"+ this.props.type + className} >
                     <span className={"docset-icon docsets-" + this.props.docset.replace(' ', '-')}></span>
                     {this.props.reference}
                 </a>
