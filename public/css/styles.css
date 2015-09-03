@@ -64,3 +64,15 @@ a.broken{
     padding-top: .3rem;
     top: 0.15rem;
 }
+
+/* sticky */
+#sticky.stick {
+    position: fixed !important;
+    z-index: 10000;
+    top: 51px !important;
+    left:0%;
+    width: 100%;
+}
+body.stick{
+    padding-top:90px;
+}

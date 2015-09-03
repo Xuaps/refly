@@ -3,6 +3,7 @@ var Reflux = require('reflux');
 var actions = require('./actions.js');
 var store = require('./store.js');
 var Link = require('react-router').Link;
+var StickyBar = require('../infrastructure/sticky-bar.jsx');
 
 var Breadcrumbs = React.createClass({
 
@@ -35,15 +36,18 @@ var Breadcrumbs = React.createClass({
             </li>); 
     }
 	return(
-          <ol className="breadcrumb">
-            <li>
-                <div style={{cursor: 'default'}} className={"docset-icon docsets-" + this.state.data.docset.replace(' ', '-')}/>
-            </li>
-            {rows}
-            <li>
-                {this.state.data.name}<br/>
-            </li>
-          </ol>);
+            <StickyBar applyOnStick={{'.breadcrumb':'col-xs-12 col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9', 'body':'stick'}}>
+          	    <ol className="breadcrumb">
+          	      <li>
+          	          <div style={{cursor: 'default'}} className={"docset-icon docsets-" + this.state.data.docset.replace(' ', '-')}/>
+          	      </li>
+          	      {rows}
+          	      <li>
+          	          {this.state.data.name}<br/>
+          	      </li>
+          	    </ol>
+            </StickyBar>
+          );
   },
 });
 
