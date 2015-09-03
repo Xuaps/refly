@@ -242,7 +242,6 @@ module.exports = React.createClass({
     selectDocset: function(){
         var search_box = this.refs.searchbox.getDOMNode('#txtreference');
         if(search_box.value!='' && document.activeElement == search_box){
-            e.preventDefault();
             this.lookForDocset(search_box.value);
             search_box.value = '';
             search_box.focus();
