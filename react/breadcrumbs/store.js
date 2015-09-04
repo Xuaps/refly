@@ -22,7 +22,7 @@ module.exports = Reflux.createStore({
         var ref = {ascendants:[]};
         ref.name = h[h.length-1].name;
         ref.docset = h[h.length-1].docset_name;
-        for(i=Math.max(0,h.length-3);i<h.length-1;i++){
+        for(var i=Math.max(0,h.length-3);i<h.length-1;i++){
             this._addAscendants(ref.ascendants, h[i]);
         }
         return ref;
