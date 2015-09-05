@@ -33,8 +33,7 @@ module.exports = Reflux.createStore({
                 if(!is_new_search){
                     this.search_history = this.search_history
                 }else{
-                    this.search_history.docsets = docsets;
-                    this.search_history = {search: searchtext};
+                    this.search_history = {search: searchtext, docsets: docsets};
                     this.search_history.pages = this.search_history.pages || [];
                 }
                 this.search_history.pages.push(page);
