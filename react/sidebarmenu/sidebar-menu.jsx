@@ -36,10 +36,7 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function(){
-        this.mousetrap.unbind('left');
-        this.mousetrap.unbind(['enter', 'right']);
-        this.mousetrap.unbind('down');
-        this.mousetrap.unbind('up');
+	this.unbindKeys();
         window.removeEventListener('resize', this.calculateHeight, false);
     },
 
@@ -49,6 +46,12 @@ module.exports = React.createClass({
         this.bindKeys();
     },
     
+    unbindKeys: function(){
+        this.mousetrap.unbind('down');
+        this.mousetrap.unbind('up');
+        this.mousetrap.unbind('left'); 
+        this.mousetrap.unbind(['enter', 'right']);
+    },
     bindKeys: function(){
         this.mousetrap.bind('down',function(e){
             e.preventDefault();
