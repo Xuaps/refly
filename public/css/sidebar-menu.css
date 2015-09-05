@@ -209,6 +209,30 @@
 .docsets-npm:before {
     background-position: -8rem -6.2rem;
 }
+.docsets-Apache:before {
+    background-position: -9rem -6.2rem;
+}
+.docsets-Clojure:before {
+    background-position: -4rem -6.2rem;
+}
+.docsets-Drupal:before {
+    background-position: 0rem 0.8rem;
+}
+.docsets-Lua:before {
+    background-position: -3rem -6.3rem;
+}
+.docsets-Mocha:before {
+    background-position: -6rem -6.2rem;
+}
+.docsets-OpenTSDB:before {
+    background-position: -4rem -7.2rem;
+}
+.docsets-Phaser:before {
+    background-position: -2rem -7.2rem;
+}
+.docsets-q:before {
+    background-position: 0 -6.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -387,6 +411,31 @@
 .docsets-npm:before {
     background-position: -8rem -6.2rem;
 }
+.docsets-Apache:before {
+    background-position: -9rem -6.1rem;
+}
+.docsets-Clojure:before {
+    background-position: -4rem -6.2rem;
+}
+.docsets-Drupal:before {
+    background-position: 0rem 1rem;
+}
+.docsets-Lua:before {
+    background-position: -3rem -6.1rem;
+}
+.docsets-Mocha:before {
+    background-position: -6rem -6.1rem;
+}
+.docsets-OpenTSDB:before {
+    background-position: -4rem -7.2rem;
+}
+.docsets-Phaser:before {
+    background-position: -2rem -7rem;
+}
+.docsets-q:before {
+    background-position: 0 -6.0rem;
+}
+
 }
 .type-icon{
     cursor: pointer;
