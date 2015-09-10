@@ -236,6 +236,9 @@
 .docsets-Rust:before {
     background-position: -4rem -3.55rem;
 }
+.docsets-Symfony:before {
+    background-position: -5rem -6.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -367,19 +370,19 @@
     background-position: -9rem -3.5rem;
 }
 .docsets-Apache-Cordova:before {
-    background-position: 0 -4.4rem;
+    background-position: 0 -4.3rem;
 }
 .docsets-MarkDown:before {
-    background-position: -1rem -4.4rem;
+    background-position: -1rem -4.3rem;
 }
 .docsets-Django:before {
     background-position: -2rem -4.3rem;
 }
 .docsets-XPath:before {
-    background-position: -3rem -4.4rem;
+    background-position: -3rem -4.3rem;
 }
 .docsets-SVG:before {
-    background-position: -5rem -4.4rem;
+    background-position: -5rem -4.3rem;
 }
 .docsets-MongooseJS:before {
     background-position: -7rem -4.4rem;
@@ -430,7 +433,7 @@
     background-position: -6rem -6.1rem;
 }
 .docsets-OpenTSDB:before {
-    background-position: -4rem -7.2rem;
+    background-position: -4rem -6.9rem;
 }
 .docsets-Phaser:before {
     background-position: -2rem -7rem;
@@ -440,6 +443,9 @@
 }
 .docsets-Rust:before {
     background-position: -4rem -5.2rem;
+}
+.docsets-Symfony:before {
+    background-position: -5rem -6.3rem;
 }
 
 }
