@@ -1,7 +1,7 @@
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
 
-var store, actions, settings, data, mocked_results, mocked_last_page_results, mocked_types;
+var store, actions, settings, data, mocked_results, mocked_last_page_results, mocked_types, count;
 
 describe('Sidebar menu store', function(){
     beforeEach(function(){
@@ -16,6 +16,7 @@ describe('Sidebar menu store', function(){
             {'_embedded': {'rl:references': [{name: 'jstest3', uri: 'jstest3', type: 'function'}, {name: 'jstest4', uri: 'jstest4', type: 'function'}]}, '_links': { next: 'next_link'} };
         settings.getWorkingDocsets.mockReturnValue([{name: 'JavaScript'}, {name: 'DOM'}]);
         mocked_docsets = [{name: 'JavaScript'}, {name: 'DOM'}];
+        count = 0;
         data.prototype._docsets = mocked_docsets;
         data.prototype._references = mocked_results;
         data.prototype._types = mocked_types;
@@ -57,6 +58,23 @@ describe('Sidebar menu store', function(){
                     expect(status.data.results).toEqual(expected_references);
                     expect(status.data.selected_docset).toEqual({name: 'JavaScript'});
                     expect(status.data.selected_type).toEqual('function');
+                });
+            });
+            it('should return accumulated results', function(){
+                data.getReference = jest.genMockFunction().mockImplementation(function(docset, uri) {
+                    return this.wrapInPromise({name: 'jstest3', uri: 'jstest3', type: 'function'});
+                });
+                data.prototype._docsets = {name: 'JavaScript'};
+                var expected_references = [{name: 'jstest3', uri: 'jstest3', type: 'function'}, {name: 'jstest4', uri: 'jstest4', type: 'function'}];
+                actions.loadReferencesByType('javascript', 'function',1);
+                actions.loadReferencesByType('javascript', 'function',2);
+                store.listen(function(status){
+                    if(count>0){
+                        expect(status.data.results.length).toEqual(4);
+                        expect(status.data.selected_docset).toEqual({name: 'JavaScript'});
+                        expect(status.data.selected_type).toEqual('function');
+                    }
+                    count++;
                 });
             });
             it('should return a list of references with the same type of a selected reference', function(){

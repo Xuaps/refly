@@ -48,6 +48,8 @@ module.exports = Reflux.createStore({
                     this.menu_history.type = this.type;
                     this.menu_history.page = page;
                     this.references = [];
+                }else{
+                    this.menu_history = this.menu_history;
                 }
                 this.menu_history.reached_end = !response['_links'].next;
                 this.references = this.references.concat(references);
@@ -66,6 +68,9 @@ module.exports = Reflux.createStore({
                     this.type = reference.type;
                     data.getReferences(this.docset.name,reference.type, page, PAGE_SIZE).then(function (response){
                         var references = response['_embedded']['rl:references'];
+                        this.menu_history.docset = this.docset;
+                        this.menu_history.type = reference.type;
+                        this.menu_history.page = page;
                         this.menu_history.reached_end = !response['_links'].next;
                         this.references = references
                         this.currentpanel = "references";
