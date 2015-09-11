@@ -16,17 +16,18 @@ module.exports = React.createClass({
        return {data: {results: [], selected_docset: undefined, selected_type: undefined, reached_end: false, currentpanel: 'docsets'}, current_index: -1};
     },
 
-    componentWillReceiveProps: function (newProps) {
-        if(newProps.type){
-            MenuActions.loadReferencesByType(newProps.docset,newProps.type, 1);
-        }else if(newProps.docset){
-            if(!newProps.reference || !this.state.data.selected_type)
-                MenuActions.loadTypes(newProps.docset);
-                
-        }else{
-            MenuActions.loadDocsets();
-        }
-    },
+    // componentWillReceiveProps: function (newProps) {
+    //     if(newProps.type){
+    //         MenuActions.loadReferencesByType(newProps.docset,newProps.type, 1);
+    //     }else if(newProps.docset){
+    //         if(newProps.reference && this.state.data.selected_type)
+    //             MenuActions.loadReferencesByType(newProps.docset,this.state.data.selected_type, 1);
+    //         else
+    //             MenuActions.loadTypes(newProps.docset);
+    //     }else{
+    //         MenuActions.loadDocsets();
+    //     }
+    // },
 
     componentWillMount: function(){
         this.unsubscribe = store.listen(this.storeUpdated);
@@ -48,11 +49,10 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function(){
-        Mousetrap.unbind('left');
-        Mousetrap.unbind('right');
-        Mousetrap.unbind('down');
-        Mousetrap.unbind('up'); 
-        Mousetrap.unbind('enter');
+        this.mousetrap.unbind('left');
+        this.mousetrap.unbind(['enter', 'right']);
+        this.mousetrap.unbind('down');
+        this.mousetrap.unbind('up');
         window.removeEventListener('resize', this.calculateHeight, false);
     },
 
@@ -63,11 +63,6 @@ module.exports = React.createClass({
     },
     
     bindKeys: function(){
-        Mousetrap.unbind('left');
-        Mousetrap.unbind('right');
-        Mousetrap.unbind('down');
-        Mousetrap.unbind('up'); 
-        Mousetrap.unbind('enter');
         this.mousetrap.bind('down',function(e){
             e.preventDefault();
             this.goDown();
@@ -105,7 +100,7 @@ module.exports = React.createClass({
                       </div>);
 
         if(this.state.data.currentpanel == "types"){
-            panelHeader = (<div className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+            panelHeader = (<div id="node--1" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
                                <span className="left-arrow">
                                  <a title="All Docsets" className="left-arrow" onClick={this.onClickHome} href="/"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
                                </span>
@@ -117,13 +112,13 @@ module.exports = React.createClass({
             item_rows = (<InfiniteScroll pageStart={1} className='list-group' loadMore={this.loadMoreReferences} hasMore={this._hasMore()} container='menu-results' loader={<span className="alert alert-info" role="alert">{LOADING}</span>}>
                              {item_rows}
                          </InfiniteScroll>);
-            panelHeader = (<div ref="panelHeader" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+            panelHeader = (<div id="node--1" ref="panelHeader" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
                                <a className="back-link" title="All Types" onClick={this.onClickDocset.bind(this,this.state.data.selected_docset.name)} href={'/' + this.state.data.selected_docset.name.toLowerCase()}><span className="left-arrow"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></span></a>
                                <span className="menu-title">{this.state.data.selected_docset.name} / {this.state.data.selected_type}</span>
                            </div>);
         }else if(this.state.data.currentpanel == "docsets"){
             if(this.state.data.selected_docset)
-                var panelHeader = (<div className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+                var panelHeader = (<div id="node--1" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
                                        <a className="back-link" title={"back to " + this.state.data.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.data.selected_docset.name)} href={'/' + this.state.data.selected_docset.parsed_name}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
                                    </div>);
         }
@@ -163,7 +158,7 @@ module.exports = React.createClass({
         e.preventDefault();
         this.loadReference(reference);
         this.setState({current_index: index});
-
+        this.markSelected(index);
     },
     loadDocset: function(docset){
         this.setState({current_index: -1});
@@ -191,26 +186,28 @@ module.exports = React.createClass({
         }else if(this.state.data.results[this.state.current_index]!= undefined){
             var ref = this.state.data.results[this.state.current_index];
             this.showPanel(ref, PANEL_RELATIONS[this.state.data.currentpanel].forward);
+            this.markSelected(this.state.current_index);
         }
     },
-
+    markSelected: function(index){
+        $(".loaded").toggleClass('loaded');
+        $("#node-"+ index).toggleClass('loaded selected');
+    },
     goUp: function(){
-        if(this.state.data.results.length>0){
-            if(this.state.current_index<=-1)
-                var current_index = -1;
-            else
-                var current_index = this.state.current_index - 1;
+        if(this.state.current_index>-1){
+            var current_index = this.state.current_index - 1;
             this.setState({current_index: current_index});
+            $(".selected").toggleClass('selected');
+            $("#node-"+ this.state.current_index).toggleClass('selected');
             this.updateScroll();
         }
     },
     goDown: function(){
-        if(this.state.data.results.length>0){
-            if(this.state.current_index>=this.state.data.results.length-1)
-                var current_index = this.state.data.results.length-1;
-            else
-                var current_index = this.state.current_index + 1;
+        if(this.state.current_index<this.state.data.results.length){
+            var current_index = this.state.current_index + 1;
             this.setState({current_index: current_index});
+            $(".selected").toggleClass('selected');
+            $("#node-"+ this.state.current_index).toggleClass('selected');
             this.updateScroll();
         }
     },
@@ -255,5 +252,9 @@ module.exports = React.createClass({
     },
     _hasMore: function(){
         return !this.state.data.reached_end;
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+      return nextState.current_index === this.state.current_index;
     }
 });
