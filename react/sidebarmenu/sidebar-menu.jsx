@@ -16,19 +16,6 @@ module.exports = React.createClass({
        return {data: {results: [], selected_docset: undefined, selected_type: undefined, reached_end: false, currentpanel: 'docsets'}, current_index: -1};
     },
 
-    // componentWillReceiveProps: function (newProps) {
-    //     if(newProps.type){
-    //         MenuActions.loadReferencesByType(newProps.docset,newProps.type, 1);
-    //     }else if(newProps.docset){
-    //         if(newProps.reference && this.state.data.selected_type)
-    //             MenuActions.loadReferencesByType(newProps.docset,this.state.data.selected_type, 1);
-    //         else
-    //             MenuActions.loadTypes(newProps.docset);
-    //     }else{
-    //         MenuActions.loadDocsets();
-    //     }
-    // },
-
     componentWillMount: function(){
         this.unsubscribe = store.listen(this.storeUpdated);
         this.mousetrap = new Mousetrap(document.documentElement);
@@ -191,7 +178,9 @@ module.exports = React.createClass({
     },
     markSelected: function(index){
         $(".loaded").toggleClass('loaded');
-        $("#node-"+ index).toggleClass('loaded selected');
+        $(".selected").toggleClass('selected');
+        $("#node-"+ index).toggleClass('loaded');
+        $("#node-"+ index).toggleClass('selected');
     },
     goUp: function(){
         if(this.state.current_index>-1){
