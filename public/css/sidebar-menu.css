@@ -245,6 +245,9 @@
 .docsets-Webpack:before {
     background-position: -1rem -7.1rem;
 }
+.docsets-Yii1:before {
+    background-position: -9rem -2.6rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -458,6 +461,9 @@
 }
 .docsets-Webpack:before {
     background-position: -1rem -7rem;
+}
+.docsets-Yii1:before {
+    background-position: -9rem -2.6rem;
 }
 }
 .type-icon{
