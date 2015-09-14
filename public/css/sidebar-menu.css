@@ -242,6 +242,9 @@
 .docsets-Vue:before {
     background-position: -3rem -7.2rem;
 }
+.docsets-Webpack:before {
+    background-position: -1rem -7.1rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -442,7 +445,7 @@
     background-position: -2rem -7rem;
 }
 .docsets-q:before {
-    background-position: 0 -6.0rem;
+    background-position: 0 -6.1rem;
 }
 .docsets-Rust:before {
     background-position: -4rem -5.2rem;
@@ -452,6 +455,9 @@
 }
 .docsets-Vue:before {
     background-position: -3rem -7rem;
+}
+.docsets-Webpack:before {
+    background-position: -1rem -7rem;
 }
 }
 .type-icon{
