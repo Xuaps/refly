@@ -248,6 +248,9 @@
 .docsets-Yii1:before {
     background-position: -9rem -2.6rem;
 }
+.docsets-Phalcon:before {
+    background-position: -5rem -5.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -464,6 +467,9 @@
 }
 .docsets-Yii1:before {
     background-position: -9rem -2.6rem;
+}
+.docsets-Phalcon:before {
+    background-position: -5rem -5.2rem;
 }
 }
 .type-icon{
