@@ -251,6 +251,9 @@
 .docsets-Phalcon:before {
     background-position: -5rem -5.3rem;
 }
+.docsets-Meteor:before {
+    background-position: -7rem -6.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -470,6 +473,9 @@
 }
 .docsets-Phalcon:before {
     background-position: -5rem -5.2rem;
+}
+.docsets-Meteor:before {
+    background-position: -7rem -6.3rem;
 }
 }
 .type-icon{
