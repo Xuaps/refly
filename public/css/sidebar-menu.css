@@ -254,6 +254,9 @@
 .docsets-Meteor:before {
     background-position: -7rem -6.3rem;
 }
+.docsets-ioJS:before {
+    background-position: -2rem -6.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
