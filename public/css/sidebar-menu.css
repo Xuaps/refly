@@ -257,6 +257,9 @@
 .docsets-ioJS:before {
     background-position: -2rem -6.3rem;
 }
+.docsets-React-native:before {
+    background-position: -1rem -6.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
