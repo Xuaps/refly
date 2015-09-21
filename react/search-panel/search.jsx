@@ -209,7 +209,7 @@ module.exports = React.createClass({
 
     goUp: function(){
         if(this.state.data.results.length>0 && this.props.searchVisible){
-            if(this.state.current_index>1){
+            if(this.state.current_index>0){
                 var current_index = this.state.current_index - 1;
                 this.setState({current_index: current_index});
                 this.updateScroll();
