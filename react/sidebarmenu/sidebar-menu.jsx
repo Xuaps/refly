@@ -36,7 +36,8 @@ module.exports = React.createClass({
     },
 
     componentWillUnmount: function(){
-	this.unbindKeys();
+        this.unsubscribe();
+        this.unbindKeys();
         window.removeEventListener('resize', this.calculateHeight, false);
     },
 
