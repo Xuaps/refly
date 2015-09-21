@@ -213,6 +213,8 @@ module.exports = React.createClass({
             if(this.state.current_index>0){
                 var current_index = this.state.current_index - 1;
                 this.setState({current_index: current_index});
+                $(".selected").toggleClass('selected');
+                $("#result-"+ this.state.current_index).toggleClass('selected');
                 this.updateScroll();
             }
         }else{
@@ -225,6 +227,8 @@ module.exports = React.createClass({
             if(this.state.current_index<this.state.data.results.length-1){
                 var current_index = this.state.current_index + 1;
                 this.setState({current_index: current_index});
+                $(".selected").toggleClass('selected');
+                $("#result-"+ this.state.current_index).toggleClass('selected');
                 this.updateScroll();
             }
         }else{
@@ -251,5 +255,9 @@ module.exports = React.createClass({
             search_box.value = '';
             search_box.focus();
         }
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+      return nextState.current_index === this.state.current_index;
     }
 });
