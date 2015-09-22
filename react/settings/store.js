@@ -40,13 +40,21 @@ module.exports = Reflux.createStore({
                     if(mydocsets.length==0){
                         mydocsets = settings.getWorkingDocsets();
                     }
+                    console.log(settings.getLocalDocsets());
+                    if(settings.getLocalDocsets().length === 0){
+                        settings.setLocalDocsets(settings.getWorkingDocsets());
+                    }
                     settings.setWorkingDocsets(mydocsets);
                     this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],mydocsets);
                     this.trigger(this.settings);
                 }.bind(this))
                 .fail(function(error){
                     if(response != undefined){
-                        var mydocsets = settings.getLocalDocsets();
+                        var mydocsets = settings.getWorkingDocsets();
+                        if(settings.getLocalDocsets().length > 0){
+                            mydocsets = settings.getLocalDocsets();
+                            settings.setLocalDocsets([]);
+                        }
                         this.settings.docsets = this._markactiveDocsets(response['_embedded']['rl:docsets'],mydocsets);
                         settings.setWorkingDocsets(mydocsets);
                     }
@@ -87,14 +95,7 @@ module.exports = Reflux.createStore({
         var myprom = data.setUserDocsets(activedocsets);
         myprom.then(function (user) {
              return true;
-        }.bind(this))
-        .fail(function(error){
-            if(error.responseText=='Unauthorized'){
-                var workDocsets = settings.getWorkingDocsets();
-                settings.setLocalDocsets(workDocsets);
-            }
         }.bind(this));
-
     },
 
     _markactiveDocsets: function(docsets, activedocsets){        

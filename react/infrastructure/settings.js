@@ -92,7 +92,9 @@ var defaultSettings =
                 "image": "http://localhost:3000/img/languages/react-logo.png",
                 "bigimage": "http://localhost:3000/img/languages/react-biglogo.jpg"
                 },
-            ]
+            ],
+
+            local_docsets: []
     };
 
 var Reflux = require('reflux');
@@ -101,13 +103,7 @@ var ls = require('local-storage');
 var previousdocsets;
 var Settings = Reflux.createStore({
     init: function() {
-        if(!ls.get('config'))
-            this.config = new Configry(defaultSettings, [WK_DOCSETS]);
-        else
-            this.config = new Configry(ls.get('config').wk_docsets, [WK_DOCSETS]);
-
-        if(this.config.get(LOCAL_DOCSETS)===undefined)
-            this.config.set(LOCAL_DOCSETS, this.config.get(WK_DOCSETS), true);
+        this.config = new Configry(defaultSettings, [WK_DOCSETS]);
     },
     
     getWorkingDocsets:  function(){
