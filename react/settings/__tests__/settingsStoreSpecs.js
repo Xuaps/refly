@@ -11,6 +11,7 @@ describe('Settings store', function(){
         data.prototype._docsets = {'_embedded': {'rl:docsets': [{name: 'java'}, {name: 'javascript'},
             {name: 'require'}, {name: 'angular'}]}};
         settings.getWorkingDocsets.mockReturnValue([{name: 'java'}, {name: 'angular'}]);
+        settings.getLocalDocsets.mockReturnValue([]);
         actions = require('../actions.js');
         store = require('../store.js');
         countdeselection = 0;
@@ -35,7 +36,6 @@ describe('Settings store', function(){
 
             store.listen(function(state){
                 if(countdeselection>0){
-                    console.log(state);
                     expect(state.docsets.filter(function(d){ return d.name==='java' })[0].active).toBe(false);
                     expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'angular'}]);
                     countdeselection++;
@@ -50,7 +50,6 @@ describe('Settings store', function(){
             actions.docsetSelectionChanged({name: 'javascript'}); 
             store.listen(function(state){
                 if(countselection>0){
-                    console.log(state);
                     expect(state.docsets.filter(function(d){ return d.name==='javascript' })[0].active).toBe(true);
                     expect(settings.setWorkingDocsets).toBeCalledWith([ {name: 'java'}, {name: 'angular'}, {name: 'javascript'}]);
                     countselection++;

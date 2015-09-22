@@ -40,7 +40,6 @@ module.exports = Reflux.createStore({
                     if(mydocsets.length==0){
                         mydocsets = settings.getWorkingDocsets();
                     }
-                    console.log(settings.getLocalDocsets());
                     if(settings.getLocalDocsets().length === 0){
                         settings.setLocalDocsets(settings.getWorkingDocsets());
                     }
