@@ -47,7 +47,7 @@ CREATE TABLE docsets
   update_date timestamp without time zone,
   active boolean,
   label text,
-  parsed_name text;
+  parsed_name text,
   CONSTRAINT docsets_pkey PRIMARY KEY (id)
 )
 WITH (
