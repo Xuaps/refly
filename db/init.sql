@@ -79,6 +79,7 @@ CREATE TABLE refs
   reference text NOT NULL,
   type text NOT NULL,
   content text,
+  source_url text,
   parent_uri text,
   uri text NOT NULL,
   content_anchor text,
@@ -115,6 +116,7 @@ CREATE TABLE temp_refs
   reference text NOT NULL,
   type text NOT NULL,
   content text,
+  source_url text,
   parent text,
   content_anchor text,
   uri text NOT NULL
