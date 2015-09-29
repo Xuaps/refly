@@ -188,5 +188,5 @@ WITH (
 ALTER TABLE docsetsxuser
   OWNER TO postgres;
 
-INSERT INTO meta  values('19');
+INSERT INTO meta  values('20');
 
