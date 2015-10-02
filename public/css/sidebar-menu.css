@@ -278,6 +278,9 @@
 .docsets-Twig:before {
     background-position: -2rem -1.78rem;
 }
+.docsets-JavaSE:before {
+    background-position: -7rem -5.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -518,6 +521,9 @@
 }
 .docsets-Twig:before {
     background-position: -2rem -1.7rem;
+}
+.docsets-JavaSE:before {
+    background-position: -7rem -5.2rem;
 }
 }
 .type-icon{
