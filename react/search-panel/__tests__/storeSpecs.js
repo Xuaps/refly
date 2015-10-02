@@ -111,23 +111,4 @@ describe('Search panel store', function(){
             });
         });
     });
-
-    describe('mark a results', function(){
-        it('should mark the result and unmark any other', function(){
-            actions.searchReference('test', 1);
-            actions.markReference('aaa');
-            actions.markReference('bbb');
-
-            store.listen(function(status){
-                if(count===2){
-                   expect(status.get('results').get(0).marked).toBe(true);
-                   expect(status.get('results').get(1).marked).toBe(false);
-                }else if(count===3){
-                   expect(status.get('results').get(1).marked).toBe(true);
-                   expect(status.get('results').get(0).marked).toBe(false);
-                } 
-                count += 1;
-            });
-        });
-    });
 });
