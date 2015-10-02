@@ -260,6 +260,24 @@
 .docsets-React-native:before {
     background-position: -1rem -6.3rem;
 }
+.docsets-React-Router:before {
+    background-position: -6rem -5.3rem;
+}
+.docsets-Browserify:before {
+    background-position: -5rem -7.2rem;
+}
+.docsets-Jasmine:before {
+    background-position: -6rem -7.2rem;
+}
+.docsets-Jest:before {
+    background-position: -7rem -7.1rem;
+}
+.docsets-Mysql:before {
+    background-position: -3rem -1.78rem;
+}
+.docsets-Twig:before {
+    background-position: -2rem -1.78rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -454,7 +472,7 @@
     background-position: -6rem -6.1rem;
 }
 .docsets-OpenTSDB:before {
-    background-position: -4rem -6.9rem;
+    background-position: -4rem -7rem;
 }
 .docsets-Phaser:before {
     background-position: -2rem -7rem;
@@ -466,7 +484,7 @@
     background-position: -4rem -5.2rem;
 }
 .docsets-Symfony:before {
-    background-position: -5rem -6.3rem;
+    background-position: -5rem -6.1rem;
 }
 .docsets-Vue:before {
     background-position: -3rem -7rem;
@@ -481,7 +499,25 @@
     background-position: -5rem -5.2rem;
 }
 .docsets-Meteor:before {
-    background-position: -7rem -6.3rem;
+    background-position: -7rem -6.1rem;
+}
+.docsets-React-Router:before {
+    background-position: -6rem -5.2rem;
+}
+.docsets-Browserify:before {
+    background-position: -5rem -7.2rem;
+}
+.docsets-Jasmine:before {
+    background-position: -6rem -7rem;
+}
+.docsets-Jest:before {
+    background-position: -7rem -7rem;
+}
+.docsets-Mysql:before {
+    background-position: -3rem -1.7rem;
+}
+.docsets-Twig:before {
+    background-position: -2rem -1.7rem;
 }
 }
 .type-icon{
