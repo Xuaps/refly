@@ -72,7 +72,7 @@ module.exports = React.createClass({
             if(anchor_o.length === 0){
                 return; 
             }
-            position = anchor_o.offset().top - 60;
+            position = anchor_o.offset().top - 100;
         }
         $('html, body').animate({ scrollTop: position }, 300, function(){});
 	},
