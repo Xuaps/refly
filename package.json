@@ -51,6 +51,7 @@
     "grunt-mkdir": "^0.1.2",
     "grunt-shell": "^0.7.0",
     "highlight.js": "^8.5.0",
+    "immutable": "^3.7.3",
     "jasmine-node": "^2.0.0",
     "jest-cli": "^0.2.1",
     "load-grunt-tasks": "~0.2.0",

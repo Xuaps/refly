@@ -1,3 +1,4 @@
+jest.dontMock('immutable');
 jest.dontMock('../store.js');
 jest.dontMock('../actions.js');
 
@@ -18,6 +19,7 @@ describe('Search panel store', function(){
         mocked_docsets = {name: 'a'};
         data.prototype._docsets = mocked_docsets;
         data.prototype._references = mocked_results;
+        settings.getWorkingDocsets.mockReturnValue(['java']);
         count = 1;
         singledocsetcount = 0;
     });
@@ -31,7 +33,7 @@ describe('Search panel store', function(){
             it('should return the page results', function(){
                 actions.searchReference('test',1);
                 store.listen(function(status){
-                    expect(status.results).toEqual(mocked_results['_embedded']['rl:references']);
+                    expect(status.get('results').toJS()).toEqual(mocked_results['_embedded']['rl:references']);
                 });
             });
         });
@@ -41,7 +43,8 @@ describe('Search panel store', function(){
                 actions.searchReference('test',1);
                 actions.searchReference('test',2); 
                 store.listen(function(status){
-                    expect(status.results.length).toBe(2*count);
+                    if(count>1)
+                        expect(status.get('results').count()).toBe(2*count);
                     count += 1;
                 });
             });
@@ -53,10 +56,10 @@ describe('Search panel store', function(){
                 actions.searchReference('a',1);
                 store.listen(function(status){
                     if(singledocsetcount>0){
-                        singledocsetcount++;
-                        expect(status.results.length).toBe(2);
-                        expect(status.docset.name).toBe('a');
+                        expect(status.get('results').count()).toBe(2);
+                        expect(status.get('docset').name).toBe('a');
                     }
+                    singledocsetcount++;
                 });
             });
 
@@ -81,10 +84,19 @@ describe('Search panel store', function(){
                 actions.searchReference('test',2);
                 store.listen(function(status){
                     if(count<3)
-                        expect(status.results.length).toBe(2*count);
+                        expect(status.get('results').count()).toBe(2*count);
                     else
-                        expect(status.results.length).toBe(4);
+                        expect(status.get('results').count()).toBe(4);
                     count += 1;
+                });
+            });
+
+            it('should return a not_found message', function(){
+                data.prototype._references =  {'_embedded': {'rl:references': []}};
+                actions.searchReference('testnotfound',1);
+
+                store.listen(function(status){
+                    expect(status.get('message')).toBeDefined();
                 });
             });
         });
@@ -94,7 +106,7 @@ describe('Search panel store', function(){
                 data.prototype._references = mocked_last_page_results;
                 actions.searchReference('test',1);
                 store.listen(function(status){
-                    expect(status.reached_end).toBe(true);
+                    expect(status.get('reached_end')).toBe(true);
                 });
             });
         });
@@ -108,11 +120,11 @@ describe('Search panel store', function(){
 
             store.listen(function(status){
                 if(count===2){
-                   expect(status.results[0].marked).toBe(true);
-                   expect(status.results[1].marked).toBe(false);
+                   expect(status.get('results').get(0).marked).toBe(true);
+                   expect(status.get('results').get(1).marked).toBe(false);
                 }else if(count===3){
-                   expect(status.results[1].marked).toBe(true);
-                   expect(status.results[0].marked).toBe(false);
+                   expect(status.get('results').get(1).marked).toBe(true);
+                   expect(status.get('results').get(0).marked).toBe(false);
                 } 
                 count += 1;
             });
