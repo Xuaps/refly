@@ -26,7 +26,8 @@ module.exports = React.createClass({
     },
 
     componentWillReceiveProps: function (newProps) {
-		this.loadRef(newProps.params);
+        if(newProps.params.docset !== this.props.params.docset || newProps.params.splat !== this.props.params.splat)
+            this.loadRef(newProps.params);
     },
     
     componentWillMount: function(){
