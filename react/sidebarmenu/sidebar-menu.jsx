@@ -91,7 +91,7 @@ module.exports = React.createClass({
                       </div>);
 
         if(this.state.data.currentpanel == "types"){
-            panelHeader = (<div id="node--1" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+            panelHeader = (<div id="node--1" ref="panelHeader" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
                                <span className="left-arrow">
                                  <a title="All Docsets" className="left-arrow" onClick={this.onClickHome} href="/"><span className="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
                                </span>
@@ -109,7 +109,7 @@ module.exports = React.createClass({
                            </div>);
         }else if(this.state.data.currentpanel == "docsets"){
             if(this.state.data.selected_docset)
-                var panelHeader = (<div id="node--1" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
+                var panelHeader = (<div id="node--1" ref="panelHeader" className={"list-group-item panel-heading header-menu" + ((this.state.current_index==-1)?' selected':'')}>
                                        <a className="back-link" title={"back to " + this.state.data.selected_docset.name} onClick={this.onClickDocset.bind(this,this.state.data.selected_docset.name)} href={'/' + this.state.data.selected_docset.parsed_name}><span className="right-arrow"><span className="glyphicon glyphicon-menu-right" aria-hidden="true"></span></span></a>
                                    </div>);
         }
@@ -131,7 +131,7 @@ module.exports = React.createClass({
         }else if(panel=="docsets"){
             return <DocsetNode result_index={index} docset={item} key={"docsetnode" + item.parsed_name + "-" + index} onClickDocset={this.onClickDocset.bind(this,item.name)}></DocsetNode>;
         }else if(panel=="references"){
-            return <ReferenceNode result_index={index} reference={item} key={"refnode" + item.type + "-" + index} onClickReference={this.onClickReference.bind(this,item.uri, this.state.data.selected_docset.name, index)} selected_docset={this.state.data.selected_docset}></ReferenceNode>;
+            return <ReferenceNode result_index={index} reference={item} key={"refnode" + item.type + "-" + index} onClickRefeeence={this.onClickReference.bind(this,item.uri, this.state.data.selected_docset.name, index)} selected_docset={this.state.data.selected_docset}></ReferenceNode>;
         }
     },
 
@@ -234,7 +234,7 @@ module.exports = React.createClass({
         if(this.refs['panelHeader'])
             panelHeader = 40;
         var search = (window.document.body.clientWidth<768?44:0);
-        this.refs['menu-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - search - panelHeader - 108 +'px';
+        this.refs['menu-results'].getDOMNode().style['max-height'] = window.document.body.clientHeight - search - panelHeader - 116 +'px';
     },
 
     loadMoreReferences: function(page){
