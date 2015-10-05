@@ -164,7 +164,7 @@ module.exports = React.createClass({
 
     //functions launched by keys
     selectResult: function(){
-        if(this.state.data.get('results').get(this.current_index)!= undefined && this.props.searchVisible){
+        if(this.state.data && this.state.data.get('results').get(this.current_index)!= undefined && this.props.searchVisible){
             var uri = this.state.data.get('results').get(this.current_index).uri;
             this.loadReference(uri);
         }
@@ -187,6 +187,7 @@ module.exports = React.createClass({
     },
 
     markReference: function(direction){
+        if(this.state.data){
             if(direction === 'UP'){
                 this.current_index = Math.max(0,this.current_index - 1);
             }else{
@@ -195,6 +196,7 @@ module.exports = React.createClass({
             $(".selected").toggleClass('selected');
             $("#result-"+ this.current_index).toggleClass('selected');
             this.updateScroll();
+        }
      },
 
     unbindKeys: function(){
