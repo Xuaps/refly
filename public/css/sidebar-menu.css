@@ -278,8 +278,11 @@
 .docsets-Twig:before {
     background-position: -2rem -1.78rem;
 }
-.docsets-JavaSE:before {
+.docsets-Java-7-SE:before {
     background-position: -7rem -5.3rem;
+}
+.docsets-Chef:before {
+    background-position: -8rem -5.3rem;
 }
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
@@ -522,8 +525,11 @@
 .docsets-Twig:before {
     background-position: -2rem -1.7rem;
 }
-.docsets-JavaSE:before {
+.docsets-Java-7-SE:before {
     background-position: -7rem -5.2rem;
+}
+.docsets-Chef:before {
+    background-position: -8rem -5.2rem;
 }
 }
 .type-icon{
