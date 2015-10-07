@@ -131,7 +131,7 @@ module.exports = React.createClass({
         }else if(panel=="docsets"){
             return <DocsetNode result_index={index} docset={item} key={"docsetnode" + item.parsed_name + "-" + index} onClickDocset={this.onClickDocset.bind(this,item.name)}></DocsetNode>;
         }else if(panel=="references"){
-            return <ReferenceNode result_index={index} reference={item} key={"refnode" + item.type + "-" + index} onClickRefeeence={this.onClickReference.bind(this,item.uri, this.state.data.selected_docset.name, index)} selected_docset={this.state.data.selected_docset}></ReferenceNode>;
+            return <ReferenceNode result_index={index} reference={item} key={"refnode" + item.type + "-" + index} onClickReference={this.onClickReference.bind(this,item.uri, this.state.data.selected_docset.name, index)} selected_docset={this.state.data.selected_docset}></ReferenceNode>;
         }
     },
 
