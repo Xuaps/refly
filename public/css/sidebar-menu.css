@@ -284,6 +284,9 @@
 .docsets-Chef:before {
     background-position: -8rem -5.3rem;
 }
+.docsets-Swift:before {
+    background-position: -9rem -5.3rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -530,6 +533,9 @@
 }
 .docsets-Chef:before {
     background-position: -8rem -5.2rem;
+}
+.docsets-Swift:before {
+    background-position: -9rem -5.2rem;
 }
 }
 .type-icon{
