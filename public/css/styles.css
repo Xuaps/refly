@@ -9,6 +9,10 @@ body {
     background-color:#F5F5F5;
 }
 
+._page .code-lines{
+  text-indent: -13px;
+  list-style: none;
+}
 .wrap-text{
   text-overflow: ellipsis;
   white-space: nowrap;
