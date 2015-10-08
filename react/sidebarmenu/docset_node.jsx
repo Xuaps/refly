@@ -6,7 +6,7 @@ module.exports = React.createClass({
         if (this.isSelected()){
             className += ' selected';
         }
-        return <a id={"node-" + this.props.result_index} className={" list-group-item docset-icon docsets-" + this.props.docset.name.replace(' ','-') + className} onClick={this.props.onClickDocset} key={"docsetlink-" + this.props.docset.name} href={"/" + this.props.docset.name.replace(' ','-').toLowerCase() + "/"}>{this.props.docset.name}</a>;
+        return <a id={"node-" + this.props.result_index} className={" list-group-item docset-icon docsets-" + this.props.docset.name.replace(/ /g,'-') + className} onClick={this.props.onClickDocset} key={"docsetlink-" + this.props.docset.name} href={"/" + this.props.docset.name.replace(/ /g,'-').toLowerCase() + "/"}>{this.props.docset.name}</a>;
     },
 
     isSelected: function(){

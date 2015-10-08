@@ -58,7 +58,7 @@ module.exports = React.createClass({
            var selectorclass = '';
            if(this.state.data.get('docset')){
                selectorclass = 'input-search-selector';
-               docset = (<span className="docset-selector"><span className={"docset-icon docsets-" + this.state.data.get('docset').name.replace(' ', '-')}></span></span>);
+               docset = (<span className="docset-selector"><span className={"docset-icon docsets-" + this.state.data.get('docset').name.replace(/ /g, '-')}></span></span>);
            }
 
            var result_rows = this.state.data.get('results').map(function(r,index){

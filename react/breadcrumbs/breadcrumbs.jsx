@@ -39,7 +39,7 @@ var Breadcrumbs = React.createClass({
             <StickyBar applyOnStick={{'.breadcrumb':'col-xs-12 col-sm-offset-4 col-md-offset-3 col-sm-8 col-md-9', 'body':'stick'}}>
           	    <ol className="breadcrumb">
           	      <li>
-          	          <div style={{cursor: 'default'}} className={"docset-icon docsets-" + this.state.data.docset.replace(' ', '-')}/>
+          	          <div style={{cursor: 'default'}} className={"docset-icon docsets-" + this.state.data.docset.replace(/ /g, '-')}/>
           	      </li>
           	      {rows}
           	      <li>
