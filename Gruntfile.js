@@ -108,6 +108,7 @@ module.exports = function (grunt) {
       },
       dist: {
           options: {
+            watch: true,
             plugin: [ ['minifyify', {map: 'bundle.map.json', output: 'public/js/bundle.map.json'}]],
             transform:  [ 'babelify'],
             browserifyOptions: {
