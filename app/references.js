@@ -3,7 +3,7 @@ var util = require('util');
 var db = require('./db');
 
 function References(){
-    this._query = db('refs');
+    this._query = this._initializeQuery();
 } 
 
 References.prototype.filter = function(field, operator, value) {
@@ -52,14 +52,15 @@ References.prototype.page = function(number, pagesize){
 };
 
 References.prototype.count = function(alias){
-    this._query = this._query.select(db.raw('count(*) OVER() as '+alias));
+    this._query = this._query.select(db.raw('*, count(*) OVER() as '+alias));
     return this;
 };
 
 References.prototype.execute = function() {
+    console.log(this._query.toSQL());
     return this._query.then(
         function(rows){
-            this._query = db('refs');
+            this._query = this._initializeQuery();
             return rows;
         }.bind(this),
         function(err){
@@ -67,4 +68,7 @@ References.prototype.execute = function() {
         });
 };
 
+References.prototype._initializeQuery = function(){
+    return db('refs').innerJoin('refs_content', 'refs_content.source_url', 'refs.source_url');
+};
 module.exports = References;

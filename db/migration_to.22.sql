@@ -1,0 +1,2 @@
+ALTER TABLE refs DROP COLUMN content;
+

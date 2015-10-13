@@ -91,7 +91,6 @@ CREATE TABLE refs
   docset text NOT NULL,
   reference text NOT NULL,
   type text NOT NULL,
-  content text,
   source_url text,
   parent_uri text,
   uri text NOT NULL,
@@ -222,5 +221,5 @@ ALTER TABLE refs_content
   OWNER TO postgres;
 
 
-INSERT INTO meta  values('21');
+INSERT INTO meta  values('22');
 

@@ -12,8 +12,8 @@ describe('References', function() {
     it('should be a different instance of references', function(){
         var references2=new References();
         expect(references).not.toBe(references2);
-    })
-    
+    });
+
     describe('filter', function() {
         
         it('should filter with op EQUALS', function(done) {
@@ -95,6 +95,21 @@ describe('References', function() {
     });
 
     describe('execute', function(){
+        it('should return references', function(done){
+            references.filter('docset', filters.operators.EQUALS, 'slash')
+                .execute().then(function(rows){
+                    expect(rows[0].docset).toBeDefined();
+                    expect(rows[0].reference).toBeDefined();
+                    expect(rows[0].type).toBeDefined();
+                    expect(rows[0].source_url).toBeDefined();
+                    expect(rows[0].parent_uri).toBeDefined();
+                    expect(rows[0].uri).toBeDefined();
+                    expect(rows[0].content_anchor).toBeDefined();
+                    expect(rows[0].content).toBeDefined();
+                    done();
+                });
+        })
+
         it('should execute the select and clean the query', function(done){
             var results = null;
             
