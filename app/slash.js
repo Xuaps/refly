@@ -14,7 +14,7 @@ var search = function(options) {
     if(options.page)
         query = query.page(options.page, options.pagesize);
     
-    return query.select(['docset', 'reference', 'type', 'uri']).count('total').execute()
+    return query.count('total').execute()
         .then(function(results){
         return {
             total: results.length>0?results[0].total:0,
@@ -39,7 +39,6 @@ var get = function(uri){
 	references = new References();
 	return references
         .filter('uri', filters.operators.EQUALS, uri)
-        .select(['docset', 'reference', 'type', 'content', 'content_anchor', 'uri', 'parent_uri'])
         .docsetstatefilter(true)
         .execute().then(function(references) {
             return references[0];
@@ -49,7 +48,7 @@ var get = function(uri){
 var get_types = function(docset){
     references = new References();
     return references.filter('docset', filters.operators.IN, docset)
-		.select(['type']).execute().then(function(references){
+		.execute().then(function(references){
         var unique_references = [];
         if(references.length>0){
             references.reduce(function(previousValue, currentValue, index, array) {
@@ -67,7 +66,6 @@ var _children = function(uri){
 	references = new References();
 	return references
         .filter('parent_uri', filters.operators.EQUALS, uri)
-        .select(['docset', 'reference', 'type', 'uri'])
         .execute();
 };
 
@@ -120,7 +118,6 @@ var get_docsets = function(active){
         docsets.filter('active', filters.operators.EQUALS, active);
     }
     return docsets
-        .select(['docset','default_uri', 'update_date', 'label', 'active']).order('update_date', 'ASC')
         .execute();
 };
 
@@ -128,7 +125,7 @@ var get_docsetsbyuser = function(token){
     docsets = new Docsets();
     return new Users().find({auth_token: token}).then(function(users){
         return docsets
-        .select(['docsets.docset','docsets.default_uri', 'docsets.update_date', 'docsets.label', 'docsets.active']).docsetsbyuser(users[0].id).execute();
+        .docsetsbyuser(users[0].id).execute();
     })
 };
 var savedocsetxuser = function(token, docsetstring){
