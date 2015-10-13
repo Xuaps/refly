@@ -57,7 +57,6 @@ References.prototype.count = function(alias){
 };
 
 References.prototype.execute = function() {
-    console.log(this._query.toSQL());
     return this._query.then(
         function(rows){
             this._query = this._initializeQuery();

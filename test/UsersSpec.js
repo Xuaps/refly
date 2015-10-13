@@ -121,7 +121,6 @@ describe('users repository', function(){
                 })
                 .then(function(){
                     var users = new Users();
-                    console.log('updated');
                     users
                         .findOrCreate({profile_id:2345, profile_provider: 'google', auth_token:'aaaa', email:'email@refly.xyz'})
                         .then(function(user){
