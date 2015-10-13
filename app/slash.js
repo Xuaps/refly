@@ -18,7 +18,9 @@ var search = function(options) {
         .then(function(results){
         return {
             total: results.length>0?results[0].total:0,
-            items: results
+            items: results.map(function(res){
+                return {reference: res.reference, type: res.type, docset: res.docset, uri: res.uri};
+            })
         };
       });
 };

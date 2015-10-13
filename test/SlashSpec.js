@@ -89,8 +89,7 @@ describe('Slash', function() {
                     reference: 'search',
                     type: 'function',
                     docset: {name: 'slash', active: true},
-					uri: 'search',
-                    total: 1 //TODO: the stub has its own implementation we have to change all that.
+					uri: 'search'
                 }]);
                 done();
             });
