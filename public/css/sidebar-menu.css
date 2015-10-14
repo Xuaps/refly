@@ -287,6 +287,9 @@
 .docsets-Swift:before {
     background-position: -9rem -5.3rem;
 }
+.docsets-Scala:before {
+    background-position: -8rem -7.1rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -361,10 +364,10 @@
     background-position: -9rem -1.7rem;
 }
 .docsets-Python2:before {
-    background-position:  0    -2.5rem;
+    background-position:  0    -2.6rem;
 }
 .docsets-Python3:before {
-    background-position:  0    -2.5rem;
+    background-position:  0    -2.6rem;
 }
 .docsets-Git:before {
     background-position: -1rem -2.6rem;
@@ -391,13 +394,13 @@
     background-position: -9rem -2.6rem;
 }
 .docsets-Cpp:before {
-    background-position: 0 -3.45rem;
+    background-position: 0 -3.5rem;
 }
 .docsets-Go:before {
-    background-position: -1rem -3.45rem;
+    background-position: -1rem -3.5rem;
 }
 .docsets-Express:before {
-    background-position: -2rem -3.45rem;
+    background-position: -2rem -3.5rem;
 }
 .docsets-Grunt:before {
     background-position: -3rem -3.5rem;
@@ -409,28 +412,28 @@
     background-position: -6rem -3.5rem;
 }
 .docsets-RequireJS:before {
-    background-position: -7rem -3.45rem;
+    background-position: -7rem -3.5rem;
 }
 .docsets-Chai:before {
-    background-position: -8rem -3.45rem;
+    background-position: -8rem -3.5rem;
 }
 .docsets-SinonJS:before {
     background-position: -9rem -3.5rem;
 }
 .docsets-Apache-Cordova:before {
-    background-position: 0 -4.3rem;
+    background-position: 0 -4.4rem;
 }
 .docsets-MarkDown:before {
-    background-position: -1rem -4.3rem;
+    background-position: -1rem -4.4rem;
 }
 .docsets-Django:before {
-    background-position: -2rem -4.3rem;
+    background-position: -2rem -4.4rem;
 }
 .docsets-XPath:before {
-    background-position: -3rem -4.3rem;
+    background-position: -3rem -4.4rem;
 }
 .docsets-SVG:before {
-    background-position: -5rem -4.3rem;
+    background-position: -5rem -4.4rem;
 }
 .docsets-MongooseJS:before {
     background-position: -7rem -4.4rem;
@@ -448,25 +451,25 @@
     background-position: -9rem -4.4rem;
 }
 .docsets-RethinkDB:before {
-    background-position:  0    -5.2rem;
+    background-position:  0    -5.3rem;
 }
 .docsets-React:before {
-    background-position: -1rem -5.2rem;
+    background-position: -1rem -5.3rem;
 }
 .docsets-SocketIO:before {
-    background-position: -2rem -5.2rem;
+    background-position: -2rem -5.3rem;
 }
 .docsets-Modernizr:before {
-    background-position: -3rem -5.2rem;
+    background-position: -3rem -5.3rem;
 }
 .docsets-Bower:before {
-    background-position: -4rem -5.2rem;
+    background-position: -4rem -5.3rem;
 }
 .docsets-npm:before {
     background-position: -8rem -6.2rem;
 }
 .docsets-Apache:before {
-    background-position: -9rem -6.1rem;
+    background-position: -9rem -6.2rem;
 }
 .docsets-Clojure:before {
     background-position: -4rem -6.2rem;
@@ -475,40 +478,40 @@
     background-position: 0rem 1rem;
 }
 .docsets-Lua:before {
-    background-position: -3rem -6.1rem;
+    background-position: -3rem -6.2rem;
 }
 .docsets-Mocha:before {
-    background-position: -6rem -6.1rem;
+    background-position: -6rem -6.2rem;
 }
 .docsets-OpenTSDB:before {
-    background-position: -4rem -7rem;
+    background-position: -4rem -7.2rem;
 }
 .docsets-Phaser:before {
-    background-position: -2rem -7rem;
+    background-position: -2rem -7.2rem;
 }
 .docsets-q:before {
-    background-position: 0 -6.1rem;
+    background-position: 0 -6.2rem;
 }
 .docsets-Rust:before {
-    background-position: -4rem -5.2rem;
+    background-position: -4rem -3.5rem;
 }
 .docsets-Symfony:before {
-    background-position: -5rem -6.1rem;
+    background-position: -5rem -6.2rem;
 }
 .docsets-Vue:before {
-    background-position: -3rem -7rem;
+    background-position: -3rem -7.1rem;
 }
 .docsets-Webpack:before {
-    background-position: -1rem -7rem;
+    background-position: -1rem -7.1rem;
 }
 .docsets-Yii1:before {
     background-position: -9rem -2.6rem;
 }
 .docsets-Phalcon:before {
-    background-position: -5rem -5.2rem;
+    background-position: -5rem -5.3rem;
 }
 .docsets-Meteor:before {
-    background-position: -7rem -6.1rem;
+    background-position: -7rem -6.2rem;
 }
 .docsets-React-Router:before {
     background-position: -6rem -5.2rem;
@@ -529,13 +532,16 @@
     background-position: -2rem -1.7rem;
 }
 .docsets-Java-7-SE:before {
-    background-position: -7rem -5.2rem;
+    background-position: -7rem -5.3rem;
 }
 .docsets-Chef:before {
-    background-position: -8rem -5.2rem;
+    background-position: -8rem -5.3rem;
 }
 .docsets-Swift:before {
-    background-position: -9rem -5.2rem;
+    background-position: -9rem -5.3rem;
+}
+.docsets-Scala:before {
+    background-position: -8rem -7.1rem;
 }
 }
 .type-icon{
