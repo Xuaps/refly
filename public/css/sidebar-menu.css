@@ -290,6 +290,9 @@
 .docsets-Scala:before {
     background-position: -8rem -7.1rem;
 }
+.docsets-Bootstrap:before {
+    background-position: -9rem -7.1rem;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -475,7 +478,7 @@
     background-position: -4rem -6.2rem;
 }
 .docsets-Drupal:before {
-    background-position: 0rem 1rem;
+    background-position: 0rem 0.9rem;
 }
 .docsets-Lua:before {
     background-position: -3rem -6.2rem;
@@ -514,16 +517,16 @@
     background-position: -7rem -6.2rem;
 }
 .docsets-React-Router:before {
-    background-position: -6rem -5.2rem;
+    background-position: -6rem -5.3rem;
 }
 .docsets-Browserify:before {
     background-position: -5rem -7.2rem;
 }
 .docsets-Jasmine:before {
-    background-position: -6rem -7rem;
+    background-position: -6rem -7.1rem;
 }
 .docsets-Jest:before {
-    background-position: -7rem -7rem;
+    background-position: -7rem -7.1rem;
 }
 .docsets-Mysql:before {
     background-position: -3rem -1.7rem;
@@ -542,6 +545,9 @@
 }
 .docsets-Scala:before {
     background-position: -8rem -7.1rem;
+}
+.docsets-Bootstrap:before {
+    background-position: -9rem -7.1rem;
 }
 }
 .type-icon{
