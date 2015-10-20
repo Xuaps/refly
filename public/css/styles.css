@@ -86,3 +86,25 @@ a.broken{
 body.stick{
     padding-top:90px;
 }
+
+/* SPECIAL for Bootstrap*/
+.bs-glyphicons-list{
+  float: left;
+}
+.bs-glyphicons-list li{
+  padding-left: 0;
+  list-style: none;
+  float: left;
+  width: 20%;
+  height: 5rem;
+  padding: 10px;
+  line-height: 1.4;
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #fff;
+}
+.glyphicon-class{
+  display: block;
+  text-align: center;
+  word-wrap: break-word;
+}
