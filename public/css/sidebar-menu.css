@@ -296,6 +296,9 @@
 .docsets-Knex:before {
     background-position: -8rem -2.6rem;
 }
+.docsets-Perl:before {
+    background-position: -1rem 0;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
@@ -554,6 +557,9 @@
 }
 .docsets-Knex:before {
     background-position: -8rem -2.6rem;
+}
+.docsets-Perl:before {
+    background-position: -1rem 0;
 }
 }
 .type-icon{
