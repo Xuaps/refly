@@ -299,6 +299,9 @@
 .docsets-Perl:before {
     background-position: -1rem 0;
 }
+.docsets-SQLite:before {
+    background-position: -2rem 0;
+}
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
         background-image: url('../img/docsets@2x.png');
