@@ -34,10 +34,8 @@ References.prototype.docsetstatefilter = function(value){
 
 
 References.prototype.select = function(columns){
-    var ren_columns = columns.map(function(column) {
-        return 'refs.' + column;
-    });
-    this._query = this._query.select(ren_columns);
+    this._query = this._query.select(columns.map(function(col){
+        return col==='content'? 'refs_content.'+col:'refs.'+col}));
     return this;
 };
 
@@ -52,7 +50,7 @@ References.prototype.page = function(number, pagesize){
 };
 
 References.prototype.count = function(alias){
-    this._query = this._query.select(db.raw('*, count(*) OVER() as '+alias));
+    this._query = this._query.select(db.raw('count(*) OVER() as '+alias));
     return this;
 };
 
