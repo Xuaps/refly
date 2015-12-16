@@ -75,7 +75,7 @@ module.exports = function (grunt) {
     copy: {
       app: {
         files: [
-          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/offer.css', '!public/css/sidebar-menu.css', '!public/css/sidebar.css', '!public/css/welcome.css', '!public/css/settings.css', '!public/css/devdocs.css', '!public/css/ladda-themeless.min.css', '!public/css/errors.css'], dest: 'build/release/'},
+          { expand: true, src: ['app/**', 'public/**', 'routes/**', 'app.js', 'views/**', 'package.json', '!public/css/styles.css', '!public/css/offer.css', '!public/css/sidebar-menu.css', '!public/css/sidebar.css', '!public/css/welcome.css', '!public/css/settings.css', '!public/css/devdocs.css', '!public/css/ladda-themeless.min.css', '!public/css/errors.css', '!public/css/home.css'], dest: 'build/release/'},
           { expand:true, flatten:true, src:['build/tmp/config/*'], dest: 'build/release/config/'},
           { expand:true, flatten:true, src:['build/tmp/newrelic.js'], dest: 'build/release/'}
         ]
@@ -121,7 +121,7 @@ module.exports = function (grunt) {
     cssmin:{
         target: {
             files: {
-                'public/css/refly.css': ['public/css/styles.css', 'public/css/sidebar-menu.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css','public/css/ladda-themeless.min.css', 'public/css/errors.css', 'public/css/offer.css'],
+                'public/css/refly.css': ['public/css/styles.css', 'public/css/sidebar-menu.css', 'public/css/sidebar.css', 'public/css/welcome.css', 'public/css/settings.css','public/css/ladda-themeless.min.css', 'public/css/errors.css', 'public/css/offer.css', 'public/css/home.css'],
                 'public/css/docs.css': ['public/css/devdocs.css']
                 }
          }

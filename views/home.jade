@@ -1,0 +1,82 @@
+//- info.jade
+doctype html
+html
+    include ./includes/head.jade
+    body
+header
+    div.container-fluid
+        div.row
+            div.col-xs-12
+                nav.navbar.navbar-default.navbar-fixed-top
+                    div.container-fluid
+                        div.navbar-header
+                            button.navbar-toggle.collapsed.navbar-btn.btn.btn-default(type="button", data-toggle="collapse", data-target="#navbar-collapse", aria-expanded="false")
+                                span.glyphicon.glyphicon-menu-hamburger
+                            a.navbar-brand(href="/", alt="Refly.xyz") Refly
+                        div.collapse.navbar-collapse.navbar-right#navbar-collapse
+                            ul.nav.navbar-nav
+                                li
+                                    a(href="/community") Community
+                                li
+                                    a(href="/info") Info
+                                li
+                                    a(href="/imprint") Imprint
+                                li
+                                    a(href="/terms") Terms
+                                li
+                                    a(href="http://twitter.com/refly_xyz") Twitter
+        div.container
+            div.row.row-offcanvas.row-offcanvas-left
+                div.col-sm-4.col-md-3.sidebar-offcanvas
+                    div
+                        h1 
+                            strong Titulo
+                        h3
+                            Subtitulo
+                        br
+                        p Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+                div.col-xs-12.col-sm-8.col-md-9
+                    p
+                        video(width='640', height='360', controls='controls')
+                            source(src='http://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4')
+            hr
+            div.navbar-collapse.collapse
+                ul.col2.nodecorator
+                    li.col-xs-6 sign in 
+                        span.glyphicon.glyphicon-user(aria-hidden='true')
+                    li.col-xs-6 add your docsets 
+                        span.glyphicon.glyphicon-book(aria-hidden='true')
+                    li.col-xs-6 Create your own stack 
+                        span.glyphicon.glyphicon-floppy-disk(aria-hidden='true')
+                    li.col-xs-6 Enjoy and become productive 
+                        span.glyphicon.glyphicon-stats(aria-hidden='true')
+            hr
+            div
+                div.iconlist
+                    p iconos
+    div.homefooter
+                div.col-sm-4.col-md-3.sidebar-offcanvas
+                    ul.homeinfolinks.nodecorator
+                        li
+                            a(href="/about") About
+                        li
+                            a(href="/blog") Blog
+                        li
+                            a(href="/press") Press
+                        li
+                            a(href="/contact") Contact
+                        li
+                            a(href="/imprint") Imprint
+                        li
+                            a(href="/terms") Terms
+
+                div.col-xs-12.col-sm-8.col-md-9
+                    ul.homesociallinks.nodecorator
+                        li
+                            a(href='https://twitter.com/refly_xyz') Twitter
+                        li
+                            a(href='#') Share
+                        li
+                            a(href='#') Facebook
+            include ./includes/footer.jade
+

@@ -66,6 +66,9 @@ app.use(feedback_router);
 app.use('/imprint', function(req, res){
     res.render('imprint');
 });   
+app.use('/home', function(req, res){
+    res.render('home');
+});   
 app.use('/info', function(req, res){
     res.render('info');
 });   

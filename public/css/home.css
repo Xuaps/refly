@@ -1,0 +1,29 @@
+.iconlist{
+	background-color: #70BF40;
+	min-height: 200px;
+	padding: 1em;
+	margin: 2em;
+}
+
+.homefooter{
+	background-color: #A6AAA9;
+	min-height: 150px;
+}
+
+.homefooter a{
+	color: #000;
+}
+
+.homesociallinks{
+	float: right;
+    margin-top: 5%;
+}
+
+.homeinfolinks{
+	float: left;
+    margin-top: 5%;
+}
+.nodecorator{
+    list-style-type: none;
+    margin-left: -1em;
+}
