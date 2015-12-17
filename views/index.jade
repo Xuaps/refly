@@ -29,7 +29,7 @@ html
     |    
     script(type='text/javascript', src=assetFingerprint('/js/jquery.cookiesdirective.js'))
     |    
-    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
     |    
     script(type="text/javascript", src=assetFingerprint("https://js.stripe.com/v2/") )
 
@@ -47,6 +47,7 @@ html
 
     script.
       $(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
       $.cookiesDirective({
       privacyPolicyUri: '/cookies',
       position: 'bottom',
