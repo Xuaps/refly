@@ -27,8 +27,8 @@
 /* menu icons */
 .docset-icon:before {
     background-image: url('../img/docsets.png');
-    background-size: 10rem 8rem;
-    height: 0.9rem;
+    background-size: 10rem 10rem;
+    height: 1rem;
     width: 1rem;
     content: '';
     float:left;
@@ -57,172 +57,175 @@
     background-position: -9rem  0;
 }
 .docsets-HTML:before {
-    background-position:  0    -0.85rem;
+    background-position:  0    -1rem;
 }
 .docsets-NodeJS:before {
-    background-position: -6rem -0.8rem;
+    background-position: -6rem -1rem;
+}
+.docsets-NodeJS-LTS:before {
+    background-position: -6rem -1rem;
 }
 .docsets-DOM:before {
-    background-position: -2rem -0.8rem;
+    background-position: -2rem -1rem;
 }
 .docsets-DOM-Events:before {
-    background-position: -3rem -0.8rem;
+    background-position: -3rem -1rem;
 }
 .docsets-AngularJS:before {
-    background-position: -9rem -0.8rem;
+    background-position: -9rem -1rem;
 }
 .docsets-BackboneJS:before {
-    background-position: -5rem -0.8rem;
+    background-position: -5rem -1rem;
 }
 .docsets-Sass:before {
-    background-position: -7rem -0.8rem;
+    background-position: -7rem -1rem;
 }
 .docsets-JavaScript:before {
-    background-position: -4rem -0.8rem;
+    background-position: -4rem -1rem;
 }
 .docsets-CSS:before {
-    background-position: -1rem -0.8rem;
+    background-position: -1rem -1rem;
 }
 .docsets-Less:before {
-    background-position: -8rem -0.8rem;
+    background-position: -8rem -1rem;
 }
 .docsets-CoffeeScript:before {
-    background-position: 0 -1.78rem;
+    background-position: 0 -2rem;
 }
 .docsets-EmberJS:before {
-    background-position: -1rem -1.78rem;
+    background-position: -1rem -2rem;
 }
 .docsets-Lo-Dash:before {
-    background-position: -6rem -1.7rem;
+    background-position: -6rem -2rem;
 }
 .docsets-PHP:before {
-    background-position: -7rem -1.78rem;
+    background-position: -7rem -2rem;
 }
 .docsets-Ruby:before {
-    background-position: -8rem -1.7rem;
+    background-position: -8rem -2rem;
 }
 .docsets-Rails:before {
-    background-position: -9rem -1.7rem;
+    background-position: -9rem -2rem;
 }
 .docsets-Python2:before {
-    background-position:  0    -2.6rem;
+    background-position:  0    -3rem;
 }
 .docsets-Python3:before {
-    background-position:  0    -2.6rem;
+    background-position:  0    -3rem;
 }
 .docsets-Git:before {
-    background-position: -1rem -2.6rem;
+    background-position: -1rem -3rem;
 }
 .docsets-Redis:before {
-    background-position: -2rem -2.6rem;
+    background-position: -2rem -3rem;
 }
 .docsets-PostgreSQL:before {
-    background-position: -3rem -2.6rem;
+    background-position: -3rem -3rem;
 }
 .docsets-D3:before {
-    background-position: -4rem -2.6rem;
+    background-position: -4rem -3rem;
 }
 .docsets-KnockOut:before {
-    background-position: -5rem -2.6rem;
+    background-position: -5rem -3rem;
 }
 .docsets-Moment:before {
-    background-position: -6rem -2.6rem;
+    background-position: -6rem -3rem;
 }
 .docsets-C:before {
-    background-position: -7rem -2.6rem;
+    background-position: -7rem -3rem;
 }
 .docsets-Yii:before {
-    background-position: -9rem -2.6rem;
+    background-position: -9rem -3rem;
 }
 .docsets-Cpp:before {
-    background-position: 0 -3.45rem;
+    background-position: 0 -4rem;
 }
 .docsets-Go:before {
-    background-position: -1rem -3.5rem;
+    background-position: -1rem -4rem;
 }
 .docsets-Express:before {
-    background-position: -2rem -3.45rem;
+    background-position: -2rem -4rem;
 }
 .docsets-Grunt:before {
-    background-position: -3rem -3.5rem;
+    background-position: -3rem -4rem;
 }
 .docsets-Laravel:before {
-    background-position: -5rem -3.54rem;
+    background-position: -5rem -4rem;
 }
 .docsets-Haskell:before {
-    background-position: -6rem -3.5rem;
+    background-position: -6rem -4rem;
 }
 .docsets-RequireJS:before {
-    background-position: -7rem -3.55rem;
+    background-position: -7rem -4rem;
 }
 .docsets-Chai:before {
-    background-position: -8rem -3.5rem;
+    background-position: -8rem -4rem;
 }
 .docsets-SinonJS:before {
-    background-position: -9rem -3.5rem;
+    background-position: -9rem -4rem;
 }
 .docsets-Apache-Cordova:before {
-    background-position: 0 -4.4rem;
+    background-position: 0 -5rem;
 }
 .docsets-MarkDown:before {
-    background-position: -1rem -4.4rem;
+    background-position: -1rem -5rem;
 }
 .docsets-Django:before {
-    background-position: -2rem -4.5rem;
+    background-position: -2rem -5rem;
 }
 .docsets-XPath:before {
-    background-position: -3rem -4.5rem;
+    background-position: -3rem -5rem;
 }
 .docsets-SVG:before {
-    background-position: -5rem -4.5rem;
+    background-position: -5rem -5rem;
 }
 .docsets-MongooseJS:before {
-    background-position: -7rem -4.5rem;
+    background-position: -7rem -5rem;
 }
 .docsets-Nginx:before {
-    background-position: -4rem -4.5rem;
+    background-position: -4rem -5rem;
 }
 .docsets-Marionette:before {
-    background-position: -6rem -4.4rem;
+    background-position: -6rem -5rem;
 }
 .docsets-PHPUnit:before {
-    background-position: -8rem -4.5rem;
+    background-position: -8rem -5rem;
 }
 .docsets-Nokogiri:before {
-    background-position: -9rem -4.4rem;
+    background-position: -9rem -5rem;
 }
 .docsets-RethinkDB:before {
-    background-position:  0    -5.3rem;
+    background-position:  0    -6rem;
 }
 .docsets-React:before {
-    background-position: -1rem -5.3rem;
+    background-position: -1rem -6rem;
 }
 .docsets-SocketIO:before {
-    background-position: -2rem -5.3rem;
+    background-position: -2rem -6rem;
 }
 .docsets-Modernizr:before {
-    background-position: -3rem -5.3rem;
+    background-position: -3rem -6rem;
 }
 .docsets-Bower:before {
-    background-position: -4rem -5.3rem;
+    background-position: -4rem -6rem;
 }
 .docsets-npm:before {
-    background-position: -8rem -6.2rem;
+    background-position: -8rem -7rem;
 }
 .docsets-Apache:before {
-    background-position: -9rem -6.2rem;
+    background-position: -9rem -7rem;
 }
 .docsets-Clojure:before {
-    background-position: -4rem -6.2rem;
+    background-position: -4rem -7rem;
 }
 .docsets-Drupal:before {
-    background-position: 0rem 0.8rem;
+    background-position: 0rem -8rem;
 }
 .docsets-Lua:before {
-    background-position: -3rem -6.3rem;
+    background-position: -3rem -7rem;
 }
 .docsets-Mocha:before {
-    background-position: -6rem -6.2rem;
+    background-position: -6rem -7rem;
 }
 .docsets-OpenTSDB:before {
     background-position: -4rem -7.2rem;
@@ -231,13 +234,13 @@
     background-position: -2rem -7.2rem;
 }
 .docsets-q:before {
-    background-position: 0 -6.3rem;
+    background-position: 0 -7rem;
 }
 .docsets-Rust:before {
-    background-position: -4rem -3.55rem;
+    background-position: -4rem -4rem;
 }
 .docsets-Symfony:before {
-    background-position: -5rem -6.3rem;
+    background-position: -5rem -7rem;
 }
 .docsets-Vue:before {
     background-position: -3rem -7.2rem;
@@ -246,22 +249,22 @@
     background-position: -1rem -7.1rem;
 }
 .docsets-Yii1:before {
-    background-position: -9rem -2.6rem;
+    background-position: -9rem -3rem;
 }
 .docsets-Phalcon:before {
-    background-position: -5rem -5.3rem;
+    background-position: -5rem -6rem;
 }
 .docsets-Meteor:before {
-    background-position: -7rem -6.3rem;
+    background-position: -7rem -7rem;
 }
 .docsets-ioJS:before {
-    background-position: -2rem -6.3rem;
+    background-position: -2rem -7rem;
 }
 .docsets-React-native:before {
-    background-position: -1rem -6.3rem;
+    background-position: -1rem -7rem;
 }
 .docsets-React-Router:before {
-    background-position: -6rem -5.3rem;
+    background-position: -6rem -6rem;
 }
 .docsets-Browserify:before {
     background-position: -5rem -7.2rem;
@@ -273,19 +276,19 @@
     background-position: -7rem -7.1rem;
 }
 .docsets-Mysql:before {
-    background-position: -3rem -1.78rem;
+    background-position: -3rem -2rem;
 }
 .docsets-Twig:before {
-    background-position: -2rem -1.78rem;
+    background-position: -2rem -2rem;
 }
 .docsets-Java-7-SE:before {
-    background-position: -7rem -5.3rem;
+    background-position: -7rem -6rem;
 }
 .docsets-Chef:before {
-    background-position: -8rem -5.3rem;
+    background-position: -8rem -6rem;
 }
 .docsets-Swift:before {
-    background-position: -9rem -5.3rem;
+    background-position: -9rem -6rem;
 }
 .docsets-Scala:before {
     background-position: -8rem -7.1rem;
@@ -294,13 +297,31 @@
     background-position: -9rem -7.1rem;
 }
 .docsets-Knex:before {
-    background-position: -8rem -2.6rem;
+    background-position: -8rem -3rem;
 }
 .docsets-Perl:before {
     background-position: -1rem 0;
 }
 .docsets-SQLite:before {
     background-position: -2rem 0;
+}
+.docsets-Vagrant:before {
+    background-position: -3rem 0;
+}
+.docsets-Elixir:before {
+    background-position: -4rem 0;
+}
+.docsets-Phoenix:before {
+    background-position: -5rem 0;
+}
+.docsets-Dojo:before {
+    background-position: -6rem 0;
+}
+.docsets-Relay:before {
+    background-position: 0 -9rem;
+}
+.docsets-Reflux:before {
+    background-position: -1rem -6rem;
 }
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .docset-icon:before{
@@ -328,172 +349,175 @@
     background-position: -9rem  0;
 }
 .docsets-HTML:before {
-    background-position:  0    -0.8rem;
+    background-position:  0    -1rem;
 }
 .docsets-NodeJS:before {
-    background-position: -6rem -0.8rem;
+    background-position: -6rem -1rem;
+}
+.docsets-NodeJS-LTS:before {
+    background-position: -6rem -1rem;
 }
 .docsets-DOM:before {
-    background-position: -2rem -0.8rem;
+    background-position: -2rem -1rem;
 }
 .docsets-DOM-Events:before {
-    background-position: -3rem -0.8rem;
+    background-position: -3rem -1rem;
 }
 .docsets-AngularJS:before {
-    background-position: -9rem -0.8rem;
+    background-position: -9rem -1rem;
 }
 .docsets-BackboneJS:before {
-    background-position: -5rem -0.8rem;
+    background-position: -5rem -1rem;
 }
 .docsets-Sass:before {
-    background-position: -7rem -0.8rem;
+    background-position: -7rem -1rem;
 }
 .docsets-JavaScript:before {
-    background-position: -4rem -0.8rem;
+    background-position: -4rem -1rem;
 }
 .docsets-CSS:before {
-    background-position: -1rem -0.8rem;
+    background-position: -1rem -1rem;
 }
 .docsets-Less:before {
-    background-position: -8rem -0.8rem;
+    background-position: -8rem -1rem;
 }
 .docsets-CoffeeScript:before {
-    background-position: 0 -1.7rem;
+    background-position: 0 -2rem;
 }
 .docsets-EmberJS:before {
-    background-position: -1rem -1.7rem;
+    background-position: -1rem -2rem;
 }
 .docsets-Lo-Dash:before {
-    background-position: -6rem -1.7rem;
+    background-position: -6rem -2rem;
 }
 .docsets-PHP:before {
-    background-position: -7rem -1.7rem;
+    background-position: -7rem -2rem;
 }
 .docsets-Ruby:before {
-    background-position: -8rem -1.7rem;
+    background-position: -8rem -2rem;
 }
 .docsets-Rails:before {
-    background-position: -9rem -1.7rem;
+    background-position: -9rem -2rem;
 }
 .docsets-Python2:before {
-    background-position:  0    -2.6rem;
+    background-position:  0    -3rem;
 }
 .docsets-Python3:before {
-    background-position:  0    -2.6rem;
+    background-position:  0    -3rem;
 }
 .docsets-Git:before {
-    background-position: -1rem -2.6rem;
+    background-position: -1rem -3rem;
 }
 .docsets-Redis:before {
-    background-position: -2rem -2.6rem;
+    background-position: -2rem -3rem;
 }
 .docsets-PostgreSQL:before {
-    background-position: -3rem -2.6rem;
+    background-position: -3rem -3rem;
 }
 .docsets-D3:before {
-    background-position: -4rem -2.6rem;
+    background-position: -4rem -3rem;
 }
 .docsets-KnockOut:before {
-    background-position: -5rem -2.6rem;
+    background-position: -5rem -3rem;
 }
 .docsets-Moment:before {
-    background-position: -6rem -2.6rem;
+    background-position: -6rem -3rem;
 }
 .docsets-C:before {
-    background-position: -7rem -2.6rem;
+    background-position: -7rem -3rem;
 }
 .docsets-Yii:before {
-    background-position: -9rem -2.6rem;
+    background-position: -9rem -3rem;
 }
 .docsets-Cpp:before {
-    background-position: 0 -3.5rem;
+    background-position: 0 -4rem;
 }
 .docsets-Go:before {
-    background-position: -1rem -3.5rem;
+    background-position: -1rem -4rem;
 }
 .docsets-Express:before {
-    background-position: -2rem -3.5rem;
+    background-position: -2rem -4rem;
 }
 .docsets-Grunt:before {
-    background-position: -3rem -3.5rem;
+    background-position: -3rem -4rem;
 }
 .docsets-Laravel:before {
-    background-position: -5rem -3.5rem;
+    background-position: -5rem -4rem;
 }
 .docsets-Haskell:before {
-    background-position: -6rem -3.5rem;
+    background-position: -6rem -4rem;
 }
 .docsets-RequireJS:before {
-    background-position: -7rem -3.5rem;
+    background-position: -7rem -4rem;
 }
 .docsets-Chai:before {
-    background-position: -8rem -3.5rem;
+    background-position: -8rem -4rem;
 }
 .docsets-SinonJS:before {
-    background-position: -9rem -3.5rem;
+    background-position: -9rem -4rem;
 }
 .docsets-Apache-Cordova:before {
-    background-position: 0 -4.4rem;
+    background-position: 0 -5rem;
 }
 .docsets-MarkDown:before {
-    background-position: -1rem -4.4rem;
+    background-position: -1rem -5rem;
 }
 .docsets-Django:before {
-    background-position: -2rem -4.4rem;
+    background-position: -2rem -5rem;
 }
 .docsets-XPath:before {
-    background-position: -3rem -4.4rem;
+    background-position: -3rem -5rem;
 }
 .docsets-SVG:before {
-    background-position: -5rem -4.4rem;
+    background-position: -5rem -5rem;
 }
 .docsets-MongooseJS:before {
-    background-position: -7rem -4.4rem;
+    background-position: -7rem -5rem;
 }
 .docsets-Nginx:before {
-    background-position: -4rem -4.4rem;
+    background-position: -4rem -5rem;
 }
 .docsets-Marionette:before {
-    background-position: -6rem -4.4rem;
+    background-position: -6rem -5rem;
 }
 .docsets-PHPUnit:before {
-    background-position: -8rem -4.4rem;
+    background-position: -8rem -5rem;
 }
 .docsets-Nokogiri:before {
-    background-position: -9rem -4.4rem;
+    background-position: -9rem -5rem;
 }
 .docsets-RethinkDB:before {
-    background-position:  0    -5.3rem;
+    background-position:  0    -6rem;
 }
 .docsets-React:before {
-    background-position: -1rem -5.3rem;
+    background-position: -1rem -6rem;
 }
 .docsets-SocketIO:before {
-    background-position: -2rem -5.3rem;
+    background-position: -2rem -6rem;
 }
 .docsets-Modernizr:before {
-    background-position: -3rem -5.3rem;
+    background-position: -3rem -6rem;
 }
 .docsets-Bower:before {
-    background-position: -4rem -5.3rem;
+    background-position: -4rem -6rem;
 }
 .docsets-npm:before {
-    background-position: -8rem -6.2rem;
+    background-position: -8rem -7rem;
 }
 .docsets-Apache:before {
-    background-position: -9rem -6.2rem;
+    background-position: -9rem -7rem;
 }
 .docsets-Clojure:before {
-    background-position: -4rem -6.2rem;
+    background-position: -4rem -7rem;
 }
 .docsets-Drupal:before {
-    background-position: 0rem 0.9rem;
+    background-position: 0rem -8rem;
 }
 .docsets-Lua:before {
-    background-position: -3rem -6.2rem;
+    background-position: -3rem -7rem;
 }
 .docsets-Mocha:before {
-    background-position: -6rem -6.2rem;
+    background-position: -6rem -7rem;
 }
 .docsets-OpenTSDB:before {
     background-position: -4rem -7.2rem;
@@ -502,13 +526,13 @@
     background-position: -2rem -7.2rem;
 }
 .docsets-q:before {
-    background-position: 0 -6.2rem;
+    background-position: 0 -7rem;
 }
 .docsets-Rust:before {
-    background-position: -4rem -3.5rem;
+    background-position: -4rem -4rem;
 }
 .docsets-Symfony:before {
-    background-position: -5rem -6.2rem;
+    background-position: -5rem -7rem;
 }
 .docsets-Vue:before {
     background-position: -3rem -7.1rem;
@@ -517,16 +541,16 @@
     background-position: -1rem -7.1rem;
 }
 .docsets-Yii1:before {
-    background-position: -9rem -2.6rem;
+    background-position: -9rem -3rem;
 }
 .docsets-Phalcon:before {
-    background-position: -5rem -5.3rem;
+    background-position: -5rem -6rem;
 }
 .docsets-Meteor:before {
-    background-position: -7rem -6.2rem;
+    background-position: -7rem -7rem;
 }
 .docsets-React-Router:before {
-    background-position: -6rem -5.3rem;
+    background-position: -6rem -6rem;
 }
 .docsets-Browserify:before {
     background-position: -5rem -7.2rem;
@@ -538,19 +562,19 @@
     background-position: -7rem -7.1rem;
 }
 .docsets-Mysql:before {
-    background-position: -3rem -1.7rem;
+    background-position: -3rem -2rem;
 }
 .docsets-Twig:before {
-    background-position: -2rem -1.7rem;
+    background-position: -2rem -2rem;
 }
 .docsets-Java-7-SE:before {
-    background-position: -7rem -5.3rem;
+    background-position: -7rem -6rem;
 }
 .docsets-Chef:before {
-    background-position: -8rem -5.3rem;
+    background-position: -8rem -6rem;
 }
 .docsets-Swift:before {
-    background-position: -9rem -5.3rem;
+    background-position: -9rem -6rem;
 }
 .docsets-Scala:before {
     background-position: -8rem -7.1rem;
@@ -559,10 +583,28 @@
     background-position: -9rem -7.1rem;
 }
 .docsets-Knex:before {
-    background-position: -8rem -2.6rem;
+    background-position: -8rem -3rem;
 }
 .docsets-Perl:before {
     background-position: -1rem 0;
+}
+.docsets-Vagrant:before {
+    background-position: -3rem 0;
+}
+.docsets-Elixir:before {
+    background-position: -4rem 0;
+}
+.docsets-Phoenix:before {
+    background-position: -5rem 0;
+}
+.docsets-Dojo:before {
+    background-position: -6rem 0;
+}
+.docsets-Relay:before {
+    background-position: 0 -9rem;
+}
+.docsets-Reflux:before {
+    background-position: -1rem -6rem;
 }
 }
 .type-icon{
