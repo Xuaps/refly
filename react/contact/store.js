@@ -30,11 +30,14 @@ module.exports = Reflux.createStore({
         }
     },
     
-    validate: function(email, message){
+    validate: function(name, email, message){
         var errors = [];
         var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if(message==''){
             errors.push('emptymessage');
+        }
+        if(name=='' && !this.status.isAuthenticated){
+            errors.push('emptyname');
         }
         if((email == '' || !re.test(email)) && !this.status.isAuthenticated){
           errors.push('notvalidemail');
@@ -42,7 +45,7 @@ module.exports = Reflux.createStore({
         return errors;
     },
     onSendMail: function(name, email, message){
-        var errors = this.validate(email, message);
+        var errors = this.validate(name, email, message);
         if(errors.length==0){
             if(!this.blocked){
                 this.blocked = true;

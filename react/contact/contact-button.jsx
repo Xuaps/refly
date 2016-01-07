@@ -16,7 +16,9 @@ var Contact = React.createClass({
     },
 
     componentDidUpdate: function(){
-        if(this.state.status.errors.indexOf('notvalidemail')!=-1)
+        if(this.state.status.errors.indexOf('emptyname')!=-1)
+            var idinputwithfocus = '#txtname';
+        else if(this.state.status.errors.indexOf('notvalidemail')!=-1)
             var idinputwithfocus = '#txtemail';
         else if(this.state.status.errors.indexOf('emptymessage')!=-1)
             var idinputwithfocus = '#txtmessage'
@@ -28,7 +30,7 @@ var Contact = React.createClass({
         this.unsubscribe();
     },
     render: function(){
-        var txterrors, emailerrorclass = '', messageerrorclass = '';
+        var txterrors, emailerrorclass = '', nameerrorclass = '', messageerrorclass = '';
         var listerrors=[];
 
         if(this.state.status.sent){
@@ -40,6 +42,13 @@ var Contact = React.createClass({
         }else if(this.state.status.errors.length>0){
 
             this.state.status.errors.forEach(function(item){
+                if(item=='emptyname'){
+                    nameerrorclass = 'has-error';
+                    listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
+                                        <span className="sr-only">Error:</span>
+                                        We need to know your name.
+                                    </div>);
+                }
                 if(item=='emptymessage'){
                     messageerrorclass = 'has-error';
                     listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
@@ -74,7 +83,7 @@ var Contact = React.createClass({
                                  <div><textarea tabIndex="1" className="form-control focusable" rows="6" ref="messagebox" id="txtmessage" placeholder="Message"></textarea></div>
                                 </div>);
         }else{
-            var inputName = (<div className="form-group">
+            var inputName = (<div className={"form-group " + nameerrorclass}>
                                  <label htmlFor="txtname" className="control-label">Name:</label>
                                  <div><input type="text" tabIndex="1" className="form-control focusable" ref="namebox" id="inputName" name="txtname" placeholder="Name"/></div>
                               </div>);
