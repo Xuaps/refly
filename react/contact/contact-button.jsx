@@ -2,7 +2,6 @@ var React = require('react')
 var Reflux = require('reflux');
 var store = require('./store.js');
 var actions = require('./actions.js');
-
 var Contact = React.createClass({
     mixins: [Reflux.connect(store, 'status')],
     getInitialState: function(){
@@ -29,13 +28,41 @@ var Contact = React.createClass({
     componentWillUnmount: function(){
         this.unsubscribe();
     },
-    render: function(){
-        var txterrors, emailerrorclass = '', nameerrorclass = '', messageerrorclass = '';
-        var listerrors=[];
+    generateErrorMessages: function(){
+          var listerrors=[];
+          this.state.status.errors.forEach(function(item){
+              if(item=='emptyname'){
+                  listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
+                                      <span className="sr-only">Error:</span>
+                                      We need to know your name.
+                                  </div>);
+              }
+              if(item=='emptymessage'){
+                  listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
+                                      <span className="sr-only">Error:</span>
+                                      Don&#39;t be shy! Write a message.
+                                  </div>);
+              }
+              if(item=='notvalidemail'){
+                  listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
+                                    <span className="sr-only">Error:</span>
+                                    Enter a valid email address
+                                </div>);
+              }
 
+            });
+            if(listerrors.length>0)
+                return <div>{listerrors}</div>
+            else
+                return '';
+    },
+
+    render: function(){
+        var emailerrorclass = '', nameerrorclass = '', messageerrorclass = '';
+        var statusinfo = (<span></span>);
+        var txterrors = this.generateErrorMessages();
         if(this.state.status.sent){
           var statusinfo = (<div className="alert alert-dismissible messageok">
-                                <button type="button" className="close" data-dismiss="alert">×</button>
                                 <strong>Good!</strong> Message sent successfully.<br /><em>you will recieve an answer as soon as possible.</em>
                             </div>);
 
@@ -44,34 +71,18 @@ var Contact = React.createClass({
             this.state.status.errors.forEach(function(item){
                 if(item=='emptyname'){
                     nameerrorclass = 'has-error';
-                    listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
-                                        <span className="sr-only">Error:</span>
-                                        We need to know your name.
-                                    </div>);
                 }
                 if(item=='emptymessage'){
                     messageerrorclass = 'has-error';
-                    listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
-                                        <span className="sr-only">Error:</span>
-                                        Don&#39;t be shy! Write a message.
-                                    </div>);
                 }
                 if(item=='notvalidemail'){
                     emailerrorclass = 'has-error';
-                    listerrors.push(<div key={item}><span className="glyphicon glyphicon-exclamation-sign error-icon" aria-hidden="true"></span>
-                                      <span className="sr-only">Error:</span>
-                                      Enter a valid email address
-                                  </div>);
                 }
 
-                txterrors = <div>{listerrors}</div>
             });
-            var statusinfo = (<div className="alert alert-danger messagefail"  role="alert">                                                                        
-                                <button type="button" className="close" data-dismiss="alert">×</button>
+            var statusinfo = (<div className="alert alert-danger messagefail"  role="alert">
                                 <strong>Fix the errors befor continuing!</strong><div>{txterrors}</div>
                             </div>);
-        }else{
-             var statusinfo = (<span></span>);
         }
 
 
