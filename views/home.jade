@@ -18,13 +18,7 @@ header
                                 li
                                     a(href="/community") Community
                                 li
-                                    a(href="/info") Info
-                                li
-                                    a(href="/imprint") Imprint
-                                li
-                                    a(href="/terms") Terms
-                                li
-                                    a(href="http://twitter.com/refly_xyz") Twitter
+                                    a(href="/blog") Blog
         div.container
             div.row.row-offcanvas.row-offcanvas-left
                 div.col-sm-4.col-md-3.sidebar-offcanvas
@@ -55,28 +49,33 @@ header
                 div.iconlist
                     p iconos
     div.homefooter
-                div.col-sm-4.col-md-3.sidebar-offcanvas
-                    ul.homeinfolinks.nodecorator
+                div.col-md-3
+                  div.homefootermenu
+                    div
+                      span Created by programmers
+                      br
+                      span for programmers
+                    div.programmerslogo
+                      img(src='/img/msdosbatlogo.png')
+                div.col-md-3
+                    ul.homefootermenu.nodecorator
                         li
-                            a(href="/about") About
+                            h5.subtitle Company
                         li
-                            a(href="/blog") Blog
+                            a(href='#') Our story and team
                         li
-                            a(href="/press") Press
+                            a(href='#') Where your money goes
+                div.col-md-3
+                    ul.homefootermenu.nodecorator
                         li
-                            a(href="/contact") Contact
-                        li
-                            a(href="/imprint") Imprint
-                        li
-                            a(href="/terms") Terms
-
-                div.col-xs-12.col-sm-8.col-md-9
-                    ul.homesociallinks.nodecorator
+                            h5.subtitle Social
                         li
                             a(href='https://twitter.com/refly_xyz') Twitter
-                        li
-                            a(href='#') Share
+                              br
+                              img(src='/img/twitterlogo.png')
                         li
                             a(href='#') Facebook
+                              br
+                              img(src='/img/facebooklogo.png')
             include ./includes/footer.jade
 
