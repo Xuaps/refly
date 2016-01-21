@@ -46,7 +46,7 @@ if('development' != env) {
 }
 
 /* middlewares */
-app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000}));
+app.use(session({name: 'rl', secret: config.cookies.secret, maxAge: 2419200000, saveUnitialized: false}));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 var bearer_auth = BearerStrategyFactory.create();
