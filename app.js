@@ -50,7 +50,8 @@ app.use(session({name: 'rl',
                  secret: config.cookies.secret,
                  maxAge: 2419200000,
                  saveUnitialized: false,
-                 rolling:true
+                 rolling:true,
+                 resave: false
                }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
