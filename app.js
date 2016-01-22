@@ -20,7 +20,8 @@ var express = require('express')
   , session = require('cookie-session')  
   , canonicalRedirect = require('./routes/canonical-redirect.js')
   , SSLRedirect = require('./routes/ssl-redirect.js')
-  , cacheResponseDirective = require('express-cache-response-directive');
+  , cacheResponseDirective = require('express-cache-response-directive')
+  , expressSessionPassportCleanup = require('express-session-passport-cleanup');
 
 var app = express();
 var env = process.env.NODE_ENV || 'development';
@@ -50,12 +51,13 @@ app.use(session({name: 'rl',
                  secret: config.cookies.secret,
                  maxAge: 2419200000,
                  saveUnitialized: false,
-                 rolling:true,
+                 rolling: true,
                  resave: false
                }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 var bearer_auth = BearerStrategyFactory.create();
+app.use(expressSessionPassportCleanup);
 passport.use(bearer_auth);
 passport.use(new AnonymousStrategy());
 app.use(hal.middleware);

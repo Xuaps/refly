@@ -16,6 +16,7 @@
     "express": "^4.11.1",
     "express-cache-response-directive": "^0.2.0",
     "express-hal": "0.0.1",
+    "express-session-passport-cleanup": "^1.0.3",
     "jade": "^1.9.1",
     "knex": "^0.6.16",
     "ladda": "^0.9.8",
