@@ -5,7 +5,6 @@ var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
 var config = require('config');
-var stripe = require('stripe')(config.stripe.secret_key);
 var Subscription = require('./subscription.js');
 var CreditCardError = require('./errors/credit-card.js');
 var InternalError = require('./errors/internal.js');
@@ -270,13 +269,7 @@ module.exports.deleteSession = function(token){
 };
 
 module.exports.getSubscription = function(user){
-    if(!user.stripe_id)
-        return Q.fcall(function(){ return mapSusbcription(Subscription.create(user)); });
-
-    return stripe.customers.retrieve(user.stripe_id)
-        .then(function(customer){
-            return mapSusbcription(Subscription.create(user, customer, customer.subscriptions.data[0]));
-        }).catch(manageStripeErrors);
+    return Q.fcall(function(){ return mapSusbcription(Subscription.create(user)); });
 };
 
 module.exports.createSubscription = function(user, plan, token){

@@ -1,6 +1,5 @@
 var db = require('./db');
 var config = require('config');
-var stripe = require('stripe')(config.stripe.secret_key);
 var mandrillappMailer = require('./mandrillapp-mailer.js');
 
 function Users(){
@@ -12,15 +11,7 @@ Users.prototype.find = function(values){
         .then(function(users){
             if(users.length !== 1)
                 return [];
-            if(!users[0].stripe_id)
-                return users;
-
-            return stripe.customers.retrieve(users[0].stripe_id)
-                .then(function(customer){
-                    var activePlan = customer.subscriptions.data[0] && (customer.subscriptions.data[0].status === 'active');
-                    users[0].haveActivePlan = activePlan;
-                    return users;
-                });
+            return users;
         });
 };
 

@@ -9,14 +9,12 @@ var Docsets = require('./docsetlist.jsx');
 var Settings = require('../settings/settings.jsx');
 var About = require('./about.jsx');
 var Session = require('../session/session.jsx');
-var Payment = require('../payment/payment.jsx');
 
 var routes = (
     <Route name='dashboard' path='/' handler={Dashboard}>
         <Route name='docsets' path='docsets' handler={Docsets}/>
         <Route name='settings' path='settings' handler={Settings}/>
         <Route name='session' handler={Session}/>
-        <Route name='upgrade' handler={Payment}/>
         <Route name="result" path=':docset/*' handler={Result}/>
         <Route name="notfound" path=':splat' handler={Result}/>
         <DefaultRoute handler={Result}/>

@@ -2,7 +2,6 @@ require('newrelic');
 var express = require('express')
   , bodyParser = require('body-parser')
   , favicon = require('serve-favicon')
-  , subscription_router = require('./routes/subscriptions.js')
   , users_router = require('./routes/users.js')
   , references_router = require('./routes/references.js')
   , authentication_router = require('./routes/authentication.js')
@@ -67,7 +66,6 @@ app.use(cacheResponseDirective());
 app.use(authentication_router);
 app.use(references_router);
 app.use(users_router);
-app.use(subscription_router);
 app.use(feedback_router);
 
 /* general */
@@ -90,7 +88,7 @@ app.use('/privacy', function(req, res){
     res.render('privacy');
 });   
 app.use('/', function(req, res){
-    res.render('index', {environment: env, stripe_pk: config.stripe.public_key});
+    res.render('index', {environment: env});
 });   
 
 /*errors*/
