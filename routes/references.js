@@ -3,6 +3,8 @@ var router = express.Router();
 var api = require('../app/api.js');
 var passport = require('passport');
 var BearerStrategyFactory = require('../app/auth_strategies/bearer.js');
+var toll = require('./express-toll.js');
+var random_values = require('../app/random-values.js');
 
 var maxAge = 86400;
 var env = process.env.NODE_ENV || 'development';
@@ -27,6 +29,7 @@ router.get('/api/references/:docset/:uri(*)/hierarchy', function(req, res){
 });
 router.get('/api/references/:docset/:uri(*)', 
     passport.authenticate([BearerStrategyFactory.name, 'anonymous'], {session: false}),
+    toll.ask(function(req){ return true;}, "Payment required."),
     function(req, res){
         api.get_reference(req.params.docset, req.params.uri)
             .then(send.bind(null,res)).catch(function(error){
