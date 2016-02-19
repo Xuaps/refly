@@ -29,7 +29,7 @@ router.get('/api/references/:docset/:uri(*)/hierarchy', function(req, res){
 });
 router.get('/api/references/:docset/:uri(*)', 
     passport.authenticate([BearerStrategyFactory.name, 'anonymous'], {session: false}),
-    toll.ask(function(req){ return true;}, "Payment required."),
+    toll.ask(function(req){ return (req.user && req.user.haveActivePlan) || random_values.boolean.weighted(100);}, "Payment required."),
     function(req, res){
         api.get_reference(req.params.docset, req.params.uri)
             .then(send.bind(null,res)).catch(function(error){
