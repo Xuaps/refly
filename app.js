@@ -41,7 +41,7 @@ app.use(favicon(path.join(__dirname,'public','img','favicon.ico')));
 /** redircetion to canonical name **/
 app.use(canonicalRedirect);
 /** redirect to https **/
-if('development' != env && 'stage' !=env) {
+if('development' != env) {
     app.use(new SSLRedirect().https_redirect());
 }
 
