@@ -5,7 +5,6 @@ var JSON = require('../app/JSON');
 var ReferenceVO = require('./reference_vo.js');
 var util = require('util');
 var config = require('config');
-var Subscription = require('./subscription.js');
 var CreditCardError = require('./errors/credit-card.js');
 var InternalError = require('./errors/internal.js');
 
@@ -268,77 +267,6 @@ module.exports.deleteSession = function(token){
         });
 };
 
-module.exports.getSubscription = function(user){
-    return Q.fcall(function(){ return mapSusbcription(Subscription.create(user)); });
-};
-
-module.exports.createSubscription = function(user, plan, token){
-    return getCustomer(user, token)
-        .then(function(customer){
-           if(user.stripe_id != customer.id){
-              return setStripeId(user, customer.id).then(function(){ return customer;});
-           }
-           return customer;
-        })
-        .then(function(customer){
-            return stripe.customers.createSubscription(customer.id,
-                { "plan": plan })
-            .then(function(subscription){
-               return mapSusbcription(Subscription.create(user,customer, subscription));
-            });
-        }).catch(manageStripeErrors);
-};
-
-module.exports.cancelSubscription = function(user){
-    return stripe.customers.retrieve(user.stripe_id)
-        .then(function(customer){
-            return stripe.customers.cancelSubscription(
-                 customer.id, customer.subscriptions.data[0].id,{at_period_end: true})
-                .then(function(canceled_subscription){
-                    return mapSusbcription(Subscription.create(user, customer, canceled_subscription));
-                });
-        }).catch(manageStripeErrors);
-};
-
-var mapSusbcription = function(subscription){
-    return {
-        links: {
-            self: '/api/subscriptions/current',
-            curies: getCuries(),
-            "rl:user": "/api/users/current",
-        },
-        embeds: {
-            "rl:form": {
-                links: {
-                    self: "/api/subscription/form",
-                    curies: getCuries(),
-                    "rl:target": "/api/subscriptions/form"
-                },
-                data:{
-                    method: "PUT",
-                    type: "application/hal+json",
-                    class: "create-subscription"
-                }
-            }
-        },
-        data: {
-            payment_data: subscription.payment_data,
-            plan: subscription.plan_name,
-            status: subscription.status,
-            cancel_at_period_end: subscription.cancel_at_period_end,
-            current_period_start: subscription.current_period_start,
-            current_period_end: subscription.current_period_end
-        }
-    };
-};
-
-var manageStripeErrors = function(err){
-    if(err.type === 'StripeCardError'){
-        throw new CreditCardError(err.message);
-    }
-    throw new InternalError("Something went wrong on Refly's end");
-};
-
 var getCustomer = function(user, token){
     if(user.stripe_id){
         return stripe.customers.retrieve(user.stripe_id);
@@ -348,11 +276,6 @@ var getCustomer = function(user, token){
             email: user.email
         });
     }
-};
-
-var setStripeId = function(user, id){
-    user.stripe_id = id;
-    return new Users().update(user);
 };
 
 var getCuries = function(){
