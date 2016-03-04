@@ -1,6 +1,6 @@
 var db = require('./db');
 var config = require('config');
-var mandrillappMailer = require('./mandrillapp-mailer.js');
+var Mailer = require('./mailer.js');
 
 function Users(){
 } 
@@ -36,7 +36,7 @@ Users.prototype.findOrCreate = function(user){
                 user.email = fakemail;
             }
             if(sendmail)
-                mandrillappMailer.sendMailTemplated(user.email, config.templates.welcome);
+                Mailer.sendMailTemplated(user.email, config.templates.welcome);
             return _that.add(user);
         }else{
             if(fakemail)

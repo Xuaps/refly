@@ -1,7 +1,6 @@
 var References = require('./references');
 var Docsets = require('./docsets');
 var filters = require('./filters');
-var mandrillappMailer = require('./mandrillapp-mailer.js');
 var Users = require('./users');
 var q = require('q');
 
