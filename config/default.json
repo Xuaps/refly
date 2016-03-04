@@ -28,8 +28,8 @@
       }
   },
 
-  "mandrillapp": {
-      "API_KEY": ""
+  "mailer": {
+      "API_KEY": "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"
   },
 
   "contact": {
@@ -39,8 +39,7 @@
 
   "templates": {
       "welcome": {
-          "template_name": "reply-welcome-mail",
-          "template_content": {},
+          "template_id": "5dc75647-7968-423f-9d76-5257400afd4a",
           "from_email": "averdion@gmail.com",
           "from_name" : "Refly Team",
           "subject": "welcome to Refly"
@@ -49,11 +48,6 @@
 
   "cookies": {
       "secret": "lJthXcFVOitYFpSkUA"
-  },
-
-  "stripe": {
-      "public_key": "public key",
-      "private_key": "private_key"
   },
 
   "airbrake": {
