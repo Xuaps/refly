@@ -48,7 +48,7 @@ describe('Refly API', function(){
         }
         fake_users = [
             {id:123, profile_id:3456, profile_provider:'google', auth_token:'aaaa', email:'test@refly.xyz'},
-            {id:124, profile_id:3345, profile_provider:'google', auth_token:'bbbb', email:'test_2@refly.xyz', stripe_id: 'cus_12345'}
+            {id:124, profile_id:3345, profile_provider:'google', auth_token:'bbbb', email:'test_2@refly.xyz'}
         ];
         dbMock.mock.init()
             .then(function(){

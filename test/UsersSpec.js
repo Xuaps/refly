@@ -1,7 +1,7 @@
 var proxyquire = require('proxyquire');
 var db_mock = require('./stubs/db.js');
 var mockMandrill = require('./stubs/mandrillapp.js');
-var Users = proxyquire('../app/users.js', {'./db': db_mock, './mandrillapp-mailer.js': mockMandrill});
+var Users = proxyquire('../app/users.js', {'./db': db_mock, './mailer.js': mockMailer});
 
 
 describe('users repository', function(){
@@ -94,8 +94,7 @@ describe('users repository', function(){
                     users
                         .findOrCreate({profile_id:2345, profile_provider:'github', auth_token:'aaaa', email:'email@refly.xyz'})
                         .then(function(user){
-                            expect(mockMandrill.sent_template).toBe(true);
-                            expect(mockMandrill.template.template_name).toBe('reply-welcome-mail');
+                            expect(mockMailer.message).toBe('success');
                             done();
                         });
                 });
