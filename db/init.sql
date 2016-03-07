@@ -163,7 +163,6 @@ CREATE TABLE users
   auth_token text,
   profile_id numeric,
   profile_provider text,
-  stripe_id text,
   CONSTRAINT users_pkey PRIMARY KEY (id),
   CONSTRAINT profile_unique UNIQUE (profile_id, profile_provider)
 )
@@ -221,5 +220,5 @@ ALTER TABLE refs_content
   OWNER TO postgres;
 
 
-INSERT INTO meta  values('22');
+INSERT INTO meta  values('23');
 
