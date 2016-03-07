@@ -267,17 +267,6 @@ module.exports.deleteSession = function(token){
         });
 };
 
-var getCustomer = function(user, token){
-    if(user.stripe_id){
-        return stripe.customers.retrieve(user.stripe_id);
-    }else{
-        return stripe.customers.create({
-            source: token,
-            email: user.email
-        });
-    }
-};
-
 var getCuries = function(){
     return [
                 {
