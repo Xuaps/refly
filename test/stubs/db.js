@@ -20,7 +20,6 @@ db.mock = {
                       table.integer('profile_id');
                       table.string('profile_provider');
                       table.string('auth_token');
-                      table.string('stripe_id');
                       table.string('email');
                     });
             })
