@@ -18,7 +18,6 @@ module.exports.sendMailTemplated = function(email, template_config){
         }
     });
     return sendgrid.send(SGEmail, function(err, json) {
-      console.log(json);
       if (err) {
         console.log('A sendgrid error occurred: ' + err);
         return false;
