@@ -11,7 +11,7 @@ Users.prototype.find = function(values){
         .then(function(users){
             if(users.length !== 1)
                 return [];
-            return users[0];
+            return users;
         });
 };
 
