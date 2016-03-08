@@ -1,6 +1,6 @@
 var proxyquire = require('proxyquire');
 var db_mock = require('./stubs/db.js');
-var mockMandrill = require('./stubs/mandrillapp.js');
+var mockMailer = require('./stubs/mailer.js');
 var Users = proxyquire('../app/users.js', {'./db': db_mock, './mailer.js': mockMailer});
 
 

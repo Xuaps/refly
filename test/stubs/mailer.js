@@ -1,7 +1,6 @@
 mailer = {
-    message='',
   	sendMailTemplated: function(email, template) {
-  		this.message: 'success';
+  		this.message = 'success';
     }
 }
 
