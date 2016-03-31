@@ -30,20 +30,8 @@ html
     script(type='text/javascript', src=assetFingerprint('/js/jquery.cookiesdirective.js'))
     |    
     script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
-    |    
-    script(type="text/javascript", src=assetFingerprint("https://js.stripe.com/v2/") )
-
-    script.
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-KM2N4P');
 
     script(type="text/javascript", src=assetFingerprint("/js/bundle.js") )
-
-    script.
-      Stripe.setPublishableKey('#{stripe_pk}');
 
     script.
       $(document).ready(function() {

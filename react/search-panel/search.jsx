@@ -109,7 +109,6 @@ module.exports = React.createClass({
                     this.cleanResults();
                 }else{
                     this.pattern = event.target.value;
-                    dataLayer.push({'event': 'search', 'patternSearched': this.pattern});
                     this.search(1);
                 }
 
@@ -125,7 +124,6 @@ module.exports = React.createClass({
 
     loadReference: function(uri, index){
         this.selectReference(index);
-        dataLayer.push({'event': 'found', 'patternSearched': this.pattern});
         this.props.onClick(uri, true);
     },
 
@@ -209,7 +207,6 @@ module.exports = React.createClass({
 
     bindKeys: function(){
         this.mousetrap.bind('tab',function(e){
-            dataLayer.push({'event': 'specific'});
             e.preventDefault();
             this.selectDocset();
         }.bind(this));

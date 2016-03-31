@@ -24,6 +24,5 @@ module.exports = React.createClass({
 
     onClickHandler: function(e) {
         this.props.onClickReference(e);
-        dataLayer.push({'event': 'treeview', 'docset': this.docset_name});
     },
 });

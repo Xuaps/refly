@@ -48,7 +48,6 @@ if (!Object.assign) {
 }
 
 Router.run(routes, Router.HistoryLocation, function(Handler, state){
-    dataLayer.push({'event': 'pageview'}); 
     React.render(<Handler/>, document.getElementById('react-anchor'));
 });
 

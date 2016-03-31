@@ -83,7 +83,6 @@ module.exports = React.createClass({
 
     _onSubmit: function(e){
         e.preventDefault();
-        dataLayer.push({'event':'subscribe', 'plan':this.plan});
         var l = Ladda.create( document.querySelector( '#actionButton' ) );
         l.start();
         document.getElementById('actionButton').disabled = true;
